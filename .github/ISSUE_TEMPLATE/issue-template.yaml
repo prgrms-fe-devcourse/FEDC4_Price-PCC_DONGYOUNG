@@ -1,0 +1,30 @@
+name: Issue Template
+description: 이슈 작성
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        이슈에 대해 자세히 설명해주세요.
+  - type: textarea
+    id: which-story
+    attributes:
+      label: 해당하는 스토리는 어떤 것인가요?
+      description: 
+      placeholder: 예) 로그인을 시도하면, 로그인이 되지 않고, 로그인 화면으로 돌아갑니다.
+    validations:
+      required: true  
+  - type: textarea
+    id: what-about
+    attributes:
+      label: 무엇에 대한 이슈인가요?
+      description: 
+      placeholder: 예) 로그인 페이지 이동을 위한 버튼 컴포넌트 작성
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 참고할(한) 자료가 있나요?
+      description: 참고한 자료가 있다면 링크를 남겨주세요.
