@@ -1,0 +1,39 @@
+.file-picker {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 160px;
+  height: 160px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 5px dashed #e5e8eb;
+  justify-content: center;
+  align-items: center;
+
+  &__input {
+    flex: 1;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  &__button {
+    border: none;
+    background-color: none;
+    position: relative;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
