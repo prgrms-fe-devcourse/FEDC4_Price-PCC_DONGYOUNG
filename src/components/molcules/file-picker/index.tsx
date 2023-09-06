@@ -1,5 +1,6 @@
-import React, { useState, useRef, ChangeEvent } from 'react'
+import React, { useState, useRef, useEffect, ChangeEvent } from 'react'
 import Image from 'next/image'
+import useDragging from '@/hooks/useDragging'
 import './index.scss'
 import uploadFile from '/public/images/upload.png'
 
@@ -24,8 +25,12 @@ export default function FilePicker({
   className,
   label,
 }: FilePickerProps) {
+  useEffect(() => {})
   const [files, setFiles] = useState<FileList | null>(null)
+  const fileUploadLabelRef = useRef<HTMLLabelElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
+
+  const { labelRef } = useDragging(fileUploadLabelRef, () => {})
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -62,14 +67,21 @@ export default function FilePicker({
   return (
     <div className="file-picker">
       <span>{getFileDescription(files)}</span>
-      <label content={label}>
+      <label
+        content={label}
+        className="file-picker__label"
+        htmlFor="file-picker"
+        ref={labelRef}
+      >
         <span>{files === null && label}</span>
         <input
+          id="file-picker"
           height={height}
           width={width}
           ref={fileUploadRef}
           type="file"
           name={name}
+          disabled={disabled}
           multiple={multiple}
           onChange={handleFileChange}
           className={`${className} file-picker__input`}
@@ -82,10 +94,11 @@ export default function FilePicker({
         className="file-picker__button"
       >
         <Image
+          className="file-picker__button__image"
           src={uploadFile}
           alt="파일 업로드 이미지"
-          width={80}
-          height={80}
+          width={45}
+          height={45}
         />
       </button>
     </div>
