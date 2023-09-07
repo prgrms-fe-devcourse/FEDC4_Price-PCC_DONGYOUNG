@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, RefObject } from 'react'
 
 export default function useDragging(
   targetRef: RefObject<HTMLDivElement> | null,
-  onDrop: () => void,
+  onDrop: (_files: FileList) => void,
 ) {
   const [, setIsDragging] = useState<boolean>(false)
   const handleDragIn = useCallback((e: DragEvent) => {
@@ -33,7 +33,7 @@ export default function useDragging(
 
       const eventFiles = e.dataTransfer?.files
       if (eventFiles) {
-        onDrop()
+        onDrop(eventFiles)
       }
     },
     [onDrop],
