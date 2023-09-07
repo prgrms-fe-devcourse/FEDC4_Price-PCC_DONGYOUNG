@@ -27,10 +27,12 @@ export default function FilePicker({
 }: FilePickerProps) {
   useEffect(() => {})
   const [files, setFiles] = useState<FileList | null>(null)
-  const fileUploadLabelRef = useRef<HTMLLabelElement | null>(null)
+  const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
 
-  const { labelRef } = useDragging(fileUploadLabelRef, () => {})
+  const { targetRef } = useDragging(dropDownRef, () => {
+    setFiles(files)
+  })
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -65,13 +67,12 @@ export default function FilePicker({
   }
 
   return (
-    <div className="file-picker">
+    <div className="file-picker" ref={targetRef}>
       <span>{getFileDescription(files)}</span>
       <label
         content={label}
         className="file-picker__label"
         htmlFor="file-picker"
-        ref={labelRef}
       >
         <span>{files === null && label}</span>
         <input

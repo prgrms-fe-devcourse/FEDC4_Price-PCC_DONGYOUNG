@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, RefObject } from 'react'
 
 export default function useDragging(
-  labelRef: RefObject<HTMLLabelElement> | null,
+  targetRef: RefObject<HTMLDivElement> | null,
   onDrop: () => void,
 ) {
   const [, setIsDragging] = useState<boolean>(false)
@@ -15,7 +15,6 @@ export default function useDragging(
   }, [])
 
   const handleDragOut = useCallback((e: DragEvent) => {
-    console.log(e.target)
     e.preventDefault()
     e.stopPropagation()
     setIsDragging(false)
@@ -41,23 +40,23 @@ export default function useDragging(
   )
 
   useEffect(() => {
-    if (labelRef === null) {
+    if (targetRef === null) {
       return
     }
 
-    const labelElement = labelRef.current
-    labelElement?.addEventListener('dragenter', handleDragIn)
-    labelElement?.addEventListener('dragleave', handleDragOut)
-    labelElement?.addEventListener('dragover', handleDrag)
-    labelElement?.addEventListener('drop', handleDrop)
+    const targetElement = targetRef.current
+    targetElement?.addEventListener('dragenter', handleDragIn)
+    targetElement?.addEventListener('dragleave', handleDragOut)
+    targetElement?.addEventListener('dragover', handleDrag)
+    targetElement?.addEventListener('drop', handleDrop)
 
     return () => {
-      labelElement?.removeEventListener('dragenter', handleDragIn)
-      labelElement?.removeEventListener('dragleave', handleDragOut)
-      labelElement?.removeEventListener('dragover', handleDrag)
-      labelElement?.removeEventListener('drop', handleDrop)
+      targetElement?.removeEventListener('dragenter', handleDragIn)
+      targetElement?.removeEventListener('dragleave', handleDragOut)
+      targetElement?.removeEventListener('dragover', handleDrag)
+      targetElement?.removeEventListener('drop', handleDrop)
     }
-  }, [handleDrag, handleDragIn, handleDragOut, handleDrop, labelRef])
+  }, [handleDrag, handleDragIn, handleDragOut, handleDrop, targetRef])
 
-  return { labelRef }
+  return { targetRef }
 }
