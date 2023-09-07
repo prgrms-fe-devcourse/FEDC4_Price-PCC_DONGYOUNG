@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, ChangeEvent } from 'react'
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ChangeEvent,
+  useCallback,
+} from 'react'
 import Image from 'next/image'
 import useDragging from '@/hooks/useDragging'
 import './index.scss'
@@ -31,8 +37,18 @@ export default function FilePicker({
   const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
 
+  const createNewThumbNailImage = useCallback((files: FileList) => {
+    const blob = new Blob([files[0]], {
+      type: files[0].type,
+    })
+
+    return URL.createObjectURL(blob)
+  }, [])
+
   const { targetRef } = useDragging(dropDownRef, (_newFiles) => {
     setFiles(_newFiles)
+    const newThumbNailImage = createNewThumbNailImage(_newFiles)
+    setThumbNail(newThumbNailImage)
   })
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
