@@ -1,6 +1,6 @@
 .avatar__container {
   display: flex;
-  gap: 5px;
+  gap: 0.1rem;
 }
 
 .avatar {
@@ -19,7 +19,7 @@
 }
 
 .shape-rounded {
-  border-radius: 15px;
+  border-radius: 1rem;
 }
 
 .shape-circle {
@@ -102,4 +102,15 @@
   display: flex;
   flex: 1;
   align-items: flex-end;
+}
+
+.textSize-large {
+  font-size: 1.5rem;
+}
+
+.textSize-medium {
+  font-size: 1.05rem;
+}
+.textSize-small {
+  font-size: 0.8rem;
 }

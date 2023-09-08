@@ -13,13 +13,12 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Primary: Story = {
   args: {
     color: 'yellow_dark',
     size: 50,
     shape: 'circle',
-    src: '',
+    src: 'https://picsum.photos/200/200',
     text: '오오',
     textColor: 'danger',
     textDirection: 'bottom',
@@ -29,7 +28,7 @@ export const Primary: Story = {
 Primary.argTypes = {
   color: {
     control: {
-      type: 'select',
+      type: 'color',
       options: [
         'yellow_primary',
         'yellow_dark',
@@ -56,13 +55,14 @@ Primary.argTypes = {
   },
   src: {
     control: 'text',
+    defaultValue: 'https://picsum.photos/200/200',
   },
   text: {
     control: 'text',
   },
   textColor: {
     control: {
-      type: 'select',
+      type: 'color',
       options: [
         'yellow_primary',
         'yellow_dark',
