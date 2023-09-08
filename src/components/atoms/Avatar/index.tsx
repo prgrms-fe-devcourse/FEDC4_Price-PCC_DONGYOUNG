@@ -1,7 +1,7 @@
 import React, { ComponentProps, CSSProperties } from 'react'
 import Image from 'next/image'
+import Assets from '@/config/assets'
 import './index.scss'
-import pccImage from '/public/images/pccIImage.svg'
 
 type AvatarProps = ComponentProps<'div'> & {
   color?:
@@ -52,7 +52,7 @@ export default function Avatar({
         className={avatarClassName}
       >
         <Image
-          src={src || pccImage}
+          src={src || Assets.PCCImage}
           alt="아바타"
           fill
           className={`avatar__image shape-${shape}`}
