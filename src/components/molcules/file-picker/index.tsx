@@ -6,9 +6,9 @@ import React, {
   useCallback,
 } from 'react'
 import Image from 'next/image'
-import useDragging from '@/hooks/useDragging'
 import './index.scss'
-import uploadFile from '/public/images/upload.png'
+import useDragging from './useDragging'
+import uploadImage from '/public/images/uploadImage.svg'
 
 type FilePickerProps = {
   name?: string
@@ -17,7 +17,6 @@ type FilePickerProps = {
   width?: number
   height?: number
   onChange?: (_files: FileList) => void
-  label?: string
   className?: string
 }
 
@@ -25,14 +24,13 @@ export default function FilePicker({
   name,
   multiple = false,
   disabled,
-  width = 24,
-  height = 24,
+  width = 150,
+  height = 150,
   onChange,
   className,
-  label,
 }: FilePickerProps) {
   useEffect(() => {})
-  const [files, setFiles] = useState<FileList | null>(null)
+  const [_files, setFiles] = useState<FileList | null>(null)
   const [thumbNail, setThumbNail] = useState<string>('')
   const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
@@ -49,7 +47,12 @@ export default function FilePicker({
     setFiles(_newFiles)
     const newThumbNailImage = createNewThumbNailImage(_newFiles)
     setThumbNail(newThumbNailImage)
+    if (onChange) {
+      onChange(_newFiles)
+    }
   })
+
+  const hasThumbNailImage = thumbNail.length !== 0
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -72,45 +75,38 @@ export default function FilePicker({
     }
   }
 
-  //여러 파일일 경우 길이를 , 그렇지 않으면 파일명을
-  const getFileDescription = (files: FileList | null) => {
-    if (files === null) {
-      return ''
-    }
-
-    if (files.length === 1) {
-      return files[0].name
-    }
-
-    if (files.length > 1) {
-      return `${files.length} files`
-    }
-
-    return ''
-  }
-
   return (
-    <div className="file-picker" ref={targetRef}>
-      <span className="file-picker__span">{getFileDescription(files)}</span>
-      <label
-        content={label}
-        className="file-picker__label"
-        htmlFor="file-picker"
-      >
-        {thumbNail && thumbNail.length > 1 && (
-          <Image
-            src={thumbNail || ''}
-            width={100}
-            height={100}
-            alt="썸네일 이미지"
-            className="file-picker__thumbnail"
+    <div
+      className="file-picker"
+      ref={targetRef}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        border: `${hasThumbNailImage && 'none'}`,
+      }}
+    >
+      <label className="file-picker__label" htmlFor="file-picker">
+        {hasThumbNailImage && (
+          <div
+            className="file-picker__thumbnail__container"
             style={{
-              cursor: 'pointer',
+              width: `${width}px`,
+              height: `${height}px`,
+              position: 'relative',
             }}
-          />
+          >
+            <Image
+              src={thumbNail || ''}
+              fill
+              alt="썸네일 이미지"
+              className="file-picker__thumbnail"
+              style={{
+                cursor: 'pointer',
+              }}
+            />
+          </div>
         )}
 
-        <span>{files === null && label}</span>
         <input
           id="file-picker"
           height={height}
@@ -130,10 +126,10 @@ export default function FilePicker({
         onClick={handleOnClickUploadBtn}
         className="file-picker__button"
       >
-        {thumbNail.length === 0 && (
+        {!hasThumbNailImage && (
           <Image
             className="file-picker__button__image"
-            src={uploadFile}
+            src={uploadImage}
             alt="파일 업로드 이미지"
             width={45}
             height={45}

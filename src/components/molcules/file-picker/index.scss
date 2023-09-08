@@ -2,14 +2,19 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 200px;
   font-size: 16px;
+  box-sizing: border-box;
   cursor: pointer;
   border-radius: 10px;
   border: 5px dashed #e5e8eb;
   justify-content: center;
   align-items: center;
+
+  &__upload {
+    border: none;
+  }
 
   &__span {
     width: 120px;
@@ -20,8 +25,8 @@
   }
 
   &__label {
-    width: 100px;
-    padding: 0 5px;
+    padding: 0px 5px;
+    width: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

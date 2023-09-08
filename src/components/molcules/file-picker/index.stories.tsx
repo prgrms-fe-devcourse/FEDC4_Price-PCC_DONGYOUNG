@@ -26,13 +26,13 @@ export const Default: Story = {
       control: 'boolean',
       defaultValue: false,
     },
-    height: {
-      control: 'range',
-      defaultValue: 32,
+    width: {
+      control: 'number',
+      defaultValue: 150,
     },
-    label: {
-      control: 'text',
-      defaultValue: '',
+    height: {
+      control: 'number',
+      defaultValue: 150,
     },
     className: {
       control: 'text',
@@ -43,8 +43,8 @@ export const Default: Story = {
 
 Default.args = {
   name: 'File-Upload',
-  height: 50,
-  label: '파일을 업로드하세요',
+  height: 150,
+  width: 150,
   disabled: false,
   multiple: true,
 }
