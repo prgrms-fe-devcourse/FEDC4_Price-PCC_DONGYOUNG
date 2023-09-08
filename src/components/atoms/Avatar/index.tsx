@@ -1,9 +1,9 @@
-import React, { ComponentProps, CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import Image from 'next/image'
 import Assets from '@/config/assets'
 import './index.scss'
 
-type AvatarProps = ComponentProps<'div'> & {
+type AvatarProps = {
   color?:
     | 'yellow_primary'
     | 'yellow_dark'
