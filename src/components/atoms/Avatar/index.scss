@@ -1,10 +1,12 @@
+.avatar__container {
+  display: flex;
+  gap: 5px;
+}
+
 .avatar {
   position: relative;
-  width: 30px;
-  height: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
 
   &__image {
     display: flex;
@@ -17,7 +19,7 @@
 }
 
 .shape-rounded {
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .shape-circle {
@@ -50,6 +52,10 @@
   background-color: #e5e8eb;
 }
 
+.bgColor-danger {
+  color: red;
+}
+
 .color-yellow_dark {
   color: #e2af3c;
 }
@@ -74,4 +80,26 @@
 
 .color-gray_light {
   color: #e5e8eb;
+}
+
+.color-danger {
+  color: red;
+}
+
+.text-top {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+}
+
+.text-medium {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.text-bottom {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
 }
