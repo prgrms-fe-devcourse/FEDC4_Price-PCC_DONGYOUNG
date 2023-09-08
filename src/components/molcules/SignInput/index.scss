@@ -1,0 +1,28 @@
+.input-title {
+  color: #000;
+
+  /* Heading2 */
+  font-family: Inter;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  margin-bottom: 0.5rem;
+}
+
+.sign-input-container {
+  width: 21.875rem;
+  height: 3.125rem;
+  border-radius: 20px;
+  background-color: #FFFAEA;
+}
+
+.sign-input {
+  border: none;
+  outline: none;
+  height: 100%;
+  font-size: 1rem;
+  background-color: #FFFAEA;
+  margin-left: 0.63rem;
+}
