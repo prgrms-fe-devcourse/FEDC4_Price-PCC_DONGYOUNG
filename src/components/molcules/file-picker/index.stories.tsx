@@ -28,11 +28,11 @@ export const Default: Story = {
     },
     width: {
       control: 'number',
-      defaultValue: 150,
+      defaultValue: 5,
     },
     height: {
       control: 'number',
-      defaultValue: 150,
+      defaultValue: 5,
     },
     className: {
       control: 'text',
@@ -43,8 +43,8 @@ export const Default: Story = {
 
 Default.args = {
   name: 'File-Upload',
-  height: 150,
-  width: 150,
+  height: 10,
+  width: 10,
   disabled: false,
   multiple: true,
 }

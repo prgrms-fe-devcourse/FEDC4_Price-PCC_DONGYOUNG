@@ -24,8 +24,8 @@ export default function FilePicker({
   name,
   multiple = false,
   disabled,
-  width = 150,
-  height = 150,
+  width = 5,
+  height = 5,
   onChange,
   className,
 }: FilePickerProps) {
@@ -80,8 +80,8 @@ export default function FilePicker({
       className="file-picker"
       ref={targetRef}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
+        width: `${width}rem`,
+        height: `${height}rem`,
         border: `${hasThumbNailImage && 'none'}`,
       }}
     >
@@ -90,8 +90,8 @@ export default function FilePicker({
           <div
             className="file-picker__thumbnail__container"
             style={{
-              width: `${width}px`,
-              height: `${height}px`,
+              width: `${width}rem`,
+              height: `${height}rem`,
               position: 'relative',
             }}
           >
