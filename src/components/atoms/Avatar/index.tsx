@@ -4,39 +4,21 @@ import Assets from '@/config/assets'
 import './index.scss'
 
 type AvatarProps = {
-  color?:
-    | 'yellow_primary'
-    | 'yellow_dark'
-    | 'yellow_secondary'
-    | 'gray_primary'
-    | 'gray_dark'
-    | 'gray-light'
-    | 'gray_secondary'
-    | 'danger'
-    | string
+  color?: string
   shape?: 'rounded' | 'circle' | 'square'
   size: number
   src?: string
   text?: string
   textSize?: 'small' | 'medium' | 'large'
-  textColor?:
-    | 'yellow_primary'
-    | 'yellow_dark'
-    | 'yellow_secondary'
-    | 'gray_primary'
-    | 'gray_dark'
-    | 'gray-light'
-    | 'gray_secondary'
-    | 'danger'
-    | string
+  textColor?: string
   textDirection?: 'top' | 'medium' | 'bottom'
   style?: CSSProperties
 }
 
 export default function Avatar({
   color,
-  shape,
-  size,
+  shape = 'circle',
+  size = 100,
   src,
   text,
   textColor,

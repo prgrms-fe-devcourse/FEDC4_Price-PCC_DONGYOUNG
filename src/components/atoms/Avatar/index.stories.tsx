@@ -29,16 +29,6 @@ Primary.argTypes = {
   color: {
     control: {
       type: 'color',
-      options: [
-        'yellow_primary',
-        'yellow_dark',
-        'yellow_secondary',
-        'gray_primary',
-        'gray_dark',
-        'gray-light',
-        'gray_secondary',
-        'danger',
-      ],
     },
   },
   shape: {
@@ -63,16 +53,6 @@ Primary.argTypes = {
   textColor: {
     control: {
       type: 'color',
-      options: [
-        'yellow_primary',
-        'yellow_dark',
-        'yellow_secondary',
-        'gray_primary',
-        'gray_dark',
-        'gray-light',
-        'gray_secondary',
-        'danger',
-      ],
     },
   },
   textDirection: {
