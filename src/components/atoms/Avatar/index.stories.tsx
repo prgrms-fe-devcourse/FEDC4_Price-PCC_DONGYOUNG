@@ -22,7 +22,7 @@ export const Primary: Story = {
     text: '텍스트',
     alt: '아바타 컴포넌트',
     textColor: 'danger',
-    textDirection: 'bottom',
+    textDirection: 'medium',
     subText: '아아아아아',
     textStyle: {
       display: 'flex',

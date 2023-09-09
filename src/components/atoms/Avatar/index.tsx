@@ -35,7 +35,7 @@ export default function Avatar({
   textColor,
   textStyle,
   textSize,
-  textDirection,
+  textDirection = 'medium',
   style,
   children,
 }: AvatarProps) {
