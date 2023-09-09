@@ -6,9 +6,9 @@ import React, {
   useCallback,
 } from 'react'
 import Image from 'next/image'
+import Assets from '@/config/assets'
 import './index.scss'
 import useDragging from './useDragging'
-import uploadImage from '/public/images/uploadImage.svg'
 
 type FilePickerProps = {
   name?: string
@@ -129,7 +129,7 @@ export default function FilePicker({
         {!hasThumbNailImage && (
           <Image
             className="file-picker__button__image"
-            src={uploadImage}
+            src={Assets.UploadImage}
             alt="파일 업로드 이미지"
             width={45}
             height={45}
