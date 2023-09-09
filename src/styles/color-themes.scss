@@ -1,26 +1,52 @@
 $themes: (
   light: (
-    primary: var(--st-light-primary),
+    highlight: var(--pcc-highlight),
+    primary-1: var(--pcc-primary-light-1),
+    primary-2: var(--pcc-primary-light-2),
+    primary-3: var(--pcc-primary-light-3),
+    primary-4: var(--pcc-primary-light-4),
+    primary-5: var(--pcc-primary-light-5),
+    bg-1: var(--pcc-bg-light-1),
+    bg-2: var(--pcc-bg-light-2),
+    gray-1: var(--pcc-gray-light-1),
+    gray-2: var(--pcc-gray-light-2),
+    gray-3: var(--pcc-gray-light-3),
+    gray-4: var(--pcc-gray-light-4),
+    gray-5: var(--pcc-gray-light-5),
   ),
   dark: (
-    primary: var(--st-dark-primary),
+    highlight: var(--pcc-highlight),
+    primary-1: var(--pcc-primary-dark-1),
+    primary-2: var(--pcc-primary-dark-2),
+    primary-3: var(--pcc-primary-dark-3),
+    primary-4: var(--pcc-primary-dark-4),
+    primary-5: var(--pcc-primary-light-5),
+    bg-1: var(--pcc-bg-dark-1),
+    bg-2: var(--pcc-bg-dark-2),
+    gray-1: var(--pcc-gray-dark-1),
+    gray-2: var(--pcc-gray-dark-2),
+    gray-3: var(--pcc-gray-dark-3),
+    gray-4: var(--pcc-gray-dark-4),
+    gray-5: var(--pcc-gray-dark-5),
   ),
 );
 
 @mixin themed() {
   @each $theme, $map in $themes {
-    $theme-map: () !global;
-    @each $key, $submap in $map {
-      $value: map-get(map-get($themes, $theme), '#{$key}');
-      $theme-map: map-merge(
-        $theme-map,
-        (
-          $key: $value,
-        )
-      ) !global;
+    .pcc-theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
     }
-    @content;
-    $theme-map: null !global;
   }
 }
 
