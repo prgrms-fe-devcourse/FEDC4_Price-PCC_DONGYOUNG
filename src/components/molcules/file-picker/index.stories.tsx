@@ -43,8 +43,8 @@ export const Default: Story = {
 
 Default.args = {
   name: 'File-Upload',
-  height: 10,
-  width: 10,
+  height: 17,
+  width: 24.5,
   disabled: false,
   multiple: true,
 }
