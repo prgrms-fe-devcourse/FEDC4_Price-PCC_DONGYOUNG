@@ -10,6 +10,7 @@ type AvatarProps = {
   src?: string
   alt?: string
   text?: string
+  subText?: string
   textSize?: 'small' | 'medium' | 'large'
   textColor?: string
   textDirection?: 'top' | 'medium' | 'bottom'
@@ -20,13 +21,14 @@ type AvatarProps = {
 
 type AvatarTextProps = Pick<
   AvatarProps,
-  'text' | 'textStyle' | 'textDirection' | 'textColor' | 'textSize'
+  'text' | 'textStyle' | 'textDirection' | 'textColor' | 'textSize' | 'subText'
 >
 
 export default function Avatar({
   color,
   shape = 'circle',
   size = 100,
+  subText,
   src,
   alt,
   text,
@@ -51,6 +53,7 @@ export default function Avatar({
       {children}
       <Description
         text={text}
+        subText={subText}
         textSize={textSize}
         textColor={textColor}
         textStyle={textStyle}
@@ -81,6 +84,7 @@ const Profile = ({ size, style, color, shape, src, alt }: AvatarProps) => {
 
 const Description = ({
   text,
+  subText,
   textSize,
   textStyle,
   textDirection,
@@ -91,9 +95,11 @@ const Description = ({
       className={`color-${textColor} text-${textDirection} textSize-${textSize}`}
       style={{
         color: textColor,
+        ...textStyle,
       }}
     >
       <div style={textStyle}>{text}</div>
+      <div style={textStyle}>{subText}</div>
     </span>
   )
 }

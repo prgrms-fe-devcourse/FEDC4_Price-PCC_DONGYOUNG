@@ -29,19 +29,22 @@
 .text-top {
   display: flex;
   flex: 1;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .text-medium {
   display: flex;
   flex: 1;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .text-bottom {
   display: flex;
   flex: 1;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .textSize-large {
