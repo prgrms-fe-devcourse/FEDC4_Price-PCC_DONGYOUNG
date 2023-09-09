@@ -19,9 +19,14 @@ export const Primary: Story = {
     size: 50,
     shape: 'circle',
     src: 'https://picsum.photos/200/200',
-    text: '오오',
+    text: '텍스트',
+    alt: '아바타 컴포넌트',
     textColor: 'danger',
     textDirection: 'bottom',
+    textStyle: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
 }
 
@@ -49,10 +54,16 @@ Primary.argTypes = {
   },
   text: {
     control: 'text',
+    defaultValue: '텍스트',
   },
   textColor: {
     control: {
       type: 'color',
+    },
+  },
+  textStyle: {
+    control: {
+      type: 'object',
     },
   },
   textDirection: {
