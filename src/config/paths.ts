@@ -1,13 +1,13 @@
 const APP_PATH = {
   HOME: '/',
-  SIGNIN: '/signin',
-  SIGNUP: '/signup',
-  POST_DETAIL: '/post/[postid]',
-  POST_NEW: '/post/new',
-  SEARCH: '/search/[keyword]',
-  EDIT_PROFILE: '/user/edit/profile',
-  EDIT_PASSWORD: '/user/edit/password',
-  MYPAGE: '/user/mypage',
+  LOGIN: '/login',
+  REGISTER: '/register',
+  postDetail: (id: string) => `/post/${id}`,
+  postNew: () => '/post/new',
+  search: (keyword: string) => `search/${keyword}`,
+  editProfile: () => '/user/edit/profile',
+  editPassword: () => '/user/edit/password',
+  myPage: () => '/user',
 } as const
 
 export default APP_PATH
