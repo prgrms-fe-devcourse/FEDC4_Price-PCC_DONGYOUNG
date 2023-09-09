@@ -1,7 +1,7 @@
 const APP_PATH = {
-  HOME: '/',
-  LOGIN: '/login',
-  REGISTER: '/register',
+  home: () => '/',
+  login: () => '/login',
+  register: () => '/register',
   postDetail: (id: string) => `/post/${id}`,
   postNew: () => '/post/new',
   search: (keyword: string) => `search/${keyword}`,
