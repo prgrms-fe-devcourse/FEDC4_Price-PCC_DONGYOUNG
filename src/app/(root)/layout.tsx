@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <TanstackQueryContext>
-        <body>
+        <body className={`pcc-theme--light`}>
           <NavBar />
           {children}
         </body>
