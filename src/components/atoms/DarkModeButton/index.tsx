@@ -27,21 +27,12 @@ export default function DarkModeButton() {
 
   return (
     <button onClick={handleDarkmodeClick}>
-      {darkMode ? (
-        <Image
-          src={Assets.LIGHTMODE_SVG_PATH}
-          width={30}
-          height={30}
-          alt="dark mode button"
-        />
-      ) : (
-        <Image
-          src={Assets.DARKMODE_SVG_PATH}
-          width={30}
-          height={30}
-          alt="dark mode button"
-        />
-      )}
+      <Image
+        src={darkMode ? Assets.DARKMODE_SVG_PATH : Assets.LIGHTMODE_SVG_PATH}
+        width={30}
+        height={30}
+        alt={`${darkMode ? 'dark' : 'light'} mode button`}
+      />
     </button>
   )
 }
