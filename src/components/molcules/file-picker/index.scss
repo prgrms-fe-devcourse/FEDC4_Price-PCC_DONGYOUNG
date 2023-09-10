@@ -1,0 +1,64 @@
+.file-picker {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 24.5rem;
+  height: 17rem;
+  font-size: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 5px dashed #e5e8eb;
+  justify-content: center;
+  align-items: center;
+
+  &__upload {
+    border: none;
+  }
+
+  &__span {
+    width: 7.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__label {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__input {
+    flex: 1;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  &__button {
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    background-color: none;
+    position: relative;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &__image {
+      border-radius: 5px;
+      background-color: none;
+    }
+  }
+}
