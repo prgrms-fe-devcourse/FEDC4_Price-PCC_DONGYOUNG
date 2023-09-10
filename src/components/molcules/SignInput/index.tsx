@@ -15,7 +15,7 @@ const SignInput: FC<SignInputProps> = forwardRef<
   SignInputProps
 >(
   (
-    { text, placeholder, type }: SignInputProps,
+    { text, placeholder, type, ...rests }: SignInputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
@@ -26,6 +26,7 @@ const SignInput: FC<SignInputProps> = forwardRef<
           className="sign-input"
           placeholder={placeholder}
           type={type}
+          {...rests}
         />
       </div>
     )
