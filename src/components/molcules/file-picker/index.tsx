@@ -61,13 +61,14 @@ export default function FilePicker({
       setFiles(e.target.files)
       if (onChange) {
         onChange(e.target.files)
-        const blob = new Blob([e.target.files[0]], {
-          type: e.target.files[0].type,
-        })
-
-        const thumbNailImage = URL.createObjectURL(blob)
-        setThumbNail(thumbNailImage)
       }
+
+      const blob = new Blob([e.target.files[0]], {
+        type: e.target.files[0].type,
+      })
+
+      const thumbNailImage = URL.createObjectURL(blob)
+      setThumbNail(thumbNailImage)
     }
   }
 
