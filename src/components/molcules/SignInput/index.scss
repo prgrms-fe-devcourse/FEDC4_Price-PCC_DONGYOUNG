@@ -1,3 +1,7 @@
+.sign-input-container {
+  margin-bottom: 2.5rem;
+}
+
 .input-title {
   color: #000;
 
@@ -11,18 +15,14 @@
   margin-bottom: 0.5rem;
 }
 
-.sign-input-container {
+.sign-input {
   width: 21.875rem;
   height: 3.125rem;
   border-radius: 20px;
-  background-color: #FFFAEA;
-}
-
-.sign-input {
   border: none;
   outline: none;
-  height: 100%;
   font-size: 1rem;
   background-color: #FFFAEA;
-  margin-left: 0.63rem;
+  padding-left: 0.63rem;
+  box-sizing: border-box;
 }

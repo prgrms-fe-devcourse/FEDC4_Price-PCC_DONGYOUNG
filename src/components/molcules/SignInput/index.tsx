@@ -1,3 +1,5 @@
+'use client'
+
 import './index.scss'
 
 interface SignInputProps {
@@ -8,12 +10,10 @@ interface SignInputProps {
 
 const SignInput = ({ text, placeholder, type }: SignInputProps) => {
   return (
-    <>
+    <div className="sign-input-container">
       <div className="input-title">{text}</div>
-      <div className="sign-input-container">
-        <input className="sign-input" placeholder={placeholder} type={type} />
-      </div>
-    </>
+      <input className="sign-input" placeholder={placeholder} type={type} />
+    </div>
   )
 }
 
