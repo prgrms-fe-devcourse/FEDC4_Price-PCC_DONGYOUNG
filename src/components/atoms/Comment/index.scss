@@ -1,0 +1,10 @@
+.comment{
+    @include themed(){
+        background-color: t(bg-2);
+        color:t(gray-5)
+    }
+    width:78.56rem;
+    height:7.81rem;
+    display:flex;
+    flex-direction: column;
+}
