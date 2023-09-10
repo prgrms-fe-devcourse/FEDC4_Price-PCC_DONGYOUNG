@@ -1,0 +1,22 @@
+.sign-button-container {
+  display: flex;
+  width: 21.875rem;
+  height: 3.125rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #191F28;
+  text-align: center;
+  background-color: #F8DB99;
+  border: none;
+  border-radius: 20px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  cursor: pointer;
+
+  /* Subtitle1 */
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
