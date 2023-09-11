@@ -28,7 +28,8 @@ export default function ImageButton({
       <Image
         src={src}
         alt={alt}
-        fill
+        width={size}
+        height={size}
         className={`image-button__image shape-${shape}`}
       />
     </button>
