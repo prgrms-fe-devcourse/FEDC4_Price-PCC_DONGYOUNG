@@ -5,7 +5,7 @@ import Post from '../post'
 
 interface User {
   name: string
-  age: number
+  email: string
   coverImage: string
   image: string
   role: string
@@ -19,7 +19,6 @@ interface User {
   messages: Message[]
   _id: string
   fullName: string
-  email: string
   createdAt: string
   updatedAt: string
 }
