@@ -6,10 +6,15 @@ import Assets from '@/config/assets'
 import useStorage from '@/hooks/useStorage'
 
 export default function DarkModeButton() {
+  let isSystemDark = false
+  if (typeof window !== 'undefined') {
+    isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+
   const [darkMode, setDarkMode] = useStorage<boolean>({
     storageType: 'local',
     key: 'pcc-darkmode',
-    initialValue: window.matchMedia('(prefers-color-scheme: dark)').matches,
+    initialValue: isSystemDark,
   })
 
   useEffect(() => {

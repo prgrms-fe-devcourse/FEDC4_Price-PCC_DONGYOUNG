@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type UseStorage<T> = {
   storageType: 'local' | 'session'
@@ -6,28 +6,43 @@ type UseStorage<T> = {
   initialValue: T
 }
 
-const useStorage = <T>({ storageType, key, initialValue }: UseStorage<T>) => {
-  const storage = window[`${storageType}Storage`]
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = storage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      console.error(error)
-      return initialValue
+const useStorage = <T>({
+  storageType,
+  key,
+  initialValue,
+}: UseStorage<T>): [T, (_value: T) => void] => {
+  const [storedValue, setStoredValue] = useState(initialValue)
+
+  useEffect(() => {
+    const storage = storageType === 'local' ? localStorage : sessionStorage
+    const item = storage.getItem(key)
+    if (item) {
+      setStoredValue(parse(item))
     }
-  })
+  }, [key, storageType])
+
+  useEffect(() => {
+    const storage = storageType === 'local' ? localStorage : sessionStorage
+    storage.setItem(key, JSON.stringify(storedValue))
+  }, [key, storageType, storedValue])
 
   const setValue = (value: T) => {
     try {
       setStoredValue(value)
-      storage.setItem(key, JSON.stringify(value))
     } catch (error) {
       console.error(error)
     }
   }
 
   return [storedValue, setValue]
+}
+
+const parse = (storageValue: string) => {
+  try {
+    return JSON.parse(storageValue)
+  } catch {
+    return storageValue
+  }
 }
 
 export default useStorage

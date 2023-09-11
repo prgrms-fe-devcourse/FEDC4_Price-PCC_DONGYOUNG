@@ -1,0 +1,59 @@
+.avatar__container {
+  display: flex;
+  gap: 0.1rem;
+}
+
+.avatar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+  }
+}
+
+.shape-rounded {
+  border-radius: 1rem;
+}
+
+.shape-circle {
+  border-radius: 50%;
+}
+
+.text-top {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.text-medium {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-bottom {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.textSize-large {
+  font-size: 1.5rem;
+}
+
+.textSize-medium {
+  font-size: 1.05rem;
+}
+.textSize-small {
+  font-size: 0.8rem;
+}
