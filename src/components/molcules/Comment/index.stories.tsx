@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import Comment from '.'
+import { Comment } from '.'
 
 const meta = {
   title: 'Component/Comment',
@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
+    _id: '123123',
     authorImage: 'https://picssum.phtos/200/200',
     authorName: '사용자',
     comment: '그거 너무 싸게 산거임',

@@ -5,18 +5,21 @@
     background-color: t(bg-2);
   }
   width: 78.56rem;
-  height: 7.81rem;
+  min-height: 7.81rem;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
   border-radius: 15px;
   &__user {
+    padding-left: 20px;
     @include themed() {
       color: t(primary-4);
     }
   }
   &__item {
+    padding-left: 60px;
     @include themed() {
       color: t(gray-5);
     }
