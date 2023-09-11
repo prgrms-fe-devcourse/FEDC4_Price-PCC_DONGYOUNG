@@ -15,8 +15,8 @@ export default function AuthProvider({
   const { isLoggedIn } = useCurrentUser()
 
   useEffect(() => {
-    if (isLoggedIn && pathname === APP_PATH.LOGIN) {
-      router.push(APP_PATH.HOME)
+    if (isLoggedIn && pathname === APP_PATH.login()) {
+      router.push(APP_PATH.home())
     }
   }, [pathname, isLoggedIn, router])
 
