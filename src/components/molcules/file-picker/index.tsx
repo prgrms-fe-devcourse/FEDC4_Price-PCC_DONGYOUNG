@@ -26,8 +26,8 @@ export default function FilePicker({
   name,
   multiple = false,
   disabled,
-  width = 5,
-  height = 5,
+  width = 24.5,
+  height = 17,
   onChange,
   className,
 }: FilePickerProps) {
