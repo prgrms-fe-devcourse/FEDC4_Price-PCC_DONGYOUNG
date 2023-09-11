@@ -1,5 +1,5 @@
-const NAMES_TAG = {
-  '1': 'A',
-}
+const constants = {
+  AUTH_TOKEN: 'auth-token',
+} as const
 
-export { NAMES_TAG }
+export { constants }
