@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import NavBar from '@/components/organisms/NavBar'
 import AuthProvider from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
+import '@/styles/global-layout.scss'
 
 export const metadata: Metadata = {
   title: 'sweet trade website',
