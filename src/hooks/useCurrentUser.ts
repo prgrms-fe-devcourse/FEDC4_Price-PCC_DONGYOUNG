@@ -18,7 +18,7 @@ export const useCurrentUser = () => {
       if (!res) {
         Cookies.remove(constants.AUTH_TOKEN)
         alert('올바르지 않은 토큰입니다.') // TODO: replace with toast
-        router.push(APP_PATH.LOGIN)
+        router.push(APP_PATH.login())
       }
       setIsLoggedIn(() => !!res)
     }
