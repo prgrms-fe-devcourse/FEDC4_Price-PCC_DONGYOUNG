@@ -7,6 +7,7 @@ interface SignInputProps {
   text?: string
   placeholder?: string
   type?: string
+  formType?: string
 }
 
 const SignInput: FC<SignInputProps> = forwardRef<
@@ -14,11 +15,11 @@ const SignInput: FC<SignInputProps> = forwardRef<
   SignInputProps
 >(
   (
-    { text, placeholder, type, ...rests }: SignInputProps,
+    { text, placeholder, type, formType, ...rests }: SignInputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <div className="sign-input-container">
+      <div className={`sign-input-container ${formType}`}>
         <div className="input-title">{text}</div>
         <input
           ref={ref}

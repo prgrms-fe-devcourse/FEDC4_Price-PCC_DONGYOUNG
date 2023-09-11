@@ -13,6 +13,7 @@ interface FormValues {
 
 const LogInForm = () => {
   const { register, handleSubmit } = useForm<FormValues>()
+  const formType = 'login'
 
   return (
     <form
@@ -24,11 +25,13 @@ const LogInForm = () => {
       <SignTitle text="로그인" />
       <SignInput
         {...(register && register('id'))}
+        formType={formType}
         text="아이디"
         placeholder="아이디를 입력해 주세요"
       />
       <SignInput
         {...(register && register('password'))}
+        formType={`last ${formType}`}
         type="password"
         text="비밀번호"
         placeholder="비밀번호를 입력해 주세요"

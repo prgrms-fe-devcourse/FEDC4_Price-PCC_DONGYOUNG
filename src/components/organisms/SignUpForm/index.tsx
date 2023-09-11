@@ -16,6 +16,7 @@ interface FormValues {
 
 const SignUpForm = () => {
   const { register, handleSubmit } = useForm<FormValues>()
+  const formType = 'signup'
 
   return (
     <form
@@ -27,28 +28,33 @@ const SignUpForm = () => {
       <SignTitle text="회원가입" />
       <SignInput
         {...(register && register('id'))}
+        formType={formType}
         text="아이디"
         placeholder="아이디를 입력해 주세요"
       />
       <SignInput
         {...(register && register('password'))}
+        formType={formType}
         type="password"
         text="비밀번호"
         placeholder="비밀번호를 입력해 주세요"
       />
       <SignInput
         {...(register && register('passwordCheck'))}
+        formType={formType}
         type="password"
         text="비밀번호 확인"
         placeholder="비밀번호를 한번 더 입력해 주세요"
       />
       <SignInput
         {...(register && register('name'))}
+        formType={formType}
         text="이름"
         placeholder="이름을 입력해 주세요"
       />
       <SignInput
         {...(register && register('nickName'))}
+        formType={`last ${formType}`}
         text="닉네임"
         placeholder="닉네임을 입력해 주세요"
       />
