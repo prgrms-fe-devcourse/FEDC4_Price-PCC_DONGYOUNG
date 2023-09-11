@@ -5,7 +5,7 @@ import APP_PATH from '@/config/paths'
 import { ApiAddressTypes } from '@/types/config'
 
 const baseUrlTable: ApiAddressTypes = {
-  production: Environment.baseUrl(),
+  production: 'http://localhost:3000',
   development: 'http://localhost:3000',
   test: 'http://localhost:3000',
 }
