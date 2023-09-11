@@ -4,8 +4,13 @@ import './index.scss'
 
 interface SignButtonProps {
   text?: string
+  onClick(): void
 }
 
-export default function SignButton({ text }: SignButtonProps) {
-  return <button className="sign-button-container">{text}</button>
+export default function SignButton({ text, onClick }: SignButtonProps) {
+  return (
+    <button onClick={onClick} className="sign-button-container">
+      {text}
+    </button>
+  )
 }

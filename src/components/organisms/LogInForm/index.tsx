@@ -1,10 +1,9 @@
 'use client'
 
-// 절대 경로 수정해야함
 import { useForm } from 'react-hook-form'
-import SignButton from '../../molcules/SignButton'
-import SignInput from '../../molcules/SignInput'
-import SignTitle from '../../molcules/SignTitle'
+import SignButton from '@/components/molcules/SignButton'
+import SignInput from '@/components/molcules/SignInput'
+import SignTitle from '@/components/molcules/SignTitle'
 import './index.scss'
 
 interface FormValues {
@@ -34,8 +33,18 @@ const LogInForm = () => {
         text="비밀번호"
         placeholder="비밀번호를 입력해 주세요"
       />
-      <SignButton text="회원가입" />
-      <SignButton text="로그인" />
+      <SignButton
+        onClick={() => {
+          // go to sign up page
+        }}
+        text="회원가입"
+      />
+      <SignButton
+        onClick={handleSubmit((data) => {
+          console.log(data)
+        })}
+        text="로그인"
+      />
     </form>
   )
 }

@@ -9,7 +9,6 @@ interface SignInputProps {
   type?: string
 }
 
-// eslint-disable-next-line react/display-name
 const SignInput: FC<SignInputProps> = forwardRef<
   HTMLInputElement,
   SignInputProps
@@ -32,5 +31,7 @@ const SignInput: FC<SignInputProps> = forwardRef<
     )
   },
 )
+
+SignInput.displayName = 'SignInput'
 
 export default SignInput
