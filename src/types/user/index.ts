@@ -4,6 +4,8 @@ import Message from '../message'
 import Post from '../post'
 
 interface User {
+  name: string
+  age: number
   coverImage: string
   image: string
   role: string
