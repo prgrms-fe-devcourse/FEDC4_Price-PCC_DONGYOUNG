@@ -23,7 +23,7 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      redirect(APP_PATH.HOME)
+      redirect(APP_PATH.home())
     }
     return Promise.reject(error)
   },
