@@ -1,10 +1,22 @@
-.comment{
-    @include themed(){
-        background-color: t(bg-2);
-        color:t(gray-5)
+.comment__container {
+  @include themed() {
+    background-color: t(bg-2);
+  }
+  width: 78.56rem;
+  height: 7.81rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 15px;
+  &__user {
+    @include themed() {
+      color: t(primary-4);
     }
-    width:78.56rem;
-    height:7.81rem;
-    display:flex;
-    flex-direction: column;
+  }
+  &__item {
+    @include themed() {
+      color: t(gray-5);
+    }
+  }
 }
