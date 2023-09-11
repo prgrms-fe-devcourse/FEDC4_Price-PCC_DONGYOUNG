@@ -1,3 +1,5 @@
+@import '/src/styles/global-layout.scss';
+
 .comment__container {
   @include themed() {
     background-color: t(bg-2);
