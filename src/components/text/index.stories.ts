@@ -11,13 +11,10 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    text: 'test',
+    children: 'test title',
     textStyle: 'heading1-bold',
   },
   argTypes: {
-    text: {
-      type: 'string',
-    },
     textStyle: {
       control: {
         type: 'select',
