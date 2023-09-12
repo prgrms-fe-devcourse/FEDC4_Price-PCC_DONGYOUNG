@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Card } from '@/components/atoms/Card'
+import { LikeDislikeCount } from '@/components/molcules/\bLikeDislikeCount'
 import { Text } from '@/components/text'
 import './index.scss'
 
@@ -42,6 +43,7 @@ export default function CardItem() {
             {body}
           </Text>
         )}
+        <LikeDislikeCount />
       </div>
     </Card>
   )
