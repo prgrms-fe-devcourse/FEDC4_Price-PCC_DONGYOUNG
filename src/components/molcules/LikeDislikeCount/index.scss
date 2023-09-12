@@ -1,0 +1,10 @@
+@import '@/styles/variables.scss';
+
+.count-container {
+  display: flex;
+  gap: 1.3rem;
+  &__item {
+    display: flex;
+    gap: 0.6rem;
+  }
+}
