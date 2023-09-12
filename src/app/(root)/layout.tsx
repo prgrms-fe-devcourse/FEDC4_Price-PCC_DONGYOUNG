@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="ko">
       <TanstackQueryContext>
         <AuthProvider>
-          <body className={`${pretendardFont.Bold.className} pcc-theme--light`}>
+          <body
+            className={`${pretendardFont.Regular.className} pcc-theme--light`}
+          >
             <NavBar />
             {children}
           </body>
