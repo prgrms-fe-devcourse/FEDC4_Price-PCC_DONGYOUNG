@@ -10,13 +10,13 @@ import { fetchPostDetail } from '@/services/post'
 export default function DarkModeButton({ postId }: { postId: string }) {
   let isSystemDark = false
 
-  const { data } = useQuery({
-    queryKey: ['postDetail'],
+  const { data, error } = useQuery({
+    queryKey: ['postDetail', postId],
     queryFn: () => fetchPostDetail(postId),
     initialData: postId,
   })
 
-  console.log(data)
+  console.log(data, error)
 
   if (typeof window !== 'undefined') {
     isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
