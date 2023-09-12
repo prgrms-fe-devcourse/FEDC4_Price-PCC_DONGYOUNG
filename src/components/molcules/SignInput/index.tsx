@@ -20,10 +20,10 @@ const SignInput: FC<SignInputProps> = forwardRef<
   ) => {
     return (
       <div className={`sign-input-container ${formType}`}>
-        <div className="input-title">{text}</div>
+        <div className="sign-input-container__label">{text}</div>
         <input
           ref={ref}
-          className="sign-input"
+          className="sign-input-container__input"
           placeholder={placeholder}
           type={type}
           {...rests}
