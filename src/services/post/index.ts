@@ -1,11 +1,10 @@
-export async function getPostDetail(id: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/${id}`,
-    {
-      cache: 'no-cache',
-    },
-  )
+import { apiClient } from '@/lib/axios'
 
-  const postDetail = await response.json()
-  return postDetail
+export const fetchPostDetail = async (id: string) => {
+  try {
+    const { data } = await apiClient.get(`api/post/${id}`)
+    return data
+  } catch (e) {
+    if (e instanceof Error) throw new Error(e.message)
+  }
 }

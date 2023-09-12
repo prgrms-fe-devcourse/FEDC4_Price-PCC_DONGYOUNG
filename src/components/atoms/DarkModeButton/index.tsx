@@ -5,17 +5,19 @@ import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Assets from '@/config/assets'
 import useStorage from '@/hooks/useStorage'
-import { getPostDetail } from '@/services/post'
+import { fetchPostDetail } from '@/services/post'
 
-export default function DarkModeButton() {
+export default function DarkModeButton({ postId }: { postId: string }) {
   let isSystemDark = false
-  const { data, refetch } = useQuery({
+
+  const { data } = useQuery({
     queryKey: ['postDetail'],
-    queryFn: () => getPostDetail('64fe680f74d7b20fbc7ac760'),
-    enabled: false,
+    queryFn: () => fetchPostDetail(postId),
+    initialData: postId,
   })
 
   console.log(data)
+
   if (typeof window !== 'undefined') {
     isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
@@ -41,7 +43,6 @@ export default function DarkModeButton() {
 
   return (
     <div>
-      <button onClick={() => refetch()}>불러오기</button>
       <button onClick={handleDarkmodeClick}>
         <Image
           src={darkMode ? Assets.DARKMODE_SVG_PATH : Assets.LIGHTMODE_SVG_PATH}
