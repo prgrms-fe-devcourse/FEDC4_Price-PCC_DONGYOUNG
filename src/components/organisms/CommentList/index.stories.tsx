@@ -14,12 +14,16 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   argTypes: {
-    comments: {
+    initComments: {
       control: 'object',
+    },
+    postId: {
+      control: 'text',
     },
   },
   args: {
-    comments: [
+    postId: '123',
+    initComments: [
       {
         _id: '1',
         authorImage: '',
