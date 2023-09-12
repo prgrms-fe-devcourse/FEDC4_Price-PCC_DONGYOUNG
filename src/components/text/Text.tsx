@@ -1,8 +1,9 @@
+import { CSSProperties } from 'react'
 import Color from '@/types/color'
 import './index.scss'
 
 type TextProps = {
-  text: string
+  children: string
   textStyle:
     | 'heading0-bold'
     | 'heading1-bold'
@@ -18,12 +19,21 @@ type TextProps = {
     | 'caption1'
     | 'caption1-bold'
   color?: Color
+  style?: CSSProperties
 }
 
-export default function Text({ text, textStyle, color }: TextProps) {
+export default function Text({
+  children,
+  textStyle,
+  color = 'gray-5',
+  ...style
+}: TextProps) {
   return (
-    <div className={`${textStyle.replace('-', ' ')} color--${color}`}>
-      {text}
+    <div
+      className={`${textStyle.replace('-', ' ')} color--${color}`}
+      {...style}
+    >
+      {children}
     </div>
   )
 }
