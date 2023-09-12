@@ -1,6 +1,6 @@
-import Notification from '../Notification'
 import Like from '../like'
 import Message from '../message'
+import Notification from '../notification'
 import Post from '../post'
 
 interface User {
@@ -21,6 +21,7 @@ interface User {
   fullName: string
   createdAt: string
   updatedAt: string
+  __v: number
 }
 
 interface Following {
