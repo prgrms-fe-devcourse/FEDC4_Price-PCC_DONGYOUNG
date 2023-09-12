@@ -3,10 +3,10 @@ import './index.scss'
 
 type ImageButtonProps = {
   shape?: 'rounded' | 'circle' | 'square'
-  size: number
+  size?: number
   src: string
   alt?: string
-  onClick: object
+  onClick: () => void
 }
 
 export default function ImageButton({
@@ -23,7 +23,7 @@ export default function ImageButton({
         height: size,
       }}
       className={`image-button shape-${shape}`}
-      onClick={() => onClick}
+      onClick={onClick}
     >
       <Image
         src={src}

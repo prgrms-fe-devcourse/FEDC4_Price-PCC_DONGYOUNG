@@ -16,7 +16,7 @@ export const Primary: Story = {
     src: 'https://picsum.photos/200/200',
     alt: 'image-button',
     onClick: () => {
-      console.log('이미지 버튼이 클릭되었습니다.')
+      alert('이미지 버튼을 클릭했습니다.')
     },
   },
 }
@@ -24,8 +24,8 @@ export const Primary: Story = {
 Primary.argTypes = {
   shape: {
     control: {
-      type: 'select',
-      options: ['rounded', 'circle', 'square'],
+      type: 'text',
+      defaultValue: 'circle', //circle, rounded, square
     },
   },
   size: {
@@ -37,5 +37,10 @@ Primary.argTypes = {
   src: {
     control: 'text',
     defaultValue: 'https://picsum.photos/200/200',
+  },
+  onClick: {
+    defaultValue: () => {
+      alert('이미지 버튼을 클릭했습니다.')
+    },
   },
 }
