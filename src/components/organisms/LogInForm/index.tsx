@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import SignButton from '@/components/molcules/SignButton'
+import Button from '@/components/atoms/Button'
 import SignInput from '@/components/molcules/SignInput'
 import SignTitle from '@/components/molcules/SignTitle'
 import './index.scss'
@@ -33,17 +33,23 @@ const LogInForm = () => {
         text="비밀번호"
         placeholder="비밀번호를 입력해 주세요"
       />
-      <SignButton
+      <Button
         onClick={() => {
           // go to sign up page
         }}
         text="회원가입"
+        color="yellow"
+        width={21.875}
+        height={3.125}
       />
-      <SignButton
+      <Button
         onClick={handleSubmit((data) => {
           console.log(data)
         })}
         text="로그인"
+        color="yellow"
+        width={21.875}
+        height={3.125}
       />
     </form>
   )
