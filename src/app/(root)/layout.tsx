@@ -4,6 +4,7 @@ import NavBar from '@/components/organisms/NavBar'
 import AuthProvider from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
 import '@/styles/global-layout.scss'
+import pretendardFont from '../../constants/font'
 
 export const metadata: Metadata = {
   title: 'sweet trade website',
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <TanstackQueryContext>
         <AuthProvider>
-          <body className={`pcc-theme--light`}>
+          <body className={`${pretendardFont.Bold.className} pcc-theme--light`}>
             <NavBar />
             {children}
           </body>
