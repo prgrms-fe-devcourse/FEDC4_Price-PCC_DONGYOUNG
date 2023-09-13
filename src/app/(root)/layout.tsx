@@ -1,8 +1,10 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import NavBar from '@/components/organisms/NavBar'
+import AuthProvider from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
 import '@/styles/global-layout.scss'
+import pretendardFont from '../../constants/font'
 
 export const metadata: Metadata = {
   title: 'sweet trade website',
@@ -17,10 +19,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <TanstackQueryContext>
-        <body>
-          <NavBar />
-          {children}
-        </body>
+        <AuthProvider>
+          <body
+            className={`${pretendardFont.Regular.className} pcc-theme--light`}
+          >
+            <NavBar />
+            {children}
+          </body>
+        </AuthProvider>
       </TanstackQueryContext>
     </html>
   )
