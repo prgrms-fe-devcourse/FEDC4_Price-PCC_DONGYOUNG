@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import SignInput from '.'
+import { SignInput } from '.'
 
 const meta = {
   title: 'Component/SignInput',

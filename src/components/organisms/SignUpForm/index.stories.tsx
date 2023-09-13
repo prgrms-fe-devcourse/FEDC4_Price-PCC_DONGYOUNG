@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import SignUpForm from '.'
+import { SignUpForm } from '.'
 
 const meta = {
   title: 'Component/SignUpForm',
