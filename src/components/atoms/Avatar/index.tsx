@@ -66,7 +66,7 @@ export default function Avatar({
 const Profile = ({ size, style, color, shape, src, alt }: AvatarProps) => {
   return (
     <div
-      style={{ ...style, width: size, height: size }}
+      style={{ ...style, width: `${size}rem`, height: `${size}rem` }}
       className={`avatar bgColor-${color} shape-${shape} size-${size}`}
     >
       <Image

@@ -1,0 +1,33 @@
+@import '@/styles/variables.scss';
+
+.sign-input-container {
+  margin-bottom: 2.5rem;
+
+  &__label {
+    font-family: Inter;
+    font-size: 1.375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 0.5rem;
+
+    @include themed() {
+      color: t(gray-5);
+    }
+  }
+
+  &__input {
+    width: 21.875rem;
+    height: 3.125rem;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 0.63rem;
+    box-sizing: border-box;
+
+    @include themed() {
+      background-color: t(primary-2);
+    }
+  }
+}

@@ -10,7 +10,7 @@ const useStorage = <T>({
   storageType,
   key,
   initialValue,
-}: UseStorage<T>): [T, (value: T) => void] => {
+}: UseStorage<T>): [T, (_value: T) => void] => {
   const [storedValue, setStoredValue] = useState(initialValue)
 
   useEffect(() => {
@@ -19,12 +19,12 @@ const useStorage = <T>({
     if (item) {
       setStoredValue(parse(item))
     }
-  }, [])
+  }, [key, storageType])
 
   useEffect(() => {
     const storage = storageType === 'local' ? localStorage : sessionStorage
     storage.setItem(key, JSON.stringify(storedValue))
-  }, [storedValue])
+  }, [key, storageType, storedValue])
 
   const setValue = (value: T) => {
     try {
