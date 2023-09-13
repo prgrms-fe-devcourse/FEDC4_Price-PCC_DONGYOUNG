@@ -31,7 +31,7 @@ export default function Modal({
   isOpen,
   width = 19,
   height = 27.5,
-  fillBackground,
+  fillBackground = true,
   align,
   onCloseModal,
   style,
