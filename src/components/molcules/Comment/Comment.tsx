@@ -8,34 +8,39 @@ export type CommentProps = {
   comment: string
   createAt?: string
   updatedAt?: string
-  authorName: string
-  authorImage: string
+  author: {
+    email?: string
+    coverImage?: string
+    image?: string
+    isOnline?: boolean
+    _id?: string
+    fullName: string
+    createdAt?: string
+    updatedAt?: string
+    __v?: number
+  }
 }
 
-type CommentAuthorProps = Pick<CommentProps, 'authorImage' | 'authorName'>
+type CommentAuthorProps = Pick<CommentProps, 'author'>
 
 type CommentItemProps = Pick<CommentProps, 'comment'>
 
-export default function Comment({
-  comment,
-  authorImage,
-  authorName,
-}: CommentProps) {
+export default function Comment({ comment, author }: CommentProps) {
   return (
     <div className="comment__container">
-      <User authorImage={authorImage} authorName={authorName} />
+      <User author={author} />
       <CommentItem comment={comment} />
     </div>
   )
 }
 
-function User({ authorImage, authorName }: CommentAuthorProps) {
+function User({ author }: CommentAuthorProps) {
   return (
     <div className="comment__container__user">
       <Avatar
         size={40}
-        text={authorName}
-        src={authorImage}
+        text={author.fullName}
+        src={author.image}
         textStyle={{
           width: '120px',
           overflow: 'hidden',

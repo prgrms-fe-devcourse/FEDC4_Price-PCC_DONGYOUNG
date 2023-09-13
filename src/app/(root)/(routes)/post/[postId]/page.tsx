@@ -1,6 +1,6 @@
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { CommentList } from '@/components/organisms/CommentList'
+import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { fetchPostDetail } from '@/services/post'
 
 export default async function Post() {
@@ -13,7 +13,7 @@ export default async function Post() {
   })
   return (
     <div>
-      <CommentList initComments={initPost} postId={getPathName} />
+      <CommentListContainer initComments={initPost} postId={getPathName} />
     </div>
   )
 }
