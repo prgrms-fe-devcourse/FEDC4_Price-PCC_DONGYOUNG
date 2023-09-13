@@ -16,7 +16,7 @@ export default function CardPostItem({
   title,
 }: CardPostItemProps) {
   return (
-    <Card width={22} height={20.25}>
+    <Card>
       <div className="content-container">
         <Link href={`/user/${author._id}`}>
           <Avatar text={author.fullName} size={1.25} src={image} />
