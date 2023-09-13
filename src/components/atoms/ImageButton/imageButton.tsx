@@ -18,6 +18,9 @@ export default function ImageButton({
 }: ImageButtonProps) {
   return (
     <button
+      /** 기본적인 모든 단위는 rem
+       * 이 컴포넌트는 width와 height가 rem 단위입니다.
+       */
       style={{
         width: `${size}rem`,
         height: `${size}rem`,
