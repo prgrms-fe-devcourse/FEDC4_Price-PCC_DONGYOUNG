@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import SignTitle from '.'
+import { SignTitle } from '.'
 
 const meta = {
   title: 'Component/SignTitle',
