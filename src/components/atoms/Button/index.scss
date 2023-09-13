@@ -9,33 +9,57 @@
   align-items: center;
   text-align: center;
   border: none;
-  border-radius: 20px;
-  margin-bottom: 1.56rem;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   cursor: pointer;
-
-  font-family: Inter;
   font-size: 1.125rem;
-  font-style: normal;
   font-weight: 700;
   line-height: normal;
 
-  &.yellow {
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: all 0.1s ease-in-out;
+  }
+
+  // border-radius
+  &.rounded-md {
+    border-radius: 10px;
+  }
+
+  &.rounded-lg {
+    border-radius: 20px;
+  }
+
+  // shadow
+  &.shadowed {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  // variants
+  &.default {
     @include themed() {
       background-color: t(primary-1);
       color: t(gray-5);
     }
   }
 
-  &.red {
+  &.warning {
     @include themed() {
-      background-color: t(bg-1);
-      color: t(highlight);
-      
-      &:hover {
-        background-color: t(highlight);
-        color: t(bg-1);
-      }
+      background-color: t(highlight);
+      color: t(bg-1);
     }
+  }
+
+  &.disabled {
+    @include themed() {
+      background: t(bg-2);
+      color: t(gray-4);
+    }
+    transition: none;
+    transform: none;
+    cursor: not-allowed;
   }
 }
