@@ -40,4 +40,10 @@
       background-color: t(primary-2);
     }
   }
+
+  &__valid {
+    @include themed() {
+      color: t(highlight)
+    }
+  }
 }

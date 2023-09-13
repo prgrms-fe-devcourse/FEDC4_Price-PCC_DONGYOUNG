@@ -8,6 +8,7 @@ type SignInputProps = {
   placeholder?: string
   formType?: string
   type?: string
+  validCheck?: string
 }
 
 const SignInput: FC<SignInputProps> = forwardRef<
@@ -15,7 +16,7 @@ const SignInput: FC<SignInputProps> = forwardRef<
   SignInputProps
 >(
   (
-    { text, placeholder, type, formType, ...rests }: SignInputProps,
+    { text, placeholder, type, formType, validCheck, ...rests }: SignInputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
@@ -28,6 +29,9 @@ const SignInput: FC<SignInputProps> = forwardRef<
           type={type}
           {...rests}
         />
+        {validCheck && (
+          <p className="sign-input-container__valid">{validCheck}</p>
+        )}
       </div>
     )
   },
