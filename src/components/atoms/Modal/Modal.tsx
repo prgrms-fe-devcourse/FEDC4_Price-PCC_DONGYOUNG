@@ -3,6 +3,7 @@
 import { Card } from '../Card'
 import type { CardProps } from '../Card/Card'
 import { Portal } from '../Portal'
+import './index.scss'
 
 type ModalProps = CardProps & {
   closeModal: () => void
@@ -10,17 +11,11 @@ type ModalProps = CardProps & {
   isOpen: boolean
 }
 
-export default function Modal({
-  children,
-  isOpen,
-  width,
-  height,
-  closeModal,
-}: ModalProps) {
+export default function Modal({ children, isOpen, width, height }: ModalProps) {
   return (
     <Portal>
       {isOpen ? (
-        <div onClick={closeModal}>
+        <div className="modal--container">
           <Card width={width} height={height}>
             {children}
           </Card>
