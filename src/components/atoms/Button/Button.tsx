@@ -7,7 +7,7 @@ type ButtonProps = {
   color?: 'yellow' | 'red'
   width?: number
   height?: number
-  onClick(): void
+  onClick?(): void
 }
 
 export default function Button({

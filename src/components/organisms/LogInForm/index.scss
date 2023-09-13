@@ -11,4 +11,8 @@
   @include themed() {
     background-color: t(bg-1);
   }
+
+  &__link {
+    text-decoration: none;
+  }
 }
