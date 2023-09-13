@@ -20,7 +20,7 @@ export default function CommentList({
     initialData: initComments,
   })
 
-  const { comments }: { comments: CommentProps[] } = data.post.comments
+  const { comments }: { comments: CommentProps[] } = data.post
   return (
     <div className="comment--list">
       {comments.map(({ _id, authorImage, authorName, comment }) => (
