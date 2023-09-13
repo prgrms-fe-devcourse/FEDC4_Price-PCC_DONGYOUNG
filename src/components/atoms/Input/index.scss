@@ -5,6 +5,14 @@
   height: 100%;
   padding: 10px 20px;
   border: 1px solid;
+
+  &::placeholder {
+    @include themed() {
+      color: t(gray-4);
+    }
+    font-weight: 400;
+  }
+
   &:focus {
     outline: none;
   }
@@ -16,7 +24,9 @@
 
   &.underbar {
     border: none;
-    border-bottom: 1px solid;
+    @include themed() {
+      border-bottom: 1px solid t(gray-4);
+    }
   }
 
   &.none {

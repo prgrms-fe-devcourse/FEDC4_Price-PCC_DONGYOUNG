@@ -13,7 +13,7 @@ type InputProps = Partial<{
 
 export default function Input({
   placeholder,
-  type = 'input',
+  type = 'text',
   variant = 'default',
   outline = 'outline',
   borderRadius,

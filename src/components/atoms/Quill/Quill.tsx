@@ -1,8 +1,11 @@
-'use client'
-
-import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import dynamic from 'next/dynamic'
 import { modules, formats } from './quillModule'
+
+const ReactQuill = dynamic(() => import('react-quill'), {
+  loading: () => <div>...loading</div>,
+  ssr: false,
+})
 
 type QuillProps = {
   onEdit?: (_contents: string) => void
