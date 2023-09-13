@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import './index.scss'
 
-type CardProps = {
+export type CardProps = {
   children: ReactNode
   width: number
   height: number
