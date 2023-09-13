@@ -1,13 +1,23 @@
 'use client'
 
-import { ReactNode } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-type PortalProps = {
-  children: ReactNode
+const Portal = ({ children }: { children: ReactElement }) => {
+  const [mounted, setMounted] = useState<boolean>(false)
+
+  useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  if (typeof window === 'undefined') return <></>
+
+  return mounted ? (
+    createPortal(children, document.getElementById('modal') as HTMLElement)
+  ) : (
+    <></>
+  )
 }
 
-export default function Portal({ children }: PortalProps) {
-  const node = document.getElementById('modal') as HTMLElement
-  return createPortal(children, node)
-}
+export default Portal
