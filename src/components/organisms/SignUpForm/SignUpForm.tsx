@@ -69,6 +69,10 @@ const SignUpForm = () => {
               value: 16,
               message: '비밀번호는 16글자 이하여야 합니다',
             },
+            pattern: {
+              value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
+              message: '비밀번호는 숫자, 대문자, 소문자를 모두 포함해야 합니다',
+            },
           }))}
         formType={formType}
         type="password"

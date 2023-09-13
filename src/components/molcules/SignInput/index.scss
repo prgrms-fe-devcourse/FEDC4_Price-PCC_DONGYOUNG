@@ -42,6 +42,7 @@
   }
 
   &__valid {
+    font-size: 0.8rem;
     @include themed() {
       color: t(highlight)
     }

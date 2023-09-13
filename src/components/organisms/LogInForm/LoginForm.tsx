@@ -12,7 +12,11 @@ type FormValues = {
 }
 
 const LogInForm = () => {
-  const { register, handleSubmit } = useForm<FormValues>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>()
   const formType = 'login'
 
   return (
@@ -24,17 +28,25 @@ const LogInForm = () => {
     >
       <SignTitle text="로그인" />
       <SignInput
-        {...(register && register('id'))}
+        {...(register &&
+          register('id', {
+            required: '아이디를 입력해 주세요',
+          }))}
         text="아이디"
         formType={formType}
         placeholder="아이디를 입력해 주세요"
+        validCheck={errors.id?.message}
       />
       <SignInput
-        {...(register && register('password'))}
+        {...(register &&
+          register('password', {
+            required: '비밀번호를 입력해 주세요',
+          }))}
         type="password"
         text="비밀번호"
         formType={`last ${formType}`}
         placeholder="비밀번호를 입력해 주세요"
+        validCheck={errors.password?.message}
       />
       <Button
         onClick={() => {
