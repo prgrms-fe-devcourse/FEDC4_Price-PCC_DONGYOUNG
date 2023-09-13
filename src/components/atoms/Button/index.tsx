@@ -1,5 +1,3 @@
-import React from 'react'
+import Button from './Button'
 
-export default function Button() {
-  return <div>Button</div>
-}
+export { Button }
