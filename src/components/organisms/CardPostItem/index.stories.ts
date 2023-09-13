@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import CardItem from './CardItem'
+import CardPostItem from './CardPostItem'
 
 const meta = {
-  title: 'Component/CardItem',
-  component: CardItem,
-} satisfies Meta<typeof CardItem>
+  title: 'Component/CardPostItem',
+  component: CardPostItem,
+} satisfies Meta<typeof CardPostItem>
 
 export default meta
 type Story = StoryObj<typeof meta>
