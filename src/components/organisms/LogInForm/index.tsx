@@ -6,7 +6,7 @@ import SignInput from '@/components/molcules/SignInput'
 import SignTitle from '@/components/molcules/SignTitle'
 import './index.scss'
 
-interface FormValues {
+type FormValues = {
   id: string
   password: string
 }

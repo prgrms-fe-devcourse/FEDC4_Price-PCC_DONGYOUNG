@@ -2,9 +2,9 @@
 
 import './index.scss'
 
-interface ButtonProps {
+type ButtonProps = {
   text?: string
-  color?: string
+  color?: 'yellow' | 'red'
   width?: number
   height?: number
   onClick(): void
