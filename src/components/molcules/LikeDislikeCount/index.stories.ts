@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import LikeDislikeCount from './LikeDislikeCount'
+import { LikeDislikeCount } from '.'
 
 const meta = {
   title: 'Component/LikeDislikeCount',
