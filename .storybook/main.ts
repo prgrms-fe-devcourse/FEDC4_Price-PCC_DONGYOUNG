@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/nextjs'
+import path from 'path'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
@@ -18,8 +19,14 @@ const config: StorybookConfig = {
   },
 
   webpackFinal: async (config) => {
-    if (config && config.resolve)
+    if (config && config.resolve) {
       config.resolve.plugins = [new TsconfigPathsPlugin()]
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname, '../src'),
+      }
+    }
+
     return config
   },
 }

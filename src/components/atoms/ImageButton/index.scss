@@ -1,0 +1,23 @@
+.image-button {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+  }
+}
+
+.shape-rounded {
+  border-radius: 1rem;
+}
+
+.shape-circle {
+  border-radius: 50%;
+}
