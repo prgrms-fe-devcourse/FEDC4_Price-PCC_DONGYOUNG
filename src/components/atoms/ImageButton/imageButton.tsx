@@ -11,7 +11,7 @@ type ImageButtonProps = {
 
 export default function ImageButton({
   shape = 'circle',
-  size = 50,
+  size = 5,
   src,
   alt = 'image-button',
   onClick,
@@ -19,8 +19,8 @@ export default function ImageButton({
   return (
     <button
       style={{
-        width: size,
-        height: size,
+        width: `${size}rem`,
+        height: `${size}rem`,
       }}
       className={`image-button shape-${shape}`}
       onClick={onClick}
