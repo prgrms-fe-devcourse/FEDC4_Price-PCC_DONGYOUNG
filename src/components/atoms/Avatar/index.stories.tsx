@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     color: 'yellow_dark',
-    size: 50,
+    size: 5,
     shape: 'circle',
     src: 'https://picsum.photos/200/200',
     text: '텍스트',
