@@ -64,7 +64,6 @@ export default function Avatar({
 }
 
 const Profile = ({ size, style, color, shape, src, alt }: AvatarProps) => {
-  console.log(src || Assets.PCCImage)
   return (
     <div
       style={{ ...style, width: `${size}rem`, height: `${size}rem` }}

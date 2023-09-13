@@ -43,7 +43,7 @@ export default function CardItem() {
             {body}
           </Text>
         )}
-        <LikeDislikeCount />
+        <LikeDislikeCount like={230} dislike={170} />
       </div>
     </Card>
   )
