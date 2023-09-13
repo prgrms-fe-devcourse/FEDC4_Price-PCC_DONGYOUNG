@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import './index.scss'
 
@@ -15,7 +16,7 @@ export default function LikeDislikeCount({
     <div className="count-container">
       <div className="count-container__item">
         <Image src={Assets.LikeImage} width={13} height={13} alt="like icon" />
-        <span>{like}</span>
+        <Text textStyle="caption1">{`${like}`}</Text>
       </div>
       <div className="count-container__item">
         <Image
@@ -24,7 +25,7 @@ export default function LikeDislikeCount({
           height={13}
           alt="dislike icon"
         />
-        <span>{dislike}</span>
+        <Text textStyle="caption1">{`${dislike}`}</Text>
       </div>
     </div>
   )

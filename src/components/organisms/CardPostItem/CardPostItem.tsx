@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Card } from '@/components/atoms/Card'
-import { LikeDislikeCount } from '@/components/molcules/\bLikeDislikeCount'
-import { Text } from '@/components/text'
+import { Text } from '@/components/atoms/Text'
+import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import './index.scss'
 
 const DUMMY = {
