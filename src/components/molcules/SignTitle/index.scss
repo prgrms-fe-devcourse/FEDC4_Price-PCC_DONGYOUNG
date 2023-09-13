@@ -1,14 +1,19 @@
+@import '@/styles/variables.scss';
+
 .sign-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #E2AF3C;
   font-family: Inter;
   font-size: 2.25rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
   margin-bottom: 2.94rem;
+
+  @include themed() {
+    color: t(primary-4)
+  }
 
   > img {
     margin-right: 1.6rem;
