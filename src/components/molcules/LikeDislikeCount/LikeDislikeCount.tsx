@@ -3,9 +3,14 @@ import Image from 'next/image'
 import Assets from '@/config/assets'
 import './index.scss'
 
-export default function LikeDislikeCount() {
-  const like = 230
-  const dislike = 170
+type LikeDislikeCountProps = {
+  like: number
+  dislike: number
+}
+export default function LikeDislikeCount({
+  like,
+  dislike,
+}: LikeDislikeCountProps) {
   return (
     <div className="count-container">
       <div className="count-container__item">

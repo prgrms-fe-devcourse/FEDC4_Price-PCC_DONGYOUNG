@@ -10,6 +10,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
-  argTypes: {},
+  args: {
+    like: 230,
+    dislike: 180,
+  },
+  argTypes: {
+    like: {
+      type: 'number',
+    },
+    dislike: {
+      type: 'number',
+    },
+  },
 }
