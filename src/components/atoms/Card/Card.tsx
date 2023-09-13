@@ -3,17 +3,11 @@ import './index.scss'
 
 type CardProps = {
   children: ReactNode
-  width: number
-  height: number
 }
 
-export default function Card({ children, width, height, ...props }: CardProps) {
+export default function Card({ children, ...props }: CardProps) {
   return (
-    <div
-      className="card-container"
-      style={{ width: `${width}rem`, height: `${height}rem` }}
-      {...props}
-    >
+    <div className="card-container" {...props}>
       {children}
     </div>
   )
