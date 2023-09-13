@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Card } from '../Card'
 import type { CardProps } from '../Card/Card'
@@ -17,7 +19,7 @@ import './index.scss'
  * @property {() => void} onCloseModal - 모달을 닫는 콜백 함수
  */
 
-type ModalProps = CardProps & {
+type ImageModalProps = CardProps & {
   children: React.ReactNode
   isOpen: boolean
   fillBackground: boolean
@@ -26,7 +28,7 @@ type ModalProps = CardProps & {
   onCloseModal: () => void
 }
 
-export default function Modal({
+export default function ImageModal({
   children,
   isOpen,
   width = 19,
@@ -35,7 +37,7 @@ export default function Modal({
   align,
   onCloseModal,
   style,
-}: ModalProps) {
+}: ImageModalProps) {
   return (
     <>
       {fillBackground && (

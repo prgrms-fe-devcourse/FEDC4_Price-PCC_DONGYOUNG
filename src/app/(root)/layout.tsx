@@ -25,6 +25,7 @@ export default function RootLayout({
           >
             <NavBar />
             {children}
+            <div id="modal" />
           </body>
         </AuthProvider>
       </TanstackQueryContext>
