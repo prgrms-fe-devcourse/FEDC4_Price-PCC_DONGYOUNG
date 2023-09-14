@@ -18,10 +18,6 @@ export const SignUpButton: Story = {
       control: 'text',
       defaultValue: '',
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
@@ -31,21 +27,15 @@ export const SignInButton: Story = {
       control: 'text',
       defaultValue: '',
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
 SignUpButton.args = {
   text: '회원가입',
-  color: 'yellow',
 }
 
 SignInButton.args = {
   text: '로그인',
-  color: 'yellow',
 }
 
 export const PostButton: Story = {
@@ -62,10 +52,6 @@ export const PostButton: Story = {
       control: 'number',
       defaultValue: 0,
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
@@ -73,7 +59,6 @@ PostButton.args = {
   text: '완료',
   width: 12.0625,
   height: 3.6875,
-  color: 'yellow',
 }
 
 export const EditPasswordButton: Story = {
@@ -90,10 +75,6 @@ export const EditPasswordButton: Story = {
       control: 'number',
       defaultValue: 0,
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
@@ -101,7 +82,6 @@ EditPasswordButton.args = {
   text: '비밀번호 변경하기',
   width: 14.0625,
   height: 2.0625,
-  color: 'yellow',
 }
 
 export const EditProfileButton: Story = {
@@ -118,10 +98,6 @@ export const EditProfileButton: Story = {
       control: 'number',
       defaultValue: 0,
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
@@ -129,7 +105,6 @@ EditProfileButton.args = {
   text: '수정 완료',
   width: 33.875,
   height: 3.6875,
-  color: 'yellow',
 }
 
 export const DeleteButton: Story = {
@@ -146,10 +121,6 @@ export const DeleteButton: Story = {
       control: 'number',
       defaultValue: 0,
     },
-    color: {
-      control: 'text',
-      defaultValue: '',
-    },
   },
 }
 
@@ -157,5 +128,4 @@ DeleteButton.args = {
   text: '삭제',
   width: 5.3125,
   height: 2.82606,
-  color: 'red',
 }
