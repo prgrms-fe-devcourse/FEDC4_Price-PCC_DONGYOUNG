@@ -10,6 +10,7 @@ import SearchBar from '@/components/atoms/SearchBar'
 import { Text } from '@/components/atoms/Text'
 import ModalDropdownList from '@/components/molcules/ModalDropdownList'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import './index.scss'
 
@@ -49,12 +50,12 @@ export default function Header() {
         </div>
       ) : (
         <div className="sign-container">
-          <Link href="/login" style={{ padding: '0 2rem' }}>
+          <Link href={APP_PATH.login()} style={{ padding: '0 2rem' }}>
             <Text textStyle="subtitle1-bold" color="gray-3">
               로그인
             </Text>
           </Link>
-          <Link href="/register" style={{ padding: '0 0.5rem' }}>
+          <Link href={APP_PATH.register()} style={{ padding: '0 0.5rem' }}>
             <Text textStyle="subtitle1-bold" color="gray-3">
               회원가입
             </Text>
