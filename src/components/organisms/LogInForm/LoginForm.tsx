@@ -6,6 +6,7 @@ import { Button } from '@/components/atoms/Button'
 import { SignInput } from '@/components/molcules/SignInput'
 import { SignTitle } from '@/components/molcules/SignTitle'
 import APP_PATH from '@/config/paths'
+import { useLogin } from '@/hooks/useLogin'
 import './index.scss'
 
 type FormValues = {
@@ -14,6 +15,7 @@ type FormValues = {
 }
 
 const LogInForm = () => {
+  const { login } = useLogin()
   const router = useRouter()
 
   const {
@@ -26,8 +28,17 @@ const LogInForm = () => {
   return (
     <form
       className="login-form"
-      onSubmit={handleSubmit((data) => {
-        console.log(data)
+      onSubmit={handleSubmit(async (data) => {
+        console.log('로그인 시도')
+        const user = await login({
+          email: data.id,
+          password: data.password,
+        })
+        if (user) {
+          router.push(APP_PATH.home())
+        } else {
+          alert('아이디와 비밀번호를 다시 확인해주세요')
+        }
       })}
     >
       <SignTitle text="로그인" />
@@ -65,8 +76,17 @@ const LogInForm = () => {
         style={{ marginBottom: '1.56rem' }}
       />
       <Button
-        onClick={handleSubmit((data) => {
-          console.log(data)
+        onClick={handleSubmit(async (data) => {
+          console.log('로그인 시도')
+          const user = await login({
+            email: data.id,
+            password: data.password,
+          })
+          if (user) {
+            router.push(APP_PATH.home())
+          } else {
+            alert('아이디와 비밀번호를 다시 확인해주세요')
+          }
         })}
         text="로그인"
         variant="default"
