@@ -1,3 +1,4 @@
+import SearchIcon from 'public/images/searchIcon.svg'
 import darkmode from '/public/images/darkmode.svg'
 import DislikeImage from '/public/images/dislike.svg'
 import lightmode from '/public/images/lightmode.svg'
@@ -13,6 +14,7 @@ const Assets = {
   TITLELOGO_SVG_PATH: titleLogo,
   PCCImage,
   UploadImage,
+  SearchIcon,
   LikeImage,
   DislikeImage,
   NotificationImage,
