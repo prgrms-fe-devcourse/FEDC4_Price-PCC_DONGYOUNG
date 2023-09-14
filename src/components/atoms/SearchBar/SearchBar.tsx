@@ -27,8 +27,8 @@ export default function SearchBar() {
       <Image
         src={Assets.SearchIcon}
         alt="search-icon"
-        width={30}
-        height={30}
+        width={20}
+        height={20}
         className="color--gray-2"
       />
       <Input
