@@ -38,7 +38,7 @@ function User({ author }: CommentAuthorProps) {
   return (
     <div className="comment__container__user">
       <Avatar
-        size={40}
+        size={2}
         text={author.fullName}
         src={author.image}
         textStyle={{
