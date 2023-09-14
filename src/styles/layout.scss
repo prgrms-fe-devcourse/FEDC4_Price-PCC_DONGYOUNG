@@ -1,0 +1,22 @@
+main {
+  margin-top: 10vh;
+  margin-left: 15vw;
+  width: 85vw;
+  height: auto;
+  display: flex;
+  z-index: 0;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 3rem;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+body {
+  display: flex;
+}

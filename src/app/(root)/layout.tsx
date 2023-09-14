@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import Header from '@/components/organisms/Header/Header'
 import NavBar from '@/components/organisms/NavBar'
 import AuthProvider from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
@@ -21,10 +22,13 @@ export default function RootLayout({
       <TanstackQueryContext>
         <AuthProvider>
           <body
-            className={`${pretendardFont.Regular.className} pcc-theme--light`}
+            className={`${pretendardFont.Regular.className} pcc-theme--light color-bg--bg-2`}
           >
             <NavBar />
-            {children}
+            <div className="main-container">
+              <Header />
+              <main>{children}</main>
+            </div>
           </body>
         </AuthProvider>
       </TanstackQueryContext>
