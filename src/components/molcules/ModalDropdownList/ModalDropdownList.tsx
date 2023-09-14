@@ -1,11 +1,10 @@
 'use client'
 
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Text } from '@/components/atoms/Text'
-import { constants } from '@/config/constants'
 import APP_PATH from '@/config/paths'
+import { useLogout } from '@/hooks/useLogout'
 import './index.scss'
 
 type PropsType = {
@@ -14,8 +13,10 @@ type PropsType = {
 
 export default function ModalDropdownList({ userId }: PropsType) {
   const router = useRouter()
+  const { logout } = useLogout()
+
   const handleLogout = () => {
-    Cookies.remove(constants.AUTH_TOKEN)
+    logout()
     router.push(APP_PATH.home())
   }
 
