@@ -53,3 +53,88 @@ $themes: (
 @function t($key) {
   @return map-get($theme-map, $key);
 }
+
+.color {
+  @include themed() {
+    &--highlight {
+      color: t(highlight);
+    }
+    &--primary-1 {
+      color: t(primary-1);
+    }
+    &--primary-2 {
+      color: t(primary-2);
+    }
+    &--primary-3 {
+      color: t(primary-3);
+    }
+    &--primary-4 {
+      color: t(primary-4);
+    }
+    &--primary-5 {
+      color: t(primary-5);
+    }
+    &--bg-1 {
+      color: t(bg-1);
+    }
+    &--bg-2 {
+      color: t(bg-2);
+    }
+    &--gray-1 {
+      color: t(gray-1);
+    }
+    &--gray-2 {
+      color: t(gray-2);
+    }
+    &--gray-3 {
+      color: t(gray-3);
+    }
+    &--gray-4 {
+      color: t(gray-4);
+    }
+    &--gray-5 {
+      color: t(gray-5);
+    }
+    &-bg {
+      &--highlight {
+        background-color: t(highlight);
+      }
+      &--primary-1 {
+        background-color: t(primary-1);
+      }
+      &--primary-2 {
+        background-color: t(primary-2);
+      }
+      &--primary-3 {
+        background-color: t(primary-3);
+      }
+      &--primary-4 {
+        background-color: t(primary-4);
+      }
+      &--primary-5 {
+        background-color: t(primary-5);
+      }
+      &--bg-1 {
+        background-color: t(bg-1);
+      }
+      &--bg-2 {
+        background-color: t(bg-2);
+      }
+      &--gray-1 {
+        background-color: t(gray-1);
+      }
+      &--gray-2 {
+        background-color: t(gray-2);
+      }
+      &--gray-3 {
+        background-color: t(gray-3);
+      }
+      &--gray-4 {
+        background-color: t(gray-4);
+      }
+      &--gray-5 {
+        background-color: t(gray-5);
+      }
+    }
+  }
+}
