@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import APP_PATH from '@/config/paths'
-import { apiClient } from '@/lib/axios'
+import { postUserPost } from '@/services/post'
 
 interface UploadFormData {
   title: string
   description: string
-  image: string | BinaryData | null
+  image: File
 }
 
 export const useUploadForm = () => {
@@ -16,14 +16,14 @@ export const useUploadForm = () => {
 
   const onSubmit = async ({ title, description, image }: UploadFormData) => {
     try {
-      const res = await apiClient.post('/api/posts/create', {
+      const res = await postUserPost({
         title: {
           title,
           description,
         },
         image,
       })
-      // TODO: 이미지 base64로 변환해서 전송
+
       if (res.status === 200) {
         alert('업로드 성공')
         router.push(APP_PATH.home())
