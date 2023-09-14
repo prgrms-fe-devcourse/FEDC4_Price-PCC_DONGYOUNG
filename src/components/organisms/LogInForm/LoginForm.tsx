@@ -38,7 +38,6 @@ const LogInForm = () => {
           // go to sign up page
         }}
         text="회원가입"
-        color="yellow"
         width={21.875}
         height={3.125}
       />
@@ -47,7 +46,6 @@ const LogInForm = () => {
           console.log(data)
         })}
         text="로그인"
-        color="yellow"
         width={21.875}
         height={3.125}
       />
