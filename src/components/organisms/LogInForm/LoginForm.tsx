@@ -36,8 +36,6 @@ const LogInForm = () => {
         })
         if (user) {
           router.push(APP_PATH.home())
-        } else {
-          alert('아이디와 비밀번호를 다시 확인해주세요')
         }
       })}
     >
