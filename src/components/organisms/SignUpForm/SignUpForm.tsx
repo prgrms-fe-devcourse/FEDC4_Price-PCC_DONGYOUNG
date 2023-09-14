@@ -34,6 +34,7 @@ const SignUpForm = () => {
   return (
     <form
       className="signup-form"
+      // 로직 연결에서 아이디 중복 처리
       onSubmit={handleSubmit((data) => {
         console.log(data)
       })}
