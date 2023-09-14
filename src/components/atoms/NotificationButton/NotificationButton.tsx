@@ -7,6 +7,10 @@ export default function NotificationButton() {
   }
 
   return (
-    <ImageButton src={Assets.NotificationImage} onClick={handleNotification} />
+    <ImageButton
+      size={3}
+      src={Assets.NotificationImage}
+      onClick={handleNotification}
+    />
   )
 }
