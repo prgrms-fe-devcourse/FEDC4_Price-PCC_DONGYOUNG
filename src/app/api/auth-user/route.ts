@@ -1,18 +1,22 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { constants } from '@/config/constants'
 import { Environment } from '@/config/environments'
+import { useServerCookie } from '@/hooks/useServerCookie'
 import { apiClient } from '@/lib/axios'
 
 export async function GET(_request: Request) {
-  const cookieStore = cookies()
-  const token = JSON.parse(cookieStore.get(constants.AUTH_TOKEN)?.value!)
+  const { token } = useServerCookie()
+  try {
+    const { data } = await apiClient.get(`${Environment.baseUrl()}/auth-user`, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
 
-  const { data } = await apiClient.get(`${Environment.baseUrl()}/auth-user`, {
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  })
-
-  return NextResponse.json(data)
+    return NextResponse.json(data)
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.response.data.message },
+      { status: error.response.status },
+    )
+  }
 }
