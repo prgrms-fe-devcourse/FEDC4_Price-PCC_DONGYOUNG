@@ -4,6 +4,7 @@ import Avatar from '@/components/atoms/Avatar'
 import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
+import APP_PATH from '@/config/paths'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -18,7 +19,7 @@ export default function CardPostItem({
   return (
     <Card>
       <div className="content-container">
-        <Link href={`/user/${author._id}`}>
+        <Link href={APP_PATH.userProfile(author._id)}>
           <Avatar text={author.fullName} size={1.25} src={image} />
         </Link>
         <Link href={`/post/${_id}`}>
@@ -29,7 +30,7 @@ export default function CardPostItem({
             <Image src={image} alt="첨부 이미지" fill />
           </div>
         ) : (
-          <Link href={`/post/${_id}`}>
+          <Link href={APP_PATH.userProfile(_id)}>
             <Text
               textStyle="body2"
               style={{
