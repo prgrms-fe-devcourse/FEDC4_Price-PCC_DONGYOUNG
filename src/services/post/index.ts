@@ -13,7 +13,7 @@ export const postUserPost = async (body: PostUserBody) => {
   return data
 }
 
-export const fetchPostDetail = async (id: string) => {
+export const getPostDetail = async (id: string) => {
   try {
     const { data } = await apiClient.get(`api/post/${id}`)
     return data

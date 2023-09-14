@@ -1,8 +1,7 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { CommentProps } from '@/components/molcules/Comment/Comment'
-import { fetchPostDetail } from '@/services/post'
+import useGetComment from '@/queries/comments'
+import type Comment from '@/types/comment'
 import { CommentList } from '.'
 
 export default function CommentListContainer({
@@ -10,14 +9,9 @@ export default function CommentListContainer({
   initComments,
 }: {
   postId: string
-  initComments: CommentProps[]
+  initComments: Comment[]
 }) {
-  const { data } = useQuery({
-    queryFn: () => fetchPostDetail(postId),
-    queryKey: ['postDetail', postId],
-    initialData: initComments,
-  })
+  const { data } = useGetComment(postId, initComments)
 
-  const { comments }: { comments: CommentProps[] } = data.post
-  return <CommentList comments={comments} />
+  return <CommentList comments={data?.post?.comments} />
 }
