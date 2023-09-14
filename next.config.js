@@ -11,6 +11,16 @@ const nextConfig = {
     }
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/200/300',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

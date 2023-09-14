@@ -3,32 +3,32 @@ import './index.scss'
 
 type ButtonProps = Partial<{
   text: string
-  color: 'yellow' | 'red'
   width: number
   height: number
   variant: 'default' | 'warning' | 'disabled'
-  rounded: 'rounded-md' | 'rounded-lg'
+  rounded?: 'rounded-md' | 'rounded-lg'
   isShadowed: boolean
+  type: 'button' | 'reset' | 'submit' | undefined
   style: React.CSSProperties
-}> & {
   onClick: (_e?: React.MouseEvent<HTMLButtonElement>) => void
-}
+}>
 
 export default function Button({
   text,
-  color,
   width,
   height,
   variant,
   isShadowed,
-  rounded,
+  rounded = 'rounded-md',
+  type = 'button',
   style,
   onClick,
+  ...rests
 }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={classNames('button-container', color, variant, rounded, {
+      className={classNames('button-container', variant, rounded, {
         shadowed: isShadowed,
       })}
       style={{
@@ -37,6 +37,8 @@ export default function Button({
         ...style,
       }}
       disabled={variant === 'disabled'}
+      type={type}
+      {...rests}
     >
       {text}
     </button>
