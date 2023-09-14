@@ -27,12 +27,20 @@ export async function GET(req: NextRequest) {
   try {
     const posts = await fetchAllPosts(id)
 
-    const parsedPosts = posts.map((post: Post) => ({
-      ...post,
-      title: JSON.parse(post.title).title,
-      description: JSON.parse(post.title).description,
-    }))
-
+    const parsedPosts = posts.map((post: Post) => {
+      if (JSON.parse(post.title)) {
+        return {
+          ...post,
+          title: JSON.parse(post.title).title,
+          description: JSON.parse(post.title).description,
+        }
+      } else {
+        return {
+          ...post,
+          description: '',
+        }
+      }
+    })
     return new Response(JSON.stringify({ posts: parsedPosts }), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
