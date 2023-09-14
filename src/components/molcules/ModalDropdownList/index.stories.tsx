@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import NotificationButton from '.'
+import ModalDropdownList from '.'
 
 const meta = {
-  title: 'Buttons/NotificationButton',
-  component: NotificationButton,
-} satisfies Meta<typeof NotificationButton>
+  title: 'Component/ModalDropdownList',
+  component: ModalDropdownList,
+} satisfies Meta<typeof ModalDropdownList>
 
 export default meta
 type Story = StoryObj<typeof meta>
