@@ -22,7 +22,7 @@ export default function RootLayout({
       <TanstackQueryContext>
         <AuthProvider>
           <body
-            className={`${pretendardFont.Regular.className} pcc-theme--light color-bg--bg-2`}
+            className={`${pretendardFont.Regular.className} pcc-theme--light`}
           >
             <NavBar />
             <div className="main-container">
