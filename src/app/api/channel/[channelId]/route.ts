@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import Post from '@/types/post'
 
 async function fetchAllPosts(id: string) {
   try {
@@ -25,7 +26,14 @@ export async function GET(req: NextRequest) {
   const id = req.nextUrl.pathname.replace('/api/channel/', '')
   try {
     const posts = await fetchAllPosts(id)
-    return new Response(JSON.stringify({ posts }), { status: 200 })
+
+    const parsedPosts = posts.map((post: Post) => ({
+      ...post,
+      title: JSON.parse(post.title).title,
+      description: JSON.parse(post.title).description,
+    }))
+
+    return new Response(JSON.stringify({ posts: parsedPosts }), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return new Response(JSON.stringify({ error: error.message }), {
