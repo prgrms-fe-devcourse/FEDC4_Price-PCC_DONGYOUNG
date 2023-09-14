@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server'
 import Post from '@/types/post'
 
-async function getAllPosts(id: string) {
+async function getAllPosts(id: string, offset: string, limit: string) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}`,
+      `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}?offset=${offset}&limit=${limit}`,
       {
         cache: 'no-cache',
       },
@@ -23,9 +23,12 @@ async function getAllPosts(id: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const id = req.nextUrl.pathname.replace('/api/channel/', '')
+  const { searchParams, pathname } = req.nextUrl
+  const id = pathname.replace('/api/channel/', '')
+  const offset = searchParams.get('offset') as string
+  const limit = searchParams.get('limit') as string
   try {
-    const posts = await getAllPosts(id)
+    const posts = await getAllPosts(id, offset, limit)
 
     const parsedPosts = posts.map((post: Post) => {
       if (JSON.parse(post.title)) {
