@@ -8,6 +8,7 @@ import ImageButton from '@/components/atoms/ImageButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
 import SearchBar from '@/components/atoms/SearchBar'
 import { Text } from '@/components/atoms/Text'
+import ModalDropdownList from '@/components/molcules/ModalDropdownList'
 import Assets from '@/config/assets'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import './index.scss'
@@ -36,7 +37,6 @@ export default function Header() {
             textStyle={{
               fontWeight: 'bold',
               paddingLeft: '0.5rem',
-              color: '#191F28',
             }}
           />
           <ImageButton
@@ -45,6 +45,7 @@ export default function Header() {
             shape="square"
             onClick={handleDropdown}
           />
+          {dropdownClick && <ModalDropdownList userId="123" />}
         </div>
       ) : (
         <div className="sign-container">

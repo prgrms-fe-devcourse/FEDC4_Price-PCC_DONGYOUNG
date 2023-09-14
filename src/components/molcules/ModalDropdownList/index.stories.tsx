@@ -10,5 +10,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: {},
+  args: { userId: 'testId' },
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/path',
+        query: {
+          keyword: 'storybook_test',
+        },
+      },
+    },
+  },
 }

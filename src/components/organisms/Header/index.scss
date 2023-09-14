@@ -1,3 +1,5 @@
+@import '/src/styles/global-layout.scss';
+
 @mixin centerAlign {
   display: flex;
   justify-content: center;
@@ -10,7 +12,7 @@
   align-items: center;
   border-radius: 1rem 0 0 1rem;
   width: 85vw;
-  height: 10vh;
+  height: 5rem;
   position: fixed;
   margin-left: 15vw;
   padding-right: 3vw;
@@ -26,6 +28,13 @@
 
 .sign-container {
   @include centerAlign();
+
+  .subtitle1 {
+    &:hover,
+    &:focus {
+      color: #e2af3c; // primary-4
+    }
+  }
 }
 
 .header-user-container {
@@ -37,5 +46,11 @@
 
   .image-button__image {
     object-fit: contain;
+  }
+
+  span {
+    @include themed() {
+      color: t(gray-5);
+    }
   }
 }
