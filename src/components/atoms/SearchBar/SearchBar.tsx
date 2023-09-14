@@ -2,24 +2,23 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import Input from '../Input'
 import './index.scss'
 
 export default function SearchBar() {
   const [keyword, setKeyword] = useState('')
+  const router = useRouter()
 
   const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
-    console.log(keyword)
   }
 
-  const handleEnterKeyPress = (
-    keyEvent: React.KeyboardEvent<HTMLInputElement>,
-    changeEvent: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (keyEvent.key === 'Enter') {
-      handleSearchBar(changeEvent)
+  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.push(APP_PATH.search(keyword))
     }
   }
 
@@ -37,7 +36,7 @@ export default function SearchBar() {
         outline="none"
         borderRadius="rounded-lg"
         onChangeFunction={handleSearchBar}
-        /*onKeyDown={handleEnterKeyPress}*/
+        onKeyDown={handleEnterKeyPress}
       />
     </div>
   )

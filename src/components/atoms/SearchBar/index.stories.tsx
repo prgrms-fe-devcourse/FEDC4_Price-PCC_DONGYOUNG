@@ -11,4 +11,15 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {},
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/search',
+        query: {
+          keyword: '키워드',
+        },
+      },
+    },
+  },
 }
