@@ -11,16 +11,19 @@ type ImageButtonProps = {
 
 export default function ImageButton({
   shape = 'circle',
-  size = 50,
+  size = 5,
   src,
   alt = 'image-button',
   onClick,
 }: ImageButtonProps) {
   return (
     <button
+      /** 기본적인 모든 단위는 rem
+       * 이 컴포넌트는 width와 height가 rem 단위입니다.
+       */
       style={{
-        width: size,
-        height: size,
+        width: `${size}rem`,
+        height: `${size}rem`,
       }}
       className={`image-button shape-${shape}`}
       onClick={onClick}

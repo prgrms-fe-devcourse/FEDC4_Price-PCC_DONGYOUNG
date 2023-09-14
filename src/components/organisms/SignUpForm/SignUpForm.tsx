@@ -102,6 +102,10 @@ const SignUpForm = () => {
         {...(register &&
           register('name', {
             required: '이름을 확인 해주세요',
+            minLength: {
+              value: 2,
+              message: '이름은 2글자 이상이어야 합니다',
+            },
           }))}
         formType={formType}
         text="이름"
@@ -123,7 +127,8 @@ const SignUpForm = () => {
           console.log(data)
         })}
         text="회원가입"
-        color="yellow"
+        variant="default"
+        rounded="rounded-lg"
         width={21.875}
         height={3.125}
       />

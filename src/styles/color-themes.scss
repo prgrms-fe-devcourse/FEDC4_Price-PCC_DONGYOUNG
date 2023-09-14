@@ -138,3 +138,10 @@ $themes: (
     }
   }
 }
+
+body.pcc-theme--light {
+  background-color: map-get(map-get($map: $themes, $key: 'light'), 'bg-2');
+}
+body.pcc-theme--dark {
+  background-color: map-get(map-get($map: $themes, $key: 'dark'), 'bg-2');
+}

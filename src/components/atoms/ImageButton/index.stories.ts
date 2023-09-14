@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     shape: 'circle',
-    size: 50,
+    size: 5,
     src: 'https://picsum.photos/200/200',
     alt: 'image-button',
     onClick: () => {
