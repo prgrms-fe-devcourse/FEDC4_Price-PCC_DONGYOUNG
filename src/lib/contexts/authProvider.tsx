@@ -15,6 +15,7 @@ export default function AuthProvider({
   const { isLoggedIn } = useCurrentUser()
 
   useEffect(() => {
+    // TODO: post/new 페이지 추가
     if (isLoggedIn && pathname === APP_PATH.login()) {
       router.push(APP_PATH.home())
     }

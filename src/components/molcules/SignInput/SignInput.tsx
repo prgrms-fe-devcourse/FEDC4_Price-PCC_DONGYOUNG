@@ -3,10 +3,12 @@
 import { ForwardedRef, forwardRef, FC } from 'react'
 import './index.scss'
 
-interface SignInputProps {
+type SignInputProps = {
   text?: string
   placeholder?: string
+  formType?: string
   type?: string
+  validCheck?: string
 }
 
 const SignInput: FC<SignInputProps> = forwardRef<
@@ -14,11 +16,11 @@ const SignInput: FC<SignInputProps> = forwardRef<
   SignInputProps
 >(
   (
-    { text, placeholder, type, ...rests }: SignInputProps,
+    { text, placeholder, type, formType, validCheck, ...rests }: SignInputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <div className="sign-input-container">
+      <div className={`sign-input-container ${formType}`}>
         <div className="sign-input-container__label">{text}</div>
         <input
           ref={ref}
@@ -27,6 +29,9 @@ const SignInput: FC<SignInputProps> = forwardRef<
           type={type}
           {...rests}
         />
+        {validCheck && (
+          <p className="sign-input-container__valid">{validCheck}</p>
+        )}
       </div>
     )
   },

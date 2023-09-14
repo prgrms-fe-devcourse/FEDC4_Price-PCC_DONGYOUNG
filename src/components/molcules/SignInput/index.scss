@@ -1,7 +1,17 @@
 @import '@/styles/variables.scss';
 
 .sign-input-container {
-  margin-bottom: 2.5rem;
+  &.signup {
+    margin-bottom: 1rem;
+  }
+
+  &.login {
+    margin-bottom: 2.5rem;
+  }
+
+  &.last {
+    margin-bottom: 3.13rem;
+  }
 
   &__label {
     font-family: Inter;
@@ -28,6 +38,14 @@
 
     @include themed() {
       background-color: t(primary-2);
+    }
+  }
+
+  &__valid {
+    font-size: 0.8rem;
+    margin-top: 0.7rem;
+    @include themed() {
+      color: t(highlight)
     }
   }
 }
