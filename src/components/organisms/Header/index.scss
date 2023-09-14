@@ -1,4 +1,7 @@
 .header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 1rem 0 0 1rem;
   width: 85vw;
   height: 10vh;
