@@ -5,11 +5,18 @@ interface PostUserBody {
     title: string
     description: string
   }
-  image?: BinaryData | null
+  image?: File
 }
 
 export const postUserPost = async (body: PostUserBody) => {
-  const { data } = await apiClient.post('/api/posts/create', body)
+  const formData = new FormData()
+  formData.append('title', JSON.stringify(body.title))
+  formData.append('image', body.image!)
+  const { data } = await apiClient.post('/api/posts/create', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   return data
 }
 

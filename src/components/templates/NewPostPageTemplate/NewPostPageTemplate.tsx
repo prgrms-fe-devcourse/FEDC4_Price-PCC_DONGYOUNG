@@ -39,7 +39,7 @@ export default function NewPostPageTemplate() {
           width={20}
           height={10}
           onChange={(file) => {
-            setValue('image', file)
+            setValue('image', file[0])
           }}
         />
       </div>
