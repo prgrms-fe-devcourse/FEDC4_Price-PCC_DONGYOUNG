@@ -6,7 +6,7 @@ import { apiClient } from '@/lib/axios'
 interface UploadFormData {
   title: string
   description: string
-  image: FileList
+  image: string | BinaryData | null
 }
 
 export const useUploadForm = () => {
