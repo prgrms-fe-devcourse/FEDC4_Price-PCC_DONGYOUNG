@@ -9,6 +9,7 @@ import React, {
 } from 'react'
 import Image from 'next/image'
 import Assets from '@/config/assets'
+import { fileToBaseUrl } from '@/utils/FiletoBaseUrl'
 import './index.scss'
 import useDragging from './useDragging'
 
@@ -18,7 +19,7 @@ type FilePickerProps = {
   disabled?: boolean
   width?: number
   height?: number
-  onChange?: (_files: FileList) => void
+  onChange?: (_files: string) => void
   className?: string
 }
 
@@ -26,13 +27,12 @@ export default function FilePicker({
   name,
   multiple = false,
   disabled,
-  width = 5,
-  height = 5,
+  width = 24.5,
+  height = 17,
   onChange,
   className,
 }: FilePickerProps) {
   useEffect(() => {})
-  const [_files, setFiles] = useState<FileList | null>(null)
   const [thumbNail, setThumbNail] = useState<string>('')
   const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
@@ -46,11 +46,10 @@ export default function FilePicker({
   }, [])
 
   const { targetRef } = useDragging(dropDownRef, (_newFiles) => {
-    setFiles(_newFiles)
     const newThumbNailImage = createNewThumbNailImage(_newFiles)
     setThumbNail(newThumbNailImage)
     if (onChange) {
-      onChange(_newFiles)
+      fileToBaseUrl(_newFiles[0]).then((value) => onChange(value))
     }
   })
 
@@ -58,8 +57,6 @@ export default function FilePicker({
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFiles(e.target.files)
-
       const blob = new Blob([e.target.files[0]], {
         type: e.target.files[0].type,
       })
@@ -67,7 +64,7 @@ export default function FilePicker({
       const thumbNailImage = URL.createObjectURL(blob)
       setThumbNail(thumbNailImage)
       if (onChange) {
-        onChange(e.target.files)
+        fileToBaseUrl(e.target.files[0]).then((value) => onChange(value))
       }
     }
   }
