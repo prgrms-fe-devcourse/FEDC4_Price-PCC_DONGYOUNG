@@ -6,22 +6,22 @@ import Post from '../post'
 interface User {
   name: string
   email: string
-  coverImage: string
-  image: string
-  role: string
-  isOnline: boolean
-  posts: Post[]
-  likes: Like[]
-  comments: string[]
-  followers: string[]
-  following: Following[]
-  notifications: Notification[]
-  messages: Message[]
+  coverImage?: string
+  image?: string
+  role?: string
+  isOnline?: boolean
+  posts?: Post[]
+  likes?: Like[]
+  comments?: string[]
+  followers?: string[]
+  following?: Following[]
+  notifications?: Notification[]
+  messages?: Message[]
   _id: string
   fullName: string
-  createdAt: string
-  updatedAt: string
-  __v: number
+  createdAt?: string
+  updatedAt?: string
+  __v?: number
 }
 
 interface Following {
