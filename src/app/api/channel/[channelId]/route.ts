@@ -31,11 +31,12 @@ export async function GET(req: NextRequest) {
     const posts = await getAllPosts(id, offset, limit)
 
     const parsedPosts = posts.map((post: Post) => {
-      if (JSON.parse(post.title)) {
+      const parsedArticle = JSON.parse(post.title)
+      if (parsedArticle) {
         return {
           ...post,
-          title: JSON.parse(post.title).title,
-          description: JSON.parse(post.title).description,
+          title: parsedArticle.title,
+          description: parsedArticle.description,
         }
       } else {
         return {
@@ -44,7 +45,7 @@ export async function GET(req: NextRequest) {
         }
       }
     })
-    return new Response(JSON.stringify({ posts: parsedPosts }), { status: 200 })
+    return new Response(JSON.stringify(parsedPosts), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return new Response(JSON.stringify({ error: error.message }), {
