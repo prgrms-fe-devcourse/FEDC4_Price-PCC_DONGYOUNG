@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import Post from '@/types/post'
 
-async function fetchAllPosts(id: string) {
+async function getAllPosts(id: string) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}`,
@@ -25,7 +25,7 @@ async function fetchAllPosts(id: string) {
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.pathname.replace('/api/channel/', '')
   try {
-    const posts = await fetchAllPosts(id)
+    const posts = await getAllPosts(id)
 
     const parsedPosts = posts.map((post: Post) => {
       if (JSON.parse(post.title)) {

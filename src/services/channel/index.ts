@@ -1,6 +1,6 @@
 import { apiClient } from '@/lib/axios'
 
-export const fetchAllPosts = async (channelId: string) => {
+export const getAllPosts = async (channelId: string) => {
   try {
     const { data } = await apiClient.get(`api/channel/${channelId}`)
     return data

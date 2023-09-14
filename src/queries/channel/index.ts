@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchAllPosts } from '@/services/channel'
+import { getAllPosts } from '@/services/channel'
 
-const useFetchAllPosts = (channelId: string) => {
+const useGetAllPosts = (channelId: string) => {
   return useQuery({
-    queryKey: ['fetchAllPosts', channelId],
+    queryKey: ['getAllPosts', channelId],
     queryFn: async () => {
-      const data = await fetchAllPosts(channelId)
+      const data = await getAllPosts(channelId)
       return data
     },
   })
 }
 
-export default useFetchAllPosts
+export default useGetAllPosts
