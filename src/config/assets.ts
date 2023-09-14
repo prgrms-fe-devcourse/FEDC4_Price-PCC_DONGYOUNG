@@ -1,4 +1,5 @@
 import SearchIcon from 'public/images/searchIcon.svg'
+import ArrowBottomIcon from '/public/images/ArrowBottomIcon.svg'
 import darkmode from '/public/images/darkmode.svg'
 import DislikeImage from '/public/images/dislike.svg'
 import lightmode from '/public/images/lightmode.svg'
@@ -18,6 +19,7 @@ const Assets = {
   LikeImage,
   DislikeImage,
   NotificationImage,
+  ArrowBottomIcon,
 } as const
 
 export default Assets

@@ -1,20 +1,41 @@
-.header-container {
+@mixin centerAlign {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   border-radius: 1rem 0 0 1rem;
   width: 85vw;
   height: 10vh;
   position: fixed;
   margin-left: 15vw;
+  padding-right: 3vw;
   z-index: 1;
   top: 0%;
   left: 0%;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.header-button-container {
+  @include centerAlign();
   padding: 0 2rem;
+}
+
+.sign-container {
+  @include centerAlign();
+}
+
+.header-user-container {
+  @include centerAlign();
+
+  .avatar__container {
+    padding-right: 2rem;
+  }
+
+  .image-button__image {
+    object-fit: contain;
+  }
 }
