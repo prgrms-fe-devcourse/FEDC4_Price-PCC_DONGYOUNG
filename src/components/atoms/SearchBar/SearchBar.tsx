@@ -37,7 +37,7 @@ export default function SearchBar() {
         outline="none"
         borderRadius="rounded-lg"
         onChangeFunction={handleSearchBar}
-        onKeyDown={handleEnterKeyPress}
+        /*onKeyDown={handleEnterKeyPress}*/
       />
     </div>
   )
