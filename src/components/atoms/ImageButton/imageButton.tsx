@@ -24,6 +24,7 @@ export default function ImageButton({
       style={{
         width: `${size}rem`,
         height: `${size}rem`,
+        padding: '0',
       }}
       className={`image-button shape-${shape}`}
       onClick={onClick}
