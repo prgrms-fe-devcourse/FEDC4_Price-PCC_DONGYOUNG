@@ -1,3 +1,4 @@
+import { ComponentProps, FC, ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 
@@ -9,25 +10,38 @@ type InputProps = Partial<{
   borderRadius: 'rounded-lg' | 'rounded-md'
   onChangeFunction: (_e: React.ChangeEvent<HTMLInputElement>) => void
   style: React.CSSProperties
-}>
+}> &
+  ComponentProps<'input'> & { ref?: ForwardedRef<HTMLInputElement> }
 
-export default function Input({
-  placeholder,
-  type = 'input',
-  variant = 'default',
-  outline = 'outline',
-  borderRadius,
-  onChangeFunction,
-  style,
-}: InputProps) {
-  return (
-    <input
-      className={classNames('input', variant, outline, borderRadius)}
-      placeholder={placeholder}
-      type={type}
-      style={style}
-      readOnly={variant === 'disabled'}
-      onChange={onChangeFunction}
-    />
-  )
-}
+const Input: FC<InputProps> = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      placeholder,
+      type = 'text',
+      variant = 'default',
+      outline = 'outline',
+      borderRadius,
+      onChangeFunction,
+      style,
+      ...rests
+    }: InputProps,
+    ref: ForwardedRef<HTMLInputElement>,
+  ) => {
+    return (
+      <input
+        ref={ref}
+        className={classNames('input', variant, outline, borderRadius)}
+        placeholder={placeholder}
+        type={type}
+        style={style}
+        readOnly={variant === 'disabled'}
+        onChange={onChangeFunction}
+        {...rests}
+      />
+    )
+  },
+)
+
+Input.displayName = 'Input'
+
+export default Input
