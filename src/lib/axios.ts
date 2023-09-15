@@ -14,7 +14,7 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     console.log(error)
-    //TODO: 필요한 경우 toast 메시지 추가
+//TODO: 필요한 경우 toast 메시지 추가
     switch (error.response.status) {
       case 401:
         redirect(APP_PATH.login())
@@ -29,7 +29,6 @@ apiClient.interceptors.response.use(
         }
         break
     }
-
     return Promise.reject(error)
   },
 )
