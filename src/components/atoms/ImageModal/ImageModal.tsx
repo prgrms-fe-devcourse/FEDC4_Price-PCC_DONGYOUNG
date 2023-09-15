@@ -32,8 +32,8 @@ type ImageModalProps = {
 export default function ImageModal({
   children,
   isOpen,
-  width = 19,
-  height = 27.5,
+  width = 1.18,
+  height = 1.71,
   align,
   onCloseModal,
   style,
@@ -47,7 +47,7 @@ export default function ImageModal({
             style={{ ...style, width: `${width}rem`, height: `${height}rem` }}
             onClick={onCloseModal}
           >
-            <Card width={width} height={height}>
+            <Card style={{ width: `${width}rem`, height: `${height}rem` }}>
               {children}
             </Card>
           </div>

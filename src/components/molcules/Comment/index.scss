@@ -3,17 +3,17 @@
 .comment__container {
   @include themed() {
     background-color: t(bg-2);
+    color: t(gray-5);
   }
-  width: 78.56rem;
+  width: 100%;
   min-height: 7.81rem;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
   border-radius: 15px;
   &__user {
-    padding-left: 20px;
+    padding-left: 25px;
     @include themed() {
       color: t(primary-4);
     }

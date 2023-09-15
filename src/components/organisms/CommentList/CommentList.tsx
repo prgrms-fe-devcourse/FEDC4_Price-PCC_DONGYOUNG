@@ -1,18 +1,18 @@
-'use client'
-
-import { Comment } from '@/components/molcules/Comment'
-import type { CommentProps } from '@/components/molcules/Comment/Comment'
+import { Comment as CommentComponent } from '@/components/molcules/Comment'
+// Alias as CommentComponent
+import Comment from '@/types/comment'
 import './index.scss'
 
-export default function CommentList({
-  comments,
-}: {
-  comments: CommentProps[]
-}) {
+export default function CommentList({ comments }: { comments: Comment[] }) {
   return (
     <div className="comment--list">
-      {comments.map(({ _id, author, comment }) => (
-        <Comment key={_id} _id={_id} author={author} comment={comment} />
+      {comments?.map(({ _id, author, comment }) => (
+        <CommentComponent
+          key={_id}
+          _id={_id}
+          author={author}
+          comment={comment}
+        />
       ))}
     </div>
   )

@@ -18,6 +18,9 @@ export const Primary: Story = {
     _id: '123123',
     comment: '그거 너무 싸게 산거임',
     author: {
+      name: '효중',
+      email: '123@naver.com',
+      _id: '1',
       image: '',
       fullName: '김효중',
     },
