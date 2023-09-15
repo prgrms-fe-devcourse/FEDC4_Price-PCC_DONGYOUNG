@@ -4,7 +4,7 @@ import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import './index.scss'
 
-type LikeDislikeCountProps = {
+export type LikeDislikeCountProps = {
   like: number
   dislike: number
 }
