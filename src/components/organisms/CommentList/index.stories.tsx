@@ -22,7 +22,11 @@ export const Default: Story = {
     comments: [
       {
         _id: '1',
+
         author: {
+          email: '12345@naver.com',
+          name: '효중',
+          _id: '1',
           fullName: '효중킴',
         },
         comment: '아아아아아',
@@ -32,12 +36,18 @@ export const Default: Story = {
         author: {
           fullName: '김효중',
           image: '',
+          email: '12345@naver.com',
+          name: '효중',
+          _id: '1',
         },
         comment: '아아아아아아아아',
       },
       {
         _id: '2',
         author: {
+          email: '12345@naver.com',
+          name: '효중',
+          _id: '1',
           image: 'https://picsum.photos/200/200',
           fullName:
             'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
@@ -47,6 +57,9 @@ export const Default: Story = {
       {
         _id: '3',
         author: {
+          email: '12345@naver.com',
+          name: '효중',
+          _id: '1',
           image: 'https://picsum.photos/200/200',
           fullName: '사용자',
         },
@@ -56,6 +69,9 @@ export const Default: Story = {
       {
         _id: '4',
         author: {
+          email: '12345@naver.com',
+          name: '효중',
+          _id: '1',
           image: 'https://picsum.photos/200/200',
           fullName: '사용자 명 긴 경우~~~~~~~~~~',
         },

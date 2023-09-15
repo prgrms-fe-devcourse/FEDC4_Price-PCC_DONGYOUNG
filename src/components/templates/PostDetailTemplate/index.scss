@@ -1,0 +1,27 @@
+@import '/src/styles/variables.scss';
+
+.post-detail {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 1080px;
+  min-height: 58rem;
+  border-radius: 19.02px;
+
+  @include themed() {
+    background-color: t(bg-1);
+  }
+  &__avatar-container {
+    display: flex;
+    width: 80%;
+    margin: 35px auto;
+  }
+  &__post-container {
+    display: flex;
+    min-height: 250px;
+    margin: 5px auto;
+    width: 80%;
+    justify-content: space-around;
+  }
+}
