@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react'
+import React, { CSSProperties, ReactNode } from 'react'
 import './index.scss'
 
 export type CardProps = {
   children: ReactNode
+  style?: CSSProperties
 }
 
 export default function Card({ children, ...props }: CardProps) {
@@ -12,3 +13,4 @@ export default function Card({ children, ...props }: CardProps) {
     </div>
   )
 }
+x
