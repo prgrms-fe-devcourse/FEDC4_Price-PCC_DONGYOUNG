@@ -12,7 +12,6 @@ import './index.scss'
  * @typedef {Object} ModalProps
  * @property {React.ReactNode} children - 모달 내부에 표시할 콘텐츠
  * @property {boolean} isOpen - 모달이 열려 있는지 여부
- * @property {boolean} fillBackground - 모달 주위를 100%로 채울지 여부
  * @property {'start' | 'center' | 'end'} [align] - 모달 내용의 수평 정렬 위치
  * @property {React.CSSProperties} [style] - 모달에 적용할 스타일
  * @property {width} number - 모달의 너비(rem기준)
@@ -23,7 +22,6 @@ import './index.scss'
 type ImageModalProps = {
   children: React.ReactNode
   isOpen: boolean
-  fillBackground: boolean
   align?: 'start' | 'center' | 'end'
   style?: React.CSSProperties
   onCloseModal: () => void
@@ -36,48 +34,27 @@ export default function ImageModal({
   isOpen,
   width = 19,
   height = 27.5,
-  fillBackground = true,
   align,
   onCloseModal,
   style,
 }: ImageModalProps) {
   return (
     <>
-      {fillBackground && (
-        <Portal>
-          {isOpen ? (
-            <div
-              className={`modal--container__absolute align-${align}`}
-              style={{ ...style, width: `${width}rem`, height: `${height}rem` }}
-              onClick={onCloseModal}
-            >
-              <Card width={width} height={height}>
-                {children}
-              </Card>
-            </div>
-          ) : (
-            <></>
-          )}
-        </Portal>
-      )}
-
-      {!fillBackground && isOpen && (
-        <div
-          className={`modal--container__relative ${align}`}
-          style={style}
-          onClick={onCloseModal}
-        >
+      <Portal>
+        {isOpen ? (
           <div
-            style={{
-              width: `${width}rem`,
-              height: `${height}rem`,
-              position: 'relative',
-            }}
+            className={`modal--container__absolute align-${align}`}
+            style={{ ...style, width: `${width}rem`, height: `${height}rem` }}
+            onClick={onCloseModal}
           >
-            {children}
+            <Card width={width} height={height}>
+              {children}
+            </Card>
           </div>
-        </div>
-      )}
+        ) : (
+          <></>
+        )}
+      </Portal>
     </>
   )
 }
