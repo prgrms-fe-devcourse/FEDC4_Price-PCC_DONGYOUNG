@@ -35,7 +35,7 @@ export default function NavBar() {
               src={image}
               size={4}
               text={fullName}
-              subText={`${followers.length} Followers`}
+              subText={`${followers?.length} Followers`}
             />
           </div>
         ))}

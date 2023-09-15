@@ -1,5 +1,3 @@
-
-export { default } from './NavBar'
 import React from 'react'
 import './index.scss'
 
