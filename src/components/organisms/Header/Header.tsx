@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
 import DarkModeButton from '@/components/atoms/DarkModeButton'
@@ -15,15 +15,22 @@ import { useCurrentUser } from '@/hooks/useCurrentUser'
 import './index.scss'
 
 export default function Header() {
-  const isLogin = useCurrentUser().isLoggedIn
-  const [dropdownClick, setDropdownClick] = useState(false)
+  const isCookie = useCurrentUser().isLoggedIn
+  const [isLogin, setIsLogin] = useState(isCookie)
   const user = useCurrentUser().currentUser
-
-  console.log(user)
+  const [dropdownClick, setDropdownClick] = useState(false)
 
   const handleDropdown = () => {
     setDropdownClick(!dropdownClick)
   }
+
+  const changeLoginState = (value: boolean) => {
+    setIsLogin(value)
+  }
+
+  useEffect(() => {
+    changeLoginState(isCookie)
+  }, [isCookie])
 
   return (
     <div className="header-container color-bg--bg-1">
@@ -49,7 +56,12 @@ export default function Header() {
             shape="square"
             onClick={handleDropdown}
           />
-          {dropdownClick && <ModalDropdownList userId={user ? user._id : ''} />}
+          {dropdownClick && (
+            <ModalDropdownList
+              userId={user ? user._id : ''}
+              changeLoginState={changeLoginState}
+            />
+          )}
         </div>
       ) : (
         <div className="sign-container">
