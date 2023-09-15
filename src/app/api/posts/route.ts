@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
   const offset = searchParams.get('offset') as string
   const limit = searchParams.get('limit') as string
   try {
-    const posts = await getAllPosts(id, offset, limit)
+    const posts = await getAllPosts(id || '', offset, limit)
 
     const parsedPosts = posts.map((post: Post) => {
       const parsedArticle = JSON.parse(post.title)

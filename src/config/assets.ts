@@ -4,6 +4,7 @@ import darkmode from '/public/images/darkmode.svg'
 import DislikeImage from '/public/images/dislike.svg'
 import lightmode from '/public/images/lightmode.svg'
 import LikeImage from '/public/images/like.svg'
+import MainLogo from '/public/images/mainLogo.svg'
 import NotificationImage from '/public/images/notification.svg'
 import PCCImage from '/public/images/pccIImage.svg'
 import titleLogo from '/public/images/titleLogo.svg'
@@ -18,6 +19,7 @@ const Assets = {
   SearchIcon,
   LikeImage,
   DislikeImage,
+  MainLogo,
   NotificationImage,
   ArrowBottomIcon,
 } as const
