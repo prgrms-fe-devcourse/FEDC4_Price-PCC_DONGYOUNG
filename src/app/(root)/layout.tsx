@@ -25,7 +25,7 @@ export default function RootLayout({
             className={`${pretendardFont.Regular.className} pcc-theme--light`}
           >
             <NavBar />
-            <div className="main-container">
+<div className="main-container">
               <Header />
               <main>{children}</main>
             </div>

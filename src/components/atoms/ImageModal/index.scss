@@ -1,0 +1,42 @@
+@import '@/styles/variables.scss';
+
+.modal--container__absolute {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  @include themed() {
+    background-color: t(gray-1);
+  }
+  opacity: 0.85;
+  transition: all 0.2s ease-out;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.modal--container__relative {
+  position: relative;
+  padding: 16px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.start {
+  display: flex;
+  justify-content: flex-start;
+}
