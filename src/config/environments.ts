@@ -5,6 +5,3 @@ export const Environment = {
   channelId: () => process.env.NEXT_PUBLIC_CHANNEL_ID,
 
 
-function assertEnv(key: string) {
-  return assertValue<string>(process.env[key], `${key}가 설정되지 않았습니다.`)
-}
