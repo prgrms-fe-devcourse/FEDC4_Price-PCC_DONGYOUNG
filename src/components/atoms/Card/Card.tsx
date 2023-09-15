@@ -13,4 +13,3 @@ export default function Card({ children, ...props }: CardProps) {
     </div>
   )
 }
-x
