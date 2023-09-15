@@ -7,7 +7,7 @@ const APP_PATH = {
   search: (keyword: string) => `search/${keyword}`,
   editProfile: () => '/user/edit/profile',
   editPassword: () => '/user/edit/password',
-  myPage: () => '/user',
+  userProfile: (id: string) => `/user/${id}`,
 } as const
 
 export default APP_PATH

@@ -1,5 +1,3 @@
-'use client'
-
 import React, {
   useState,
   useRef,
@@ -59,15 +57,14 @@ export default function FilePicker({
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFiles(e.target.files)
-
-      const blob = new Blob([e.target.files[0]], {
-        type: e.target.files[0].type,
-      })
-
-      const thumbNailImage = URL.createObjectURL(blob)
-      setThumbNail(thumbNailImage)
       if (onChange) {
         onChange(e.target.files)
+        const blob = new Blob([e.target.files[0]], {
+          type: e.target.files[0].type,
+        })
+
+        const thumbNailImage = URL.createObjectURL(blob)
+        setThumbNail(thumbNailImage)
       }
     }
   }

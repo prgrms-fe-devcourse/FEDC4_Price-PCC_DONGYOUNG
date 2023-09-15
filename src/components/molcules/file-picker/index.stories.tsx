@@ -47,4 +47,6 @@ Default.args = {
   width: 24.5,
   disabled: false,
   multiple: true,
+
+  onChange: (files) => console.log(files),
 }

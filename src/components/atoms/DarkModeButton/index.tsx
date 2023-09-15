@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import Image from 'next/image'
 import Assets from '@/config/assets'
 import useStorage from '@/hooks/useStorage'
+import ImageButton from '../ImageButton'
 
 export default function DarkModeButton() {
   let isSystemDark = false
@@ -31,13 +31,11 @@ export default function DarkModeButton() {
   }
 
   return (
-    <button onClick={handleDarkmodeClick}>
-      <Image
-        src={darkMode ? Assets.DARKMODE_SVG_PATH : Assets.LIGHTMODE_SVG_PATH}
-        width={30}
-        height={30}
-        alt={`${darkMode ? 'dark' : 'light'} mode button`}
-      />
-    </button>
+    <ImageButton
+      size={3}
+      src={darkMode ? Assets.DARKMODE_SVG_PATH : Assets.LIGHTMODE_SVG_PATH}
+      alt={`${darkMode ? 'dark' : 'light'} mode button`}
+      onClick={handleDarkmodeClick}
+    />
   )
 }

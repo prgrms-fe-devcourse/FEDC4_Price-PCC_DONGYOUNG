@@ -10,6 +10,7 @@ interface Post {
   image?: string
   imagePublicId?: string
   title: string
+  description: string
   channel: Channel
   author: User
   createdAt: string
