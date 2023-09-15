@@ -14,12 +14,22 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     console.log(error)
-    if (error.response.status === 401) {
-      redirect(APP_PATH.home())
+    //TODO: 필요한 경우 toast 메시지 추가
+    switch (error.response.status) {
+      case 401:
+        redirect(APP_PATH.login())
+      case 404:
+        // toast.error('요청하신 정보를 찾을 수 없습니다.');
+        break
+      default:
+        if (error.response.status.toString().startsWith('5')) {
+          // toast.error('서버에 오류가 발생했습니다.');
+        } else {
+          // toast.error('알 수 없는 오류가 발생했습니다.');
+        }
+        break
     }
-    if (error.response.status === 413) {
-      alert('이미지 용량이 너무 큽니다.')
-    }
+
     return Promise.reject(error)
   },
 )
