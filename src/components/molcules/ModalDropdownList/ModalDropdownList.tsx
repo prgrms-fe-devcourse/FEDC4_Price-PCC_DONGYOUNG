@@ -25,7 +25,9 @@ export default function ModalDropdownList({ userId }: PropsType) {
       <Link href={APP_PATH.editProfile()}>
         <Text textStyle="body2-bold">계정 정보 변경</Text>
       </Link>
-      <Link href={APP_PATH.userProfile(userId)}>
+      <Link
+        href={userId === '' ? APP_PATH.home() : APP_PATH.userProfile(userId)}
+      >
         <Text textStyle="body2-bold">내 프로필</Text>
       </Link>
       <div className="logout-button" onClick={handleLogout}>
