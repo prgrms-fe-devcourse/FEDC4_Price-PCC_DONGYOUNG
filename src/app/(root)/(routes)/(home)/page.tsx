@@ -4,10 +4,8 @@ import CardGridTemplate from '@/components/templates/CardGridTemplate'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import useGetAllPosts from '@/queries/channel'
 
-const CHANNEL_ID = process.env.NEXT_PUBLIC_CHANNEL_ID as string
-
 export default function Home() {
-  const { data, fetchNextPage, hasNextPage } = useGetAllPosts(CHANNEL_ID)
+  const { data, fetchNextPage, hasNextPage } = useGetAllPosts()
 
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
 

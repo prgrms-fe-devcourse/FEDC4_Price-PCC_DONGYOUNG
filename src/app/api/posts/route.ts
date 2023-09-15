@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import { Environment } from '@/config/environments'
 import Post from '@/types/post'
 
 async function getAllPosts(id: string, offset: string, limit: string) {
@@ -23,8 +24,8 @@ async function getAllPosts(id: string, offset: string, limit: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const { searchParams, pathname } = req.nextUrl
-  const id = pathname.replace('/api/channel/', '')
+  const id = Environment.channelId()
+  const { searchParams } = req.nextUrl
   const offset = searchParams.get('offset') as string
   const limit = searchParams.get('limit') as string
   try {
