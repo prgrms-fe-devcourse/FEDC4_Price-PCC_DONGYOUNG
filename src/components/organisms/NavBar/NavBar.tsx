@@ -6,10 +6,12 @@ import ImageButton from '@/components/atoms/ImageButton'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
+import useGetAllUsers from '@/queries/users'
 import './index.scss'
 
 export default function NavBar() {
   const router = useRouter()
+  const { data } = useGetAllUsers()
 
   return (
     <div className="nav-container color-bg--bg-1">
@@ -27,7 +29,7 @@ export default function NavBar() {
         </div>
       </div>
       <div className="avatar-list-container">
-        {dummyData.map(({ image, followers, _id, fullName }) => (
+        {data?.map(({ image, followers, _id, fullName }) => (
           <div key={_id} onClick={() => router.push(APP_PATH.userProfile(_id))}>
             <Avatar
               src={image}
