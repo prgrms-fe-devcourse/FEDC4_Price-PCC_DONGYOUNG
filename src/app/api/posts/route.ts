@@ -1,10 +1,11 @@
 import { NextRequest } from 'next/server'
+import { Environment } from '@/config/environments'
 import Post from '@/types/post'
 
-async function getAllPosts(id: string) {
+async function getAllPosts(id: string, offset: string, limit: string) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}`,
+      `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}?offset=${offset}&limit=${limit}`,
       {
         cache: 'no-cache',
       },
@@ -23,16 +24,20 @@ async function getAllPosts(id: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const id = req.nextUrl.pathname.replace('/api/channel/', '')
+  const id = Environment.channelId()
+  const { searchParams } = req.nextUrl
+  const offset = searchParams.get('offset') as string
+  const limit = searchParams.get('limit') as string
   try {
-    const posts = await getAllPosts(id)
+    const posts = await getAllPosts(id, offset, limit)
 
     const parsedPosts = posts.map((post: Post) => {
-      if (JSON.parse(post.title)) {
+      const parsedArticle = JSON.parse(post.title)
+      if (parsedArticle) {
         return {
           ...post,
-          title: JSON.parse(post.title).title,
-          description: JSON.parse(post.title).description,
+          title: parsedArticle.title,
+          description: parsedArticle.description,
         }
       } else {
         return {
@@ -41,7 +46,7 @@ export async function GET(req: NextRequest) {
         }
       }
     })
-    return new Response(JSON.stringify({ posts: parsedPosts }), { status: 200 })
+    return new Response(JSON.stringify(parsedPosts), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return new Response(JSON.stringify({ error: error.message }), {

@@ -1,12 +1,18 @@
+'use client'
+
+import { forwardRef, ForwardedRef } from 'react'
 import { CardPostItem } from '@/components/organisms/CardPostItem'
 import { CardPostItemProps } from '@/components/organisms/CardPostItem/CardPostItem'
 import Post from '@/types/post'
 import './index.scss'
 
 type CardGridTemplateProps = {
-  postDatas: Post[]
+  postDatas: Post[] | undefined
 }
-export default function CardGridTemplate({ postDatas }: CardGridTemplateProps) {
+export default forwardRef(function CardGridTemplate(
+  { postDatas }: CardGridTemplateProps,
+  ref: ForwardedRef<null>,
+) {
   return (
     <div className="card-grid-container">
       {postDatas?.map(
@@ -21,6 +27,7 @@ export default function CardGridTemplate({ postDatas }: CardGridTemplateProps) {
           />
         ),
       )}
+      <div id="observeTarget" ref={ref} />
     </div>
   )
-}
+})
