@@ -5,6 +5,8 @@
   gap: 1.3rem;
   align-self: flex-end;
   flex-grow: 0.5;
+  position: absolute;
+  bottom: 1rem;
   &__item {
     display: flex;
     gap: 0.6rem;
