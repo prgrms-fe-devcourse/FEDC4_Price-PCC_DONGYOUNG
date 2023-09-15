@@ -1,0 +1,33 @@
+.modal-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 10rem;
+  z-index: 2;
+  border-radius: 15px;
+  position: fixed;
+  margin-top: 14rem;
+  border: 0.1rem solid #f0f0f0;
+
+  a,
+  .logout-button {
+    width: 10rem;
+    border-bottom: 0.05rem solid #f0f0f0;
+    padding: 0.7rem 0;
+    text-align: center;
+    cursor: pointer;
+
+    .body2 {
+      &:hover,
+      &:focus {
+        color: #e2af3c; // primary-4
+      }
+    }
+  }
+
+  .new-post-link {
+    border: none;
+  }
+}
