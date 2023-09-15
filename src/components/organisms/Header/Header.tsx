@@ -17,6 +17,9 @@ import './index.scss'
 export default function Header() {
   const isLogin = useCurrentUser().isLoggedIn
   const [dropdownClick, setDropdownClick] = useState(false)
+  const user = useCurrentUser().currentUser
+
+  console.log(user)
 
   const handleDropdown = () => {
     setDropdownClick(!dropdownClick)
@@ -32,9 +35,9 @@ export default function Header() {
       {isLogin ? (
         <div className="header-user-container">
           <Avatar
-            src={Assets.PCCImage}
+            src={user ? user.image : Assets.PCCImage}
             size={3}
-            text={'포청천'}
+            text={user ? user.fullName : '포청천'}
             textStyle={{
               fontWeight: 'bold',
               paddingLeft: '0.5rem',
@@ -46,7 +49,7 @@ export default function Header() {
             shape="square"
             onClick={handleDropdown}
           />
-          {dropdownClick && <ModalDropdownList userId="123" />}
+          {dropdownClick && <ModalDropdownList userId={user ? user._id : ''} />}
         </div>
       ) : (
         <div className="sign-container">

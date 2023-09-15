@@ -6,7 +6,7 @@ export default function NavBar() {
     <div
       style={{
         backgroundColor: 'green',
-        width: '15vw',
+        width: '17rem',
         height: '100vh',
         color: 'white',
         position: 'fixed',
