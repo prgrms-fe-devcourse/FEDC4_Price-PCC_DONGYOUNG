@@ -8,13 +8,17 @@ import APP_PATH from '@/config/paths'
 import Post from '@/types/post'
 import './index.scss'
 
-export type CardPostItemProps = Pick<Post, '_id' | 'image' | 'author' | 'title'>
+export type CardPostItemProps = Pick<
+  Post,
+  '_id' | 'image' | 'author' | 'title' | 'description'
+>
 
 export default function CardPostItem({
   _id,
   image,
   author,
   title,
+  description,
 }: CardPostItemProps) {
   return (
     <Card>
@@ -23,7 +27,7 @@ export default function CardPostItem({
           <Avatar text={author.fullName} size={1.25} src={image} />
         </Link>
         <Link href={`/post/${_id}`}>
-          <Text textStyle="body1-bold">{JSON.parse(title).title}</Text>
+          <Text textStyle="body1-bold">{title}</Text>
         </Link>
         {image ? (
           <div className="content-container__image-container">
@@ -40,7 +44,7 @@ export default function CardPostItem({
                 overflow: 'hidden',
               }}
             >
-              {JSON.parse(title).body}
+              {description}
             </Text>
           </Link>
         )}

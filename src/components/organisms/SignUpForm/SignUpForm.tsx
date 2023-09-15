@@ -1,9 +1,12 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import { SignInput } from '@/components/molcules/SignInput'
 import { SignTitle } from '@/components/molcules/SignTitle'
+import APP_PATH from '@/config/paths'
+import { useSignup } from '@/hooks/useSignup'
 import './index.scss'
 
 interface FormValues {
@@ -15,6 +18,9 @@ interface FormValues {
 }
 
 const SignUpForm = () => {
+  const { signup } = useSignup()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -34,9 +40,15 @@ const SignUpForm = () => {
   return (
     <form
       className="signup-form"
-      // 로직 연결에서 아이디 중복 처리
-      onSubmit={handleSubmit((data) => {
-        console.log(data)
+      onSubmit={handleSubmit(async (data) => {
+        const user = await signup({
+          email: data.id,
+          password: data.password,
+          fullName: data.name,
+        })
+        if (user) {
+          router.push(APP_PATH.login())
+        }
       })}
     >
       <SignTitle text="회원가입" />
@@ -123,8 +135,15 @@ const SignUpForm = () => {
         validCheck={errors.nickName?.message}
       />
       <Button
-        onClick={handleSubmit((data) => {
-          console.log(data)
+        onClick={handleSubmit(async (data) => {
+          const user = await signup({
+            email: data.id,
+            password: data.password,
+            fullName: data.name,
+          })
+          if (user) {
+            router.push(APP_PATH.login())
+          }
         })}
         text="회원가입"
         variant="default"
