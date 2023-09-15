@@ -24,7 +24,7 @@ export default function NavBar() {
         <Text textStyle="heading1-bold">전체 사용자</Text>
         <div className="user-count color-bg--highlight">
           <Text textStyle="caption1-bold" color="bg-2">
-            {dummyData.length.toString()}
+            {data?.length.toString() || ''}
           </Text>
         </div>
       </div>
@@ -43,30 +43,3 @@ export default function NavBar() {
     </div>
   )
 }
-
-export const dummyData = [
-  {
-    image: Assets.PCCImage,
-    followers: [],
-    _id: 'testId',
-    fullName: '포청천',
-  },
-  {
-    image: Assets.PCCImage,
-    followers: [],
-    _id: 'testId',
-    fullName: '포청천',
-  },
-  {
-    image: Assets.PCCImage,
-    followers: [],
-    _id: 'testId',
-    fullName: '포청천',
-  },
-  {
-    image: Assets.PCCImage,
-    followers: [],
-    _id: 'testId',
-    fullName: '포청천',
-  },
-]
