@@ -11,14 +11,12 @@
   justify-content: flex-end;
   align-items: center;
   border-radius: 1rem 0 0 1rem;
-  width: 85vw;
+  width: calc(100% - 20rem);
   height: 5rem;
   position: fixed;
-  margin-left: 17rem;
-  padding-right: 3vw;
   z-index: 1;
+  padding: 0 3rem 0 2rem;
   top: 0%;
-  left: 0%;
 }
 
 .header-button-container {
