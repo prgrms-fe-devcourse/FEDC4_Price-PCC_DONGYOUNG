@@ -20,6 +20,7 @@ const useStorage = <T>({
       console.error(error)
     }
   })
+
   const setValue = (value: T) => {
     try {
       setStoredValue(value)
@@ -29,7 +30,6 @@ const useStorage = <T>({
     }
   }
 
-  console.log('storedValue', storedValue)
   return [storedValue, setValue]
 }
 

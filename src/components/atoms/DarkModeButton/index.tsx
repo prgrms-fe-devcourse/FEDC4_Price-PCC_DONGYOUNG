@@ -22,7 +22,6 @@ export default function DarkModeButton() {
   const handleDarkmodeClick = () => {
     document.body.classList.toggle('pcc-theme--light')
     document.body.classList.toggle('pcc-theme--dark')
-    console.log('darkMode', darkMode)
     setDarkMode(!darkMode)
   }
 
