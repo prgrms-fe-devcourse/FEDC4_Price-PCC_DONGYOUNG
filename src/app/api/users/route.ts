@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server'
-import { Environment } from '@/config/environments'
-import { apiClient } from '@/lib/axios'
+import { apiServer } from '@/lib/axiosSever'
 
 export async function GET(_request: Request) {
   try {
-    const { data } = await apiClient.get(
-      `${Environment.baseUrl()}/users/get-users`,
-    )
+    const { data } = await apiServer.get(`/users/get-users`)
 
     return new Response(JSON.stringify(data))
   } catch (error: any) {
