@@ -9,14 +9,19 @@ import './index.scss'
 
 type PropsType = {
   userId: string
+  changeLoginState: (_value: boolean) => void
 }
 
-export default function ModalDropdownList({ userId }: PropsType) {
+export default function ModalDropdownList({
+  userId,
+  changeLoginState,
+}: PropsType) {
   const router = useRouter()
   const { logout } = useLogout()
 
   const handleLogout = () => {
     logout()
+    changeLoginState(false)
     router.push(APP_PATH.home())
   }
 
