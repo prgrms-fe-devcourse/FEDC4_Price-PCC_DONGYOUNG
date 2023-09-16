@@ -6,6 +6,10 @@
   padding: 10px 20px;
   border: 1px solid;
 
+  @include themed() {
+    color: t(gray-5);
+  }
+
   &::placeholder {
     @include themed() {
       color: t(gray-4);
@@ -25,6 +29,7 @@
   &.underbar {
     border: none;
     @include themed() {
+      background: transparent !important;
       border-bottom: 1px solid t(gray-4);
     }
   }
