@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
-import DarkModeButton from '@/components/atoms/DarkModeButton'
 import ImageButton from '@/components/atoms/ImageButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
 import SearchBar from '@/components/atoms/SearchBar'
@@ -13,6 +13,11 @@ import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import './index.scss'
+
+const DynamicDarkModeButton = dynamic(
+  () => import('@/components/atoms/DarkModeButton'),
+  { ssr: false },
+)
 
 export default function Header() {
   const isCookie = useCurrentUser().isLoggedIn
@@ -37,7 +42,7 @@ export default function Header() {
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton />
+        <DynamicDarkModeButton />
       </div>
       {isLogin ? (
         <div className="header-user-container">
