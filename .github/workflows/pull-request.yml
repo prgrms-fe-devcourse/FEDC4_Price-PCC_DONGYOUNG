@@ -31,6 +31,15 @@ jobs:
             - name: Install Dependencies
               run: npm install
 
+            # 아래 단계에서 .env 파일을 생성하고 시크릿 값을 설정합니다.
+            - name: Set Environment Variables
+              env:
+                NEXT_PUBLIC_API_ADDRESS: ${{ secrets.NEXT_PUBLIC_API_ADDRESS }}
+                NEXT_PUBLIC_CHANNEL_ID: ${{ secrets.NEXT_PUBLIC_CHANNEL_ID }}
+              run: |
+                echo "NEXT_PUBLIC_API_ADDRESS=$NEXT_PUBLIC_API_ADDRESS" >> .env
+                echo "NEXT_PUBLIC_CHANNEL_ID=$NEXT_PUBLIC_CHANNEL_ID" >> .env
+
             # 빌드를 수행합니다.
             - name: Build
               run: npm run build
