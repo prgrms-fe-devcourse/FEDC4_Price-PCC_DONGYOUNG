@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server'
-import { Environment } from '@/config/environments'
 import { useServerCookie } from '@/hooks/useServerCookie'
-import { apiClient } from '@/lib/axios'
+import { apiServer } from '@/lib/axiosSever'
 
 export async function POST(_request: Request) {
   const { token } = useServerCookie()
 
   try {
-    const { data } = await apiClient.post(`${Environment.baseUrl()}/logout`, {
+    const { data } = await apiServer.post(`/logout`, {
       headers: {
         Authorization: 'Bearer ' + token,
       },

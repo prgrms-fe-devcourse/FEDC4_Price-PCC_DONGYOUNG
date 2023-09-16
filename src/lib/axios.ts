@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import APP_PATH from '@/config/paths'
 
 export const apiClient = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_INTERNAL_ADDRESS,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +15,7 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     console.log(error)
-//TODO: 필요한 경우 toast 메시지 추가
+    //TODO: 필요한 경우 toast 메시지 추가
     switch (error.response.status) {
       case 401:
         redirect(APP_PATH.login())
