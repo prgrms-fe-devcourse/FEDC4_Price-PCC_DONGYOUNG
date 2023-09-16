@@ -31,6 +31,13 @@ export default function Header() {
     setDropdownClick(!dropdownClick)
   }
 
+  const preventPage = () => {
+    if (pathname === APP_PATH.postNew() || pathname.includes('user')) {
+      router.push(APP_PATH.home())
+      alert('로그인한 회원만 이용가능합니다.') // TODO: replace with toast
+    }
+  }
+
   useEffect(() => {
     token.current = Cookies.get(constants.AUTH_TOKEN)
     async function validate() {
@@ -43,16 +50,6 @@ export default function Header() {
       setIsLoggedIn(true)
       setCurrentUser(() => res)
     }
-
-    const preventPage = () => {
-      if (
-        pathname === APP_PATH.postNew() ||
-        pathname === APP_PATH.editProfile() ||
-        pathname === APP_PATH.userProfile(currentUser ? currentUser._id : '')
-      )
-        router.push(APP_PATH.home())
-    }
-
     token.current ? validate() : preventPage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
