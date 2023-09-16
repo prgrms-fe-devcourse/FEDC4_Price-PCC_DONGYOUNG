@@ -24,7 +24,7 @@ export const useUploadForm = () => {
         image,
       })
 
-      if (res.status === 200) {
+      if (res) {
         alert('업로드 성공')
         router.push(APP_PATH.home())
       }
