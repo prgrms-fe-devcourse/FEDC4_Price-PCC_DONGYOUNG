@@ -1,0 +1,27 @@
+.user-detail_card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 2.5rem;
+  align-items: center;
+}
+
+.follow_info {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.follow_buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.info_count {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
