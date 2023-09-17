@@ -52,7 +52,11 @@ export default function Header() {
           />
           <ImageButton
             size={1.5}
-            src={Assets.ArrowBottomIcon}
+            src={
+              localStorage.getItem('pcc-darkmode')
+                ? Assets.ArrowDarkIcon
+                : Assets.ArrowLightIcon
+            }
             shape="square"
             onClick={handleDropdown}
           />
