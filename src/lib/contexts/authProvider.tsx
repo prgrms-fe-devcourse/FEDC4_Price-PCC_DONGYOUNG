@@ -7,6 +7,9 @@ import { useCurrentUser } from '@/hooks/useCurrentUser'
 
 interface AuthProviderProps {}
 
+const authNeededPages = [APP_PATH.postNew()]
+const authProhibitedPages = [APP_PATH.login(), APP_PATH.register()]
+
 export default function AuthProvider({
   children,
 }: PropsWithChildren<AuthProviderProps>) {
@@ -14,10 +17,15 @@ export default function AuthProvider({
   const router = useRouter()
   const { isLoggedIn } = useCurrentUser()
 
+  // TODO: 토스트 적용 또는 다른 방법으로 변경
   useEffect(() => {
-    // TODO: post/new 페이지 추가
-    if (isLoggedIn && pathname === APP_PATH.login()) {
+    if (isLoggedIn && authProhibitedPages.includes(pathname)) {
+      alert('이미 로그인 되어있습니다.')
       router.push(APP_PATH.home())
+    }
+    if (!isLoggedIn && authNeededPages.includes(pathname)) {
+      alert('로그인이 필요합니다.')
+      router.push(APP_PATH.login())
     }
   }, [pathname, isLoggedIn, router])
 
