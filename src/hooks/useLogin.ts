@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { notify } from '@/components/atoms/Toast'
 import { constants } from '@/config/constants'
 import { loginUser } from '@/services/auth'
 
@@ -9,15 +10,17 @@ export interface LoginReqBody {
 
 export const useLogin = () => {
   const login = async ({ email, password }: LoginReqBody) => {
-    const res = await loginUser({ email, password })
-
-    if (res) {
-      const token = res.token
-      Cookies.set(constants.AUTH_TOKEN, JSON.stringify(token))
-      return token
+    try {
+      const res = await loginUser({ email, password })
+      if (res) {
+        const token = res.token
+        Cookies.set(constants.AUTH_TOKEN, JSON.stringify(token))
+        return token
+      }
+    } catch (error) {
+      notify('error', '로그인에 실패했습니다.')
+      return null
     }
-
-    return null
   }
   return { login }
 }
