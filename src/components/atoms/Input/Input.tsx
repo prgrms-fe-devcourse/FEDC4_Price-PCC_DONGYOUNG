@@ -2,7 +2,7 @@ import { ComponentProps, FC, ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import './index.scss'
 
-type InputProps = Partial<{
+export type InputProps = Partial<{
   placeholder: string
   type: string
   variant: 'default' | 'error' | 'disabled' | 'clear'
