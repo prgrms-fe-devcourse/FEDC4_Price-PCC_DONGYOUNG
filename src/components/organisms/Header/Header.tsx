@@ -22,6 +22,7 @@ export default function Header() {
   const [dropdownClick, setDropdownClick] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState<User>()
+  const [mode, setMode] = useState(false)
 
   let token = useRef<string | undefined>(undefined)
   const router = useRouter()
@@ -29,6 +30,10 @@ export default function Header() {
 
   const handleDropdown = () => {
     setDropdownClick(!dropdownClick)
+  }
+
+  const changeDarkMode = (value: boolean) => {
+    setMode(value)
   }
 
   const preventPage = () => {
@@ -54,12 +59,14 @@ export default function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
+  console.log(mode)
+
   return (
     <div className="header-container color-bg--bg-1">
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton />
+        <DarkModeButton changeDarkMode={changeDarkMode} />
       </div>
       {isLoggedIn ? (
         <div className="header-user-container">
@@ -74,11 +81,7 @@ export default function Header() {
           />
           <ImageButton
             size={1.5}
-            src={
-              localStorage.getItem('pcc-darkmode')
-                ? Assets.ArrowDarkIcon
-                : Assets.ArrowLightIcon
-            }
+            src={mode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
             shape="square"
             onClick={handleDropdown}
           />
