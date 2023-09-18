@@ -1,12 +1,12 @@
 import Avatar from '@/components/atoms/Avatar'
-import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { getUserDetail } from '@/services/user'
 import User from '@/types/user'
 import './index.scss'
+import Follows from './section/Follows'
 
-async function getUserData(userId: string): Promise<User | undefined> {
+async function getUserData(userId: string): Promise<User> {
   const res = await getUserDetail(userId)
   return res
 }
@@ -18,20 +18,7 @@ export default async function UserDetailCard({ userId }: { userId: string }) {
     <Card className="user-detail_card">
       <Avatar size={10} />
       <Text textStyle="heading1-bold">{userData?.fullName}</Text>
-      <div className="follow_info">
-        <InfoCount
-          text="팔로워"
-          number={userData?.followers?.length.toString()}
-        />
-        <InfoCount
-          text="팔로잉"
-          number={userData?.following?.length.toString()}
-        />
-      </div>
-      <div className="follow_buttons">
-        <Button text="팔로우" variant="default" width={10} />
-        <Button text="팔로잉" variant="default" width={10} />
-      </div>
+      <Follows userData={userData} />
       <InfoCount text="게시글" number={userData?.posts?.length.toString()} />
     </Card>
   )
