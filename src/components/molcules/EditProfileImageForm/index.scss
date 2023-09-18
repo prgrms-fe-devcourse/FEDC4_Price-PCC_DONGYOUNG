@@ -1,0 +1,10 @@
+.edit-profile-image-form {
+  display: flex;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    margin-left: auto;
+  }
+}

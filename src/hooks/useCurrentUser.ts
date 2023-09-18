@@ -1,18 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { constants } from '@/config/constants'
 import APP_PATH from '@/config/paths'
 import { validateToken } from '@/services/auth'
 import User from '@/types/user'
 
 export const useCurrentUser = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  let token = useRef<string | undefined>(Cookies.get(constants.AUTH_TOKEN))
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token.current)
   const [currentUser, setCurrentUser] = useState<User>()
-  let token = useRef<string | undefined>(undefined)
+
   const router = useRouter()
+  const pathname = usePathname()
   useEffect(() => {
     token.current = Cookies.get(constants.AUTH_TOKEN)
+
     async function validate() {
       const res = await validateToken()
       if (!res) {
@@ -23,9 +26,14 @@ export const useCurrentUser = () => {
       setIsLoggedIn(() => !!res)
       setCurrentUser(() => res)
     }
+
     if (token.current) {
       validate()
+    } else {
+      setIsLoggedIn(() => false)
+      setCurrentUser(() => undefined)
     }
-  }, [router])
+  }, [pathname, router])
+
   return { currentUser, isLoggedIn }
 }
