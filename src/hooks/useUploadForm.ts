@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
 import { postUserPost } from '@/services/post'
 
@@ -25,11 +26,11 @@ export const useUploadForm = () => {
       })
 
       if (res) {
-        alert('업로드 성공')
+        notify('success', '게시글이 성공적으로 등록되었습니다.')
         router.push(APP_PATH.home())
       }
     } catch (e) {
-      alert(e) // TODO: toast 등 표시
+      notify('error', '게시글 등록에 실패했습니다.')
     }
   }
 
