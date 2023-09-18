@@ -6,6 +6,7 @@
   margin: 0 auto;
   box-sizing: border-box;
   width: 1080px;
+  overflow: hidden;
   min-height: 58rem;
   border-radius: 19.02px;
 
@@ -20,6 +21,7 @@
   &__post-container {
     display: flex;
     min-height: 250px;
+    flex-wrap: wrap;
     margin: 5px auto;
     width: 80%;
     justify-content: space-around;
