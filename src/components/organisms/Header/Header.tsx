@@ -1,8 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import ImageButton from '@/components/atoms/ImageButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
@@ -10,8 +12,10 @@ import SearchBar from '@/components/atoms/SearchBar'
 import { Text } from '@/components/atoms/Text'
 import ModalDropdownList from '@/components/molcules/ModalDropdownList'
 import Assets from '@/config/assets'
+import { constants } from '@/config/constants'
 import APP_PATH from '@/config/paths'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { validateToken } from '@/services/auth'
+import User from '@/types/user'
 import './index.scss'
 
 const DynamicDarkModeButton = dynamic(
@@ -20,36 +24,60 @@ const DynamicDarkModeButton = dynamic(
 )
 
 export default function Header() {
-  const isCookie = useCurrentUser().isLoggedIn
-  const [isLogin, setIsLogin] = useState(isCookie)
-  const user = useCurrentUser().currentUser
   const [dropdownClick, setDropdownClick] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState<User>()
+  const [mode, setMode] = useState(false)
+
+  let token = useRef<string | undefined>(undefined)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const handleDropdown = () => {
     setDropdownClick(!dropdownClick)
   }
 
-  const changeLoginState = (value: boolean) => {
-    setIsLogin(value)
+  const changeDarkMode = (value: boolean) => {
+    setMode(value)
+  }
+
+  const preventPage = () => {
+    if (pathname === APP_PATH.postNew() || pathname.includes('user')) {
+      router.push(APP_PATH.home())
+      alert('로그인한 회원만 이용가능합니다.') // TODO: replace with toast
+    }
   }
 
   useEffect(() => {
-    changeLoginState(isCookie)
-  }, [isCookie])
+    token.current = Cookies.get(constants.AUTH_TOKEN)
+    async function validate() {
+      const res = await validateToken()
+      if (!res) {
+        Cookies.remove(constants.AUTH_TOKEN)
+        alert('올바르지 않은 토큰입니다.') // TODO: replace with toast
+        router.push(APP_PATH.login())
+      }
+      setIsLoggedIn(true)
+      setCurrentUser(() => res)
+    }
+    token.current ? validate() : preventPage()
+    handleDropdown()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   return (
     <div className="header-container color-bg--bg-1">
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DynamicDarkModeButton />
+        <DarkModeButton changeDarkMode={changeDarkMode} />
       </div>
-      {isLogin ? (
+      {isLoggedIn ? (
         <div className="header-user-container">
           <Avatar
-            src={user ? user.image : Assets.PCCImage}
+            src={currentUser ? currentUser.image : Assets.PCCImage}
             size={3}
-            text={user ? user.fullName : '포청천'}
+            text={currentUser ? currentUser.fullName : ''}
             textStyle={{
               fontWeight: 'bold',
               paddingLeft: '0.5rem',
@@ -57,15 +85,12 @@ export default function Header() {
           />
           <ImageButton
             size={1.5}
-            src={Assets.ArrowBottomIcon}
+            src={mode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
             shape="square"
             onClick={handleDropdown}
           />
           {dropdownClick && (
-            <ModalDropdownList
-              userId={user ? user._id : ''}
-              changeLoginState={changeLoginState}
-            />
+            <ModalDropdownList userId={currentUser ? currentUser._id : ''} />
           )}
         </div>
       ) : (

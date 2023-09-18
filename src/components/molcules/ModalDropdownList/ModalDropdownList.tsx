@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { Text } from '@/components/atoms/Text'
 import APP_PATH from '@/config/paths'
 import { useLogout } from '@/hooks/useLogout'
@@ -9,20 +8,14 @@ import './index.scss'
 
 type PropsType = {
   userId: string
-  changeLoginState: (_value: boolean) => void
 }
 
-export default function ModalDropdownList({
-  userId,
-  changeLoginState,
-}: PropsType) {
-  const router = useRouter()
+export default function ModalDropdownList({ userId }: PropsType) {
   const { logout } = useLogout()
 
-  const handleLogout = async () => {
-    await logout()
-    changeLoginState(false)
-    router.push(APP_PATH.home())
+  const handleLogout = () => {
+    logout()
+    location.reload()
   }
 
   return (
