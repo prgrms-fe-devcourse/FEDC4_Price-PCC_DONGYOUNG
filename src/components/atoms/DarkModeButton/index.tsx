@@ -6,15 +6,10 @@ import useStorage from '@/hooks/useStorage'
 import ImageButton from '../ImageButton'
 
 export default function DarkModeButton() {
-  let isSystemDark = false
-  if (typeof window !== 'undefined') {
-    isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-
   const [darkMode, setDarkMode] = useStorage<boolean>({
     storageType: 'local',
     key: 'pcc-darkmode',
-    initialValue: isSystemDark,
+    initialValue: window.matchMedia('(prefers-color-scheme: dark)').matches,
   })
 
   useEffect(() => {
@@ -33,7 +28,7 @@ export default function DarkModeButton() {
   return (
     <ImageButton
       size={3}
-      src={darkMode ? Assets.DARKMODE_SVG_PATH : Assets.LIGHTMODE_SVG_PATH}
+      src={darkMode ? Assets.LIGHTMODE_SVG_PATH : Assets.DARKMODE_SVG_PATH}
       alt={`${darkMode ? 'dark' : 'light'} mode button`}
       onClick={handleDarkmodeClick}
     />
