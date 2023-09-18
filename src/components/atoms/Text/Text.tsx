@@ -3,7 +3,7 @@ import Color from '@/types/color'
 import './index.scss'
 
 type TextProps = {
-  children: string
+  children: React.ReactNode
   textStyle:
     | 'heading0-bold'
     | 'heading1-bold'

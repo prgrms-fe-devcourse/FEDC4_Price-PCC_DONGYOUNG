@@ -1,23 +1,20 @@
-import { ForwardedRef, forwardRef } from 'react'
 import UserDetailCard from '@/components/organisms/UserDetailCard'
-import type Post from '@/types/post'
-import CardGridTemplate from '../CardGridTemplate'
+import UserPostsGrid from '@/components/organisms/userPostsGrid'
 import './index.scss'
 
 type UserDetailPageTemplateProps = {
-  userPosts: Post[] | undefined
+  userId: string
 }
 
-export default forwardRef(function UserDetailPageTemplate(
-  { userPosts }: UserDetailPageTemplateProps,
-  ref: ForwardedRef<null>,
-) {
+export default function UserDetailPageTemplate({
+  userId,
+}: UserDetailPageTemplateProps) {
   return (
     <div className="user-detail">
-      <UserDetailCard />
+      <UserDetailCard userId={userId} />
       <div className="grid">
-        <CardGridTemplate postDatas={userPosts} ref={ref} />
+        <UserPostsGrid userId={userId} />
       </div>
     </div>
   )
-})
+}
