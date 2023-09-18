@@ -1,4 +1,5 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify'
 import type { Metadata } from 'next'
 import Header from '@/components/organisms/Header/Header'
 import NavBar from '@/components/organisms/NavBar'
@@ -30,6 +31,15 @@ export default function RootLayout({
               <main>{children}</main>
             </div>
           </body>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            draggable={false}
+            closeOnClick
+            pauseOnHover
+          />
         </AuthProvider>
       </TanstackQueryContext>
     </html>
