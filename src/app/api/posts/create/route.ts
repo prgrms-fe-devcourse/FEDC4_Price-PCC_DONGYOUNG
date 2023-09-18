@@ -6,17 +6,22 @@ import Post from '@/types/post'
 
 export async function POST(request: Request) {
   const { token } = useServerCookie()
-  const { channelId, likeChannelId, dislikeChannelID } = Environment
-  const channelIds = [channelId(), likeChannelId(), dislikeChannelID()]
+  const { channelId, dislikeChannelID } = Environment
 
   const createPost = async (
     formData: FormData,
     channelId: string,
+    relative_ID?: string,
   ): Promise<Post> => {
     if (formData.has('channelId')) {
       formData.delete('channelId')
     }
     formData.append('channelId', channelId)
+    if (relative_ID) {
+      const getTitleField = JSON.parse(formData.get('title') as string)
+      getTitleField.mapping_ID = relative_ID
+      formData.set('title', JSON.stringify(getTitleField))
+    }
 
     const { data } = await apiServer.post('/posts/create', formData, {
       headers: {
@@ -30,15 +35,9 @@ export async function POST(request: Request) {
 
   const formData = await request.formData()
 
-  const apiCallPromises = []
+  const results = await createPost(formData, channelId()).then(
+    async (res) => await createPost(formData, dislikeChannelID(), res._id),
+  )
 
-  for (const channelId of channelIds) {
-    apiCallPromises.push(createPost(formData, channelId))
-  }
-
-  console.log(apiCallPromises)
-
-  const results = await Promise.all(apiCallPromises)
-
-  return NextResponse.json(results[0])
+  return NextResponse.json(results)
 }
