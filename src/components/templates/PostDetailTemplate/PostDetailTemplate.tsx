@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
@@ -8,6 +8,7 @@ import CommentListContainer from '@/components/organisms/CommentList/CommentList
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
 import { validateToken } from '@/services/auth'
+import { postLikeAction } from '@/services/post/like'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -25,6 +26,39 @@ export async function PostDetailTemplate({
   const router = useRouter()
   const { title, comment, image } = initPost
   const { author } = initPost
+  const { mapping_ID } = JSON.parse(title)
+
+  const handleOnClickLikeBtn = useCallback(async () => {
+    const isValidateUser = await validateToken()
+    if (!isValidateUser) {
+      //TODO - 에러 토스트 처리
+      router.replace(APP_PATH.login())
+      return
+    }
+
+    try {
+      await postLikeAction(postId)
+    } catch (error) {
+      //TODO - 해당 경우 에러 처리
+    }
+  }, [postId, router])
+
+  const handleOnClickDisLikeBtn = useCallback(async () => {
+    const isValidateUser = await validateToken()
+    if (!isValidateUser) {
+      //TODO - 에러 토스트 처리
+      router.replace(APP_PATH.login())
+      return
+    }
+
+    try {
+      if (typeof mapping_ID === 'string' && mapping_ID.length > 1) {
+        await postLikeAction(mapping_ID)
+      }
+    } catch (error) {
+      //TODO - 해당 경우 에러 처리
+    }
+  }, [router, mapping_ID])
 
   return (
     <div className="post-detail">
@@ -50,20 +84,8 @@ export async function PostDetailTemplate({
       <LikeDisLikeContainer
         like={initPost.likes.length}
         dislike={disLikeChannelPost.likes.length}
-        onClickLike={async () => {
-          const isValidateUser = await validateToken()
-          if (!isValidateUser) {
-            //TODO - 에러 토스트 처리
-            router.replace(APP_PATH.login())
-          }
-        }}
-        onClickDisLike={async () => {
-          const isValidateUser = await validateToken()
-          if (!isValidateUser) {
-            //TODO - 에러 토스트 처리2
-            router.replace(APP_PATH.login())
-          }
-        }}
+        onClickLike={handleOnClickLikeBtn}
+        onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
     </div>

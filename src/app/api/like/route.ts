@@ -16,11 +16,9 @@ export async function POST(_request: Request) {
         },
       },
     )
-    console.log(data, postId)
 
     return NextResponse.json(data)
   } catch (error: any) {
-    console.log(error)
     return NextResponse.json(
       { error: error.response.data.message },
       { status: error.response.status },
