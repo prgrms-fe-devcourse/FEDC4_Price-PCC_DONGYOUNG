@@ -35,12 +35,35 @@
   }
 
   .avatar-list-container {
-    width: 15rem;
+    width: 17rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 2rem;
     overflow-y: scroll;
+  }
+  .avatar-list-container::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 100%;
+  }
+
+  .avatar-list-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .avatar-list-container::-webkit-scrollbar-thumb {
+    width: 0.5rem;
+    height: 6rem;
+    border-radius: 0.5rem;
+    @include themed() {
+      background-color: t(bg-1);
+    }
+  }
+
+  .avatar-list-container::-webkit-scrollbar-thumb:hover {
+    @include themed() {
+      background-color: t(gray-4);
+    }
   }
 
   .avatar__container {
