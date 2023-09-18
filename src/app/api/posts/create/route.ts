@@ -35,8 +35,8 @@ export async function POST(request: Request) {
 
   const formData = await request.formData()
 
-  const results = await createPost(formData, channelId()).then(
-    async (res) => await createPost(formData, dislikeChannelID(), res._id),
+  const results = await createPost(formData, dislikeChannelID()).then(
+    async (res) => await createPost(formData, channelId(), res._id),
   )
 
   return NextResponse.json(results)
