@@ -1,3 +1,5 @@
+'use client'
+
 import React, { CSSProperties } from 'react'
 import Image from 'next/image'
 import Assets from '@/config/assets'
@@ -96,10 +98,34 @@ const Description = ({
       style={{
         color: textColor,
         ...textStyle,
+        width: '200px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       }}
     >
-      <div style={textStyle}>{text}</div>
-      <div style={textStyle}>{subText}</div>
+      <div
+        style={{
+          ...textStyle,
+          width: '200px',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {text}
+      </div>
+      <div
+        style={{
+          ...textStyle,
+          width: '200px',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {subText}
+      </div>
     </span>
   )
 }
