@@ -10,12 +10,6 @@ type PropsType = {
 }
 
 export default function DarkModeButton({ changeDarkMode }: PropsType) {
-  let isSystemDark = false
-  if (typeof window !== 'undefined') {
-    isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-  
-export default function DarkModeButton() {
   const [darkMode, setDarkMode] = useStorage<boolean>({
     storageType: 'local',
     key: 'pcc-darkmode',

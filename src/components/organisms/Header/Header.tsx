@@ -70,7 +70,7 @@ export default function Header() {
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton changeDarkMode={changeDarkMode} />
+        <DynamicDarkModeButton changeDarkMode={changeDarkMode} />
       </div>
       {isLoggedIn ? (
         <div className="header-user-container">
