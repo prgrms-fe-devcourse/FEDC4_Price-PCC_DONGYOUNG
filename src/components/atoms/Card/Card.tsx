@@ -1,14 +1,16 @@
 import React, { CSSProperties, ReactNode } from 'react'
+import classNames from 'classnames'
 import './index.scss'
 
 export type CardProps = {
   children: ReactNode
+  className?: string
   style?: CSSProperties
 }
 
-export default function Card({ children, ...props }: CardProps) {
+export default function Card({ children, className, ...props }: CardProps) {
   return (
-    <div className="card-container" {...props}>
+    <div className={classNames('card-container', className)} {...props}>
       {children}
     </div>
   )
