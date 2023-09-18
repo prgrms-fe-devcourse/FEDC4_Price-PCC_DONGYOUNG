@@ -1,18 +1,23 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import { Text } from '@/components/atoms/Text'
 import ValidInput from '@/components/molcules/ValidInput'
+import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { useEditPassword } from '@/hooks/useEditPassword'
-import './index.scss'
+import { SetEditProfileComponent } from '../EditProfile/EditProfile'
 
 interface FormValues {
   password: string
   passwordCheck: string
 }
 
-const EditPasswordTemplate = () => {
+const EditPassword = ({ setPage }: SetEditProfileComponent) => {
+  const router = useRouter()
   const { editPassword } = useEditPassword()
 
   const {
@@ -28,14 +33,24 @@ const EditPasswordTemplate = () => {
   })
 
   return (
-    //TODO: 비밀번호 변경 api 로직 연결
+    //TODO: 비밀번호 변경 완료시 처리 어떻게?
     <form
-      className="edit-password-container"
       onSubmit={handleSubmit(async (data) => {
         await editPassword(data)
-        console.log('비밀번호 변경')
+        alert('비밀번호가 변경되었습니다.')
+        router.push(APP_PATH.home())
       })}
     >
+      <Image
+        onClick={() => setPage('profile')}
+        src={Assets.backIcon}
+        width={50}
+        height={50}
+        alt="backIcon"
+        style={{
+          cursor: 'pointer',
+        }}
+      />
       <Text
         textStyle="heading0-bold"
         style={{
@@ -99,4 +114,4 @@ const EditPasswordTemplate = () => {
   )
 }
 
-export default EditPasswordTemplate
+export default EditPassword

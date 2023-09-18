@@ -33,14 +33,3 @@ export const validateToken = async () => {
   const { data } = await apiClient.get('/api/auth-user')
   return data
 }
-
-export const editUserPassword = async (password: string, token: string) => {
-  await apiClient.put('/api/settings/update-password', {
-    headers: {
-      Authorization: 'bearer ' + token,
-    },
-    body: {
-      password,
-    },
-  })
-}
