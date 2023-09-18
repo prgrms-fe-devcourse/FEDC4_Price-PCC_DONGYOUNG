@@ -1,12 +1,9 @@
-
 'use client'
 
 import React, { useCallback } from 'react'
-import parse from 'html-react-parser'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
-import { Text } from '@/components/atoms/Text'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
@@ -77,28 +74,10 @@ export async function PostDetailTemplate({
         />
       </div>
 
-      <Text
-        textStyle="heading0-bold"
-        style={{
-          display: 'flex',
-          width: '80%',
-          margin: '15px auto',
-        }}
-      >
-        {PostTitle}
-      </Text>
       <div className="post-detail__post-container">
-        <Text textStyle="body1">{parse(description) as string}</Text>
+        <h1>{title}</h1>
         {image && (
-          <Image
-            src={image || ''}
-            width={250}
-            height={250}
-            alt="image"
-            style={{
-              objectFit: 'cover',
-            }}
-          />
+          <Image src={image || ''} width={30} height={30} alt="image" />
         )}
       </div>
 
@@ -112,3 +91,4 @@ export async function PostDetailTemplate({
     </div>
   )
 }
+
