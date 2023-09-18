@@ -14,6 +14,7 @@ export default async function Post() {
 
   return (
     <PostDetailTemplate
+      disLikeChannelPost={initPost.disLikePost}
       initPost={initPost.post}
       postId={getPathName}
     ></PostDetailTemplate>

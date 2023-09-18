@@ -9,11 +9,13 @@ import './index.scss'
 type PostDetailTemplateProps = {
   postId: string
   initPost: Post
+  disLikeChannelPost: Post
 }
 
 export async function PostDetailTemplate({
   postId,
   initPost,
+  disLikeChannelPost,
 }: PostDetailTemplateProps) {
   const { title, comment, image } = initPost
   const { author } = initPost
@@ -39,7 +41,10 @@ export async function PostDetailTemplate({
         )}
       </div>
 
-      <LikeDisLikeContainer like={555} dislike={5511} />
+      <LikeDisLikeContainer
+        like={initPost.likes.length}
+        dislike={disLikeChannelPost.likes.length}
+      />
       <CommentListContainer postId={postId} initComments={comment} />
     </div>
   )
