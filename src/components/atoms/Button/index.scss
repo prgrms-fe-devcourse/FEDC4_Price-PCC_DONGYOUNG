@@ -1,0 +1,65 @@
+@import '@/styles/variables.scss';
+
+.button-container {
+  display: flex;
+  width: 21.875rem;
+  height: 3.125rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: normal;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: all 0.1s ease-in-out;
+  }
+
+  // border-radius
+  &.rounded-md {
+    border-radius: 10px;
+  }
+
+  &.rounded-lg {
+    border-radius: 20px;
+  }
+
+  // shadow
+  &.shadowed {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+
+  // variants
+  &.default {
+    @include themed() {
+      background-color: t(primary-1);
+      color: t(gray-5);
+    }
+  }
+
+  &.warning {
+    @include themed() {
+      background-color: t(highlight);
+      color: t(bg-1);
+    }
+  }
+
+  &.disabled {
+    @include themed() {
+      background: t(bg-2);
+      color: t(gray-4);
+    }
+    transition: none;
+    transform: none;
+    cursor: not-allowed;
+  }
+}

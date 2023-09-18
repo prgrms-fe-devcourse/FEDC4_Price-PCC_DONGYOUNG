@@ -1,5 +1,13 @@
-import HomePageTemplate from '@/components/templates/HomePageTemplate'
+'use client'
+
+import CardGridTemplate from '@/components/templates/CardGridTemplate'
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import useGetAllPosts from '@/queries/channel'
 
 export default function Home() {
-  return <HomePageTemplate />
+  const { data, fetchNextPage, hasNextPage } = useGetAllPosts()
+
+  const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
+
+  return <CardGridTemplate postDatas={data?.pages.flat()} ref={observerElem} />
 }

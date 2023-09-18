@@ -1,0 +1,15 @@
+.main-container {
+  width: calc(100% - 20rem);
+  height: auto;
+  margin-left: 20rem;
+}
+
+main {
+  margin-top: 5rem;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  z-index: 0;
+}

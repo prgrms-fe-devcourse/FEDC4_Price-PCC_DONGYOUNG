@@ -1,0 +1,27 @@
+@import '/src/styles/global-layout.scss';
+
+.comment__container {
+  @include themed() {
+    background-color: t(bg-2);
+    color: t(gray-5);
+  }
+  width: 100%;
+  min-height: 7.81rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 15px;
+  &__user {
+    padding-left: 25px;
+    @include themed() {
+      color: t(primary-4);
+    }
+  }
+  &__item {
+    padding-left: 60px;
+    @include themed() {
+      color: t(gray-5);
+    }
+  }
+}

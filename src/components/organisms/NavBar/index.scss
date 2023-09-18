@@ -1,0 +1,67 @@
+@import '/src/styles/global-layout.scss';
+
+.nav-container {
+  width: 20rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 0 1rem 1rem 0;
+  position: fixed;
+  top: 0%;
+
+  .image-button {
+    padding: 2rem 0;
+  }
+
+  .image-button__image {
+    width: fit-content;
+    height: 4rem;
+    object-fit: contain;
+  }
+
+  .nav-title {
+    width: 15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 0 1rem 0;
+
+    .user-count {
+      border-radius: 1rem;
+      border: none;
+      padding: 0.4rem 1rem;
+    }
+  }
+
+  .avatar-list-container {
+    width: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 2rem;
+    overflow-y: scroll;
+  }
+
+  .avatar__container {
+    span {
+      @include themed() {
+        color: t(gray-3);
+      }
+      padding-left: 1.5rem;
+
+      div {
+        padding: 0.5rem 0;
+      }
+      div:nth-child(1) {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      div:nth-child(2) {
+        font-size: 0.8rem;
+      }
+    }
+    padding-bottom: 1.5rem;
+    cursor: pointer;
+  }
+}
