@@ -7,7 +7,7 @@ export function useServerCookie() {
   }
 
   const cookieStore = cookies()
-  const token = JSON.parse(cookieStore.get(constants.AUTH_TOKEN)?.value!)
+  const token = cookieStore.get(constants.AUTH_TOKEN)?.value!
 
   return { token }
 }

@@ -19,8 +19,8 @@ export default function ModalDropdownList({
   const router = useRouter()
   const { logout } = useLogout()
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
     changeLoginState(false)
     router.push(APP_PATH.home())
   }
