@@ -1,0 +1,13 @@
+@import '@/styles/variables';
+
+.quill {
+  @include themed() {
+    color: t(gray-5);
+  }
+
+  div.ql-toolbar.ql-snow {
+    @include themed() {
+      background-color: t(primary-1);
+    }
+  }
+}

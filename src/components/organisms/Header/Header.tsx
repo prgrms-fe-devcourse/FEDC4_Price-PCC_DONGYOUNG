@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Cookies from 'js-cookie'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
-import DarkModeButton from '@/components/atoms/DarkModeButton'
 import ImageButton from '@/components/atoms/ImageButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
 import SearchBar from '@/components/atoms/SearchBar'
@@ -17,6 +17,11 @@ import APP_PATH from '@/config/paths'
 import { validateToken } from '@/services/auth'
 import User from '@/types/user'
 import './index.scss'
+
+const DynamicDarkModeButton = dynamic(
+  () => import('@/components/atoms/DarkModeButton'),
+  { ssr: false },
+)
 
 export default function Header() {
   const [dropdownClick, setDropdownClick] = useState(false)
@@ -56,10 +61,9 @@ export default function Header() {
       setCurrentUser(() => res)
     }
     token.current ? validate() : preventPage()
+    handleDropdown()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
-
-  console.log(mode)
 
   return (
     <div className="header-container color-bg--bg-1">
@@ -73,7 +77,7 @@ export default function Header() {
           <Avatar
             src={currentUser ? currentUser.image : Assets.PCCImage}
             size={3}
-            text={currentUser ? currentUser.fullName : '포청천'}
+            text={currentUser ? currentUser.fullName : ''}
             textStyle={{
               fontWeight: 'bold',
               paddingLeft: '0.5rem',

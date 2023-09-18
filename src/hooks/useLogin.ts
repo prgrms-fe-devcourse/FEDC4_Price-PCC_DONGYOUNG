@@ -1,5 +1,5 @@
-import Cookies from 'js-cookie'
-import { constants } from '@/config/constants'
+import { useRouter } from 'next/navigation'
+import APP_PATH from '@/config/paths'
 import { loginUser } from '@/services/auth'
 
 export interface LoginReqBody {
@@ -8,13 +8,12 @@ export interface LoginReqBody {
 }
 
 export const useLogin = () => {
+  const router = useRouter()
   const login = async ({ email, password }: LoginReqBody) => {
     const res = await loginUser({ email, password })
 
-    if (res) {
-      const token = res.token
-      Cookies.set(constants.AUTH_TOKEN, JSON.stringify(token))
-      return token
+    if (!!res) {
+      router.push(APP_PATH.home())
     }
 
     return null

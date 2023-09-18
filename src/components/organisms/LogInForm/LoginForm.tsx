@@ -76,15 +76,10 @@ const LogInForm = () => {
       <Button
         onClick={handleSubmit(async (data) => {
           console.log('로그인 시도')
-          const user = await login({
+          await login({
             email: data.id,
             password: data.password,
           })
-          if (user) {
-            router.push(APP_PATH.home())
-          } else {
-            alert('아이디와 비밀번호를 다시 확인해주세요')
-          }
         })}
         text="로그인"
         variant="default"
