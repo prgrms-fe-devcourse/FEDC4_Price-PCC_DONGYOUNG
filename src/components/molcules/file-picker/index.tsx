@@ -55,6 +55,7 @@ export default function FilePicker({
   const hasThumbNailImage = thumbNail.length !== 0
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     if (e.target.files) {
       setFiles(e.target.files)
       if (onChange) {
