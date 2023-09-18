@@ -1,8 +1,13 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
+import APP_PATH from '@/config/paths'
+import { validateToken } from '@/services/auth'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -17,6 +22,7 @@ export async function PostDetailTemplate({
   initPost,
   disLikeChannelPost,
 }: PostDetailTemplateProps) {
+  const router = useRouter()
   const { title, comment, image } = initPost
   const { author } = initPost
 
@@ -44,6 +50,20 @@ export async function PostDetailTemplate({
       <LikeDisLikeContainer
         like={initPost.likes.length}
         dislike={disLikeChannelPost.likes.length}
+        onClickLike={async () => {
+          const isValidateUser = await validateToken()
+          if (!isValidateUser) {
+            //TODO - 에러 토스트 처리
+            router.replace(APP_PATH.login())
+          }
+        }}
+        onClickDisLike={async () => {
+          const isValidateUser = await validateToken()
+          if (!isValidateUser) {
+            //TODO - 에러 토스트 처리2
+            router.replace(APP_PATH.login())
+          }
+        }}
       />
       <CommentListContainer postId={postId} initComments={comment} />
     </div>

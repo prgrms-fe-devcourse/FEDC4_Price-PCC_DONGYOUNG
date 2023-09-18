@@ -7,8 +7,8 @@ import './index.scss'
 export type LikeDislikeCountProps = {
   like: number
   dislike: number
-  onClickLike?: (_likeCount: number) => void
-  onClickDisLike?: (_dislikeCount: number) => void
+  onClickLike?: () => void
+  onClickDisLike?: () => void
 }
 export default function LikeDislikeCount({
   like,
