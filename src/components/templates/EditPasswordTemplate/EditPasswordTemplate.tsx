@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '@/components/atoms/Button'
 import { Text } from '@/components/atoms/Text'
 import ValidInput from '@/components/molcules/ValidInput'
+import { useEditPassword } from '@/hooks/useEditPassword'
 import './index.scss'
 
 interface FormValues {
@@ -12,6 +13,8 @@ interface FormValues {
 }
 
 const EditPasswordTemplate = () => {
+  const { editPassword } = useEditPassword()
+
   const {
     register,
     handleSubmit,
@@ -28,8 +31,9 @@ const EditPasswordTemplate = () => {
     //TODO: 비밀번호 변경 api 로직 연결
     <form
       className="edit-password-container"
-      onSubmit={handleSubmit((data) => {
-        console.log(data, '비밀번호 변경 api 호출')
+      onSubmit={handleSubmit(async (data) => {
+        await editPassword(data)
+        console.log('비밀번호 변경')
       })}
     >
       <Text
