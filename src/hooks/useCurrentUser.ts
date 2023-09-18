@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import Cookies from 'js-cookie'
+import { notify } from '@/components/atoms/Toast'
 import { useRouter, usePathname } from 'next/navigation'
 import { constants } from '@/config/constants'
 import APP_PATH from '@/config/paths'
@@ -20,7 +21,7 @@ export const useCurrentUser = () => {
     const res = await validateTokenMemo()
     if (!res) {
       Cookies.remove(constants.AUTH_TOKEN)
-      alert('올바르지 않은 토큰입니다.') // TODO: replace with toast
+      notify('error', '올바르지 않은 토큰입니다. 다시 로그인해주세요.')
       router.push(APP_PATH.login())
     }
     setIsLoggedIn(() => !!res)
