@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 import { notify } from '@/components/atoms/Toast'
 import { constants } from '@/config/constants'
+import { useRouter } from 'next/navigation'
+import APP_PATH from '@/config/paths'
 import { loginUser } from '@/services/auth'
 
 export interface LoginReqBody {
@@ -9,6 +11,7 @@ export interface LoginReqBody {
 }
 
 export const useLogin = () => {
+  const router = useRouter()
   const login = async ({ email, password }: LoginReqBody) => {
     try {
       const res = await loginUser({ email, password })

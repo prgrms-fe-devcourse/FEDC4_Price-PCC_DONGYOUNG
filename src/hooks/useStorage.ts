@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type UseStorage<T> = {
   storageType: 'local' | 'session'
@@ -11,38 +11,26 @@ const useStorage = <T>({
   key,
   initialValue,
 }: UseStorage<T>): [T, (_value: T) => void] => {
-  const [storedValue, setStoredValue] = useState(initialValue)
-
-  useEffect(() => {
-    const storage = storageType === 'local' ? localStorage : sessionStorage
-    const item = storage.getItem(key)
-    if (item) {
-      setStoredValue(parse(item))
+  const storage = storageType === 'local' ? localStorage : sessionStorage
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const value = storage.getItem(key)
+      return value ? JSON.parse(value) : initialValue
+    } catch (error) {
+      console.error(error)
     }
-  }, [key, storageType])
-
-  useEffect(() => {
-    const storage = storageType === 'local' ? localStorage : sessionStorage
-    storage.setItem(key, JSON.stringify(storedValue))
-  }, [key, storageType, storedValue])
+  })
 
   const setValue = (value: T) => {
     try {
       setStoredValue(value)
+      storage.setItem(key, JSON.stringify(value))
     } catch (error) {
       console.error(error)
     }
   }
 
   return [storedValue, setValue]
-}
-
-const parse = (storageValue: string) => {
-  try {
-    return JSON.parse(storageValue)
-  } catch {
-    return storageValue
-  }
 }
 
 export default useStorage
