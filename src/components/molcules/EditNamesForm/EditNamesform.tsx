@@ -8,7 +8,7 @@ import { useEditProfile } from '@/hooks/useEditUserProfile'
 
 interface FormValues {
   fullName: string
-  userName: string
+  username: string
 }
 
 const EditNamesform = () => {
@@ -18,7 +18,7 @@ const EditNamesform = () => {
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       fullName: '',
-      userName: '',
+      username: '',
     },
   })
 
@@ -46,7 +46,7 @@ const EditNamesform = () => {
       />
       <Input
         {...(register &&
-          register('userName', {
+          register('username', {
             required: true,
           }))}
         variant="clear"

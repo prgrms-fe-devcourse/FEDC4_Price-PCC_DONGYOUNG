@@ -2,13 +2,13 @@ import { apiClient } from '@/lib/axios'
 
 interface PutUserBody {
   fullName: string
-  userName: string
+  username: string
 }
 
-export const editUserProfile = async ({ fullName, userName }: PutUserBody) => {
+export const editUserProfile = async ({ fullName, username }: PutUserBody) => {
   const { data } = await apiClient.put(`api/users/edit/profile`, {
     fullName,
-    userName,
+    username,
   })
   return data
 }
