@@ -17,6 +17,7 @@ export default async function Post() {
       disLikeChannelPost={initPost.disLikePost}
       initPost={initPost.post}
       postId={getPathName}
+      mapping_ID={JSON.parse(initPost.post.title) || ''}
     ></PostDetailTemplate>
   )
 }

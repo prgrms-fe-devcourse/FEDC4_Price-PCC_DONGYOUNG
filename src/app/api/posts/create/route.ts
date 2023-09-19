@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Environment } from '@/config/environments'
+import { POST_CONSTANT } from '@/constants/post'
 import { useServerCookie } from '@/hooks/useServerCookie'
 import { apiServer } from '@/lib/axiosSever'
 import Post from '@/types/post'
@@ -7,16 +8,17 @@ import Post from '@/types/post'
 export async function POST(request: Request) {
   const { token } = useServerCookie()
   const { channelId, dislikeChannelID } = Environment
+  const { CHANNEL_ID } = POST_CONSTANT
 
   const createPost = async (
     formData: FormData,
     channelId: string,
     relative_ID?: string,
   ): Promise<Post> => {
-    if (formData.has('channelId')) {
-      formData.delete('channelId')
+    if (formData.has(CHANNEL_ID)) {
+      formData.delete(CHANNEL_ID)
     }
-    formData.append('channelId', channelId)
+    formData.append(CHANNEL_ID, channelId)
     if (relative_ID) {
       const getTitleField = JSON.parse(formData.get('title') as string)
       getTitleField.mapping_ID = relative_ID
