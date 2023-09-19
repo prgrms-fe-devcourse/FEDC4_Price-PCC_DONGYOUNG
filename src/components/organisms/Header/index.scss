@@ -17,6 +17,8 @@
   z-index: 1;
   padding: 0 3rem 0 2rem;
   top: 0%;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .header-button-container {
@@ -26,6 +28,7 @@
 
 .sign-container {
   @include centerAlign();
+  gap: 1rem;
 
   .subtitle1 {
     &:hover,
@@ -37,10 +40,10 @@
 
 .header-user-container {
   @include centerAlign();
-
-  .avatar__container {
-    padding-right: 2rem;
+  &:hover {
+    cursor: pointer;
   }
+  gap: 1rem;
 
   .image-button__image {
     object-fit: contain;
@@ -51,4 +54,8 @@
       color: t(gray-5);
     }
   }
+}
+
+.header-text_button {
+  word-break: keep-all;
 }

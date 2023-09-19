@@ -13,7 +13,7 @@ interface User {
   posts?: Post[]
   likes?: Like[]
   comments?: string[]
-  followers?: string[]
+  followers?: Follower[]
   following?: Following[]
   notifications?: Notification[]
   messages?: Message[]
@@ -25,6 +25,14 @@ interface User {
 }
 
 interface Following {
+  _id: string
+  user: string
+  follower: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface Follower {
   _id: string
   user: string
   follower: string

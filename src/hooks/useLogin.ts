@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie'
-import { notify } from '@/components/atoms/Toast'
-import { constants } from '@/config/constants'
 import { useRouter } from 'next/navigation'
+import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
 import { loginUser } from '@/services/auth'
 
@@ -15,10 +13,8 @@ export const useLogin = () => {
   const login = async ({ email, password }: LoginReqBody) => {
     try {
       const res = await loginUser({ email, password })
-      if (res) {
-        const token = res.token
-        Cookies.set(constants.AUTH_TOKEN, JSON.stringify(token))
-        return token
+      if (!!res) {
+        router.push(APP_PATH.home())
       }
     } catch (error) {
       notify('error', '로그인에 실패했습니다.')

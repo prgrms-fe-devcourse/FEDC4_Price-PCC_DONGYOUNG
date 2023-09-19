@@ -1,3 +1,3 @@
-import ModalLayout from './ModalLayout'
+import ModalProvider from './ModalProvider'
 
-export default ModalLayout
+export default ModalProvider
