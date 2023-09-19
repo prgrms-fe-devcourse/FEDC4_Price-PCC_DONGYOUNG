@@ -15,4 +15,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  &.isOpen {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
