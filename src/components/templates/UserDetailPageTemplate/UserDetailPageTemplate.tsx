@@ -1,13 +1,19 @@
 import UserDetailCard from '@/components/organisms/UserDetailCard'
-import CardGridTemplate from '../CardGridTemplate'
+import UserPostsGrid from '@/components/organisms/userPostsGrid'
 import './index.scss'
 
-export default function UserDetailPageTemplate() {
+type UserDetailPageTemplateProps = {
+  userId: string
+}
+
+export default function UserDetailPageTemplate({
+  userId,
+}: UserDetailPageTemplateProps) {
   return (
     <div className="user-detail">
-      <UserDetailCard />
+      <UserDetailCard userId={userId} />
       <div className="grid">
-        <CardGridTemplate postDatas={[]} />
+        <UserPostsGrid userId={userId} />
       </div>
     </div>
   )

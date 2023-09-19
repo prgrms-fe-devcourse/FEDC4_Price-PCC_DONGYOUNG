@@ -20,6 +20,21 @@ export const postUserPost = async (body: PostUserBody) => {
   return data
 }
 
+export const getUserPosts = async ({
+  authorId,
+  offset,
+  limit,
+}: {
+  authorId: string
+  offset: number
+  limit: number
+}) => {
+  const { data } = await apiClient.get(
+    `/api/posts/author?authorId=${authorId}&offset=${offset}&limit=${limit}`,
+  )
+  return data
+}
+
 export const getPostDetail = async (id: string) => {
   try {
     const { data } = await apiClient.get(`api/post/${id}`)
