@@ -1,30 +1,43 @@
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
+import { notify } from '@/components/atoms/Toast'
+import APP_PATH from '@/config/paths'
+import { useEditProfile } from '@/hooks/useEditUserProfile'
 
 interface FormValues {
-  name: string
-  nickName: string
+  fullName: string
+  userName: string
 }
 
 const EditNamesform = () => {
+  const router = useRouter()
+  const { editProfile } = useEditProfile()
+
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
-      name: '',
-      nickName: '',
+      fullName: '',
+      userName: '',
     },
   })
 
   return (
-    //TODO: 기존 이름, 닉네임 불러오기 및 이름, 닉네임 update 로직 연결
+    //TODO: 기존 이름, 닉네임 불러오기 및 이름
     <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data, '이름, 닉네임 update api 호출')
+      onSubmit={handleSubmit(async (data) => {
+        try {
+          await editProfile(data)
+          notify('success', '정보가 수정되었습니다.')
+          router.push(APP_PATH.home())
+        } catch (error) {
+          notify('error', '정보 수정에 실패했습니다.')
+        }
       })}
     >
       <Input
         {...(register &&
-          register('name', {
+          register('fullName', {
             required: true,
           }))}
         variant="clear"
@@ -33,7 +46,7 @@ const EditNamesform = () => {
       />
       <Input
         {...(register &&
-          register('nickName', {
+          register('userName', {
             required: true,
           }))}
         variant="clear"
