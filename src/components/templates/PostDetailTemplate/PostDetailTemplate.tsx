@@ -12,7 +12,6 @@ import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContaine
 import APP_PATH from '@/config/paths'
 import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
-import { validateToken } from '@/services/auth'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -32,7 +31,7 @@ export function PostDetailTemplate({
   mapping_ID,
 }: PostDetailTemplateProps) {
   const router = useRouter()
-  const { currentUser } = useCurrentUser()
+  const { currentUser, isLoggedIn } = useCurrentUser()
   const { title, comment, image, author } = initPost
 
   const { title: postTitle, description } = JSON.parse(title)
@@ -42,8 +41,7 @@ export function PostDetailTemplate({
     useState<Post>(disLikeChannelPost)
 
   const handleOnClickLikeBtn = useCallback(async () => {
-    const isValidateUser = await validateToken()
-    if (!isValidateUser) {
+    if (!isLoggedIn) {
       notify('error', POST_CONSTANT.LIKE_ERROR)
       router.replace(APP_PATH.login())
       return
@@ -78,11 +76,10 @@ export function PostDetailTemplate({
     } catch (error) {
       notify('error', POST_CONSTANT.LIKE_API_ERROR)
     }
-  }, [router, likeChannelPost, currentUser?._id])
+  }, [isLoggedIn, router, likeChannelPost, currentUser?._id])
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
-    const isValidateUser = await validateToken()
-    if (!isValidateUser) {
+    if (!isLoggedIn) {
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
       router.replace(APP_PATH.login())
       return
@@ -125,7 +122,7 @@ export function PostDetailTemplate({
     } catch (error) {
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
-  }, [router, mapping_ID, dislikeChannelPost, currentUser?._id])
+  }, [isLoggedIn, router, mapping_ID, dislikeChannelPost, currentUser?._id])
 
   return (
     <div className="post-detail">
