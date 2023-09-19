@@ -17,16 +17,17 @@ type PostDetailTemplateProps = {
   postId: string
   initPost: Post
   disLikeChannelPost: Post
+  mapping_ID: string
 }
 
 export function PostDetailTemplate({
   postId,
   initPost,
   disLikeChannelPost,
+  mapping_ID,
 }: PostDetailTemplateProps) {
   const router = useRouter()
   const { title, comment, image, author } = initPost
-  const { mapping_ID } = JSON.parse(title)
 
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
   const [dislikeChannelPost, setDislikeChannelPost] =
@@ -126,7 +127,7 @@ export function PostDetailTemplate({
       <div className="post-detail__avatar-container">
         <Avatar
           size={5}
-          src={initPost?.author?.image || ''}
+          src={initPost?.author?.image ?? ''}
           text={author.fullName}
           textStyle={{
             fontWeight: 'bold',
