@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
@@ -8,7 +8,8 @@ import CommentListContainer from '@/components/organisms/CommentList/CommentList
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
 import { validateToken } from '@/services/auth'
-import { postLikeAction } from '@/services/post/like'
+import { getPostDetail } from '@/services/post'
+import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -18,15 +19,18 @@ type PostDetailTemplateProps = {
   disLikeChannelPost: Post
 }
 
-export async function PostDetailTemplate({
+export function PostDetailTemplate({
   postId,
   initPost,
   disLikeChannelPost,
 }: PostDetailTemplateProps) {
   const router = useRouter()
-  const { title, comment, image } = initPost
-  const { author } = initPost
+  const { title, comment, image, author } = initPost
   const { mapping_ID } = JSON.parse(title)
+
+  const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
+  const [dislikeChannelPost, setDislikeChannelPost] =
+    useState<Post>(disLikeChannelPost)
 
   const handleOnClickLikeBtn = useCallback(async () => {
     const isValidateUser = await validateToken()
@@ -37,11 +41,38 @@ export async function PostDetailTemplate({
     }
 
     try {
-      await postLikeAction(postId)
+      const { _id, likes } = likeChannelPost
+      const hasLikedPost = likes.some(
+        (like) => like.user === isValidateUser?._id,
+      )
+
+      //좋아요를 아직 하지 않은 경우
+      if (!hasLikedPost) {
+        await postLikeAction(_id)
+        await getPostDetail(_id).then(({ post }) => {
+          setLikeChannelPost(post)
+        })
+        return
+      }
+
+      //좋아요를 한 경우
+      //좋아요의 ID를 뽑아옴
+      else {
+        const likeId = likes.filter(
+          (like) => like.user === isValidateUser?._id,
+        )[0]._id
+
+        await postLikeCancelAction(likeId)
+        await getPostDetail(_id).then(({ post }) => {
+          setLikeChannelPost(post)
+        })
+
+        return
+      }
     } catch (error) {
       //TODO - 해당 경우 에러 처리
     }
-  }, [postId, router])
+  }, [router, likeChannelPost])
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     const isValidateUser = await validateToken()
@@ -52,13 +83,43 @@ export async function PostDetailTemplate({
     }
 
     try {
-      if (typeof mapping_ID === 'string' && mapping_ID.length > 1) {
+      //TODO - 해당 validate 분리. 검증 조건 추가 필요
+      if (typeof mapping_ID !== 'string' || mapping_ID.length < 1) {
+        return
+      }
+
+      const { likes } = dislikeChannelPost
+
+      //해당 게시글을 싫어요를 했는지?
+      const hasDislikedPost = likes.some(
+        (disLike) => disLike.user === isValidateUser?._id,
+      )
+
+      //아직 싫어요를 안한 경우
+      if (!hasDislikedPost) {
         await postLikeAction(mapping_ID)
+        await getPostDetail(mapping_ID).then(({ post }) => {
+          setDislikeChannelPost(post)
+        })
+
+        return
+      }
+
+      //싫어요를 이미 한 경우
+      else {
+        const disLikeID = likes.filter(
+          (like) => like.user === isValidateUser?._id,
+        )[0]._id
+        await postLikeCancelAction(disLikeID)
+        await getPostDetail(mapping_ID).then(({ post }) => {
+          setDislikeChannelPost(post)
+        })
+        return
       }
     } catch (error) {
       //TODO - 해당 경우 에러 처리
     }
-  }, [router, mapping_ID])
+  }, [router, mapping_ID, dislikeChannelPost])
 
   return (
     <div className="post-detail">
@@ -82,8 +143,8 @@ export async function PostDetailTemplate({
       </div>
 
       <LikeDisLikeContainer
-        like={initPost.likes.length}
-        dislike={disLikeChannelPost.likes.length}
+        like={likeChannelPost.likes.length}
+        dislike={dislikeChannelPost.likes.length}
         onClickLike={handleOnClickLikeBtn}
         onClickDisLike={handleOnClickDisLikeBtn}
       />
@@ -91,4 +152,3 @@ export async function PostDetailTemplate({
     </div>
   )
 }
-

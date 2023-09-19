@@ -29,6 +29,9 @@ export default function LikeDisLikeContainer({
         width={30}
         height={30}
         onClick={handleClickLike}
+        style={{
+          cursor: 'pointer',
+        }}
       />
       <Text textStyle="subtitle1">잘 샀어요</Text>
       <LikeDisLikeProgressBar like={like} dislike={dislike} />
@@ -38,6 +41,9 @@ export default function LikeDisLikeContainer({
         width={30}
         height={30}
         onClick={handleClickDisLike}
+        style={{
+          cursor: 'pointer',
+        }}
       />
       <Text textStyle="subtitle1">흑우에요</Text>
     </div>

@@ -37,15 +37,19 @@ export async function GET(req: NextRequest) {
     const postDetail: Post = await fetchPostDetail(id)
     const foreign_postDetail_key = JSON.parse(postDetail.title).mapping_ID
 
-    //기존 포스트와 대응하는 싫어요 채널의 포스트
-    const dislikePostDetail: Post = await fetchPostDetail(
-      foreign_postDetail_key,
-    )
+    if (foreign_postDetail_key) {
+      //기존 포스트와 대응하는 싫어요 채널의 포스트
+      const dislikePostDetail: Post = await fetchPostDetail(
+        foreign_postDetail_key,
+      )
 
-    return new Response(
-      JSON.stringify({ post: postDetail, disLikePost: dislikePostDetail }),
-      { status: 200 },
-    )
+      return new Response(
+        JSON.stringify({ post: postDetail, disLikePost: dislikePostDetail }),
+        { status: 200 },
+      )
+    }
+
+    return new Response(JSON.stringify({ post: postDetail }))
   } catch (error) {
     if (error instanceof Error)
       return new Response(JSON.stringify({ error: error.message }), {
