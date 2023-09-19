@@ -1,9 +1,10 @@
 import { CSSProperties } from 'react'
+import classNames from 'classnames'
 import Color from '@/types/color'
 import './index.scss'
 
 type TextProps = {
-  children: string
+  children: React.ReactNode
   textStyle:
     | 'heading0-bold'
     | 'heading1-bold'
@@ -20,17 +21,22 @@ type TextProps = {
     | 'caption1-bold'
   color?: Color
   style?: CSSProperties
+  className?: string
 }
 
 export default function Text({
   children,
   textStyle,
   color = 'gray-5',
+  className,
   ...style
 }: TextProps) {
   return (
     <div
-      className={`${textStyle.replace('-', ' ')} color--${color}`}
+      className={classNames(
+        `${textStyle.replace('-', ' ')} color--${color}`,
+        className,
+      )}
       {...style}
     >
       {children}

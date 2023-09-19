@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { notify } from '@/components/atoms/Toast'
 import { constants } from '@/config/constants'
 import { logoutUser } from '@/services/auth'
 
@@ -9,7 +10,7 @@ export const useLogout = () => {
       await logoutUser(token)
       location.reload()
     } catch (error) {
-      console.error(error)
+      notify('error', '로그아웃에 실패했습니다.')
     }
   }
 

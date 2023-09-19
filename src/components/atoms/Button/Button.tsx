@@ -5,7 +5,7 @@ type ButtonProps = Partial<{
   text: string
   width: number
   height: number
-  variant: 'default' | 'warning' | 'disabled'
+  variant: 'default' | 'warning' | 'disabled' | 'done'
   rounded?: 'rounded-md' | 'rounded-lg'
   isShadowed: boolean
   type: 'button' | 'reset' | 'submit' | undefined

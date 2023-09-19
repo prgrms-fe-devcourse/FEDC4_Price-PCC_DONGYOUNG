@@ -1,14 +1,15 @@
-import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { PostDetailTemplate } from '@/components/templates/PostDetailTemplate/PostDetailTemplate'
 import { getPostDetail } from '@/services/post'
 
-export default async function Post() {
-  const postHeaders = headers()
-  const getPathName =
-    postHeaders.get('x-invoke-path')?.replaceAll('/post/', '') || ''
+type PostPageProps = {
+  params: {
+    postId: string
+  }
+}
 
-  const initPost = await getPostDetail(getPathName).catch(() => {
+export default async function Post({ params }: PostPageProps) {
+  const initPost = await getPostDetail(params.postId).catch(() => {
     redirect('/')
   })
 
@@ -16,8 +17,8 @@ export default async function Post() {
     <PostDetailTemplate
       disLikeChannelPost={initPost.disLikePost}
       initPost={initPost.post}
-      postId={getPathName}
       mapping_ID={JSON.parse(initPost.post.title) || ''}
-    ></PostDetailTemplate>
+      postId={params.postId}
+    />
   )
 }
