@@ -10,6 +10,13 @@
   position: fixed;
   margin-top: 14rem;
   border: 0.1rem solid #f0f0f0;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease-in-out;
+
+  &.close {
+    opacity: 0;
+    pointer-events: none; // Disable interactions
+  }
 
   a,
   .logout-button {
