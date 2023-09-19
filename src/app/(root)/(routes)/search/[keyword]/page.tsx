@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { searchData } from '@/services/search'
 
 type keywordProps = {
@@ -7,10 +8,10 @@ type keywordProps = {
 }
 
 export default async function Search({ params }: keywordProps) {
-  console.log('params.keyword = ', params.keyword)
-  const data = await searchData(params.keyword).catch((error) => {
-    console.log('error = ', error)
+  const data = await searchData(params.keyword).catch(() => {
+    redirect('/')
   })
+
   console.log(data)
 
   return <></>

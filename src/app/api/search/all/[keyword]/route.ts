@@ -2,9 +2,11 @@ import { NextRequest } from 'next/server'
 import Post from '@/types/post'
 
 async function fetchSearchData(keyword: string) {
+  const decodeKeyword = decodeURI(keyword)
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ADDRESS}/search/all/${keyword}`,
+      `${process.env.NEXT_PUBLIC_API_ADDRESS}/search/all/${decodeKeyword}`,
       {
         cache: 'no-cache',
       },
@@ -23,8 +25,7 @@ async function fetchSearchData(keyword: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const keyword = req.nextUrl.pathname.replace('api/search/all', '')
-  console.log(`keyword = ${keyword}`)
+  const keyword = req.nextUrl.pathname.replace('/api/search/all/', '')
 
   try {
     const datas = await fetchSearchData(keyword)
@@ -44,7 +45,6 @@ export async function GET(req: NextRequest) {
         }
       }
     })
-    console.log('parsedDatas = ', parsedDatas)
     return new Response(JSON.stringify(parsedDatas), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
