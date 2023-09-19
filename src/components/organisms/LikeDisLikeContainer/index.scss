@@ -10,11 +10,13 @@
   }
   &__likes {
     display: flex;
+    align-items: center;
     gap: 3px;
   }
 
   &__dislikes {
     display: flex;
+    align-items: center;
     gap: 3px;
   }
 }

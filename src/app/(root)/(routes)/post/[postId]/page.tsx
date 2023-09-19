@@ -17,7 +17,7 @@ export default async function Post({ params }: PostPageProps) {
     <PostDetailTemplate
       disLikeChannelPost={initPost.disLikePost}
       initPost={initPost.post}
-      mapping_ID={JSON.parse(initPost.post.title) || ''}
+      mapping_ID={JSON.parse(initPost.post.title).mapping_ID || ''}
       postId={params.postId}
     />
   )

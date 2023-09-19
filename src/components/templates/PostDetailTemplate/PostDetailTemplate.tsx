@@ -1,12 +1,16 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
+import parse from 'html-react-parser'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
+import { Text } from '@/components/atoms/Text'
+import { notify } from '@/components/atoms/Toast'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
+import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { validateToken } from '@/services/auth'
 import { getPostDetail } from '@/services/post'
@@ -31,6 +35,8 @@ export function PostDetailTemplate({
   const { currentUser } = useCurrentUser()
   const { title, comment, image, author } = initPost
 
+  const { title: postTitle, description } = JSON.parse(title)
+
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
   const [dislikeChannelPost, setDislikeChannelPost] =
     useState<Post>(disLikeChannelPost)
@@ -38,7 +44,7 @@ export function PostDetailTemplate({
   const handleOnClickLikeBtn = useCallback(async () => {
     const isValidateUser = await validateToken()
     if (!isValidateUser) {
-      //TODO - 에러 토스트 처리
+      notify('error', POST_CONSTANT.LIKE_ERROR)
       router.replace(APP_PATH.login())
       return
     }
@@ -70,14 +76,14 @@ export function PostDetailTemplate({
         return
       }
     } catch (error) {
-      //TODO - 해당 경우 에러 처리
+      notify('error', POST_CONSTANT.LIKE_API_ERROR)
     }
   }, [router, likeChannelPost, currentUser?._id])
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     const isValidateUser = await validateToken()
     if (!isValidateUser) {
-      //TODO - 에러 토스트 처리
+      notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
       router.replace(APP_PATH.login())
       return
     }
@@ -117,7 +123,7 @@ export function PostDetailTemplate({
         return
       }
     } catch (error) {
-      //TODO - 해당 경우 에러 처리
+      notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
   }, [router, mapping_ID, dislikeChannelPost, currentUser?._id])
 
@@ -128,17 +134,33 @@ export function PostDetailTemplate({
           size={5}
           src={initPost?.author?.image ?? ''}
           text={author.fullName}
-          textStyle={{
-            fontWeight: 'bold',
-            marginLeft: '15px',
-          }}
-        />
+        >
+          <Text
+            textStyle="heading1-bold"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              marginLeft: '27px',
+            }}
+          >
+            {author.fullName}
+          </Text>
+        </Avatar>
       </div>
-
+      <Text
+        textStyle="heading0-bold"
+        style={{
+          display: 'flex',
+          width: '80%',
+          margin: '0 auto',
+        }}
+      >
+        {parse(postTitle)}
+      </Text>
       <div className="post-detail__post-container">
-        <h1>{title}</h1>
+        <Text textStyle="body1">{parse(description)}</Text>
         {image && (
-          <Image src={image || ''} width={30} height={30} alt="image" />
+          <Image src={image || ''} width={250} height={250} alt="image" />
         )}
       </div>
 
