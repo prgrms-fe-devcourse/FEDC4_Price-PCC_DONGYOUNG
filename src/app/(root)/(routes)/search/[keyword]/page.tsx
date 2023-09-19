@@ -1,12 +1,17 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
 import { searchData } from '@/services/search'
 
-export default function Search() {
-  const pathname = usePathname()
-  const keyword = pathname.split('/')[2]
-  console.log(searchData(keyword))
+type keywordProps = {
+  params: {
+    keyword: string
+  }
+}
 
-  return <div>검색 페이지</div>
+export default async function Search({ params }: keywordProps) {
+  console.log('params.keyword = ', params.keyword)
+  const data = await searchData(params.keyword).catch((error) => {
+    console.log('error = ', error)
+  })
+  console.log(data)
+
+  return <></>
 }
