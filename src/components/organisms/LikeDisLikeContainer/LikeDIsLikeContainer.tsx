@@ -8,7 +8,7 @@ import debounce from '@/utils/debounce'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
-export default function LikeDisLikeContainer({
+export default function LikeDislikeContainer({
   like,
   dislike,
   onClickLike,

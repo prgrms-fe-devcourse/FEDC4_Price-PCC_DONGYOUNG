@@ -7,6 +7,7 @@ import Avatar from '@/components/atoms/Avatar'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { validateToken } from '@/services/auth'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
@@ -27,6 +28,7 @@ export function PostDetailTemplate({
   mapping_ID,
 }: PostDetailTemplateProps) {
   const router = useRouter()
+  const { currentUser } = useCurrentUser()
   const { title, comment, image, author } = initPost
 
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
@@ -43,9 +45,7 @@ export function PostDetailTemplate({
 
     try {
       const { _id, likes } = likeChannelPost
-      const hasLikedPost = likes.some(
-        (like) => like.user === isValidateUser?._id,
-      )
+      const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
 
       //좋아요를 아직 하지 않은 경우
       if (!hasLikedPost) {
@@ -59,9 +59,8 @@ export function PostDetailTemplate({
       //좋아요를 한 경우
       //좋아요의 ID를 뽑아옴
       else {
-        const likeId = likes.filter(
-          (like) => like.user === isValidateUser?._id,
-        )[0]._id
+        const likeId = likes.filter((like) => like.user === currentUser?._id)[0]
+          ._id
 
         await postLikeCancelAction(likeId)
         await getPostDetail(_id).then(({ post }) => {
@@ -73,7 +72,7 @@ export function PostDetailTemplate({
     } catch (error) {
       //TODO - 해당 경우 에러 처리
     }
-  }, [router, likeChannelPost])
+  }, [router, likeChannelPost, currentUser?._id])
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     const isValidateUser = await validateToken()
@@ -93,7 +92,7 @@ export function PostDetailTemplate({
 
       //해당 게시글을 싫어요를 했는지?
       const hasDislikedPost = likes.some(
-        (disLike) => disLike.user === isValidateUser?._id,
+        (disLike) => disLike.user === currentUser?._id,
       )
 
       //아직 싫어요를 안한 경우
@@ -109,7 +108,7 @@ export function PostDetailTemplate({
       //싫어요를 이미 한 경우
       else {
         const disLikeID = likes.filter(
-          (like) => like.user === isValidateUser?._id,
+          (like) => like.user === currentUser?._id,
         )[0]._id
         await postLikeCancelAction(disLikeID)
         await getPostDetail(mapping_ID).then(({ post }) => {
@@ -120,7 +119,7 @@ export function PostDetailTemplate({
     } catch (error) {
       //TODO - 해당 경우 에러 처리
     }
-  }, [router, mapping_ID, dislikeChannelPost])
+  }, [router, mapping_ID, dislikeChannelPost, currentUser?._id])
 
   return (
     <div className="post-detail">
