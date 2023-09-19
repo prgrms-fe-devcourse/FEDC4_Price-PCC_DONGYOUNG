@@ -5,6 +5,7 @@ import { deleteFollow, postFollow } from '@/services/follow'
 import User from '@/types/user'
 import { useCurrentUser } from './useCurrentUser'
 
+//FIXME: 정리되지 않은 코드입니다. 정리 후 사용해주세요.
 /**
  *
  * @returns param isFollowing: 로그인한 유저가 현재 페이지의 유저를 팔로우하고 있는지 여부
@@ -49,8 +50,6 @@ const useFollow = (userData: User) => {
   const followToggle = async () => {
     if (!currentUser) return
     if (isFollowing) {
-      setIsFollowing(false)
-      setFollowerCount((prev) => prev - 1)
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
@@ -58,11 +57,34 @@ const useFollow = (userData: User) => {
 
       setFollowId(() => followData?._id ?? '')
       await deleteFollow(followData?._id ?? followId)
+      setIsFollowing(false)
+
+      currentUser.following?.splice(
+        currentUser.following.findIndex(
+          ({ follower }) => follower === userData._id,
+        ),
+        1,
+      )
+      userData.followers?.splice(
+        userData.followers.findIndex(
+          (follower) => follower._id === currentUser._id,
+        ),
+        1,
+      )
+      setFollowerCount((prev) => prev - 1)
     } else {
-      setIsFollowing(true)
-      setFollowerCount((prev) => prev + 1)
       const followData = await postFollow(userData._id)
+      setIsFollowing(true)
       setFollowId(() => followData._id ?? '')
+      userData.followers?.push({
+        _id: currentUser._id,
+        follower: currentUser._id,
+        user: userData._id,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      })
+      currentUser.following?.push(followData)
+      setFollowerCount((prev) => prev + 1)
     }
   }
 
