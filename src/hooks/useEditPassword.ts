@@ -1,5 +1,4 @@
-import Cookies from 'js-cookie'
-import { constants } from '@/config/constants'
+import { notify } from '@/components/atoms/Toast'
 import { editUserPassword } from '@/services/user'
 
 export interface EditPasswordBody {
@@ -8,12 +7,10 @@ export interface EditPasswordBody {
 
 export const useEditPassword = () => {
   const editPassword = async ({ password }: EditPasswordBody) => {
-    const token = await Cookies.get(constants.AUTH_TOKEN)!
-
     try {
-      await editUserPassword(password, token)
+      await editUserPassword(password)
     } catch (error) {
-      console.error(error)
+      notify('error', '비밀번호 변경에 실패했습니다.')
     }
   }
 

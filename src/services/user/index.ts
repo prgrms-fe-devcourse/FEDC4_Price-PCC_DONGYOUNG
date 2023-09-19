@@ -10,14 +10,6 @@ export const getAllUsers = async () => {
   return data
 }
 
-export const editUserPassword = async (password: string, token: string) => {
-  await apiClient.put(
-    '/api/users/edit/password',
-    { password },
-    {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    },
-  )
+export const editUserPassword = async (password: string) => {
+  await apiClient.put('/api/users/edit/password', { password })
 }

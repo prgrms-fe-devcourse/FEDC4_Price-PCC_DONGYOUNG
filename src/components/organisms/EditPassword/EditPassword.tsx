@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import { Text } from '@/components/atoms/Text'
+import { notify } from '@/components/atoms/Toast'
 import ValidInput from '@/components/molcules/ValidInput'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
@@ -33,12 +34,15 @@ const EditPassword = ({ setPage }: SetEditProfileComponent) => {
   })
 
   return (
-    //TODO: 비밀번호 변경 완료시 처리 어떻게?
     <form
       onSubmit={handleSubmit(async (data) => {
-        await editPassword(data)
-        alert('비밀번호가 변경되었습니다.')
-        router.push(APP_PATH.home())
+        try {
+          await editPassword(data)
+          notify('success', '비밀번호를 변경했습니다.')
+          router.push(APP_PATH.home())
+        } catch (error) {
+          notify('error', '비밀번호 변경에 실패했습니다.')
+        }
       })}
     >
       <Image
