@@ -1,3 +1,4 @@
+import { ModifyFormData } from '@/hooks/useModifyPostForm'
 import { apiClient } from '@/lib/axios'
 
 interface PostUserBody {
@@ -27,4 +28,45 @@ export const getPostDetail = async (id: string) => {
   } catch (e) {
     if (e instanceof Error) throw new Error(e.message)
   }
+}
+
+export const putUserPost = async (body: ModifyFormData) => {
+  const title = JSON.stringify({
+    title: body.title,
+    description: body.description,
+  })
+  console.log(body, 'body')
+  const formData = new FormData()
+  formData.append('title', title)
+  formData.append('postId', body.postId)
+
+  // 기존 이미지가 있고, 변경 없을 때
+  if (typeof body.imageSelective.image === 'string') {
+    formData.append('image', '')
+  }
+  // 기존 이미지가 있든 없든 새로운 이미지가 있을 때
+  else if (body.imageSelective.image instanceof File) {
+    formData.append('image', body.imageSelective.image)
+  }
+  //  기존 이미지가 없고, 새로운 이미지가 없을 때
+  else if (
+    !body.imageSelective.image &&
+    !body.imageSelective.imageToDeletePublicId
+  ) {
+    formData.append('image', '')
+  }
+  // 기존 이미지가 있고, 기존 이미지를 삭제할 때
+  if (body.imageSelective.imageToDeletePublicId && !body.imageSelective.image) {
+    formData.append(
+      'imageToDeletePublicId',
+      body.imageSelective.imageToDeletePublicId,
+    )
+  }
+
+  const { data } = await apiClient.put('/api/posts/update', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return data
 }

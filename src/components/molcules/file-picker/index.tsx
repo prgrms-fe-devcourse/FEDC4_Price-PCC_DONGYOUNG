@@ -16,6 +16,7 @@ type FilePickerProps = {
   disabled?: boolean
   width?: number
   height?: number
+  defaultValue?: string
   onChange?: (_files: FileList) => void
   className?: string
 }
@@ -26,12 +27,13 @@ export default function FilePicker({
   disabled,
   width = 5,
   height = 5,
+  defaultValue = '',
   onChange,
   className,
 }: FilePickerProps) {
   useEffect(() => {})
   const [_files, setFiles] = useState<FileList | null>(null)
-  const [thumbNail, setThumbNail] = useState<string>('')
+  const [thumbNail, setThumbNail] = useState<string>(defaultValue)
   const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
 
