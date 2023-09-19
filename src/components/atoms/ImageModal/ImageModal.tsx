@@ -47,7 +47,7 @@ export default function ImageModal({
             style={{ ...style, width: `${width}rem`, height: `${height}rem` }}
             onClick={onCloseModal}
           >
-            <Card style={{ width: `${width}rem`, height: `${height}rem` }}>
+            <Card width={width} height={height}>
               {children}
             </Card>
           </div>

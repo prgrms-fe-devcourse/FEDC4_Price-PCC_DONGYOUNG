@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
-import { constants } from '@/config/constants'
 import APP_PATH from '@/config/paths'
 import { signupUser } from '@/services/auth'
 
@@ -17,7 +15,6 @@ export const useSignup = () => {
     try {
       const user = await signupUser({ email, password, fullName })
       if (user) {
-        Cookies.set(constants.AUTH_TOKEN, JSON.stringify(user))
         notify('success', '회원가입이 성공적으로 완료되었습니다.')
         router.push(APP_PATH.home())
         return user

@@ -142,7 +142,7 @@ const SignUpForm = () => {
             fullName: data.name,
           })
           if (user) {
-            router.push(APP_PATH.login())
+            router.push(APP_PATH.home())
           }
         })}
         text="회원가입"
