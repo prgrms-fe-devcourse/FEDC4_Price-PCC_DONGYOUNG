@@ -1,0 +1,13 @@
+@import '@/styles/variables.scss';
+
+.valid-input-container {
+  margin-bottom: 1.5rem;
+
+  &__error-message {
+    font-size: 0.8rem;
+    
+    @include themed() {
+      color: t(highlight)
+    }
+  }
+}
