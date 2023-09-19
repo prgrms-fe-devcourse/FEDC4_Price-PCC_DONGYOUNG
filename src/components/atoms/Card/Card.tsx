@@ -1,10 +1,12 @@
 import React, { CSSProperties, ReactNode } from 'react'
+import classNames from 'classnames'
 import './index.scss'
 
 export type CardProps = {
   children: ReactNode
   width?: number
   height?: number
+  className?: string
   style?: CSSProperties
 }
 
@@ -18,12 +20,13 @@ export default function Card({
   children,
   width,
   height,
+  className,
   style,
   ...props
 }: CardProps) {
   return (
     <div
-      className="card-container"
+      className={classNames('card-container', className)}
       {...props}
       style={{ width: `${width}rem`, height: `${height}rem`, ...style }}
     >
