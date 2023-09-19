@@ -9,7 +9,6 @@ export async function PUT(request: Request) {
   formData.append('channelId', channelId)
 
   const { token } = useServerCookie()
-  console.log(formData, 'formData')
   try {
     const { data } = await apiServer.put(`/posts/update`, formData, {
       headers: {

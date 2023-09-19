@@ -25,7 +25,6 @@ export const useModifyPostForm = () => {
     postId,
     imageSelective,
   }: ModifyFormData) => {
-    console.log(title, description, postId, imageSelective, 'title')
     try {
       const res = await putUserPost({
         title,

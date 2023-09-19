@@ -1,10 +1,14 @@
 'use client'
 
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import Quill from '@/components/atoms/Quill'
+import { notify } from '@/components/atoms/Toast'
 import FilePicker from '@/components/molcules/file-picker'
+import APP_PATH from '@/config/paths'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { useModifyPostForm } from '@/hooks/useModifyPostForm'
 import Post from '@/types/post'
 import './index.scss'
@@ -17,9 +21,10 @@ export default function ModifyPostPageTemplate({
   postData,
 }: ModifyPostPageTemplateProps) {
   const { register, onSubmit, titleError, setValue } = useModifyPostForm()
+  const { currentUser } = useCurrentUser()
+  const router = useRouter()
 
   useLayoutEffect(() => {
-    console.log(postData, 'postData')
     setValue('postId', postData._id)
     setValue('title', postData.title)
     setValue('description', postData.description)
@@ -28,6 +33,13 @@ export default function ModifyPostPageTemplate({
       imageToDeletePublicId: postData.imagePublicId,
     })
   }, [postData, setValue])
+
+  useEffect(() => {
+    if (currentUser && postData.author._id !== currentUser?._id) {
+      router.push(APP_PATH.postDetail(postData._id))
+      notify('warning', '올바르지 않은 접근입니다.')
+    }
+  }, [currentUser, postData, router])
 
   return (
     <form className="upload-page" onSubmit={onSubmit}>
@@ -62,8 +74,8 @@ export default function ModifyPostPageTemplate({
           defaultValue={postData.image}
           onChange={(file) => {
             setValue('imageSelective', {
-              image: file[0],
-              imageToDeletePublicId: undefined,
+              image: file?.[0] ?? null,
+              imageToDeletePublicId: postData.imagePublicId,
             })
           }}
         />

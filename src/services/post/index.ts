@@ -35,7 +35,6 @@ export const putUserPost = async (body: ModifyFormData) => {
     title: body.title,
     description: body.description,
   })
-  console.log(body, 'body')
   const formData = new FormData()
   formData.append('title', title)
   formData.append('postId', body.postId)
