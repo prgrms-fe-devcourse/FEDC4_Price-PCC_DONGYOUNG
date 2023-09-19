@@ -56,9 +56,6 @@ export default function FilePicker({
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    e.stopPropagation()
-
-    console.log(e)
 
     if (e.target.files) {
       setFiles(e.target.files)
