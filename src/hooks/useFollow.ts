@@ -29,8 +29,18 @@ const useFollow = (userData: User) => {
     if (!currentUser) return
     setFollowerCount(() => userData.followers?.length ?? 0)
     setFollowingCount(() => userData.following?.length ?? 0)
-    setIsFollowing(() => userData.followers?.includes(currentUser._id) ?? false)
-    setIsFollowed(() => currentUser?.followers?.includes(userData._id) ?? false)
+    setIsFollowing(
+      () =>
+        userData.followers?.some(
+          (follower) => follower.follower === currentUser?._id,
+        ) ?? false,
+    )
+    setIsFollowed(
+      () =>
+        currentUser?.followers?.some(
+          (follower) => userData._id === follower._id,
+        ) ?? false,
+    )
   }, [
     currentUser,
     userData._id,
@@ -41,19 +51,40 @@ const useFollow = (userData: User) => {
   const followToggle = async () => {
     if (!currentUser) return
     if (isFollowing) {
-      const followedUserId = currentUser.following?.find(
-        (_id) => _id === userData._id,
+      setFollowerCount((prev) => prev - 1)
+      setIsFollowing(false)
+      const followData = currentUser.following?.find(
+        ({ user }) => user === userData._id,
       )
 
-      setFollowId(() => followedUserId ?? '')
-      setIsFollowing(false)
-      setFollowerCount((prev) => prev - 1)
-      await deleteFollow(followedUserId ?? followId)
+      setFollowId(() => followData?._id ?? '')
+      await deleteFollow(followData?._id ?? followId)
+
+      currentUser.following?.splice(
+        currentUser.following.findIndex(
+          ({ follower }) => follower === userData._id,
+        ),
+        1,
+      )
+      userData.followers?.splice(
+        userData.followers.findIndex(
+          (follower) => follower._id === currentUser._id,
+        ),
+        1,
+      )
     } else {
       setIsFollowing(true)
       setFollowerCount((prev) => prev + 1)
       const followData = await postFollow(userData._id)
-      setFollowId(() => followData.user ?? '')
+      setFollowId(() => followData._id ?? '')
+      userData.followers?.push({
+        _id: currentUser._id,
+        follower: currentUser._id,
+        user: userData._id,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      })
+      currentUser.following?.push(followData)
     }
   }
 
