@@ -24,22 +24,13 @@ const useFollow = (userData: User) => {
   const [followerCount, setFollowerCount] = useState(0)
   const [followingCount, setFollowingCount] = useState(0)
 
+  console.log('userData', userData)
   useEffect(() => {
     if (!currentUser) return
     setFollowerCount(() => userData.followers?.length ?? 0)
     setFollowingCount(() => userData.following?.length ?? 0)
-    setIsFollowing(
-      () =>
-        userData.followers?.some(
-          (follower) => follower.follower === currentUser?._id,
-        ) ?? false,
-    )
-    setIsFollowed(
-      () =>
-        currentUser?.followers?.some(
-          (follower) => userData._id === follower._id,
-        ) ?? false,
-    )
+    setIsFollowing(() => userData.followers?.includes(currentUser._id) ?? false)
+    setIsFollowed(() => currentUser?.followers?.includes(userData._id) ?? false)
   }, [
     currentUser,
     userData._id,
@@ -50,41 +41,19 @@ const useFollow = (userData: User) => {
   const followToggle = async () => {
     if (!currentUser) return
     if (isFollowing) {
-      const followData = currentUser.following?.find(
-        ({ user }) => user === userData._id,
+      const followedUserId = currentUser.following?.find(
+        (_id) => _id === userData._id,
       )
-      console.log(userData, currentUser, followData)
 
-      setFollowId(() => followData?._id ?? '')
-      await deleteFollow(followData?._id ?? followId)
+      setFollowId(() => followedUserId ?? '')
       setIsFollowing(false)
-
-      currentUser.following?.splice(
-        currentUser.following.findIndex(
-          ({ follower }) => follower === userData._id,
-        ),
-        1,
-      )
-      userData.followers?.splice(
-        userData.followers.findIndex(
-          (follower) => follower._id === currentUser._id,
-        ),
-        1,
-      )
       setFollowerCount((prev) => prev - 1)
+      await deleteFollow(followedUserId ?? followId)
     } else {
-      const followData = await postFollow(userData._id)
       setIsFollowing(true)
-      setFollowId(() => followData._id ?? '')
-      userData.followers?.push({
-        _id: currentUser._id,
-        follower: currentUser._id,
-        user: userData._id,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      })
-      currentUser.following?.push(followData)
       setFollowerCount((prev) => prev + 1)
+      const followData = await postFollow(userData._id)
+      setFollowId(() => followData.user ?? '')
     }
   }
 
