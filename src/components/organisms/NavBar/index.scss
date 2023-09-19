@@ -1,13 +1,15 @@
 @import '/src/styles/global-layout.scss';
 
 .nav-container {
-  width: 20rem;
+  width: fit-content;
+  padding: 0 2rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 0 1rem 1rem 0;
   position: fixed;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
   top: 0%;
 
   .image-button {
