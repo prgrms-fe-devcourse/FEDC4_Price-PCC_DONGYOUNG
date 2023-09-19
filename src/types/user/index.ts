@@ -13,8 +13,8 @@ interface User {
   posts?: Post[]
   likes?: Like[]
   comments?: string[]
-  followers?: Follower[]
-  following?: Following[]
+  followers?: string[]
+  following?: string[]
   notifications?: Notification[]
   messages?: Message[]
   _id: string
@@ -24,19 +24,4 @@ interface User {
   __v?: number
 }
 
-interface Following {
-  _id: string
-  user: string
-  follower: string
-  createdAt: string
-  updatedAt: string
-}
-
-interface Follower {
-  _id: string
-  user: string
-  follower: string
-  createdAt: string
-  updatedAt: string
-}
 export default User
