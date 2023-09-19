@@ -3,13 +3,11 @@
 import React, { useCallback, useState } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
-import APP_PATH from '@/config/paths'
 import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { getPostDetail } from '@/services/post'
@@ -30,7 +28,6 @@ export function PostDetailTemplate({
   disLikeChannelPost,
   mapping_ID,
 }: PostDetailTemplateProps) {
-  const router = useRouter()
   const { currentUser, isLoggedIn } = useCurrentUser()
   const { title, comment, image, author } = initPost
 
@@ -43,7 +40,6 @@ export function PostDetailTemplate({
   const handleOnClickLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
       notify('error', POST_CONSTANT.LIKE_ERROR)
-      router.replace(APP_PATH.login())
       return
     }
 
@@ -76,12 +72,11 @@ export function PostDetailTemplate({
     } catch (error) {
       notify('error', POST_CONSTANT.LIKE_API_ERROR)
     }
-  }, [isLoggedIn, router, likeChannelPost, currentUser?._id])
+  }, [isLoggedIn, likeChannelPost, currentUser?._id])
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
-      router.replace(APP_PATH.login())
       return
     }
 
@@ -122,7 +117,7 @@ export function PostDetailTemplate({
     } catch (error) {
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
-  }, [isLoggedIn, router, mapping_ID, dislikeChannelPost, currentUser?._id])
+  }, [isLoggedIn, mapping_ID, dislikeChannelPost, currentUser?._id])
 
   return (
     <div className="post-detail">
