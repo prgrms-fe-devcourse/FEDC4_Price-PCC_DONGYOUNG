@@ -138,7 +138,6 @@ export default function FilePicker({
         type="button"
         disabled={disabled}
         onClick={handleOnClickUploadBtn}
-        type="button"
         className="file-picker__button"
       >
         {!hasThumbNailImage && (
@@ -161,4 +160,3 @@ export default function FilePicker({
     </div>
   )
 }
-

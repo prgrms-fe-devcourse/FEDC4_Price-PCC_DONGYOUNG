@@ -1,5 +1,4 @@
 import React, { CSSProperties, ReactNode } from 'react'
-import classNames from 'classnames'
 import './index.scss'
 
 export type CardProps = {
