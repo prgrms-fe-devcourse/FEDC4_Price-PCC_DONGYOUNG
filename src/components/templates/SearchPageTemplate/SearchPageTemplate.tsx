@@ -40,7 +40,7 @@ export default function SearchPageTemplate({ data }: dataType) {
     <div className="wrapper">
       <div className="container">
         <div className="search-page-headline color-bg--bg-2">
-          <div className="button-container color-bg--bg-1">
+          <div className="category-button-container color-bg--bg-1">
             <CategoryButton
               title="게시글"
               count={post.length}
