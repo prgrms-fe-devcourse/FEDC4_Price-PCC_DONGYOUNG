@@ -29,13 +29,13 @@ export default function Follows({ userData }: { userData: User }) {
       <div className="follow_info">
         <InfoCount
           text="팔로워"
-          number={followerCount.toString()}
-          onClick={() => handleFollowModalOpen(true)}
+          count={followerCount.toString()}
+          onClick={() => followerCount && handleFollowModalOpen(true)}
         />
         <InfoCount
           text="팔로잉"
-          number={followingCount.toString()}
-          onClick={() => handleFollowModalOpen(false)}
+          count={followingCount.toString()}
+          onClick={() => followingCount && handleFollowModalOpen(false)}
         />
       </div>
       <div className="follow_buttons">
@@ -55,18 +55,22 @@ export default function Follows({ userData }: { userData: User }) {
 
 const InfoCount = ({
   text,
-  number = '0',
+  count = '0',
   onClick,
 }: {
   text: string
-  number?: string
+  count?: string
   onClick: React.MouseEventHandler<HTMLButtonElement>
 }) => {
   return (
     <>
-      <button className="info_count" onClick={onClick}>
+      <button
+        className="info_count"
+        onClick={onClick}
+        style={{ cursor: `${Number(count) === 0 ? 'auto' : 'pointer'}` }}
+      >
         <Text textStyle="body1-bold">{text}</Text>
-        <Text textStyle="body1-bold">{number}</Text>
+        <Text textStyle="body1-bold">{count}</Text>
       </button>
     </>
   )
