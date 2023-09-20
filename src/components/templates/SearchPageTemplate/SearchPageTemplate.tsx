@@ -2,16 +2,18 @@
 
 import { useState } from 'react'
 import { Text } from '@/components/atoms/Text'
+import PostGrid from '@/components/organisms/PostGrid'
+import UserGrid from '@/components/organisms/UserGrid'
 import Post from '@/types/post'
-import User from '@/types/user'
+import { UserSummary } from '@/types/user'
 import './index.scss'
 
 type dataType = {
-  data: Post[] | User[]
+  data: Post[] | UserSummary[]
 }
 
 export default function SearchPageTemplate({ data }: dataType) {
-  const user: User[] = []
+  const user: UserSummary[] = []
   const post: Post[] = []
   const [postClick, setPostClick] = useState(true)
   const [userClick, setUserClick] = useState(false)
@@ -26,31 +28,38 @@ export default function SearchPageTemplate({ data }: dataType) {
     }
   }
 
-  const isUser = (target: User | Post): target is User => {
-    return (target as User).fullName !== undefined
+  const isUser = (target: UserSummary | Post): target is UserSummary => {
+    return (target as UserSummary).fullName !== undefined
   }
 
-  data.forEach((value: User | Post) => {
+  data?.forEach((value: UserSummary | Post) => {
     isUser(value) ? user.push(value) : post.push(value)
   })
 
   return (
-    <div className="container">
-      <div className="search-page-headline">
-        <div className="button-container color-bg--bg-1">
-          <CategoryButton
-            title="게시글"
-            count={post.length}
-            isClick={postClick}
-            onClick={() => handleClick('post')}
-          />
-          <CategoryButton
-            title="사용자"
-            count={user.length}
-            isClick={userClick}
-            onClick={() => handleClick('user')}
-          />
+    <div className="wrapper">
+      <div className="container">
+        <div className="search-page-headline color-bg--bg-2">
+          <div className="button-container color-bg--bg-1">
+            <CategoryButton
+              title="게시글"
+              count={post.length}
+              isClick={postClick}
+              onClick={() => handleClick('post')}
+            />
+            <CategoryButton
+              title="사용자"
+              count={user.length}
+              isClick={userClick}
+              onClick={() => handleClick('user')}
+            />
+          </div>
         </div>
+        {postClick ? (
+          <PostGrid data={post}></PostGrid>
+        ) : (
+          <UserGrid data={user}></UserGrid>
+        )}
       </div>
     </div>
   )

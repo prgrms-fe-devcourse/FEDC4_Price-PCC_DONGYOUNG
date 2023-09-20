@@ -8,7 +8,7 @@ import './index.scss'
 
 export type CardUserPropsType = {
   _id: string
-  image: string
+  image?: string
   fullName: string
   followers: string[]
   following: string[]
