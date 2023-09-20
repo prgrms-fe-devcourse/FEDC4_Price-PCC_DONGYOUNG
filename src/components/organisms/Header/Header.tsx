@@ -49,7 +49,7 @@ export default function Header() {
             text={cachedCurrentUser ? cachedCurrentUser.fullName : ''}
             textStyle={{
               fontWeight: 'bold',
-              paddingLeft: '0.5rem',
+              padding: '0 0.5rem 0 0.5rem',
               wordBreak: 'keep-all',
             }}
           />

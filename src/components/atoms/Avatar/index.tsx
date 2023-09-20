@@ -98,7 +98,6 @@ const Description = ({
       style={{
         color: textColor,
         ...textStyle,
-        width: '200px',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -107,7 +106,6 @@ const Description = ({
       <div
         style={{
           ...textStyle,
-          width: '200px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -118,7 +116,6 @@ const Description = ({
       <div
         style={{
           ...textStyle,
-          width: '200px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
