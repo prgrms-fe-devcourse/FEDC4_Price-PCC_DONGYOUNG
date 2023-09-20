@@ -1,20 +1,20 @@
 import classNames from 'classnames'
 import { Text } from '@/components/atoms/Text'
-import useFollow from '@/hooks/useFollow'
-import User from '@/types/user'
 import './index.scss'
 
 type FollowToggleButtonProps = {
-  userData: User
   size: 'small' | 'large'
+  followToggle: () => Promise<void>
+  unavailable: boolean
+  isFollowing: boolean
 }
 
 export default function FollowToggleButton({
-  userData,
   size,
+  followToggle,
+  unavailable,
+  isFollowing,
 }: FollowToggleButtonProps) {
-  const { unavailable, isFollowing, followToggle } = useFollow(userData)
-
   return (
     <button
       className={classNames('toggle-button', size, {

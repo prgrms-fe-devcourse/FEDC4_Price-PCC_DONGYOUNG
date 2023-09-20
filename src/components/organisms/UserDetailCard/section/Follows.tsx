@@ -10,7 +10,13 @@ import useModal from '@/hooks/useModal'
 import User from '@/types/user'
 
 export default function Follows({ userData }: { userData: User }) {
-  const { followerCount, followingCount } = useFollow(userData)
+  const {
+    unavailable,
+    isFollowing,
+    followerCount,
+    followingCount,
+    followToggle,
+  } = useFollow(userData)
 
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
   const [isFollowerModal, setIsFollowerModal] = useState(false)
@@ -39,7 +45,12 @@ export default function Follows({ userData }: { userData: User }) {
         />
       </div>
       <div className="follow_buttons">
-        <FollowToggleButton userData={userData} size="large" />
+        <FollowToggleButton
+          size="large"
+          followToggle={followToggle}
+          unavailable={unavailable}
+          isFollowing={isFollowing}
+        />
       </div>
       <ModalProvider
         isOpen={isModalOpen}
