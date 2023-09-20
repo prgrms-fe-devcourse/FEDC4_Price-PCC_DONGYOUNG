@@ -94,7 +94,7 @@ const Description = ({
 }: AvatarTextProps) => {
   return (
     <span
-      className={`color-${textColor} text-${textDirection} textSize-${textSize}`}
+      className={`color--${textColor} text-${textDirection} textSize-${textSize}`}
       style={{
         color: textColor,
         ...textStyle,
