@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
-import { searchData } from '@/services/search'
-import Post from '@/types/post'
-import User from '@/types/user'
+import SearchPageTemplate from '@/components/templates/SearchPageTemplate'
+import { getSearchData } from '@/services/search'
 
 type keywordProps = {
   params: {
@@ -10,20 +9,9 @@ type keywordProps = {
 }
 
 export default async function Search({ params }: keywordProps) {
-  const data = await searchData(params.keyword).catch(() => {
+  const data = await getSearchData(params.keyword).catch(() => {
     redirect('/')
   })
 
-  const user: User[] = []
-  const post: Post[] = []
-
-  const isUser = (target: User | Post): target is User => {
-    return (target as User).fullName !== undefined
-  }
-
-  data.forEach((value: User | Post) => {
-    isUser(value) ? user.push(value) : post.push(value)
-  })
-
-  return <></>
+  return <SearchPageTemplate data={data}></SearchPageTemplate>
 }

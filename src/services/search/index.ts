@@ -1,6 +1,6 @@
 import { apiClient } from '@/lib/axios'
 
-export const searchData = async (keyword: string) => {
+export const getSearchData = async (keyword: string) => {
   try {
     const { data } = await apiClient.get(`/api/search/all/${keyword}`)
     return data

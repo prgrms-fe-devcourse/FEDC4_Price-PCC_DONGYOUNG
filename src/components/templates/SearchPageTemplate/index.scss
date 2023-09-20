@@ -1,0 +1,43 @@
+@mixin centerAlign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-page-headline {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: fit-content;
+  background-color: transparent;
+  padding: 2rem 0rem 1rem 25rem;
+  left: 0%;
+}
+
+.button-container {
+  @include centerAlign();
+  width: 13rem;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+}
+
+.category-button {
+  @include centerAlign();
+  border: none;
+  gap: 0.2rem;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &.click-true {
+    .category-text {
+      color: #e2af3c; // primary-4
+    }
+  }
+}
