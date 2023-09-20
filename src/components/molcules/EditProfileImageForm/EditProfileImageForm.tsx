@@ -17,11 +17,18 @@ const EditProfileImageForm = ({
   const { editProfileImage } = useEditProfileImage()
   const [profile, setProfile] = useState<File | null>(null)
   const selectProfileFile = useRef<HTMLInputElement | null>(null)
+  const [thumnail, setThumnail] = useState(image || Assets.PCCImage)
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
 
     if (e.target.files) {
+      const blob = new Blob([e.target.files[0]], {
+        type: e.target.files[0].type,
+      })
+
+      const thumbNailImage = URL.createObjectURL(blob)
+      setThumnail(thumbNailImage)
       setProfile(e.target.files[0])
     }
   }
@@ -36,7 +43,7 @@ const EditProfileImageForm = ({
       />
       <Image
         onClick={() => selectProfileFile?.current?.click()}
-        src={image || Assets.PCCImage}
+        src={thumnail}
         width={180}
         height={180}
         style={{ borderRadius: '50%' }}
