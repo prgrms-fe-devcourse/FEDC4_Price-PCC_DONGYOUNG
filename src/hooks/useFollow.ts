@@ -5,7 +5,6 @@ import { deleteFollow, postFollow } from '@/services/follow'
 import User from '@/types/user'
 import { useCurrentUser } from './useCurrentUser'
 
-//FIXME: 정리되지 않은 코드입니다. 정리 후 사용해주세요.
 /**
  *
  * @returns param isFollowing: 로그인한 유저가 현재 페이지의 유저를 팔로우하고 있는지 여부
@@ -24,7 +23,6 @@ const useFollow = (userData: User) => {
   const [followerCount, setFollowerCount] = useState(0)
   const [followingCount, setFollowingCount] = useState(0)
 
-  console.log('userData', userData)
   useEffect(() => {
     if (!currentUser) return
     setFollowerCount(() => userData.followers?.length ?? 0)
