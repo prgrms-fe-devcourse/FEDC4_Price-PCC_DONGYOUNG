@@ -12,21 +12,32 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .search-page-headline {
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: calc(100% - 25rem);
+  height: 8rem;
   position: fixed;
-  width: calc(100% - 20rem);
-  height: 5rem;
-  margin-left: 20rem;
-  left: 0%;
-  z-index: 1;
-  margin-bottom: 2rem;
+  z-index: 90;
+  padding-left: 2rem;
+  top: 5rem;
+}
+
+.data-grid {
+  height: 100%;
+  margin-top: 5rem;
+  overflow: hidden;
+  padding: 1rem;
 }
 
 .button-container {
   @include centerAlign();
+
   width: 13rem;
   gap: 1rem;
   border-radius: 0.5rem;
@@ -35,8 +46,10 @@
 
 .category-button {
   @include centerAlign();
+
   border: none;
   gap: 0.2rem;
+  outline: none;
   cursor: pointer;
 
   &:hover,

@@ -55,11 +55,13 @@ export default function SearchPageTemplate({ data }: dataType) {
             />
           </div>
         </div>
-        {postClick ? (
-          <PostGrid data={post}></PostGrid>
-        ) : (
-          <UserGrid data={user}></UserGrid>
-        )}
+        <div className="data-grid">
+          {postClick ? (
+            <PostGrid data={post}></PostGrid>
+          ) : (
+            <UserGrid data={user}></UserGrid>
+          )}
+        </div>
       </div>
     </div>
   )
