@@ -37,6 +37,8 @@ export function PostDetailTemplate({
   const [dislikeChannelPost, setDislikeChannelPost] =
     useState<Post>(disLikeChannelPost)
 
+  //좋아요를 누른 상태라면 좋아요 취소 요청을 보내고 싫어요 요청 ㄱ
+
   const handleOnClickLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
       notify('error', POST_CONSTANT.LIKE_ERROR)
@@ -45,14 +47,29 @@ export function PostDetailTemplate({
 
     try {
       const { _id, likes } = likeChannelPost
-      const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
 
-      //좋아요를 아직 하지 않은 경우
+      const { _id: _dislikeChannelId, likes: _dislikeChannelLikes } =
+        disLikeChannelPost
+
+      const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
+      const hasDisLikedPost = _dislikeChannelLikes.some(
+        (like) => like.user === currentUser?._id,
+      )
+
+      //좋아요를 아직 하지 않은 경우 좋아요 요청을 보내고 싫어요 취소 요청
       if (!hasLikedPost) {
         await postLikeAction(_id)
         await getPostDetail(_id).then(({ post }) => {
           setLikeChannelPost(post)
         })
+
+        if (hasDisLikedPost) {
+          await postLikeCancelAction(mapping_ID)
+          await getPostDetail(mapping_ID).then(({ post }) => {
+            setDislikeChannelPost(post)
+          })
+        }
+
         return
       }
 
@@ -67,12 +84,26 @@ export function PostDetailTemplate({
           setLikeChannelPost(post)
         })
 
+        await postLikeAction(mapping_ID)
+        await getPostDetail(mapping_ID).then(({ post }) => {
+          setDislikeChannelPost(post)
+        })
+
         return
       }
     } catch (error) {
       notify('error', POST_CONSTANT.LIKE_API_ERROR)
     }
-  }, [isLoggedIn, likeChannelPost, currentUser?._id])
+  }, [
+    isLoggedIn,
+    likeChannelPost,
+    disLikeChannelPost,
+    currentUser?._id,
+    mapping_ID,
+  ])
+
+  //싫어요를 누른 상태라면 싫어요 취소 요청을 보내고 좋아요 요청 ㄱ
+  //싫어요를 누르지 않은 상태라면 싫어요 요청을 보내고 좋아요 취소 요청 ㄱ
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
@@ -88,6 +119,10 @@ export function PostDetailTemplate({
 
       const { likes } = dislikeChannelPost
 
+      const hasLikedPost = likeChannelPost.likes.some(
+        (like) => like.user === currentUser?._id,
+      )
+
       //해당 게시글을 싫어요를 했는지?
       const hasDislikedPost = likes.some(
         (disLike) => disLike.user === currentUser?._id,
@@ -99,6 +134,13 @@ export function PostDetailTemplate({
         await getPostDetail(mapping_ID).then(({ post }) => {
           setDislikeChannelPost(post)
         })
+
+        if (hasLikedPost) {
+          await postLikeCancelAction(likeChannelPost._id)
+          await getPostDetail(likeChannelPost._id).then(({ post }) => {
+            setLikeChannelPost(post)
+          })
+        }
 
         return
       }
@@ -112,12 +154,24 @@ export function PostDetailTemplate({
         await getPostDetail(mapping_ID).then(({ post }) => {
           setDislikeChannelPost(post)
         })
+
+        await postLikeAction(likeChannelPost._id)
+        await getPostDetail(likeChannelPost._id).then(({ post }) => {
+          setLikeChannelPost(post)
+        })
         return
       }
     } catch (error) {
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
-  }, [isLoggedIn, mapping_ID, dislikeChannelPost, currentUser?._id])
+  }, [
+    isLoggedIn,
+    mapping_ID,
+    dislikeChannelPost,
+    likeChannelPost.likes,
+    likeChannelPost._id,
+    currentUser?._id,
+  ])
 
   return (
     <div className="post-detail">
