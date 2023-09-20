@@ -11,7 +11,11 @@ interface FormValues {
   username: string
 }
 
-const EditNamesform = () => {
+export type NameProps = {
+  fullName: string
+}
+
+const EditNamesform = ({ fullName }: NameProps) => {
   const router = useRouter()
   const { editProfile } = useEditProfile()
 
@@ -23,7 +27,6 @@ const EditNamesform = () => {
   })
 
   return (
-    //TODO: 기존 이름, 닉네임 불러오기 및 이름
     <form
       onSubmit={handleSubmit(async (data) => {
         try {
@@ -40,18 +43,10 @@ const EditNamesform = () => {
           register('fullName', {
             required: true,
           }))}
+        placeholder={fullName}
         variant="clear"
         outline="underbar"
-        style={{ boxSizing: 'border-box', marginBottom: '1.5rem' }}
-      />
-      <Input
-        {...(register &&
-          register('username', {
-            required: true,
-          }))}
-        variant="clear"
-        outline="underbar"
-        style={{ boxSizing: 'border-box', marginBottom: '5.5rem' }}
+        style={{ boxSizing: 'border-box', marginBottom: '4rem' }}
       />
       <Button
         isShadowed={true}

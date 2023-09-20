@@ -1,32 +1,56 @@
-import { useForm } from 'react-hook-form'
+import { useRef, useState, ChangeEvent } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/atoms/Button'
-import Input from '@/components/atoms/Input'
 import { SetEditProfileComponent } from '@/components/organisms/EditProfile/EditProfile'
+import Assets from '@/config/assets'
+import { useEditProfileImage } from '@/hooks/useEditUserImage'
 import './index.scss'
 
-const EditProfileImageForm = ({ setPage }: SetEditProfileComponent) => {
-  const { register, handleSubmit } = useForm()
+type EditProfileImageFormProps = SetEditProfileComponent & {
+  image: string | undefined
+}
+
+const EditProfileImageForm = ({
+  setPage,
+  image,
+}: EditProfileImageFormProps) => {
+  const { editProfileImage } = useEditProfileImage()
+  const [profile, setProfile] = useState<File | null>(null)
+  const selectProfileFile = useRef<HTMLInputElement | null>(null)
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+
+    if (e.target.files) {
+      setProfile(e.target.files[0])
+    }
+  }
 
   return (
-    //TODO: 기존 프로필 이미지 불러오기 및 프로필 이미지 update 로직 연결
-    <form
-      className="edit-profile-image-form"
-      onSubmit={handleSubmit((data) => {
-        console.log(data, '프로필 이미지 변경 api 호출')
-      })}
-    >
-      <Input
-        {...(register &&
-          register('profile-image', {
-            required: true,
-          }))}
+    <div className="edit-profile-image-form">
+      <input
         type="file"
-        variant="clear"
-        outline="none"
+        style={{ display: 'none' }}
+        ref={selectProfileFile}
+        onChange={handleFileChange}
+      />
+      <Image
+        onClick={() => selectProfileFile?.current?.click()}
+        src={image || Assets.PCCImage}
+        width={180}
+        height={180}
+        style={{ borderRadius: '50%' }}
+        alt="profile-image"
       />
       <div className="edit-profile-image-form__buttons">
         <Button
-          type="submit"
+          onClick={async () => {
+            await editProfileImage({
+              isCover: false,
+              image: profile!,
+            })
+            setProfile(null)
+          }}
           isShadowed={true}
           text="프로필 이미지 변경"
           width={14.06}
@@ -43,10 +67,10 @@ const EditProfileImageForm = ({ setPage }: SetEditProfileComponent) => {
           height={2.06}
           variant="default"
           rounded="rounded-md"
-          style={{ fontSize: '1rem', marginBottom: '1.8rem' }}
+          style={{ fontSize: '1rem' }}
         />
       </div>
-    </form>
+    </div>
   )
 }
 
