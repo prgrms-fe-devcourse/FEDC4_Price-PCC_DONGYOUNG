@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server'
-import Post from '@/types/post'
 
 async function fetchSearchData(keyword: string) {
   const decodeKeyword = decodeURI(keyword)
@@ -28,24 +27,8 @@ export async function GET(req: NextRequest) {
   const keyword = req.nextUrl.pathname.replace('/api/search/all/', '')
 
   try {
-    const datas = await fetchSearchData(keyword)
-
-    const parsedDatas = datas.map((data: Post) => {
-      const parsedArticle = JSON.parse(data.title)
-      if (parsedArticle) {
-        return {
-          ...data,
-          title: parsedArticle.title,
-          description: parsedArticle.description,
-        }
-      } else {
-        return {
-          ...data,
-          description: '',
-        }
-      }
-    })
-    return new Response(JSON.stringify(parsedDatas), { status: 200 })
+    const data = await fetchSearchData(keyword)
+    return new Response(JSON.stringify(data), { status: 200 })
   } catch (error) {
     if (error instanceof Error)
       return new Response(JSON.stringify({ error: error.message }), {
