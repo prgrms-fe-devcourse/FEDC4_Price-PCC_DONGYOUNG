@@ -18,14 +18,14 @@ import './index.scss'
 type PostDetailTemplateProps = {
   postId: string
   initPost: Post
-  disLikeChannelPost: Post
+  initDisLikeChannelPost: Post
   mapping_ID: string
 }
 
 export function PostDetailTemplate({
   postId,
   initPost,
-  disLikeChannelPost,
+  initDisLikeChannelPost,
   mapping_ID,
 }: PostDetailTemplateProps) {
   const { currentUser, isLoggedIn } = useCurrentUser()
@@ -34,8 +34,9 @@ export function PostDetailTemplate({
   const { title: postTitle, description } = JSON.parse(title)
 
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
-  const [dislikeChannelPost, setDislikeChannelPost] =
-    useState<Post>(disLikeChannelPost)
+  const [dislikeChannelPost, setDislikeChannelPost] = useState<Post>(
+    initDisLikeChannelPost,
+  )
 
   //좋아요를 누른 상태라면 좋아요 취소 요청을 보내고 싫어요 요청 ㄱ
 
@@ -49,7 +50,7 @@ export function PostDetailTemplate({
       const { _id, likes } = likeChannelPost
 
       const { _id: _dislikeChannelId, likes: _dislikeChannelLikes } =
-        disLikeChannelPost
+        dislikeChannelPost
 
       const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
       const hasDisLikedPost = _dislikeChannelLikes.some(
@@ -64,7 +65,7 @@ export function PostDetailTemplate({
         })
 
         if (hasDisLikedPost) {
-          const disLikeID = disLikeChannelPost.likes.filter(
+          const disLikeID = dislikeChannelPost.likes.filter(
             (like) => like.user === currentUser?._id,
           )[0]._id
           await postLikeCancelAction(disLikeID)
@@ -86,11 +87,12 @@ export function PostDetailTemplate({
         await getPostDetail(_id).then(({ post }) => {
           setLikeChannelPost(post)
         })
-
-        await postLikeAction(mapping_ID)
-        await getPostDetail(mapping_ID).then(({ post }) => {
-          setDislikeChannelPost(post)
-        })
+        if (!hasDisLikedPost) {
+          await postLikeAction(mapping_ID)
+          await getPostDetail(mapping_ID).then(({ post }) => {
+            setDislikeChannelPost(post)
+          })
+        }
 
         return
       }
@@ -100,7 +102,7 @@ export function PostDetailTemplate({
   }, [
     isLoggedIn,
     likeChannelPost,
-    disLikeChannelPost,
+    dislikeChannelPost,
     currentUser?._id,
     mapping_ID,
   ])
