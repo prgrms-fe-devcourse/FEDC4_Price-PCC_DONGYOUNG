@@ -28,10 +28,6 @@ export default function SearchPageTemplate({ data }: dataType) {
     }
   }
 
-  const isUser = (target: UserSummary | Post): target is UserSummary => {
-    return (target as UserSummary).fullName !== undefined
-  }
-
   data?.forEach((value: UserSummary | Post) => {
     isUser(value) ? user.push(value) : post.push(value)
   })
@@ -55,7 +51,7 @@ export default function SearchPageTemplate({ data }: dataType) {
             />
           </div>
         </div>
-        <div className="data-grid">
+        <div className="data-grid" onScroll={restoreScrollPosition}>
           {postClick ? (
             <PostGrid data={post}></PostGrid>
           ) : (
@@ -90,3 +86,14 @@ const CategoryButton = ({
     </Text>
   </button>
 )
+
+export const isUser = (target: UserSummary | Post): target is UserSummary => {
+  return (target as UserSummary).fullName !== undefined
+}
+
+export const restoreScrollPosition = () => {
+  console.log(document.getElementsByClassName('data-grid'))
+  const position = document.getElementsByClassName('data-grid')[0].scrollTop
+  sessionStorage.setItem('post-scroll-position', position.toString())
+  console.log(position)
+}
