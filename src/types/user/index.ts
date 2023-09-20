@@ -1,3 +1,4 @@
+import Follow from '../follow'
 import Like from '../like'
 import Message from '../message'
 import Notification from '../notification'
@@ -22,12 +23,5 @@ interface User {
   createdAt?: string
   updatedAt?: string
   __v?: number
-}
-interface Follow {
-  _id: string
-  user: string
-  follower: string
-  createdAt: string
-  updatedAt: string
 }
 export default User
