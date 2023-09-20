@@ -36,24 +36,38 @@
     }
   }
 
-  .avatar-list-container {
+  .avatar-list {
     width: 17rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 1rem;
     margin-top: 2rem;
     overflow-y: scroll;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &--avatar {
+        width: 70%;
+      }
+
+      button:last-child {
+        flex-shrink: 0;
+      }
+    }
   }
-  .avatar-list-container::-webkit-scrollbar {
+  .avatar-list::-webkit-scrollbar {
     width: 0.5rem;
     height: 100%;
   }
 
-  .avatar-list-container::-webkit-scrollbar-track {
+  .avatar-list::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  .avatar-list-container::-webkit-scrollbar-thumb {
+  .avatar-list::-webkit-scrollbar-thumb {
     width: 0.5rem;
     height: 6rem;
     border-radius: 0.5rem;
@@ -62,31 +76,9 @@
     }
   }
 
-  .avatar-list-container::-webkit-scrollbar-thumb:hover {
+  .avatar-list::-webkit-scrollbar-thumb:hover {
     @include themed() {
       background-color: t(gray-4);
     }
-  }
-
-  .avatar__container {
-    span {
-      @include themed() {
-        color: t(gray-3);
-      }
-      padding-left: 1.5rem;
-
-      div {
-        padding: 0.5rem 0;
-      }
-      div:nth-child(1) {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      div:nth-child(2) {
-        font-size: 0.8rem;
-      }
-    }
-    padding-bottom: 1.5rem;
-    cursor: pointer;
   }
 }
