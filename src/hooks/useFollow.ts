@@ -14,7 +14,7 @@ import { useCurrentUser } from './useCurrentUser'
  * @returns param followerCount: 현재 페이지의 유저의 팔로워 수
  * @returns param followingCount: 현재 페이지의 유저의 팔로잉 수
  */
-const useFollow = (userData: User) => {
+const useFollow = (userData: User | undefined) => {
   const { currentUser } = useCurrentUser()
 
   const [isFollowing, setIsFollowing] = useState(false)
@@ -24,7 +24,7 @@ const useFollow = (userData: User) => {
   const [followingCount, setFollowingCount] = useState(0)
 
   useEffect(() => {
-    if (!currentUser) return
+    if (!userData || !currentUser) return
     setFollowerCount(() => userData.followers?.length ?? 0)
     setFollowingCount(() => userData.following?.length ?? 0)
     setIsFollowing(
@@ -39,15 +39,10 @@ const useFollow = (userData: User) => {
           (follower) => userData._id === follower._id,
         ) ?? false,
     )
-  }, [
-    currentUser,
-    userData._id,
-    userData.followers,
-    userData.following?.length,
-  ])
+  }, [currentUser, userData])
 
   const followToggle = async () => {
-    if (!currentUser) return
+    if (!userData || !currentUser) return
     if (isFollowing) {
       setFollowerCount((prev) => prev - 1)
       setIsFollowing(false)
@@ -91,7 +86,7 @@ const useFollow = (userData: User) => {
     isFollowed,
     followerCount,
     followingCount,
-    unavailable: !currentUser || currentUser._id === userData._id,
+    unavailable: !currentUser || currentUser._id === userData?._id,
     followToggle,
   }
 }

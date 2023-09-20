@@ -1,6 +1,7 @@
 import Avatar from '@/components/atoms/Avatar'
 import FollowToggleButton from '@/components/atoms/FollowToggleButton'
 import { Text } from '@/components/atoms/Text'
+import useFollow from '@/hooks/useFollow'
 import { useGetUserDetail } from '@/queries/users/detail'
 import User from '@/types/user'
 import './index.scss'
@@ -32,18 +33,22 @@ export default function FollowList({
 
 function FolllowListItem({ targetUserId }: { targetUserId: string }) {
   const { data } = useGetUserDetail(targetUserId)
-  if (!data) {
-    return null
-  }
+  const { isFollowing, unavailable, followToggle, followerCount } =
+    useFollow(data)
   return (
     <li className="follow-list__item">
       <Avatar
         src={data?.image}
         text={data?.fullName}
-        subText={`${data?.followers?.length} Followers`}
+        subText={`${followerCount} Followers`}
         size={4}
       />
-      <FollowToggleButton userData={data} size="small" />
+      <FollowToggleButton
+        size="small"
+        isFollowing={isFollowing}
+        unavailable={unavailable}
+        followToggle={followToggle}
+      />
     </li>
   )
 }
