@@ -1,13 +1,10 @@
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
-import APP_PATH from '@/config/paths'
+import { SetEditProfileComponent } from '@/components/organisms/EditProfile/EditProfile'
 import './index.scss'
 
-const EditProfileImageForm = () => {
-  const router = useRouter()
-
+const EditProfileImageForm = ({ setPage }: SetEditProfileComponent) => {
   const { register, handleSubmit } = useForm()
 
   return (
@@ -39,9 +36,7 @@ const EditProfileImageForm = () => {
           style={{ fontSize: '1rem', marginBottom: '1.8rem' }}
         />
         <Button
-          onClick={() => {
-            router.push(APP_PATH.editPassword())
-          }}
+          onClick={() => setPage('password')}
           isShadowed={true}
           text="비밀번호 변경하러 가기"
           width={14.06}

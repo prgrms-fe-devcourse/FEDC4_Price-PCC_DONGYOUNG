@@ -1,11 +1,14 @@
 import EditNamesform from '@/components/molcules/EditNamesForm'
 import EditProfileImageForm from '@/components/molcules/EditProfileImageForm'
-import './index.scss'
 
-const EditProfile = () => {
+export type SetEditProfileComponent = {
+  setPage: React.Dispatch<React.SetStateAction<'profile' | 'password'>>
+}
+
+const EditProfile = ({ setPage }: SetEditProfileComponent) => {
   return (
-    <div className="edit-profile-container">
-      <EditProfileImageForm />
+    <div>
+      <EditProfileImageForm setPage={setPage} />
       <EditNamesform />
     </div>
   )
