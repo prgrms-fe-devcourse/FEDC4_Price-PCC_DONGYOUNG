@@ -20,4 +20,8 @@ body {
   min-width: 1040px;
   display: flex;
   flex: row;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
