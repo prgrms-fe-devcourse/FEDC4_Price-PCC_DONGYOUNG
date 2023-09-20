@@ -64,7 +64,10 @@ export function PostDetailTemplate({
         })
 
         if (hasDisLikedPost) {
-          await postLikeCancelAction(mapping_ID)
+          const disLikeID = disLikeChannelPost.likes.filter(
+            (like) => like.user === currentUser?._id,
+          )[0]._id
+          await postLikeCancelAction(disLikeID)
           await getPostDetail(mapping_ID).then(({ post }) => {
             setDislikeChannelPost(post)
           })
@@ -136,7 +139,10 @@ export function PostDetailTemplate({
         })
 
         if (hasLikedPost) {
-          await postLikeCancelAction(likeChannelPost._id)
+          const likeId = likeChannelPost.likes.filter(
+            (like) => like.user === currentUser?._id,
+          )[0]._id
+          await postLikeCancelAction(likeId)
           await getPostDetail(likeChannelPost._id).then(({ post }) => {
             setLikeChannelPost(post)
           })
