@@ -31,17 +31,19 @@ export default function FollowList({
 }
 
 function FolllowListItem({ targetUserId }: { targetUserId: string }) {
-  const { data, isLoading } = useGetUserDetail(targetUserId)
-  if (isLoading) return
+  const { data } = useGetUserDetail(targetUserId)
+  if (!data) {
+    return null
+  }
   return (
     <li className="follow-list__item">
       <Avatar
         src={data?.image}
         text={data?.fullName}
-        subText={`팔로워 ${data?.followers?.length}명`}
+        subText={`${data?.followers?.length} Followers`}
         size={4}
       />
-      <FollowToggleButton userData={data!} size="small" />
+      <FollowToggleButton userData={data} size="small" />
     </li>
   )
 }
