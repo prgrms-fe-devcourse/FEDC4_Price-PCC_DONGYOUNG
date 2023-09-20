@@ -1,8 +1,5 @@
-import Avatar from '@/components/atoms/Avatar'
-import FollowToggleButton from '@/components/atoms/FollowToggleButton'
 import { Text } from '@/components/atoms/Text'
-import useFollow from '@/hooks/useFollow'
-import { useGetUserDetail } from '@/queries/users/detail'
+import FollowListItem from '@/components/molcules/FollowListItem/FollowListItem'
 import User from '@/types/user'
 import './index.scss'
 
@@ -24,31 +21,9 @@ export default function FollowList({
       <ul className="follow-list">
         {users?.map(({ _id, user, follower }) => {
           const targetUserId = isFollowerList ? follower : user
-          return <FolllowListItem key={_id} targetUserId={targetUserId} />
+          return <FollowListItem key={_id} targetUserId={targetUserId} />
         })}
       </ul>
     </div>
-  )
-}
-
-function FolllowListItem({ targetUserId }: { targetUserId: string }) {
-  const { data } = useGetUserDetail(targetUserId)
-  const { isFollowing, unavailable, followToggle, followerCount } =
-    useFollow(data)
-  return (
-    <li className="follow-list__item">
-      <Avatar
-        src={data?.image}
-        text={data?.fullName}
-        subText={`${followerCount} Followers`}
-        size={4}
-      />
-      <FollowToggleButton
-        size="small"
-        isFollowing={isFollowing}
-        unavailable={unavailable}
-        followToggle={followToggle}
-      />
-    </li>
   )
 }
