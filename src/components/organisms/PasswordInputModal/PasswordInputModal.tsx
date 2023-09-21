@@ -4,19 +4,32 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Text } from '@/components/atoms/Text'
+import { useCheckPassword } from '@/hooks/useCheckPassword'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 
 type HandleModalCloseProps = {
   handleModalClose: () => void
+  setIsAuthUser: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const PasswordInputModal = ({ handleModalClose }: HandleModalCloseProps) => {
+const PasswordInputModal = ({
+  handleModalClose,
+  setIsAuthUser,
+}: HandleModalCloseProps) => {
   const { register, handleSubmit } = useForm()
+  const { currentUser } = useCurrentUser()
+  const { checkUser } = useCheckPassword()
 
   return (
-    //TODO: 비밀번호 검증 로직 구현
     <form
-      onSubmit={handleSubmit((data) => {
-        console.log(data, '비밀번호 확인 로직')
+      onSubmit={handleSubmit(async ({ password }) => {
+        const user = await checkUser({
+          email: currentUser?.email!,
+          password,
+        })
+        if (user) {
+          setIsAuthUser(true)
+        }
       })}
       style={{ padding: '4rem 3.6rem' }}
     >

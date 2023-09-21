@@ -11,10 +11,8 @@ import useModal from '@/hooks/useModal'
 
 export default function EditProfile() {
   const router = useRouter()
-
-  console.log(1)
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
-  const { isAuthUser } = useCheckPassword()
+  const { isAuthUser, setIsAuthUser } = useCheckPassword()
 
   useEffect(() => {
     handleModalOpen()
@@ -41,7 +39,10 @@ export default function EditProfile() {
       }}
       clickOutsideToClose={false}
     >
-      <PasswordInputModal handleModalClose={handlePWModalClose} />
+      <PasswordInputModal
+        handleModalClose={handlePWModalClose}
+        setIsAuthUser={setIsAuthUser}
+      />
     </ModalProvider>
   ) : isAuthUser ? (
     <EditProfileTemplate />
