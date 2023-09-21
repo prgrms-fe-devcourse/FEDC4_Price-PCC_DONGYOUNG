@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
@@ -8,7 +8,6 @@ import { Text } from '@/components/atoms/Text'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
-import Assets from '@/config/assets'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import Post from '@/types/post'
 import './index.scss'
@@ -28,11 +27,6 @@ export function PostDetailTemplate({
   const { currentUser } = useCurrentUser()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-
-  const handleDropdown = useCallback(() => {
-    setIsDropdownOpen((prevClick) => !prevClick)
-  }, [])
 
   return (
     <div className="post-detail">
@@ -46,17 +40,7 @@ export function PostDetailTemplate({
             marginLeft: '15px',
           }}
         />
-        {isEqualUser && (
-          <div className="post-detail__header--options">
-            <button
-              onClick={handleDropdown}
-              style={{ width: '2rem', height: '2rem' }}
-            >
-              <Image src={Assets.OptionsIcon} alt="드롭다운 아이콘" />
-            </button>
-            <PostOptionsDropdown isOpen={isDropdownOpen} postId={_id} />
-          </div>
-        )}
+        {isEqualUser && <PostOptionsDropdown postId={_id} />}
       </div>
       <Text textStyle="heading0-bold">{PostTitle}</Text>
       <div className="post-detail__post-container">

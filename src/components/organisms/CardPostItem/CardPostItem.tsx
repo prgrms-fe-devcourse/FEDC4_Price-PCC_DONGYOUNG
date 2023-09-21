@@ -6,7 +6,6 @@ import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
-import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import Post from '@/types/post'
@@ -27,12 +26,8 @@ export default function CardPostItem({
   const { currentUser } = useCurrentUser()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
 
-  const handleOptionsClick = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-  }
   return (
     <>
       {!isDeleted && (
@@ -43,18 +38,7 @@ export default function CardPostItem({
                 <Avatar text={author.fullName} size={1.25} src={image} />
               </Link>
               {isEqualUser && (
-                <div>
-                  <Image
-                    src={Assets.OptionsIcon}
-                    alt="더보기 아이콘"
-                    onClick={handleOptionsClick}
-                  />
-                  <PostOptionsDropdown
-                    isOpen={isDropdownOpen}
-                    postId={_id}
-                    setIsDeleted={setIsDeleted}
-                  />
-                </div>
+                <PostOptionsDropdown postId={_id} setIsDeleted={setIsDeleted} />
               )}
             </div>
             <Link href={`/post/${_id}`}>
