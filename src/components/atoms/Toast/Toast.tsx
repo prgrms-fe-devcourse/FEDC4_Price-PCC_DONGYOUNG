@@ -9,7 +9,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './index.scss'
 
-export const displayIcon = (type: string) => {
+type ToastType = 'info' | 'success' | 'warning' | 'error'
+export const displayIcon = (type: ToastType) => {
   switch (type) {
     case 'info':
       return <FaInfo />
@@ -24,7 +25,7 @@ export const displayIcon = (type: string) => {
   }
 }
 
-const Toast = ({ type, message }: { type: string; message: string }) => {
+const Toast = ({ type, message }: { type: ToastType; message: string }) => {
   return (
     <div className="toast">
       <div className="toast-icon">{displayIcon(type)}</div>
@@ -33,6 +34,6 @@ const Toast = ({ type, message }: { type: string; message: string }) => {
   )
 }
 
-export const notify = (type: string, message: string) => {
+export const notify = (type: ToastType, message: string) => {
   toast(<Toast type={type} message={message} />)
 }
