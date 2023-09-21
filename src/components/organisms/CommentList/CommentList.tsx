@@ -3,7 +3,13 @@ import { Comment as CommentComponent } from '@/components/molcules/Comment'
 import Comment from '@/types/comment'
 import './index.scss'
 
-export default function CommentList({ comments }: { comments: Comment[] }) {
+export default function CommentList({
+  comments,
+  onDeleteComment,
+}: {
+  comments: Comment[]
+  onDeleteComment: (_commentId: string) => void
+}) {
   return (
     <div className="comment--list">
       {comments?.map(({ _id, createdAt, author, comment }) => (
@@ -13,6 +19,7 @@ export default function CommentList({ comments }: { comments: Comment[] }) {
           author={author}
           comment={comment}
           createdAt={createdAt}
+          onDeleteComment={onDeleteComment}
         />
       ))}
     </div>

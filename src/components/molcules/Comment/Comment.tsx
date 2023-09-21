@@ -1,12 +1,16 @@
 'use client'
 
+import { useCallback } from 'react'
+import { FaTrash } from 'react-icons/fa'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import type { default as CommentProps } from '@/types/comment'
 import './index.scss'
 
 type CommentPropsWithChild = CommentProps & {
   children?: React.ReactNode
+  onDeleteComment?: (_commentId: string) => void
 }
 
 type CommentAuthorProps = Pick<CommentProps, 'author'>
@@ -19,12 +23,29 @@ export default function Comment({
   comment,
   author,
   children,
+  _id,
   createdAt,
+  onDeleteComment,
 }: CommentPropsWithChild) {
+  const { currentUser, isLoggedIn } = useCurrentUser()
+  const handleDeleteComment = useCallback(
+    (_id: string) => {
+      if (onDeleteComment) onDeleteComment(_id)
+    },
+    [onDeleteComment],
+  )
   return (
     <div className="comment__container">
       <User author={author} />
       <CommentItem comment={comment} createdAt={createdAt}>
+        {isLoggedIn && createdAt && author._id === currentUser?._id && (
+          <span
+            className="comment__container_delete"
+            onClick={() => handleDeleteComment(_id)}
+          >
+            <FaTrash>제거</FaTrash>
+          </span>
+        )}
         {children}
       </CommentItem>
     </div>
@@ -54,8 +75,8 @@ function CommentItem({ comment, children, createdAt }: CommentItemProps) {
     <div className="comment__container__item">
       <Text textStyle="caption1">
         {createdAt && new Date(createdAt ?? '').toLocaleString()}
+        {children}
       </Text>
-      {children}
       <Text
         textStyle="body2"
         style={{
