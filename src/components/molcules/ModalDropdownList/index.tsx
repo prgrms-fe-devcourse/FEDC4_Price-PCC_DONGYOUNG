@@ -1,1 +1,4 @@
-export { default } from './ModalDropdownList'
+import ModalDropdownList from './ModalDropdownList'
+import PostOptionDropdownList from './PostOptionDropdownList'
+
+export { ModalDropdownList, PostOptionDropdownList }
