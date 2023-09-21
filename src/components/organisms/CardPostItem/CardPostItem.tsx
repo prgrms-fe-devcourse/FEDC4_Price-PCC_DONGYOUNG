@@ -50,7 +50,7 @@ export default function CardPostItem({
             </Text>
           </Link>
         )}
-        <LikeDislikeCount like={likes.length} dislike={disLikes?.length ?? 0} />
+        <LikeDislikeCount like={likes.length ?? 0} dislike={disLikes?.length ?? 0} />
       </div>
     </Card>
   )
