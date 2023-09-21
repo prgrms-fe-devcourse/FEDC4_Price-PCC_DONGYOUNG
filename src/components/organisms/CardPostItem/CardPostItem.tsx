@@ -45,28 +45,30 @@ export default function CardPostItem({
             </Text>
           </Avatar>
         </Link>
-        <Link href={`/post/${_id}`}>
-          <Text textStyle="body1-bold">{title}</Text>
+        <Link href={APP_PATH.postDetail(_id)}>
+          <Text textStyle="body1-bold" className="content-container__title">
+            {title}
+          </Text>
+          {image ? (
+            <div className="content-container__image-container">
+              <Image src={image} alt="첨부 이미지" fill />
+            </div>
+          ) : (
+            <div className="content-container__article-container">
+              <Text
+                textStyle="body2"
+                style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 7,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}
+              >
+                {description}
+              </Text>
+            </div>
+          )}
         </Link>
-        {image ? (
-          <div className="content-container__image-container">
-            <Image src={image} alt="첨부 이미지" fill />
-          </div>
-        ) : (
-          <Link href={APP_PATH.userProfile(_id)}>
-            <Text
-              textStyle="body2"
-              style={{
-                display: '-webkit-box',
-                WebkitLineClamp: 8,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {description}
-            </Text>
-          </Link>
-        )}
         <LikeDislikeCount like={likes.length} dislike={disLikeCount} />
       </div>
     </Card>
