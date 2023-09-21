@@ -12,13 +12,21 @@ export default function CardGridTemplate({ data }: PropsType) {
   return (
     <div className="card-grid-container">
       {data?.map(
-        ({ _id, image, author, title, description }: CardPostItemProps) => (
+        ({
+          _id,
+          image,
+          author,
+          title,
+          description,
+          likes,
+        }: CardPostItemProps) => (
           <CardPostItem
             key={_id}
             _id={_id}
             image={image}
             author={author}
             title={title}
+            likes={likes}
             description={description}
           />
         ),
