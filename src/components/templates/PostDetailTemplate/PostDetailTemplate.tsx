@@ -12,7 +12,6 @@ import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContaine
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { notify } from '@/components/atoms/Toast'
 import { POST_CONSTANT } from '@/constants/post'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
