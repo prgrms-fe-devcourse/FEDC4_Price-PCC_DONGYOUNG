@@ -31,7 +31,7 @@ export default function NotificationModal({ data }: PropsType) {
   }
 
   return (
-    <Card>
+    <Card className="notification-card">
       <Text className="notification-title" textStyle="body1">
         알림
       </Text>

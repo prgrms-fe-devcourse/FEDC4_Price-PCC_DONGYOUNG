@@ -1,5 +1,9 @@
 @import '/src/styles/global-layout.scss';
 
+.notification-card {
+  z-index: 200;
+}
+
 .notification-title {
   padding: 0.5rem 0 2rem 0;
 }

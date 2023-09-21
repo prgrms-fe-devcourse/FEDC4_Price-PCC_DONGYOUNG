@@ -1,14 +1,13 @@
 import NotificationModal from '@/components/organisms/NotificationModal'
 import Assets from '@/config/assets'
 import useModal from '@/hooks/useModal'
-//import useGetNotification from '@/queries/notification'
+import useGetNotification from '@/queries/notifications'
 import { Card } from '../Card'
 import ImageButton from '../ImageButton'
 import { Text } from '../Text'
 
 export default function NotificationButton() {
-  //const { data } = useGetNotification()
-  const data = undefined
+  const data = useGetNotification()
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
 
   const handleClick = () => {
@@ -23,7 +22,7 @@ export default function NotificationButton() {
         onClick={() => handleClick}
       />
       {isModalOpen &&
-        (data ? <NotificationModal data={data} /> : <EmptyNotification />)}
+        (data ? <NotificationModal data={data.data} /> : <EmptyNotification />)}
     </>
   )
 }

@@ -10,7 +10,6 @@ export async function GET(_request: Request) {
         Authorization: 'Bearer ' + token,
       },
     })
-
     return NextResponse.json(data)
   } catch (error: any) {
     return NextResponse.json(
