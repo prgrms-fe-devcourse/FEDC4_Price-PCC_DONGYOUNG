@@ -39,7 +39,11 @@ export default function CardPostItem({
     <Card>
       <div className="content-container">
         <Link href={APP_PATH.userProfile(author._id)}>
-          <Avatar text={author.fullName} size={1.25} src={image} />
+          <Avatar size={1.5} src={author.image} style={{ marginRight: '5px' }}>
+            <Text textStyle="body2" color="gray-5">
+              {author.fullName}
+            </Text>
+          </Avatar>
         </Link>
         <Link href={`/post/${_id}`}>
           <Text textStyle="body1-bold">{title}</Text>
