@@ -7,14 +7,15 @@ import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import APP_PATH from '@/config/paths'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import Post from '@/types/post'
 import './index.scss'
 
 export type CardPostItemProps = Pick<
   Post,
   '_id' | 'image' | 'author' | 'title' | 'description'
->
+> & {
+  isEqualUser?: boolean
+}
 
 export default function CardPostItem({
   _id,
@@ -22,12 +23,9 @@ export default function CardPostItem({
   author,
   title,
   description,
+  isEqualUser,
 }: CardPostItemProps) {
-  const { currentUser } = useCurrentUser()
-  const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
-  const isEqualUser = cachedCurrentUser?._id === author._id
   const [isDeleted, setIsDeleted] = useState(false)
-
   return (
     <>
       {!isDeleted && (
