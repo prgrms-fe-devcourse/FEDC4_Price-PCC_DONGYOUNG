@@ -3,6 +3,7 @@ import parse from 'html-react-parser'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
+import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import Post from '@/types/post'
@@ -62,6 +63,7 @@ export async function PostDetailTemplate({
 
       <LikeDisLikeContainer like={555} dislike={5511} />
       <CommentListContainer postId={postId} initComments={comment} />
+      <CommentInput author={author} />
     </div>
   )
 }

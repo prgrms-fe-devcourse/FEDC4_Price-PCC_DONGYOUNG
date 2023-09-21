@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useCallback, ChangeEvent } from 'react'
+import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Comment as CommentItem } from '@/components/molcules/Comment'
 import Comment from '@/types/comment'
@@ -31,12 +32,26 @@ export default function CommentInput({
     <>
       <div className="comment--input__container">
         <CommentItem author={author} comment={''} _id="">
-          <Input
-            ref={commentInputRef}
-            className="comment--input"
-            outline="none"
-            onChange={handleOnChangeComment}
-          />
+          <div className="comment--input--wrapper">
+            <Input
+              variant="default"
+              style={{
+                height: '48px',
+              }}
+              ref={commentInputRef}
+              className="comment--input"
+              outline="underbar"
+              onChange={handleOnChangeComment}
+            />
+            <Button
+              text="작성"
+              variant="default"
+              width={5}
+              height={3}
+              isShadowed={true}
+              type="submit"
+            />
+          </div>
         </CommentItem>
       </div>
     </>
