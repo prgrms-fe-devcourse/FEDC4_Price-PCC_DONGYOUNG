@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -14,7 +14,7 @@ export type CardPostItemProps = Pick<
   Post,
   '_id' | 'image' | 'author' | 'title' | 'description'
 > & {
-  isEqualUser?: boolean
+  isShowOptions?: boolean
 }
 
 export default function CardPostItem({
@@ -23,7 +23,7 @@ export default function CardPostItem({
   author,
   title,
   description,
-  isEqualUser,
+  isShowOptions,
 }: CardPostItemProps) {
   const [isDeleted, setIsDeleted] = useState(false)
   return (
@@ -35,7 +35,7 @@ export default function CardPostItem({
               <Link href={APP_PATH.userProfile(author._id)}>
                 <Avatar text={author.fullName} size={1.25} src={image} />
               </Link>
-              {isEqualUser && (
+              {isShowOptions && (
                 <PostOptionsDropdown postId={_id} setIsDeleted={setIsDeleted} />
               )}
             </div>

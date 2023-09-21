@@ -24,7 +24,7 @@ export default forwardRef(function CardGridTemplate(
           { _id, image, author, title, description }: CardPostItemProps,
           index,
         ) => {
-          const isEqualUser = cachedCurrentUser?._id === author._id
+          const isShowOptions = cachedCurrentUser?._id === author._id
           return (
             <CardPostItem
               key={_id + index}
@@ -33,7 +33,7 @@ export default forwardRef(function CardGridTemplate(
               author={author}
               title={title}
               description={description}
-              isEqualUser={isEqualUser}
+              isShowOptions={isShowOptions}
             />
           )
         },
