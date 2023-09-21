@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback, ChangeEvent } from 'react'
+import { useRef, useEffect, useCallback, ChangeEvent, useState } from 'react'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Comment as CommentItem } from '@/components/molcules/Comment'
@@ -9,12 +9,15 @@ import './index.scss'
 
 type CommentInputProps = Pick<Comment, 'author'> & {
   onChangeInput?: (_input: string) => void
+  onSubmit?: (_input: string) => void
 }
 
 export default function CommentInput({
   author,
   onChangeInput,
+  onSubmit,
 }: CommentInputProps) {
+  const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
   useEffect(() => {
     if (commentInputRef && commentInputRef.current) {
@@ -25,9 +28,14 @@ export default function CommentInput({
   const handleOnChangeComment = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (onChangeInput) onChangeInput(event.target.value)
+      setInput(event.target.value)
     },
     [onChangeInput],
   )
+
+  const handleOnClickBtn = useCallback(() => {
+    if (onSubmit) onSubmit(_input)
+  }, [_input, onSubmit])
   return (
     <>
       <div className="comment--input__container">
@@ -49,7 +57,8 @@ export default function CommentInput({
               width={5}
               height={3}
               isShadowed={true}
-              type="submit"
+              type="button"
+              onClick={handleOnClickBtn}
             />
           </div>
         </CommentItem>
