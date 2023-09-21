@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
@@ -6,6 +8,7 @@ import { Text } from '@/components/atoms/Text'
 import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -18,6 +21,7 @@ export async function PostDetailTemplate({
   postId,
   initPost,
 }: PostDetailTemplateProps) {
+  const { currentUser, isLoggedIn } = useCurrentUser()
   const { title, comment, image } = initPost
   const { author } = initPost
   const { title: PostTitle, description } = JSON.parse(title)
@@ -63,7 +67,7 @@ export async function PostDetailTemplate({
 
       <LikeDisLikeContainer like={555} dislike={5511} />
       <CommentListContainer postId={postId} initComments={comment} />
-      <CommentInput author={author} />
+      {isLoggedIn && currentUser && <CommentInput author={currentUser} />}
     </div>
   )
 }
