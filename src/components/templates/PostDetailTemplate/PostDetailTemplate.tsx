@@ -33,7 +33,6 @@ export function PostDetailTemplate({
   const { currentUser, isLoggedIn } = useCurrentUser()
   const { title, comment, image, author } = initPost
 
-  console.log(comment)
   const { title: postTitle, description } = JSON.parse(title)
 
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
@@ -233,7 +232,7 @@ export function PostDetailTemplate({
           postId={postId}
           author={currentUser}
           onSubmit={async (comment) =>
-            await postNewComment({ comment, postId })
+            await postNewComment({ comment, postId, userId: currentUser._id })
           }
         />
       )}

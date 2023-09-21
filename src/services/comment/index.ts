@@ -3,13 +3,42 @@ import { apiClient } from '@/lib/axios'
 interface CommentBody {
   comment: string
   postId: string
+  userId?: string
 }
 
-const postNewComment = async ({ comment, postId }: CommentBody) => {
+interface CommentNotiBody {
+  notificationType: 'COMMENT'
+  notificationTypeId: string
+  postId: string
+  userId?: string
+}
+
+const postNewCommentNoti = async ({
+  notificationType,
+  notificationTypeId,
+  postId,
+  userId,
+}: CommentNotiBody) => {
+  await apiClient.post('/api/create-comment/notification', {
+    notificationType,
+    notificationTypeId,
+    postId,
+    userId,
+  })
+}
+
+const postNewComment = async ({ comment, postId, userId }: CommentBody) => {
   try {
     const { data } = await apiClient.post('/api/create-comment', {
       postId,
       comment,
+    })
+
+    await postNewCommentNoti({
+      notificationType: 'COMMENT',
+      notificationTypeId: data._id,
+      postId,
+      userId,
     })
     return data
   } catch (e) {
