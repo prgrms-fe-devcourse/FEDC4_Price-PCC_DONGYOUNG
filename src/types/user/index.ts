@@ -1,3 +1,4 @@
+import Follow from '../follow'
 import Like from '../like'
 import Message from '../message'
 import Notification from '../notification'
@@ -13,8 +14,8 @@ interface User {
   posts?: Post[]
   likes?: Like[]
   comments?: string[]
-  followers?: Follower[]
-  following?: Following[]
+  followers?: Follow[]
+  following?: Follow[]
   notifications?: Notification[]
   messages?: Message[]
   _id: string

@@ -1,0 +1,34 @@
+@import '@/styles/variables.scss';
+
+.toggle-button {
+  @include themed() {
+    background: t(primary-4);
+  }
+  border-radius: 0.8rem;
+  &.isHide {
+    display: none;
+  }
+
+  &.small {
+    width: 5.3rem;
+    height: 2.8rem;
+  }
+
+  &.large {
+    width: 14rem;
+    height: 2.8rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &.isFollowing {
+    @include themed() {
+      background: transparent;
+      border: 1px solid t(primary-4);
+      color: t(primary-4);
+    }
+  }
+}

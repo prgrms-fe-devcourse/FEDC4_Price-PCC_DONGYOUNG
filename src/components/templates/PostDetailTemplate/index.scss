@@ -7,8 +7,9 @@
   box-sizing: border-box;
   width: 1080px;
   overflow: hidden;
-  min-height: 58rem;
+  min-height: 50rem;
   border-radius: 19.02px;
+  justify-content: space-around;
 
   @include themed() {
     background-color: t(bg-1);
@@ -16,7 +17,7 @@
   &__heading {
     display: flex;
     width: 80%;
-    margin: 35px auto;
+    margin: 0 auto;
   }
   &__post {
     line-break: auto;
@@ -25,15 +26,18 @@
   &__avatar-container {
     display: flex;
     width: 80%;
-    margin: 35px auto;
+    margin: 0px auto;
+    @include themed() {
+      color: t(bg-1);
+    }
   }
   &__post-container {
     display: flex;
     min-height: 250px;
     flex-wrap: wrap;
     width: 80%;
-    margin: 0 auto;
     justify-content: space-between;
+    margin: 0 auto;
     margin-bottom: 15px;
   }
 }

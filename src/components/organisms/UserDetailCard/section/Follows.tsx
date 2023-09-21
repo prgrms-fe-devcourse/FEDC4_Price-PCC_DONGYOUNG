@@ -1,53 +1,88 @@
 'use client'
 
-import React from 'react'
-import { Button } from '@/components/atoms/Button'
+import React, { useState } from 'react'
+import FollowToggleButton from '@/components/atoms/FollowToggleButton'
 import { Text } from '@/components/atoms/Text'
+import ModalProvider from '@/components/molcules/ModalLayout'
+import FollowList from '@/components/organisms/FollowList'
 import useFollow from '@/hooks/useFollow'
+import useModal from '@/hooks/useModal'
 import User from '@/types/user'
 
 export default function Follows({ userData }: { userData: User }) {
   const {
     unavailable,
     isFollowing,
-    followToggle,
     followerCount,
     followingCount,
+    followToggle,
   } = useFollow(userData)
+
+  const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
+  const [isFollowerModal, setIsFollowerModal] = useState(false)
+
+  const handleFollowModalOpen = (isFollowerModal: boolean) => {
+    if (isFollowerModal) {
+      setIsFollowerModal(true)
+    } else {
+      setIsFollowerModal(false)
+    }
+    handleModalOpen()
+  }
 
   return (
     <>
       <div className="follow_info">
-        <InfoCount text="팔로워" number={followerCount.toString()} />
-        <InfoCount text="팔로잉" number={followingCount.toString()} />
+        <InfoCount
+          text="팔로워"
+          count={followerCount.toString()}
+          onClick={() => followerCount && handleFollowModalOpen(true)}
+        />
+        <InfoCount
+          text="팔로잉"
+          count={followingCount.toString()}
+          onClick={() => followingCount && handleFollowModalOpen(false)}
+        />
       </div>
       <div className="follow_buttons">
-        {unavailable ? (
-          <Button text="팔로우" variant="disabled" width={10} />
-        ) : (
-          <Button
-            text="팔로우"
-            variant={isFollowing ? 'done' : 'default'}
-            width={10}
-            onClick={followToggle}
-          />
-        )}
+        <FollowToggleButton
+          size="large"
+          followToggle={followToggle}
+          unavailable={unavailable}
+          isFollowing={isFollowing}
+        />
       </div>
+      <ModalProvider
+        isOpen={isModalOpen}
+        modalWidth={41}
+        modalHeight={44}
+        handleModalClose={handleModalClose}
+      >
+        <FollowList isFollowerList={isFollowerModal} userData={userData} />
+      </ModalProvider>
     </>
   )
 }
 
 const InfoCount = ({
   text,
-  number = '0',
+  count = '0',
+  onClick,
 }: {
   text: string
-  number?: string
+  count?: string
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }) => {
   return (
-    <div className="info_count">
-      <Text textStyle="body1-bold">{text}</Text>
-      <Text textStyle="body1-bold">{number}</Text>
-    </div>
+    <>
+      <button
+        className="info_count"
+        onClick={onClick}
+        style={{ cursor: `${Number(count) === 0 ? 'auto' : 'pointer'}` }}
+      >
+        <Text textStyle="body1-bold">{text}</Text>
+        <Text textStyle="body1-bold">{count}</Text>
+      </button>
+    </>
   )
 }
