@@ -1,0 +1,41 @@
+@import '/src/styles/global-layout.scss';
+
+.notification-title {
+  padding: 0.5rem 0 2rem 0;
+}
+
+.avatar__container {
+  span {
+    @include themed() {
+      color: t(gray-3);
+    }
+    padding-left: 1rem;
+
+    div {
+      padding: 0.25rem 0;
+    }
+    div:nth-child(1) {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    div:nth-child(2) {
+      font-size: 0.8rem;
+    }
+  }
+  padding-bottom: 1.5rem;
+}
+
+.seen-button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  left: 0%;
+  bottom: 0%;
+  padding-top: 1rem;
+
+  &:hover {
+    .seen-button-text {
+      color: #f8db99;
+    }
+  }
+}
