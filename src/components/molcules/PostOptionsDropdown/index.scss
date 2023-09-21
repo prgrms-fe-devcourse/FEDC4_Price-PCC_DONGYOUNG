@@ -10,7 +10,8 @@
     width: 10rem;
     z-index: 2;
     border-radius: 15px;
-    position: fixed;
+    position: absolute;
+    right: 0;
     @include themed() {
       border: 0.1rem solid t(bg-2);
     }
