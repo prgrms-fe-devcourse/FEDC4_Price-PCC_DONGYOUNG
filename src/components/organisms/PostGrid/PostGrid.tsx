@@ -8,7 +8,7 @@ import './index.scss'
 type PropsType = {
   data: Post[] | undefined
 }
-export default function CardGridTemplate({ data }: PropsType) {
+export default function PostGrid({ data }: PropsType) {
   return (
     <div className="card-grid-container">
       {data?.map(
