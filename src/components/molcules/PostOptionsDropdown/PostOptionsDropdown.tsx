@@ -23,7 +23,7 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
     deletePostMutation.mutate()
   }
   return (
-    <div>
+    <div className="dropdown-container">
       <button
         onClick={() => {
           setIsOpen((isOpen) => !isOpen)
@@ -33,16 +33,19 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
       </button>
       {isOpen && (
         <div
-          className={classNames('modal-dropdown-container', 'color-bg--bg-1', {
+          className={classNames('dropdown-container__list', 'color-bg--bg-1', {
             close: !isOpen,
             options: true,
           })}
         >
-          <OptimizedLink href={'#'}>
+          <OptimizedLink href={'#'} className="dropdown-container__list--item">
             {/*TODO - 게시글 수정 페이지 링크 */}
             <Text textStyle="body2-bold">게시글 수정</Text>
           </OptimizedLink>
-          <div className="logout-button" onClick={handleDeletePost}>
+          <div
+            onClick={handleDeletePost}
+            className="dropdown-container__list--item"
+          >
             <Text textStyle="body2-bold">게시글 삭제</Text>
           </div>
         </div>
