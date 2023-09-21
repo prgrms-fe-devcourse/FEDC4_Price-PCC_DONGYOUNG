@@ -23,7 +23,6 @@ const LogInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>()
-  const formType = 'login'
 
   return (
     <form
@@ -46,9 +45,9 @@ const LogInForm = () => {
             required: '아이디를 입력해 주세요',
           }))}
         text="아이디"
-        formType={formType}
         placeholder="아이디를 입력해 주세요"
         validCheck={errors.id?.message}
+        style={{ marginBottom: '2.5rem' }}
       />
       <SignInput
         {...(register &&
@@ -57,9 +56,9 @@ const LogInForm = () => {
           }))}
         type="password"
         text="비밀번호"
-        formType={`last ${formType}`}
         placeholder="비밀번호를 입력해 주세요"
         validCheck={errors.password?.message}
+        style={{ marginBottom: '4rem' }}
       />
       <Button
         onClick={(e) => {
@@ -75,12 +74,12 @@ const LogInForm = () => {
       />
       <Button
         onClick={handleSubmit(async (data) => {
-          console.log('로그인 시도')
           await login({
             email: data.id,
             password: data.password,
           })
         })}
+        type="submit"
         text="로그인"
         variant="default"
         rounded="rounded-lg"

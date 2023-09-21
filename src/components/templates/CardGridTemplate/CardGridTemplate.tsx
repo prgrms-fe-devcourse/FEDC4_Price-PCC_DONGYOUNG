@@ -22,7 +22,7 @@ export default forwardRef(function CardGridTemplate(
     <div className="card-grid-container">
       {postDatas?.map(
         (
-          { _id, image, author, title, description }: CardPostItemProps,
+          { _id, image, author, title, description, likes }: CardPostItemProps,
           index,
         ) => {
           return (
@@ -33,6 +33,7 @@ export default forwardRef(function CardGridTemplate(
               author={author}
               title={title}
               description={description}
+              likes={likes}
               isShowOptions={
                 isShowOptions ?? cachedCurrentUser?._id === author._id
               }

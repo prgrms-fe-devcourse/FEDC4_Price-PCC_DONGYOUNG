@@ -24,4 +24,41 @@ interface User {
   updatedAt?: string
   __v?: number
 }
+
+export interface UserSummary {
+  role: string
+  emailVerified?: boolean
+  banned?: boolean
+  isOnline?: boolean
+  posts?: Post[]
+  likes?: Like[]
+  comments?: string[]
+  followers: string[]
+  following: string[]
+  notifications?: Notification[]
+  messages?: Message[]
+  _id: string
+  fullName: string
+  email: string
+  createdAt?: string
+  updatedAt?: string
+  __v?: number
+}
+
+interface Following {
+  _id: string
+  user: string
+  follower: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface Follower {
+  _id: string
+  user: string
+  follower: string
+  createdAt: string
+  updatedAt: string
+}
+
 export default User
