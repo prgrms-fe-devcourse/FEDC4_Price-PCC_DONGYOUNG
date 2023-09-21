@@ -9,9 +9,10 @@ import './index.scss'
 
 type CardGridTemplateProps = {
   postDatas: Post[] | undefined
+  isShowOptions?: boolean
 }
 export default forwardRef(function CardGridTemplate(
-  { postDatas }: CardGridTemplateProps,
+  { postDatas, isShowOptions }: CardGridTemplateProps,
   ref: ForwardedRef<null>,
 ) {
   const { currentUser } = useCurrentUser()
@@ -24,7 +25,6 @@ export default forwardRef(function CardGridTemplate(
           { _id, image, author, title, description }: CardPostItemProps,
           index,
         ) => {
-          const isShowOptions = cachedCurrentUser?._id === author._id
           return (
             <CardPostItem
               key={_id + index}
@@ -33,7 +33,9 @@ export default forwardRef(function CardGridTemplate(
               author={author}
               title={title}
               description={description}
-              isShowOptions={isShowOptions}
+              isShowOptions={
+                isShowOptions ?? cachedCurrentUser?._id === author._id
+              }
             />
           )
         },
