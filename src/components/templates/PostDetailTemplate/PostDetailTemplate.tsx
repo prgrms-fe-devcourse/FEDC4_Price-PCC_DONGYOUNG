@@ -5,7 +5,7 @@ import parse from 'html-react-parser'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
-import PostOptionDropdownList from '@/components/molcules/ModalDropdownList/PostOptionDropdownList'
+import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import Assets from '@/config/assets'
@@ -54,7 +54,7 @@ export function PostDetailTemplate({
             >
               <Image src={Assets.OptionsIcon} alt="드롭다운 아이콘" />
             </button>
-            <PostOptionDropdownList isOpen={isDropdownOpen} postId={_id} />
+            <PostOptionsDropdown isOpen={isDropdownOpen} postId={_id} />
           </div>
         )}
       </div>

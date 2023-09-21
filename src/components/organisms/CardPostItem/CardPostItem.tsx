@@ -5,7 +5,7 @@ import Avatar from '@/components/atoms/Avatar'
 import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
-import { PostOptionDropdownList } from '@/components/molcules/ModalDropdownList'
+import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
@@ -49,7 +49,7 @@ export default function CardPostItem({
                     alt="더보기 아이콘"
                     onClick={handleOptionsClick}
                   />
-                  <PostOptionDropdownList
+                  <PostOptionsDropdown
                     isOpen={isDropdownOpen}
                     postId={_id}
                     setIsDeleted={setIsDeleted}

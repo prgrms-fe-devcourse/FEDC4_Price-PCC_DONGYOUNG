@@ -11,7 +11,7 @@ type PropsType = {
   setIsDeleted: Dispatch<SetStateAction<boolean>>
 }
 
-function PostOptionDropdownList({ postId, isOpen, setIsDeleted }: PropsType) {
+function PostOptionsDropdown({ postId, isOpen, setIsDeleted }: PropsType) {
   const deletePostMutation = useDeletePost(postId)
 
   const handleDeletePost = () => {
@@ -53,7 +53,7 @@ const OptimizedLink = React.memo(
 )
 OptimizedLink.displayName = 'OptimizedLink'
 
-export default React.memo(PostOptionDropdownList, (prevProps, nextProps) => {
+export default React.memo(PostOptionsDropdown, (prevProps, nextProps) => {
   return (
     prevProps.postId === nextProps.postId &&
     prevProps.isOpen === nextProps.isOpen
