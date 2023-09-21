@@ -6,9 +6,9 @@ import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import './index.scss'
 
-type CardUserPropsType = {
+export type CardUserPropsType = {
   _id: string
-  image: string
+  image?: string
   fullName: string
   followers: string[]
   following: string[]
