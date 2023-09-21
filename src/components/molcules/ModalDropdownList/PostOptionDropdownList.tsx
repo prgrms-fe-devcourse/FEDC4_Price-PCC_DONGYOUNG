@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
@@ -8,12 +8,14 @@ import './index.scss'
 type PropsType = {
   postId: string
   isOpen: boolean
+  setIsDeleted: Dispatch<SetStateAction<boolean>>
 }
 
-function PostOptionDropdownList({ postId, isOpen }: PropsType) {
+function PostOptionDropdownList({ postId, isOpen, setIsDeleted }: PropsType) {
   const deletePostMutation = useDeletePost(postId)
 
   const handleDeletePost = () => {
+    setIsDeleted((prevState) => !prevState)
     deletePostMutation.mutate()
   }
   return (

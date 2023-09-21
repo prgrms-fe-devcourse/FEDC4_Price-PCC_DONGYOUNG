@@ -28,48 +28,61 @@ export default function CardPostItem({
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isDeleted, setIsDeleted] = useState(false)
+
+  const handleOptionsClick = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
   return (
-    <Card>
-      <div className="content-container">
-        <div className="content-container__header">
-          <Link href={APP_PATH.userProfile(author._id)}>
-            <Avatar text={author.fullName} size={1.25} src={image} />
-          </Link>
-          {isEqualUser && (
-            <div>
-              <Image
-                src={Assets.OptionsIcon}
-                alt="더보기 아이콘"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              />
-              <PostOptionDropdownList isOpen={isDropdownOpen} postId={_id} />
+    <>
+      {!isDeleted && (
+        <Card>
+          <div className="content-container">
+            <div className="content-container__header">
+              <Link href={APP_PATH.userProfile(author._id)}>
+                <Avatar text={author.fullName} size={1.25} src={image} />
+              </Link>
+              {isEqualUser && (
+                <div>
+                  <Image
+                    src={Assets.OptionsIcon}
+                    alt="더보기 아이콘"
+                    onClick={handleOptionsClick}
+                  />
+                  <PostOptionDropdownList
+                    isOpen={isDropdownOpen}
+                    postId={_id}
+                    setIsDeleted={setIsDeleted}
+                  />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <Link href={`/post/${_id}`}>
-          <Text textStyle="body1-bold">{title}</Text>
-        </Link>
-        {image ? (
-          <div className="content-container__image-container">
-            <Image src={image} alt="첨부 이미지" fill />
+            <Link href={`/post/${_id}`}>
+              <Text textStyle="body1-bold">{title}</Text>
+            </Link>
+            {image ? (
+              <div className="content-container__image-container">
+                <Image src={image} alt="첨부 이미지" fill />
+              </div>
+            ) : (
+              <Link href={APP_PATH.userProfile(_id)}>
+                <Text
+                  textStyle="body2"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 8,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {description}
+                </Text>
+              </Link>
+            )}
+            <LikeDislikeCount like={230} dislike={170} />
           </div>
-        ) : (
-          <Link href={APP_PATH.userProfile(_id)}>
-            <Text
-              textStyle="body2"
-              style={{
-                display: '-webkit-box',
-                WebkitLineClamp: 8,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {description}
-            </Text>
-          </Link>
-        )}
-        <LikeDislikeCount like={230} dislike={170} />
-      </div>
-    </Card>
+        </Card>
+      )}
+    </>
   )
 }
