@@ -9,5 +9,7 @@ export default function Home() {
 
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
 
-  return <CardGridTemplate postDatas={data?.pages.flat()} ref={observerElem} />
+  let posts = data?.pages.flat()
+
+  return <CardGridTemplate postDatas={posts} ref={observerElem} />
 }
