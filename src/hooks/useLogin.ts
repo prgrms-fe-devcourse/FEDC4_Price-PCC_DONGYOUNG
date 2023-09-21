@@ -13,7 +13,7 @@ export const useLogin = () => {
   const login = async ({ email, password }: LoginReqBody) => {
     try {
       const res = await loginUser({ email, password })
-      if (!!res) {
+      if (res) {
         router.push(APP_PATH.home())
       }
     } catch (error) {

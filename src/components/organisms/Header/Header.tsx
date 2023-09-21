@@ -11,7 +11,7 @@ import { Text } from '@/components/atoms/Text'
 import ModalDropdownList from '@/components/molcules/ModalDropdownList'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import './index.scss'
 
 const DynamicDarkModeButton = dynamic(
@@ -22,7 +22,7 @@ const DynamicDarkModeButton = dynamic(
 export default function Header() {
   const [dropdownClick, setDropdownClick] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
 
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
 

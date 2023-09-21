@@ -9,7 +9,7 @@ import { notify } from '@/components/atoms/Toast'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import { POST_CONSTANT } from '@/constants/post'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -28,7 +28,7 @@ export function PostDetailTemplate({
   initDisLikeChannelPost,
   mapping_ID,
 }: PostDetailTemplateProps) {
-  const { currentUser, isLoggedIn } = useCurrentUser()
+  const { currentUser, isLoggedIn } = useAuth()
   const { title, comment, image, author } = initPost
 
   const { title: postTitle, description } = JSON.parse(title)

@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useAuth } from '@/lib/contexts/authProvider'
 import { deleteFollow, postFollow } from '@/services/follow'
 import User from '@/types/user'
-import { useCurrentUser } from './useCurrentUser'
 
 /**
  *
@@ -15,7 +15,7 @@ import { useCurrentUser } from './useCurrentUser'
  * @returns param followingCount: 현재 페이지의 유저의 팔로잉 수
  */
 const useFollow = (userData: User | undefined) => {
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
 
   const [isFollowing, setIsFollowing] = useState(false)
   const [isFollowed, setIsFollowed] = useState(false)
