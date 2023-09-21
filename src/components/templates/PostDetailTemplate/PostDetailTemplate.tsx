@@ -17,7 +17,7 @@ type PostDetailTemplateProps = {
   initPost: Post
 }
 
-export async function PostDetailTemplate({
+export function PostDetailTemplate({
   postId,
   initPost,
 }: PostDetailTemplateProps) {
