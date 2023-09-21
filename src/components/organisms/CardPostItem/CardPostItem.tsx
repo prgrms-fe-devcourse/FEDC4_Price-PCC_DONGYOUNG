@@ -38,7 +38,10 @@ export default function CardPostItem({
   return (
     <Card>
       <div className="content-container">
-        <Link href={APP_PATH.userProfile(author._id)}>
+        <Link
+          href={APP_PATH.userProfile(author._id)}
+          style={{ alignSelf: 'flex-start' }}
+        >
           <Avatar size={1.5} src={author.image} style={{ marginRight: '5px' }}>
             <Text textStyle="body2" color="gray-5">
               {author.fullName}
