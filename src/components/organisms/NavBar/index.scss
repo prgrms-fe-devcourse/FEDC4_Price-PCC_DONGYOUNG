@@ -44,29 +44,27 @@
     flex-direction: column;
     align-items: flex-start;
     margin-top: 2rem;
-    overflow-y: scroll;
-  }
-  .avatar-list-container::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 100%;
-  }
+    overflow-y: auto;
 
-  .avatar-list-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .avatar-list-container::-webkit-scrollbar-thumb {
-    width: 0.5rem;
-    height: 6rem;
-    border-radius: 0.5rem;
-    @include themed() {
-      background-color: t(bg-1);
+    &::-webkit-scrollbar {
+      border: none;
+      width: 8px;
     }
-  }
 
-  .avatar-list-container::-webkit-scrollbar-thumb:hover {
-    @include themed() {
-      background-color: t(gray-4);
+    &::-webkit-scrollbar-thumb {
+      @include themed() {
+        background-color: t(gray-1);
+      }
+      visibility: hidden;
+      height: 56px;
+      border-radius: 8px;
+      border: 4px solid transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
     }
   }
 
