@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import { Environment } from '@/config/environments'
 
 async function fetchSearchData(keyword: string) {
   const decodeKeyword = decodeURI(keyword)
@@ -28,7 +29,15 @@ export async function GET(req: NextRequest) {
 
   try {
     const data = await fetchSearchData(keyword)
-    return new Response(JSON.stringify(data), { status: 200 })
+    return new Response(
+      JSON.stringify(
+        data.filter(
+          ({ channel }: { channel: string }) =>
+            channel === Environment.channelId(),
+        ),
+      ),
+      { status: 200 },
+    )
   } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: Number(JSON.stringify({ error: error.status })),
