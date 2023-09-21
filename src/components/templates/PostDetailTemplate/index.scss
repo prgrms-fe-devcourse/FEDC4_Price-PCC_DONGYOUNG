@@ -3,11 +3,13 @@
 .post-detail {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 0px auto;
   box-sizing: border-box;
   width: 1080px;
   overflow: hidden;
   min-height: 50rem;
+  height: auto;
+  padding: 5px;
   border-radius: 19.02px;
   justify-content: space-around;
 
@@ -26,7 +28,7 @@
   &__avatar-container {
     display: flex;
     width: 80%;
-    margin: 0px auto;
+    margin: 15px auto;
     @include themed() {
       color: t(bg-1);
     }
@@ -37,7 +39,7 @@
     flex-wrap: wrap;
     width: 80%;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 15px auto;
     margin-bottom: 15px;
   }
 }

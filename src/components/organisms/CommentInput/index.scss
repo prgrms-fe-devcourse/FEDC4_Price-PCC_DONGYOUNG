@@ -8,11 +8,18 @@
   gap: 15px;
 }
 
+.comment--input--wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .comment--input {
+  border: none;
   display: flex;
   width: 80%;
-  height: 35px;
   flex-wrap: wrap;
+  align-items: baseline;
   overflow: hidden;
   @include themed() {
     background-color: t(bg-1);
