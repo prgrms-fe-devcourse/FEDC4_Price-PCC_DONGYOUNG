@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -5,6 +6,7 @@ import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import APP_PATH from '@/config/paths'
+import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -15,6 +17,7 @@ export type CardPostItemProps = Pick<
 
 export default function CardPostItem({
   _id,
+  likes,
   image,
   author,
   title,
@@ -22,6 +25,8 @@ export default function CardPostItem({
   disLikes,
   likes,
 }: CardPostItemProps) {
+
+
   return (
     <Card>
       <div className="content-container">

@@ -20,12 +20,13 @@ export default function Card({
   children,
   width,
   height,
+  className,
   style,
   ...props
 }: CardProps) {
   return (
     <div
-      className="card-container"
+      className={classNames('card-container', className)}
       {...props}
       style={{ width: `${width}rem`, height: `${height}rem`, ...style }}
     >

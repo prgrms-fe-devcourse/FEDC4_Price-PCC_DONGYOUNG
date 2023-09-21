@@ -34,6 +34,7 @@ export default forwardRef(function CardGridTemplate(
             author={author}
             title={title}
             description={description}
+            likes={likes}
           />
         ),
       )}
