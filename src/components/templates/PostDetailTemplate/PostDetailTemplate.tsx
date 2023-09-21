@@ -27,6 +27,7 @@ export function PostDetailTemplate({
   const { title: PostTitle, description } = JSON.parse(title)
   const { currentUser } = useCurrentUser()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
+  const isEqualUser = cachedCurrentUser?._id === author._id
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const handleDropdown = useCallback(() => {
@@ -45,7 +46,7 @@ export function PostDetailTemplate({
             marginLeft: '15px',
           }}
         />
-        {cachedCurrentUser && (
+        {isEqualUser && (
           <div className="post-detail__header--options">
             <button
               onClick={handleDropdown}

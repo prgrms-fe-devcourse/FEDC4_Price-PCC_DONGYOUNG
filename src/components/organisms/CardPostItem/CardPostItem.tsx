@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -8,6 +8,7 @@ import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import { PostOptionDropdownList } from '@/components/molcules/ModalDropdownList'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -23,6 +24,9 @@ export default function CardPostItem({
   title,
   description,
 }: CardPostItemProps) {
+  const { currentUser } = useCurrentUser()
+  const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
+  const isEqualUser = cachedCurrentUser?._id === author._id
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   return (
     <Card>
@@ -31,12 +35,16 @@ export default function CardPostItem({
           <Link href={APP_PATH.userProfile(author._id)}>
             <Avatar text={author.fullName} size={1.25} src={image} />
           </Link>
-          <Image
-            src={Assets.OptionsIcon}
-            alt="더보기 아이콘"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          />
-          <PostOptionDropdownList isOpen={isDropdownOpen} postId={_id} />
+          {isEqualUser && (
+            <div>
+              <Image
+                src={Assets.OptionsIcon}
+                alt="더보기 아이콘"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              />
+              <PostOptionDropdownList isOpen={isDropdownOpen} postId={_id} />
+            </div>
+          )}
         </div>
         <Link href={`/post/${_id}`}>
           <Text textStyle="body1-bold">{title}</Text>
