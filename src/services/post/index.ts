@@ -84,3 +84,12 @@ export const putUserPost = async (body: ModifyFormData) => {
   })
   return data
 }
+
+export const deleteUserPost = async (id: string) => {
+  try {
+    const { data } = await apiClient.delete(`api/post/${id}`)
+    return data
+  } catch (e) {
+    if (e instanceof Error) throw new Error(e.message)
+  }
+}

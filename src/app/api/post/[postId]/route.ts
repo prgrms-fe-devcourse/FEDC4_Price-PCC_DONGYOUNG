@@ -1,4 +1,6 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { useServerCookie } from '@/hooks/useServerCookie'
+import { apiServer } from '@/lib/axiosSever'
 
 async function fetchPostDetail(id: string) {
   try {
@@ -34,5 +36,29 @@ export async function GET(req: NextRequest) {
       return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
       })
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const id = req.nextUrl.pathname.replace('/api/post/', '')
+  const body = JSON.stringify({
+    id,
+  })
+
+  const { token } = useServerCookie()
+  try {
+    const { data } = await apiServer.delete(`/posts/delete`, {
+      data: body,
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+
+    return NextResponse.json(data)
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.response.data.message },
+      { status: error.response.status },
+    )
   }
 }
