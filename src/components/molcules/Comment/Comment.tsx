@@ -4,12 +4,12 @@ import { useCallback } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import type { default as CommentProps } from '@/types/comment'
 import './index.scss'
 
 type CommentPropsWithChild = CommentProps & {
   children?: React.ReactNode
+  isValid?: boolean
   onDeleteComment?: (_commentId: string) => void
 }
 
@@ -22,12 +22,12 @@ type CommentItemProps = Pick<CommentProps, 'comment' | 'createdAt'> & {
 export default function Comment({
   comment,
   author,
+  isValid,
   children,
   _id,
   createdAt,
   onDeleteComment,
 }: CommentPropsWithChild) {
-  const { currentUser, isLoggedIn } = useCurrentUser()
   const handleDeleteComment = useCallback(
     (_id: string) => {
       if (onDeleteComment) onDeleteComment(_id)
@@ -38,7 +38,7 @@ export default function Comment({
     <div className="comment__container">
       <User author={author} />
       <CommentItem comment={comment} createdAt={createdAt}>
-        {isLoggedIn && createdAt && author._id === currentUser?._id && (
+        {isValid && (
           <span
             className="comment__container_delete"
             onClick={() => handleDeleteComment(_id)}
