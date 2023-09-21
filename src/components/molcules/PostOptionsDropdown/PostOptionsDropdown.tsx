@@ -8,14 +8,16 @@ import './index.scss'
 type PropsType = {
   postId: string
   isOpen: boolean
-  setIsDeleted: Dispatch<SetStateAction<boolean>>
+  setIsDeleted?: Dispatch<SetStateAction<boolean>>
 }
 
 function PostOptionsDropdown({ postId, isOpen, setIsDeleted }: PropsType) {
   const deletePostMutation = useDeletePost(postId)
 
   const handleDeletePost = () => {
-    setIsDeleted((prevState) => !prevState)
+    if (setIsDeleted) {
+      setIsDeleted((prevState) => !prevState)
+    }
     deletePostMutation.mutate()
   }
   return (
