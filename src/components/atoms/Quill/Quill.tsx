@@ -10,12 +10,14 @@ const ReactQuill = dynamic(() => import('react-quill'), {
 
 type QuillProps = {
   onEdit?: (_contents: string) => void
+  defaultValue?: string
 }
 
-export default function Quill({ onEdit }: QuillProps) {
+export default function Quill({ onEdit, defaultValue }: QuillProps) {
   return (
     <div>
       <ReactQuill
+        defaultValue={defaultValue}
         className="quill"
         onChange={onEdit}
         modules={modules}

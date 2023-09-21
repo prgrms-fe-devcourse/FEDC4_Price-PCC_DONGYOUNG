@@ -1,3 +1,4 @@
+import Follow from '../follow'
 import Like from '../like'
 import Message from '../message'
 import Notification from '../notification'
@@ -13,12 +14,32 @@ interface User {
   posts?: Post[]
   likes?: Like[]
   comments?: string[]
-  followers?: Follower[]
-  following?: Following[]
+  followers?: Follow[]
+  following?: Follow[]
   notifications?: Notification[]
   messages?: Message[]
   _id: string
   fullName: string
+  createdAt?: string
+  updatedAt?: string
+  __v?: number
+}
+
+export interface UserSummary {
+  role: string
+  emailVerified?: boolean
+  banned?: boolean
+  isOnline?: boolean
+  posts?: Post[]
+  likes?: Like[]
+  comments?: string[]
+  followers: string[]
+  following: string[]
+  notifications?: Notification[]
+  messages?: Message[]
+  _id: string
+  fullName: string
+  email: string
   createdAt?: string
   updatedAt?: string
   __v?: number
@@ -39,4 +60,5 @@ interface Follower {
   createdAt: string
   updatedAt: string
 }
+
 export default User

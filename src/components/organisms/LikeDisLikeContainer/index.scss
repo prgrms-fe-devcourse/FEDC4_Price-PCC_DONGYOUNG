@@ -1,6 +1,22 @@
+@import '@/styles/variables.scss';
+
 .like-container {
   display: flex;
   margin: 0 auto;
   margin-bottom: 15px;
   gap: 2px;
+  @include themed() {
+    color: t(gray-5);
+  }
+  &__likes {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  &__dislikes {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
 }

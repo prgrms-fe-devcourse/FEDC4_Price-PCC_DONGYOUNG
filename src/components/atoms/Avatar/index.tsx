@@ -94,11 +94,10 @@ const Description = ({
 }: AvatarTextProps) => {
   return (
     <span
-      className={`color-${textColor} text-${textDirection} textSize-${textSize}`}
+      className={`color--${textColor} text-${textDirection} textSize-${textSize}`}
       style={{
         color: textColor,
         ...textStyle,
-        width: '200px',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -107,7 +106,6 @@ const Description = ({
       <div
         style={{
           ...textStyle,
-          width: '200px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -118,7 +116,6 @@ const Description = ({
       <div
         style={{
           ...textStyle,
-          width: '200px',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
