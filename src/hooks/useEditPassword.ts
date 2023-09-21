@@ -1,5 +1,5 @@
 import { notify } from '@/components/atoms/Toast'
-import { editUserPassword } from '@/services/user'
+import { editUserPassword } from '@/services/user/edit/password'
 
 export interface EditPasswordBody {
   password: string
