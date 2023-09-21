@@ -16,7 +16,14 @@ export default forwardRef(function CardGridTemplate(
   return (
     <div className="card-grid-container">
       {postDatas?.map(
-        ({ _id, image, author, title, description }: CardPostItemProps) => (
+        ({
+          _id,
+          image,
+          author,
+          title,
+          description,
+          likes,
+        }: CardPostItemProps) => (
           <CardPostItem
             key={_id}
             _id={_id}
@@ -24,6 +31,7 @@ export default forwardRef(function CardGridTemplate(
             author={author}
             title={title}
             description={description}
+            likes={likes}
           />
         ),
       )}
