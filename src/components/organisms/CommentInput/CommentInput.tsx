@@ -5,19 +5,23 @@ import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
 import { Comment as CommentItem } from '@/components/molcules/Comment'
+import useGetComment from '@/queries/comments'
 import Comment from '@/types/comment'
 import './index.scss'
 
 type CommentInputProps = Pick<Comment, 'author'> & {
   onChangeInput?: (_input: string) => void
-  onSubmit?: (_input: string) => Promise<any>
+  onSubmit?: (_input: string) => void
+  postId?: string
 }
 
 export default function CommentInput({
   author,
   onChangeInput,
   onSubmit,
+  postId,
 }: CommentInputProps) {
+  const { refetch } = useGetComment(postId ?? '')
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -38,6 +42,7 @@ export default function CommentInput({
   const handleOnClickBtn = () => {
     if (onSubmit && _input.trim().length > 1) {
       try {
+        refetch()
         onSubmit(_input)
         setInput('')
       } catch (error) {
