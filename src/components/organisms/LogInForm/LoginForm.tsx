@@ -85,7 +85,6 @@ const LogInForm = () => {
         rounded="rounded-lg"
         width={21.875}
         height={3.125}
-        type="submit"
       />
     </form>
   )
