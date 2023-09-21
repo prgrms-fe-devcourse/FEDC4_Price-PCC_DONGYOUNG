@@ -3,6 +3,8 @@ import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import { NOTIFICATION_CONSTANT } from '@/constants/notification'
+import useModal from '@/hooks/useModal'
+import { putNotification } from '@/services/notification'
 import Comment from '@/types/comment'
 import Notification from '@/types/notification'
 import User from '@/types/user'
@@ -21,6 +23,13 @@ type NotificationProps = {
 }
 
 export default function NotificationModal({ data }: PropsType) {
+  const { handleModalClose } = useModal()
+
+  const handleClick = () => {
+    putNotification()
+    handleModalClose()
+  }
+
   return (
     <Card>
       <Text className="notification-title" textStyle="body1">
@@ -44,7 +53,7 @@ export default function NotificationModal({ data }: PropsType) {
             />
           ),
       )}
-      <button className="seen-button" onClick={() => alert('모두 읽음')}>
+      <button className="seen-button" onClick={() => handleClick}>
         <Text
           className="seen-button-text"
           textStyle="body2-bold"
