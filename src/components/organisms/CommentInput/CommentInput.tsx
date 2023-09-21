@@ -64,6 +64,7 @@ export default function CommentInput({
               ref={commentInputRef}
               className="comment--input"
               outline="underbar"
+              value={_input}
               onChange={handleOnChangeComment}
             />
             <Button
