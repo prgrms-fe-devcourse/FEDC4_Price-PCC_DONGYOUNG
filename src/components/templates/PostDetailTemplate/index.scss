@@ -3,29 +3,24 @@
 .post-detail {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  gap: 2rem;
   box-sizing: border-box;
   width: 1080px;
   overflow: hidden;
   min-height: 58rem;
   border-radius: 19.02px;
+  padding: 5rem;
 
   @include themed() {
     background-color: t(bg-1);
-  }
-  &__heading {
-    display: flex;
-    width: 80%;
-    margin: 35px auto;
   }
   &__post {
     line-break: auto;
     white-space: pre-wrap;
   }
-  &__avatar-container {
+  &__header {
     display: flex;
-    width: 80%;
-    margin: 35px auto;
+    justify-content: space-between;
   }
   &__post-container {
     display: flex;
