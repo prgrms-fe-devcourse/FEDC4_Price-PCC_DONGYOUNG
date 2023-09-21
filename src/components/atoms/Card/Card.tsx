@@ -1,5 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react'
 import './index.scss'
+import classNames from 'classnames'
 
 export type CardProps = {
   children: ReactNode
