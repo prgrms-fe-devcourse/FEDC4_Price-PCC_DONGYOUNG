@@ -1,41 +1,23 @@
+'use client'
+
+import { useState } from 'react'
 import NotificationModal from '@/components/organisms/NotificationModal'
 import Assets from '@/config/assets'
-import useModal from '@/hooks/useModal'
 import useGetNotification from '@/queries/notifications'
-import { Card } from '../Card'
 import ImageButton from '../ImageButton'
-import { Text } from '../Text'
 
 export default function NotificationButton() {
   const data = useGetNotification()
-  const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
-
-  const handleClick = () => {
-    isModalOpen ? handleModalOpen() : handleModalClose()
-  }
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
       <ImageButton
         size={3}
         src={Assets.NotificationImage}
-        onClick={() => handleClick}
+        onClick={() => setIsOpen(!isOpen)}
       />
-      {isModalOpen &&
-        (data ? <NotificationModal data={data.data} /> : <EmptyNotification />)}
+      {isOpen && <NotificationModal data={data} setIsOpen={setIsOpen} />}
     </>
   )
 }
-
-const EmptyNotification = () => (
-  <Card>
-    <button>
-      <Text textStyle="body2-bold" color="primary-4">
-        X
-      </Text>
-    </button>
-    <Text textStyle="subtitle1-bold" color="primary-4">
-      알림이 없습니다
-    </Text>
-  </Card>
-)
