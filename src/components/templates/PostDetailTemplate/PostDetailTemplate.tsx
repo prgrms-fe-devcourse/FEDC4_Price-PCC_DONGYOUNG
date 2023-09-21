@@ -7,13 +7,14 @@ import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import CommentInput from '@/components/organisms/CommentInput/CommentInput'
-import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
+import { CommentList } from '@/components/organisms/CommentList'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { postNewComment } from '@/services/comment'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
+import type Comment from '@/types/comment'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -39,6 +40,8 @@ export function PostDetailTemplate({
   const [dislikeChannelPost, setDislikeChannelPost] = useState<Post>(
     initDisLikeChannelPost,
   )
+
+  const [comments, setComments] = useState<Comment[]>(comment ?? [])
 
   //좋아요를 누른 상태라면 좋아요 취소 요청을 보내고 싫어요 요청 ㄱ
 
@@ -226,13 +229,15 @@ export function PostDetailTemplate({
         onClickLike={handleOnClickLikeBtn}
         onClickDisLike={handleOnClickDisLikeBtn}
       />
-      <CommentListContainer postId={postId} initComments={comment} />
+      <CommentList comments={comments} />
       {isLoggedIn && currentUser && (
         <CommentInput
           author={currentUser}
-          onSubmit={async (comment) => {
-            await postNewComment({ comment, postId })
-          }}
+          onSubmit={async (comment) =>
+            await postNewComment({ comment, postId }).then((newComment) => {
+              setComments([...comments, newComment])
+            })
+          }
         />
       )}
     </div>
