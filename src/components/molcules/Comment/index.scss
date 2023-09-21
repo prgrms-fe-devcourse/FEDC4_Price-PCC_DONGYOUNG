@@ -20,6 +20,9 @@
   }
   &__item {
     padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     @include themed() {
       color: t(gray-5);
     }

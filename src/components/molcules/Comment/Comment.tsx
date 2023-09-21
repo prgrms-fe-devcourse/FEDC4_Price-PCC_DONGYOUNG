@@ -1,6 +1,7 @@
 'use client'
 
 import Avatar from '@/components/atoms/Avatar'
+import { Text } from '@/components/atoms/Text'
 import type { default as CommentProps } from '@/types/comment'
 import './index.scss'
 
@@ -10,7 +11,7 @@ type CommentPropsWithChild = CommentProps & {
 
 type CommentAuthorProps = Pick<CommentProps, 'author'>
 
-type CommentItemProps = Pick<CommentProps, 'comment'> & {
+type CommentItemProps = Pick<CommentProps, 'comment' | 'createdAt'> & {
   children?: React.ReactNode
 }
 
@@ -18,11 +19,14 @@ export default function Comment({
   comment,
   author,
   children,
+  createdAt,
 }: CommentPropsWithChild) {
   return (
     <div className="comment__container">
       <User author={author} />
-      <CommentItem comment={comment}>{children}</CommentItem>
+      <CommentItem comment={comment} createdAt={createdAt}>
+        {children}
+      </CommentItem>
     </div>
   )
 }
@@ -45,11 +49,21 @@ function User({ author }: CommentAuthorProps) {
   )
 }
 
-function CommentItem({ comment, children }: CommentItemProps) {
+function CommentItem({ comment, children, createdAt }: CommentItemProps) {
   return (
     <div className="comment__container__item">
+      <Text textStyle="caption1">
+        {createdAt && new Date(createdAt ?? '').toLocaleString()}
+      </Text>
       {children}
-      {comment}
+      <Text
+        textStyle="body2"
+        style={{
+          marginTop: '5px',
+        }}
+      >
+        {comment}
+      </Text>
     </div>
   )
 }
