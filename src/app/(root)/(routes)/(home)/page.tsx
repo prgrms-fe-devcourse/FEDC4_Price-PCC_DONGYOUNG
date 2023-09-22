@@ -13,9 +13,10 @@ export default function Home() {
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
   const router = useRouter()
 
+  let posts = data?.pages.flat()
   return (
     <>
-      <CardGridTemplate postDatas={data?.pages.flat()} ref={observerElem} />
+      <CardGridTemplate postDatas={posts} ref={observerElem} />
       <CirclePlusButton onClick={() => router.push(APP_PATH.postNew())} />
     </>
   )

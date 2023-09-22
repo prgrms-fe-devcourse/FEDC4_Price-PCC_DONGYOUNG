@@ -8,6 +8,7 @@ import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import APP_PATH from '@/config/paths'
 import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
+import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
 
 export type CardPostItemProps = Pick<
