@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -6,35 +5,24 @@ import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import APP_PATH from '@/config/paths'
-import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
+import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
 
 export type CardPostItemProps = Pick<
   Post,
-  '_id' | 'image' | 'author' | 'title' | 'description' | 'likes'
+  '_id' | 'image' | 'author' | 'title' | 'description' | 'disLikes' | 'likes'
 >
 
 export default function CardPostItem({
   _id,
-  likes,
   image,
   author,
   title,
   description,
+  disLikes,
+  likes,
 }: CardPostItemProps) {
-  const [disLikeCount, setDisLikeCount] = useState<number>(0)
-
-  useEffect(() => {
-    const fetchDisLikePost = async () => {
-      const disLikeCount = await getPostDetail(_id)
-      return disLikeCount
-    }
-    fetchDisLikePost().then(({ disLikePost }) =>
-      setDisLikeCount(disLikePost.likes.length),
-    )
-  }, [_id, title])
-
   return (
     <Card>
       <div className="content-container">
@@ -59,11 +47,14 @@ export default function CardPostItem({
                 overflow: 'hidden',
               }}
             >
-              {description}
+              {htmlTagParser(description)}
             </Text>
           </Link>
         )}
-        <LikeDislikeCount like={likes.length} dislike={disLikeCount} />
+        <LikeDislikeCount
+          like={likes.length ?? 0}
+          dislike={disLikes?.length ?? 0}
+        />
       </div>
     </Card>
   )
