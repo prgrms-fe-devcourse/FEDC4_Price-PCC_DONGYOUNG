@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Text } from '@/components/atoms/Text'
 import PostGrid from '@/components/organisms/PostGrid'
 import UserGrid from '@/components/organisms/UserGrid'
@@ -18,13 +18,21 @@ export default function SearchPageTemplate({ data }: dataType) {
   const [postClick, setPostClick] = useState(true)
   const [userClick, setUserClick] = useState(false)
 
+  useEffect(() => {
+    sessionStorage.getItem('category') === 'post'
+      ? handleClick('post')
+      : handleClick('user')
+  }, [postClick])
+
   const handleClick = (category: string) => {
     if (category === 'post') {
       setPostClick(true)
       setUserClick(false)
+      sessionStorage.setItem('category', 'post')
     } else {
       setPostClick(false)
       setUserClick(true)
+      sessionStorage.setItem('category', 'user')
     }
   }
 
@@ -51,11 +59,18 @@ export default function SearchPageTemplate({ data }: dataType) {
             />
           </div>
         </div>
-        <div className="data-grid" onScroll={restoreScrollPosition}>
+
+        <div className="data-grid">
           {postClick ? (
-            <PostGrid data={post}></PostGrid>
-          ) : (
+            post.length ? (
+              <PostGrid data={post}></PostGrid>
+            ) : (
+              <NoResultPage></NoResultPage>
+            )
+          ) : user.length ? (
             <UserGrid data={user}></UserGrid>
+          ) : (
+            <NoResultPage></NoResultPage>
           )}
         </div>
       </div>
@@ -87,13 +102,14 @@ const CategoryButton = ({
   </button>
 )
 
+const NoResultPage = () => (
+  <div className="data-grid-undefined">
+    <Text textStyle="heading2-bold" color="primary-4">
+      검색 결과가 없습니다
+    </Text>
+  </div>
+)
+
 export const isUser = (target: UserSummary | Post): target is UserSummary => {
   return (target as UserSummary).fullName !== undefined
-}
-
-export const restoreScrollPosition = () => {
-  console.log(document.getElementsByClassName('data-grid'))
-  const position = document.getElementsByClassName('data-grid')[0].scrollTop
-  sessionStorage.setItem('post-scroll-position', position.toString())
-  console.log(position)
 }
