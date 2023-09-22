@@ -1,5 +1,14 @@
 @import '/src/styles/global-layout.scss';
 
+.notification-card {
+  z-index: 200;
+  position: fixed;
+  width: 17rem;
+  min-height: 25rem;
+  margin-top: 28rem;
+  margin-right: 17rem;
+}
+
 .notification-title {
   padding: 0.5rem 0 2rem 0;
 }

@@ -53,14 +53,16 @@ export default function Avatar({
       />
 
       {children}
-      <Description
-        text={text}
-        subText={subText}
-        textSize={textSize}
-        textColor={textColor}
-        textStyle={textStyle}
-        textDirection={textDirection}
-      />
+      {text && (
+        <Description
+          text={text}
+          subText={subText}
+          textSize={textSize}
+          textColor={textColor}
+          textStyle={textStyle}
+          textDirection={textDirection}
+        />
+      )}
     </div>
   )
 }
@@ -94,7 +96,7 @@ const Description = ({
 }: AvatarTextProps) => {
   return (
     <span
-      className={`color--${textColor} text-${textDirection} textSize-${textSize}`}
+      className={`description color--${textColor} text-${textDirection} textSize-${textSize}`}
       style={{
         color: textColor,
         ...textStyle,
@@ -113,16 +115,18 @@ const Description = ({
       >
         {text}
       </div>
-      <div
-        style={{
-          ...textStyle,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        {subText}
-      </div>
+      {subText && (
+        <div
+          style={{
+            ...textStyle,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {subText}
+        </div>
+      )}
     </span>
   )
 }

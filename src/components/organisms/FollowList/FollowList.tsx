@@ -19,9 +19,13 @@ export default function FollowList({
         {isFollowerList ? '팔로워' : '팔로잉'}
       </Text>
       <ul className="follow-list">
-        {users?.map(({ _id, user, follower }) => {
+        {users?.map(({ _id, user, follower }, index) => {
           const targetUserId = isFollowerList ? follower : user
-          return <FollowListItem key={_id} targetUserId={targetUserId} />
+          return (
+            <div key={_id + index}>
+              <FollowListItem targetUserId={targetUserId} />
+            </div>
+          )
         })}
       </ul>
     </div>
