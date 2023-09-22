@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import NotificationModal from '@/components/organisms/NotificationModal'
 import Assets from '@/config/assets'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import ImageButton from '../ImageButton'
 
 export default function NotificationButton() {
   const [isOpen, setIsOpen] = useState(false)
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
 
   return (
     <>
