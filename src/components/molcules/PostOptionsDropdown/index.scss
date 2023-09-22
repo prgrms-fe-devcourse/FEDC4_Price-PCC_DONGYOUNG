@@ -1,0 +1,49 @@
+@import '@/styles/variables.scss';
+
+.dropdown-container {
+  position: relative;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    z-index: 2;
+    border-radius: 15px;
+    position: absolute;
+    right: 0;
+    @include themed() {
+      border: 0.1rem solid t(bg-2);
+    }
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+    transition: opacity 0.2s ease-in-out;
+
+    &.options {
+      margin: 0;
+    }
+
+    &.close {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &--item {
+      width: 10rem;
+      @include themed() {
+        border: 0.05rem solid t(bg-2);
+      }
+      padding: 0.7rem 0;
+      text-align: center;
+      cursor: pointer;
+
+      .body2 {
+        &:hover,
+        &:focus {
+          @include themed() {
+            color: t(primary-4);
+          }
+        }
+      }
+    }
+  }
+}
