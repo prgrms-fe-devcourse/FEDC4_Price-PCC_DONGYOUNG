@@ -1,9 +1,9 @@
 @import '/src/styles/global-layout.scss';
 
 .nav-container {
-  width: fit-content;
   padding: 0 2rem;
   height: 100%;
+  width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,12 +11,14 @@
   position: fixed;
   box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
   top: 0%;
+  z-index: 100;
 
   .image-button {
     padding: 2rem 0;
   }
 
   .image-button__image {
+    width: -moz-fit-content;
     width: fit-content;
     height: 4rem;
     object-fit: contain;

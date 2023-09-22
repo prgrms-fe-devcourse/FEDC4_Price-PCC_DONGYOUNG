@@ -13,8 +13,7 @@ interface FormValues {
   id: string
   password: string
   passwordCheck: string
-  name: string
-  nickName: string
+  fullName: string
 }
 
 const SignUpForm = () => {
@@ -31,11 +30,9 @@ const SignUpForm = () => {
       id: '',
       password: '',
       passwordCheck: '',
-      name: '',
-      nickName: '',
+      fullName: '',
     },
   })
-  const formType = 'signup'
 
   return (
     <form
@@ -44,7 +41,7 @@ const SignUpForm = () => {
         const user = await signup({
           email: data.id,
           password: data.password,
-          fullName: data.name,
+          fullName: data.fullName,
         })
         if (user) {
           router.push(APP_PATH.login())
@@ -65,10 +62,10 @@ const SignUpForm = () => {
               message: '아이디는 12글자 이하여야 합니다',
             },
           }))}
-        formType={formType}
         text="아이디"
         placeholder="아이디를 입력해 주세요"
         validCheck={errors.id?.message}
+        style={{ marginBottom: '2rem' }}
       />
       <SignInput
         {...(register &&
@@ -87,11 +84,11 @@ const SignUpForm = () => {
               message: '비밀번호는 숫자, 대문자, 소문자를 모두 포함해야 합니다',
             },
           }))}
-        formType={formType}
         type="password"
         text="비밀번호"
         placeholder="비밀번호를 입력해 주세요"
         validCheck={errors.password?.message}
+        style={{ marginBottom: '2rem' }}
       />
       <SignInput
         {...(register &&
@@ -104,42 +101,28 @@ const SignUpForm = () => {
               },
             },
           }))}
-        formType={formType}
         type="password"
         text="비밀번호 확인"
         placeholder="비밀번호를 한번 더 입력해 주세요"
         validCheck={errors.passwordCheck?.message}
+        style={{ marginBottom: '2rem' }}
       />
       <SignInput
         {...(register &&
-          register('name', {
-            required: '이름을 확인 해주세요',
-            minLength: {
-              value: 2,
-              message: '이름은 2글자 이상이어야 합니다',
-            },
-          }))}
-        formType={formType}
-        text="이름"
-        placeholder="이름을 입력해 주세요"
-        validCheck={errors.name?.message}
-      />
-      <SignInput
-        {...(register &&
-          register('nickName', {
+          register('fullName', {
             required: '닉네임을 확인 해주세요',
           }))}
-        formType={`last ${formType}`}
         text="닉네임"
         placeholder="닉네임을 입력해 주세요"
-        validCheck={errors.nickName?.message}
+        validCheck={errors.fullName?.message}
+        style={{ marginBottom: '4rem' }}
       />
       <Button
         onClick={handleSubmit(async (data) => {
           const user = await signup({
             email: data.id,
             password: data.password,
-            fullName: data.name,
+            fullName: data.fullName,
           })
           if (user) {
             router.push(APP_PATH.home())
@@ -150,6 +133,7 @@ const SignUpForm = () => {
         rounded="rounded-lg"
         width={21.875}
         height={3.125}
+        type="submit"
       />
     </form>
   )

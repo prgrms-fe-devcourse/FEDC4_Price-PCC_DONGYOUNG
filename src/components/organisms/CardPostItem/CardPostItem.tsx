@@ -6,11 +6,12 @@ import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import APP_PATH from '@/config/paths'
 import Post from '@/types/post'
+import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
 
 export type CardPostItemProps = Pick<
   Post,
-  '_id' | 'image' | 'author' | 'title' | 'description'
+  '_id' | 'image' | 'author' | 'title' | 'description' | 'disLikes' | 'likes'
 >
 
 export default function CardPostItem({
@@ -19,6 +20,8 @@ export default function CardPostItem({
   author,
   title,
   description,
+  disLikes,
+  likes,
 }: CardPostItemProps) {
   return (
     <Card>
@@ -44,11 +47,14 @@ export default function CardPostItem({
                 overflow: 'hidden',
               }}
             >
-              {description}
+              {htmlTagParser(description)}
             </Text>
           </Link>
         )}
-        <LikeDislikeCount like={230} dislike={170} />
+        <LikeDislikeCount
+          like={likes.length ?? 0}
+          dislike={disLikes?.length ?? 0}
+        />
       </div>
     </Card>
   )

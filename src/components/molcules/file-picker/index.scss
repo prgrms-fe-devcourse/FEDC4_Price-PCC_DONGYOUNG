@@ -1,4 +1,7 @@
+@import '@/styles/variables.scss';
+
 .file-picker {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -62,5 +65,31 @@
       border-radius: 5px;
       background-color: none;
     }
+  }
+}
+
+.file-picker__delete-button {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  @include themed() {
+    background-color: t(primary-1);
+    border: 3px solid t(gray-5);
+    color: t(gray-5);
+  }
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+
+  &.hidden {
+    display: none;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.2s ease-in-out;
   }
 }
