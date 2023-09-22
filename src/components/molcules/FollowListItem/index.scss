@@ -4,22 +4,4 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  span {
-    @include themed() {
-      color: t(gray-3);
-    }
-    padding-left: 1.5rem;
-
-    div {
-      padding: 0.5rem 0;
-    }
-    div:nth-child(1) {
-      font-weight: bold;
-      font-size: 1rem;
-    }
-    div:nth-child(2) {
-      font-size: 0.8rem;
-    }
-  }
 }
