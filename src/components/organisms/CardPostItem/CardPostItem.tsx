@@ -35,34 +35,42 @@ export default function CardPostItem({
           <div className="content-container">
             <div className="content-container__header">
               <Link href={APP_PATH.userProfile(author._id)}>
-                <Avatar text={author.fullName} size={1.25} src={image} />
+                <Avatar
+                  text={author.fullName}
+                  size={1.25}
+                  src={image}
+                  style={{
+                    alignItems: 'flex-start',
+                  }}
+                />
               </Link>
               {isShowOptions && (
                 <PostOptionsDropdown postId={_id} setIsDeleted={setIsDeleted} />
               )}
             </div>
-            <Link href={`/post/${_id}`}>
+            <Link
+              href={APP_PATH.postDetail(_id)}
+              className="content-container__article-container"
+            >
               <Text textStyle="body1-bold">{title}</Text>
-            </Link>
-            {image ? (
-              <div className="content-container__image-container">
-                <Image src={image} alt="첨부 이미지" fill />
-              </div>
-            ) : (
-              <Link href={APP_PATH.userProfile(_id)}>
+              {image ? (
+                <div className="content-container__image-container">
+                  <Image src={image} alt="첨부 이미지" fill />
+                </div>
+              ) : (
                 <Text
                   textStyle="body2"
                   style={{
                     display: '-webkit-box',
-                    WebkitLineClamp: 8,
+                    WebkitLineClamp: 7,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                   }}
                 >
                   {htmlTagParser(description)}
                 </Text>
-              </Link>
-            )}
+              )}
+            </Link>
             <LikeDislikeCount
               like={likes.length ?? 0}
               dislike={disLikes?.length ?? 0}
