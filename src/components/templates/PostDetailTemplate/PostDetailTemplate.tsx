@@ -6,13 +6,13 @@ import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
-import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
+import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
-import { postNewComment } from '@/services/comment'
 import { POST_CONSTANT } from '@/constants/post'
+import { useAuth } from '@/lib/contexts/authProvider'
+import { postNewComment } from '@/services/comment'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -32,8 +32,9 @@ export function PostDetailTemplate({
   mapping_ID,
 }: PostDetailTemplateProps) {
   const { title, comment, image, author, _id } = initPost
+  const { currentUser, isLoggedIn } = useAuth()
+
   const { title: postTitle, description } = JSON.parse(title)
-  const { currentUser, isLoggedIn } = useCurrentUser()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
@@ -233,7 +234,7 @@ export function PostDetailTemplate({
         onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
-        {isLoggedIn && currentUser && (
+      {isLoggedIn && currentUser && (
         <CommentInput
           postId={postId}
           author={currentUser}
@@ -241,6 +242,7 @@ export function PostDetailTemplate({
             await postNewComment({ comment, postId, userId: currentUser._id })
           }
         />
-      )}</div>
+      )}
+    </div>
   )
 }

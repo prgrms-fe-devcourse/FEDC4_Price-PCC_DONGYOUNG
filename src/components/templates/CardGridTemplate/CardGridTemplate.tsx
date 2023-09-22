@@ -3,7 +3,7 @@
 import { forwardRef, ForwardedRef, useMemo } from 'react'
 import { CardPostItem } from '@/components/organisms/CardPostItem'
 import { CardPostItemProps } from '@/components/organisms/CardPostItem/CardPostItem'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -15,7 +15,7 @@ export default forwardRef(function CardGridTemplate(
   { postDatas, isShowOptions }: CardGridTemplateProps,
   ref: ForwardedRef<null>,
 ) {
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   return (
     <div className="card-grid-container">

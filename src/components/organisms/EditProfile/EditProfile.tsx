@@ -2,14 +2,14 @@ import React, { useMemo } from 'react'
 import { Text } from '@/components/atoms/Text'
 import EditNamesform from '@/components/molcules/EditNamesForm'
 import EditProfileImageForm from '@/components/molcules/EditProfileImageForm'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 
 export type SetEditProfileComponent = {
   setPage: React.Dispatch<React.SetStateAction<'profile' | 'password'>>
 }
 
 const EditProfile = ({ setPage }: SetEditProfileComponent) => {
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
 
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
 

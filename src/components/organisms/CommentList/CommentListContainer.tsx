@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import useGetComment from '@/queries/comments'
 import { deleteComment } from '@/services/comment'
 import type Comment from '@/types/comment'
@@ -14,7 +14,7 @@ export default function CommentListContainer({
   postId: string
   initComments: Comment[]
 }) {
-  const { isLoggedIn, currentUser } = useCurrentUser()
+  const { isLoggedIn, currentUser } = useAuth()
   const { data, refetch } = useGetComment(postId, initComments)
 
   useEffect(() => {
