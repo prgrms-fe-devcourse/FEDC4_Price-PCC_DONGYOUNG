@@ -38,7 +38,7 @@ export default function CardPostItem({
                 <Avatar
                   text={author.fullName}
                   size={1.25}
-                  src={image}
+                  src={author.image}
                   style={{
                     alignItems: 'flex-start',
                   }}
