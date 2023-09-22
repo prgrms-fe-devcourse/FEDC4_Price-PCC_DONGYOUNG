@@ -12,18 +12,10 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     onClick: () => {},
-    width: 5.6,
-    height: 5.6,
   },
   argTypes: {
     onClick: {
       type: 'function',
-    },
-    width: {
-      type: 'number',
-    },
-    height: {
-      type: 'number',
     },
   },
 }
