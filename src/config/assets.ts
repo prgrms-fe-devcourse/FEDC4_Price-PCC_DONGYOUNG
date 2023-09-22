@@ -8,6 +8,7 @@ import lightmode from '/public/images/lightmode.svg'
 import LikeImage from '/public/images/like.svg'
 import MainLogo from '/public/images/mainLogo.svg'
 import NotificationImage from '/public/images/notification.svg'
+import OptionsIcon from '/public/images/optionsIcon.svg'
 import PCCImage from '/public/images/pccIImage.svg'
 import titleLogo from '/public/images/titleLogo.svg'
 import UploadImage from '/public/images/uploadImage.svg'
@@ -26,6 +27,7 @@ const Assets = {
   ArrowDarkIcon,
   ArrowLightIcon,
   backIcon,
+  OptionsIcon,
 } as const
 
 export default Assets

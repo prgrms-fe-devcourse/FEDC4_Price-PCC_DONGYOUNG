@@ -9,7 +9,7 @@ const useGetAllUsers = () => {
   return useQuery({
     queryKey: ['getAllUsers'],
     queryFn: async () => {
-      const data: User[] = await getAllUsers()
+      const data: User<string>[] = await getAllUsers()
       return data
     },
   })

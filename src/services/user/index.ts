@@ -9,7 +9,3 @@ export const getAllUsers = async () => {
   const { data } = await apiClient.get('/api/users/')
   return data
 }
-
-export const editUserPassword = async (password: string) => {
-  await apiClient.put('/api/users/edit/password', { password })
-}
