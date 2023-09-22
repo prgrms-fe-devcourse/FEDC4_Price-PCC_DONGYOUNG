@@ -3,22 +3,28 @@
 import { useRef, useEffect, useCallback, ChangeEvent, useState } from 'react'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
+import { notify } from '@/components/atoms/Toast'
 import { Comment as CommentItem } from '@/components/molcules/Comment'
+import useGetComment from '@/queries/comments'
 import Comment from '@/types/comment'
 import './index.scss'
 
 type CommentInputProps = Pick<Comment, 'author'> & {
   onChangeInput?: (_input: string) => void
   onSubmit?: (_input: string) => void
+  postId?: string
 }
 
 export default function CommentInput({
   author,
   onChangeInput,
   onSubmit,
+  postId,
 }: CommentInputProps) {
+  const { refetch } = useGetComment(postId ?? '')
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
+
   useEffect(() => {
     if (commentInputRef && commentInputRef.current) {
       commentInputRef.current.focus()
@@ -33,9 +39,18 @@ export default function CommentInput({
     [onChangeInput],
   )
 
-  const handleOnClickBtn = useCallback(() => {
-    if (onSubmit) onSubmit(_input)
-  }, [_input, onSubmit])
+  const handleOnClickBtn = () => {
+    if (onSubmit && _input.trim().length > 1) {
+      try {
+        refetch()
+        onSubmit(_input)
+        setInput('')
+      } catch (error) {
+        notify('error', '서버에서 호출에 실패하였습니다.')
+      }
+    }
+  }
+
   return (
     <>
       <div className="comment--input__container">
@@ -49,6 +64,7 @@ export default function CommentInput({
               ref={commentInputRef}
               className="comment--input"
               outline="underbar"
+              value={_input}
               onChange={handleOnChangeComment}
             />
             <Button
