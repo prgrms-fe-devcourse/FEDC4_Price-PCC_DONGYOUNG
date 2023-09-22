@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -6,11 +7,10 @@ import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import APP_PATH from '@/config/paths'
+import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
 import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
-import { useEffect, useState } from 'react'
-import { getPostDetail } from '@/services/post'
 
 export type CardPostItemProps = Pick<
   Post,
@@ -73,32 +73,17 @@ export default function CardPostItem({
                     overflow: 'hidden',
                   }}
                 >
-                  {description}
+                  {htmlTagParser(description)}
                 </Text>
               </Link>
             )}
-            <LikeDislikeCount like={230} dislike={170} />
+            <LikeDislikeCount
+              like={likes.length ?? 0}
+              dislike={disLikes?.length ?? 0}
+            />
           </div>
-        ) : (
-          <Link href={APP_PATH.userProfile(_id)}>
-            <Text
-              textStyle="body2"
-              style={{
-                display: '-webkit-box',
-                WebkitLineClamp: 8,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {htmlTagParser(description)}
-            </Text>
-          </Link>
-        )}
-        <LikeDislikeCount
-          like={likes.length ?? 0}
-          dislike={disLikes?.length ?? 0}
-        />
-      </div>
-    </Card>
+        </Card>
+      )}
+    </>
   )
 }
