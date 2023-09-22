@@ -6,7 +6,6 @@ const APP_PATH = {
   postNew: () => '/post/new',
   search: (keyword: string) => `/search/${keyword}`,
   editProfile: () => '/user/edit/profile',
-  editPassword: () => '/user/edit/password',
   userProfile: (id: string) => `/user/${id}`,
 } as const
 
