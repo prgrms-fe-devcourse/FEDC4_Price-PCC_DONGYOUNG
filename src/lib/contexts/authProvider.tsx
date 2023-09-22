@@ -8,7 +8,7 @@ import { useCurrentUser } from '@/hooks/useCurrentUser'
 
 interface AuthProviderProps {}
 
-const authNeededPages = [APP_PATH.postNew()]
+const authNeededPages = [APP_PATH.postNew(), APP_PATH.editProfile()]
 const authProhibitedPages = [APP_PATH.login(), APP_PATH.register()]
 
 export default function AuthProvider({
