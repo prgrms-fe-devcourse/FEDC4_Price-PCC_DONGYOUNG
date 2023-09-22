@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import Input from '../Input'
@@ -11,6 +11,7 @@ import './index.scss'
 export default function SearchBar() {
   const [keyword, setKeyword] = useState('')
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
@@ -24,6 +25,10 @@ export default function SearchBar() {
       sessionStorage.setItem('category', 'post')
     }
   }
+
+  useEffect(() => {
+    if (!pathname.includes('search')) setKeyword('')
+  }, [pathname])
 
   return (
     <div className="search-bar-container  color-bg--primary-2">
@@ -40,6 +45,7 @@ export default function SearchBar() {
         borderRadius="rounded-lg"
         onChangeFunction={handleSearchBar}
         onKeyDown={handleEnterKeyPress}
+        value={keyword}
       />
     </div>
   )
