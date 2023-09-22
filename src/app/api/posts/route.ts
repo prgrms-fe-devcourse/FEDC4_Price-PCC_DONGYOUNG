@@ -38,6 +38,7 @@ export async function GET(req: NextRequest) {
           ...post,
           title: parsedArticle.title,
           description: parsedArticle.description,
+          mapping_ID: parsedArticle.mapping_ID,
         }
       } else {
         return {
