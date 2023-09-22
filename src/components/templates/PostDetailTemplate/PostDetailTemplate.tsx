@@ -7,6 +7,7 @@ import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
+import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import { POST_CONSTANT } from '@/constants/post'
@@ -232,6 +233,7 @@ export function PostDetailTemplate({
         onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
+      {isLoggedIn && currentUser && <CommentInput author={currentUser} />}
     </div>
   )
 }

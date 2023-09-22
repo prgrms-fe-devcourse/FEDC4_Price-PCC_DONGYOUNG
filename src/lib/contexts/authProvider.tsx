@@ -19,7 +19,7 @@ const AuthContext = createContext<{
   isLoggedIn: false,
 })
 
-const authNeededPages = [APP_PATH.postNew()]
+const authNeededPages = [APP_PATH.postNew(), APP_PATH.editProfile()]
 const authProhibitedPages = [APP_PATH.login(), APP_PATH.register()]
 
 export function AuthProvider({ children }: AuthProviderProps) {
