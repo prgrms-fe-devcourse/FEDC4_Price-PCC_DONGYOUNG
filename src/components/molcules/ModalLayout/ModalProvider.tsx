@@ -32,7 +32,7 @@ export default function ModalProvider({
       })}
       onClick={handleOutsideClick}
     >
-      <div onClick={(e) => e.stopPropagation()}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <Card width={modalWidth} height={modalHeight}>
           {children}
         </Card>
