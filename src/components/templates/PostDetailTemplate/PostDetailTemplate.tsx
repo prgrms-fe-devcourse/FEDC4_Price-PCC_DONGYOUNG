@@ -5,12 +5,13 @@ import parse from 'html-react-parser'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
-import { notify } from '@/components/atoms/Toast'
+import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
-import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { notify } from '@/components/atoms/Toast'
+import { POST_CONSTANT } from '@/constants/post'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -231,6 +232,7 @@ export function PostDetailTemplate({
         onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
+      {isLoggedIn && currentUser && <CommentInput author={currentUser} />}
     </div>
   )
 }
