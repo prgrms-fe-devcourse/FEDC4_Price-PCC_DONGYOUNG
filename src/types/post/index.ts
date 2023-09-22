@@ -5,6 +5,8 @@ import User from '../user'
 
 interface Post {
   likes: Like[]
+  disLikes?: Like[]
+  mapping_ID?: string
   comment: Comment[]
   _id: string
   image?: string
