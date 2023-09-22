@@ -22,7 +22,7 @@ export const Default: Story = {
     comments: [
       {
         _id: '1',
-
+        isValidUser: true,
         author: {
           email: '12345@naver.com',
           name: '효중',
@@ -33,6 +33,7 @@ export const Default: Story = {
       },
       {
         _id: '1',
+        isValidUser: false,
         author: {
           fullName: '김효중',
           image: '',
@@ -44,6 +45,7 @@ export const Default: Story = {
       },
       {
         _id: '2',
+        isValidUser: true,
         author: {
           email: '12345@naver.com',
           name: '효중',
@@ -56,6 +58,7 @@ export const Default: Story = {
       },
       {
         _id: '3',
+        isValidUser: false,
         author: {
           email: '12345@naver.com',
           name: '효중',
@@ -68,6 +71,7 @@ export const Default: Story = {
       },
       {
         _id: '4',
+        isValidUser: true,
         author: {
           email: '12345@naver.com',
           name: '효중',
