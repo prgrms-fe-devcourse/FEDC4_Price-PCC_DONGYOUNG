@@ -29,10 +29,9 @@ export async function GET(req: NextRequest) {
   try {
     const data = await fetchSearchData(keyword)
     return new Response(JSON.stringify(data), { status: 200 })
-  } catch (error) {
-    if (error instanceof Error)
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-      })
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: Number(JSON.stringify({ error: error.status })),
+    })
   }
 }
