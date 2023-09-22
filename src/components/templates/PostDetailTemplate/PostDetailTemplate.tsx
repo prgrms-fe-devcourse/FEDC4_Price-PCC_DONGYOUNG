@@ -12,6 +12,7 @@ import CommentListContainer from '@/components/organisms/CommentList/CommentList
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import { POST_CONSTANT } from '@/constants/post'
 import { useAuth } from '@/lib/contexts/authProvider'
+import { postNewComment } from '@/services/comment'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -233,7 +234,15 @@ export function PostDetailTemplate({
         onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
-      {isLoggedIn && currentUser && <CommentInput author={currentUser} />}
+      {isLoggedIn && currentUser && (
+        <CommentInput
+          postId={postId}
+          author={currentUser}
+          onSubmit={async (comment) =>
+            await postNewComment({ comment, postId, userId: currentUser._id })
+          }
+        />
+      )}
     </div>
   )
 }
