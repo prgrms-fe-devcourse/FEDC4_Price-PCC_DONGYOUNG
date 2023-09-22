@@ -14,9 +14,7 @@ import './index.scss'
 export type CardPostItemProps = Pick<
   Post,
   '_id' | 'image' | 'author' | 'title' | 'description' | 'disLikes' | 'likes'
-> & {
-  isShowOptions?: boolean
-}
+>
 
 export default function CardPostItem({
   _id,
