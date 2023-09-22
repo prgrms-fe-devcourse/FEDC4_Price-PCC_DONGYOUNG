@@ -5,19 +5,15 @@ import { useGetUserDetail } from '@/queries/users/detail'
 import './index.scss'
 
 type FollowListItemProps = {
-  key: string
   targetUserId: string
 }
 
-export default function FollowListItem({
-  key,
-  targetUserId,
-}: FollowListItemProps) {
+export default function FollowListItem({ targetUserId }: FollowListItemProps) {
   const { data } = useGetUserDetail(targetUserId)
   const { isFollowing, unavailable, followToggle, followerCount } =
     useFollow(data)
   return (
-    <li className="follow-list-item" key={key}>
+    <li className="follow-list-item">
       <Avatar
         src={data?.image}
         text={data?.fullName}
