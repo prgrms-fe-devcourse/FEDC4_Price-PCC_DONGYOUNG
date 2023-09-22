@@ -8,6 +8,7 @@ import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import APP_PATH from '@/config/paths'
 import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
+import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
 
 export type CardPostItemProps = Pick<
@@ -42,9 +43,27 @@ export default function CardPostItem({
           href={APP_PATH.userProfile(author._id)}
           style={{ alignSelf: 'flex-start' }}
         >
-          <Avatar size={1.5} src={author.image} style={{ marginRight: '5px' }}>
-            <Text textStyle="body2" color="gray-5">
-              {author.fullName}
+          <Avatar text={author.fullName} size={1.25} src={image} />
+        </Link>
+        <Link href={`/post/${_id}`}>
+          <Text textStyle="body1-bold">{title}</Text>
+        </Link>
+        {image ? (
+          <div className="content-container__image-container">
+            <Image src={image} alt="첨부 이미지" fill />
+          </div>
+        ) : (
+          <Link href={APP_PATH.userProfile(_id)}>
+            <Text
+              textStyle="body2"
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 8,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}
+            >
+              {htmlTagParser(description)}
             </Text>
           </Avatar>
         </Link>
