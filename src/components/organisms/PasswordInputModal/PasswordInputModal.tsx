@@ -5,7 +5,7 @@ import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Text } from '@/components/atoms/Text'
 import { useCheckPassword } from '@/hooks/useCheckPassword'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 
 type HandleModalCloseProps = {
   handleModalClose: () => void
@@ -17,7 +17,7 @@ const PasswordInputModal = ({
   setIsAuthUser,
 }: HandleModalCloseProps) => {
   const { register, handleSubmit } = useForm()
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
   const { checkUser } = useCheckPassword()
 
   return (

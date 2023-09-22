@@ -1,6 +1,9 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useAuth } from '@/lib/contexts/authProvider'
 import useGetComment from '@/queries/comments'
+import { deleteComment } from '@/services/comment'
 import type Comment from '@/types/comment'
 import { CommentList } from '.'
 
@@ -11,7 +14,32 @@ export default function CommentListContainer({
   postId: string
   initComments: Comment[]
 }) {
-  const { data } = useGetComment(postId, initComments)
+  const { isLoggedIn, currentUser } = useAuth()
+  const { data, refetch } = useGetComment(postId, initComments)
 
-  return <CommentList comments={data?.post?.comments} />
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
+  const handleOnDeleteComment = (commentId: string) => {
+    const onDeleteComment = async () => {
+      await deleteComment(commentId)
+      refetch()
+    }
+
+    onDeleteComment()
+  }
+
+  const commentsWithValid = data?.post?.comments.map((comment: Comment) => ({
+    ...comment,
+    isValidUser:
+      isLoggedIn && currentUser && comment.author._id === currentUser._id,
+  }))
+
+  return (
+    <CommentList
+      comments={commentsWithValid}
+      onDeleteComment={handleOnDeleteComment}
+    />
+  )
 }

@@ -3,15 +3,28 @@ import { Comment as CommentComponent } from '@/components/molcules/Comment'
 import Comment from '@/types/comment'
 import './index.scss'
 
-export default function CommentList({ comments }: { comments: Comment[] }) {
+interface CommentWithValidate extends Comment {
+  isValidUser: boolean
+}
+
+export default function CommentList({
+  comments,
+  onDeleteComment,
+}: {
+  comments: CommentWithValidate[]
+  onDeleteComment: (_commentId: string) => void
+}) {
   return (
     <div className="comment--list">
-      {comments?.map(({ _id, author, comment }) => (
+      {comments?.map(({ _id, isValidUser, createdAt, author, comment }) => (
         <CommentComponent
+          isValid={isValidUser}
           key={_id}
           _id={_id}
           author={author}
           comment={comment}
+          createdAt={createdAt}
+          onDeleteComment={onDeleteComment}
         />
       ))}
     </div>
