@@ -43,27 +43,9 @@ export default function CardPostItem({
           href={APP_PATH.userProfile(author._id)}
           style={{ alignSelf: 'flex-start' }}
         >
-          <Avatar text={author.fullName} size={1.25} src={image} />
-        </Link>
-        <Link href={`/post/${_id}`}>
-          <Text textStyle="body1-bold">{title}</Text>
-        </Link>
-        {image ? (
-          <div className="content-container__image-container">
-            <Image src={image} alt="첨부 이미지" fill />
-          </div>
-        ) : (
-          <Link href={APP_PATH.userProfile(_id)}>
-            <Text
-              textStyle="body2"
-              style={{
-                display: '-webkit-box',
-                WebkitLineClamp: 8,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              }}
-            >
-              {htmlTagParser(description)}
+          <Avatar size={1.5} src={author.image} style={{ marginRight: '5px' }}>
+            <Text textStyle="body2" color="gray-5">
+              {author.fullName}
             </Text>
           </Avatar>
         </Link>
