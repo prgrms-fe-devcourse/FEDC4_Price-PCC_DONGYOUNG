@@ -2,6 +2,7 @@ import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
+import { SIGN_CONSTANT } from '@/constants/sign'
 import { loginUser } from '@/services/auth'
 
 export interface LoginReqBody {
@@ -19,8 +20,8 @@ export const useLogin = () => {
       }
     } catch (error) {
       const { response } = error as unknown as AxiosError
-      if (response?.data) {
-        notify('error', '로그인에 실패했습니다.')
+      if ((response?.data as any).error === SIGN_CONSTANT.LOGINREJECT) {
+        notify('error', '아이디와 비밀번호를 다시 확인해 주세요')
       }
     }
     return null
