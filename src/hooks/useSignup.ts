@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
+import { SIGN_CONSTANT } from '@/constants/sign'
 import { signupUser } from '@/services/auth'
 
 export interface SignupReqBody {
@@ -20,7 +22,12 @@ export const useSignup = () => {
         return user
       }
     } catch (error) {
-      notify('error', '회원가입에 실패했습니다.')
+      const { response } = error as unknown as AxiosError
+      if ((response?.data as any).error === SIGN_CONSTANT.SAMEIDSIGNUP) {
+        notify('error', '중복된 아이디입니다.')
+      } else {
+        notify('error', '회원가입에 실패했습니다.')
+      }
       return null
     }
   }

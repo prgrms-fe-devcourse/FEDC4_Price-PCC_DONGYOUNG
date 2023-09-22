@@ -16,6 +16,8 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     switch (error.response.status) {
+      case 400:
+        break
       case 401:
         notify('error', '로그인이 필요합니다.')
         redirect(APP_PATH.login())
