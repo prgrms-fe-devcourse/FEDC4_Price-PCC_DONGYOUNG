@@ -48,6 +48,12 @@ export default function Comment({
         )}
         {children}
       </CommentItem>
+  children,
+}: CommentPropsWithChild) {
+  return (
+    <div className="comment__container">
+      <User author={author} />
+      <CommentItem comment={comment}>{children}</CommentItem>
     </div>
   )
 }

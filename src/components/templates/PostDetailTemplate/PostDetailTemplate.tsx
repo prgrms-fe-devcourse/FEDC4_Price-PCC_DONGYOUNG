@@ -1,17 +1,18 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useMemo } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import CommentInput from '@/components/organisms/CommentInput/CommentInput'
+import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
-import { POST_CONSTANT } from '@/constants/post'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { postNewComment } from '@/services/comment'
+import { POST_CONSTANT } from '@/constants/post'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -30,10 +31,11 @@ export function PostDetailTemplate({
   initDisLikeChannelPost,
   mapping_ID,
 }: PostDetailTemplateProps) {
-  const { currentUser, isLoggedIn } = useCurrentUser()
-  const { title, comment, image, author } = initPost
-
+  const { title, comment, image, author, _id } = initPost
   const { title: postTitle, description } = JSON.parse(title)
+  const { currentUser, isLoggedIn } = useCurrentUser()
+  const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
+  const isEqualUser = cachedCurrentUser?._id === author._id
 
   const [likeChannelPost, setLikeChannelPost] = useState<Post>(initPost)
   const [dislikeChannelPost, setDislikeChannelPost] = useState<Post>(
@@ -54,9 +56,11 @@ export function PostDetailTemplate({
       const { _id: _dislikeChannelId, likes: _dislikeChannelLikes } =
         dislikeChannelPost
 
-      const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
+      const hasLikedPost = likes.some(
+        (like) => like.user === cachedCurrentUser?._id,
+      )
       const hasDisLikedPost = _dislikeChannelLikes.some(
-        (like) => like.user === currentUser?._id,
+        (like) => like.user === cachedCurrentUser?._id,
       )
 
       //좋아요를 아직 하지 않은 경우 좋아요 요청을 보내고 싫어요 취소 요청
@@ -68,7 +72,7 @@ export function PostDetailTemplate({
 
         if (hasDisLikedPost) {
           const disLikeID = dislikeChannelPost.likes.filter(
-            (like) => like.user === currentUser?._id,
+            (like) => like.user === cachedCurrentUser?._id,
           )[0]._id
           await postLikeCancelAction(disLikeID)
           await getPostDetail(mapping_ID).then(({ post }) => {
@@ -82,8 +86,9 @@ export function PostDetailTemplate({
       //좋아요를 한 경우
       //좋아요의 ID를 뽑아옴
       else {
-        const likeId = likes.filter((like) => like.user === currentUser?._id)[0]
-          ._id
+        const likeId = likes.filter(
+          (like) => like.user === cachedCurrentUser?._id,
+        )[0]._id
 
         await postLikeCancelAction(likeId)
         await getPostDetail(_id).then(({ post }) => {
@@ -105,7 +110,7 @@ export function PostDetailTemplate({
     isLoggedIn,
     likeChannelPost,
     dislikeChannelPost,
-    currentUser?._id,
+    cachedCurrentUser?._id,
     mapping_ID,
   ])
 
@@ -127,12 +132,12 @@ export function PostDetailTemplate({
       const { likes } = dislikeChannelPost
 
       const hasLikedPost = likeChannelPost.likes.some(
-        (like) => like.user === currentUser?._id,
+        (like) => like.user === cachedCurrentUser?._id,
       )
 
       //해당 게시글을 싫어요를 했는지?
       const hasDislikedPost = likes.some(
-        (disLike) => disLike.user === currentUser?._id,
+        (disLike) => disLike.user === cachedCurrentUser?._id,
       )
 
       //아직 싫어요를 안한 경우
@@ -144,7 +149,7 @@ export function PostDetailTemplate({
 
         if (hasLikedPost) {
           const likeId = likeChannelPost.likes.filter(
-            (like) => like.user === currentUser?._id,
+            (like) => like.user === cachedCurrentUser?._id,
           )[0]._id
           await postLikeCancelAction(likeId)
           await getPostDetail(likeChannelPost._id).then(({ post }) => {
@@ -158,7 +163,7 @@ export function PostDetailTemplate({
       //싫어요를 이미 한 경우
       else {
         const disLikeID = likes.filter(
-          (like) => like.user === currentUser?._id,
+          (like) => like.user === cachedCurrentUser?._id,
         )[0]._id
         await postLikeCancelAction(disLikeID)
         await getPostDetail(mapping_ID).then(({ post }) => {
@@ -180,12 +185,12 @@ export function PostDetailTemplate({
     dislikeChannelPost,
     likeChannelPost.likes,
     likeChannelPost._id,
-    currentUser?._id,
+    cachedCurrentUser?._id,
   ])
 
   return (
     <div className="post-detail">
-      <div className="post-detail__avatar-container">
+      <div className="post-detail__header">
         <Avatar
           size={5}
           src={initPost?.author?.image ?? ''}
@@ -202,6 +207,7 @@ export function PostDetailTemplate({
             {author.fullName}
           </Text>
         </Avatar>
+        {isEqualUser && <PostOptionsDropdown postId={_id} />}
       </div>
       <Text
         textStyle="heading0-bold"
@@ -221,13 +227,13 @@ export function PostDetailTemplate({
       </div>
 
       <LikeDisLikeContainer
-        like={likeChannelPost.likes.length}
-        dislike={dislikeChannelPost.likes.length}
+        like={likeChannelPost?.likes?.length || 0}
+        dislike={dislikeChannelPost?.likes?.length || 0}
         onClickLike={handleOnClickLikeBtn}
         onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
-      {isLoggedIn && currentUser && (
+        {isLoggedIn && currentUser && (
         <CommentInput
           postId={postId}
           author={currentUser}
@@ -235,7 +241,6 @@ export function PostDetailTemplate({
             await postNewComment({ comment, postId, userId: currentUser._id })
           }
         />
-      )}
-    </div>
+      )}</div>
   )
 }

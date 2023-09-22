@@ -3,7 +3,8 @@
 .post-detail {
   display: flex;
   flex-direction: column;
-  margin: 0px auto;
+margin: 0px auto;
+  gap: 2rem;
   box-sizing: border-box;
   width: 1080px;
   overflow: hidden;
@@ -11,24 +12,23 @@
   height: auto;
   padding: 5px;
   border-radius: 19.02px;
+  padding: 5rem;
   justify-content: space-around;
 
   @include themed() {
     background-color: t(bg-1);
   }
-  &__heading {
-    display: flex;
-    width: 80%;
-    margin: 0 auto;
-  }
   &__post {
     line-break: auto;
     white-space: pre-wrap;
   }
-  &__avatar-container {
+  &__header {
     display: flex;
     width: 80%;
     margin: 15px auto;
+    justify-content: space-between;
+    // width: 80%;
+    // margin: 0px auto;
     @include themed() {
       color: t(bg-1);
     }

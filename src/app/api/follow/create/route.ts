@@ -6,13 +6,32 @@ export async function POST(request: Request) {
   const body = await request.json()
   const { token } = useServerCookie()
   try {
-    const { data } = await apiServer.post(`/follow/create`, body, {
+    const { data: followData } = await apiServer.post(`/follow/create`, body, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
+    const followId = followData._id
+    const userId = followData.user
 
-    return NextResponse.json(data)
+    const { data: notiData } = await apiServer.post(
+      `/notifications/create`,
+      {
+        notificationType: 'FOLLOW',
+        notificationTypeId: followId,
+        userId: userId,
+        postId: null,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+
+    console.log(notiData)
+
+    return NextResponse.json(followData)
   } catch (error: any) {
     return NextResponse.json(
       { error: error.response.data.message },
