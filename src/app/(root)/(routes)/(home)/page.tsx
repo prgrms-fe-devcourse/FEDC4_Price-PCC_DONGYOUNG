@@ -42,5 +42,12 @@ export default function Home() {
   }, [data])
 
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
-  return <CardGridTemplate postDatas={posts} ref={observerElem} />
+
+  return (
+    <CardGridTemplate
+      postDatas={posts}
+      ref={observerElem}
+      isShowOptions={false}
+    />
+  )
 }
