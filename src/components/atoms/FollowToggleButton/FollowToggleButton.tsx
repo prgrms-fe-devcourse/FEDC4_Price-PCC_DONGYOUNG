@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import classNames from 'classnames'
 import { Text } from '@/components/atoms/Text'
 import TextStyle from '@/types/textStyles'
@@ -22,13 +25,22 @@ export default function FollowToggleButton({
     small: 'subtitle1',
     large: 'subtitle1-bold',
   }
+  const [disable, setDisable] = useState(false)
+
+  const handleClickEvent = async () => {
+    setDisable(true)
+    await followToggle()
+    setDisable(false)
+  }
+
   return (
     <button
       className={classNames('toggle-button', size, {
         isHide: unavailable,
         isFollowing: isFollowing,
       })}
-      onClick={followToggle}
+      disabled={disable}
+      onClick={handleClickEvent}
     >
       <Text
         textStyle={textStyles[size]}
