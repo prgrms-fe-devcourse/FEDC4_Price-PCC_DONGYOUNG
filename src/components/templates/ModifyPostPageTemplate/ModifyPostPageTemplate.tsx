@@ -8,8 +8,8 @@ import Quill from '@/components/atoms/Quill'
 import { notify } from '@/components/atoms/Toast'
 import FilePicker from '@/components/molcules/file-picker'
 import APP_PATH from '@/config/paths'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { useModifyPostForm } from '@/hooks/useModifyPostForm'
+import { useAuth } from '@/lib/contexts/authProvider'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -21,7 +21,7 @@ export default function ModifyPostPageTemplate({
   postData,
 }: ModifyPostPageTemplateProps) {
   const { register, onSubmit, titleError, setValue } = useModifyPostForm()
-  const { currentUser } = useCurrentUser()
+  const { currentUser } = useAuth()
   const router = useRouter()
 
   useLayoutEffect(() => {

@@ -10,7 +10,7 @@ import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import { POST_CONSTANT } from '@/constants/post'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { useAuth } from '@/lib/contexts/authProvider'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import Post from '@/types/post'
@@ -30,8 +30,9 @@ export function PostDetailTemplate({
   mapping_ID,
 }: PostDetailTemplateProps) {
   const { title, comment, image, author, _id } = initPost
+  const { currentUser, isLoggedIn } = useAuth()
+
   const { title: postTitle, description } = JSON.parse(title)
-  const { currentUser, isLoggedIn } = useCurrentUser()
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
