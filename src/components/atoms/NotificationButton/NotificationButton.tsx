@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import NotificationModal from '@/components/organisms/NotificationModal'
 import Assets from '@/config/assets'
-import useGetNotification from '@/queries/notifications'
+import { useCurrentUser } from '@/hooks/useCurrentUser'
 import ImageButton from '../ImageButton'
 
 export default function NotificationButton() {
-  const data = useGetNotification()
   const [isOpen, setIsOpen] = useState(false)
+  const { currentUser } = useCurrentUser()
 
   return (
     <>
@@ -17,7 +17,13 @@ export default function NotificationButton() {
         src={Assets.NotificationImage}
         onClick={() => setIsOpen(!isOpen)}
       />
-      {isOpen && <NotificationModal data={data} setIsOpen={setIsOpen} />}
+      {
+        <NotificationModal
+          open={isOpen}
+          currentUser={currentUser}
+          setIsOpen={setIsOpen}
+        />
+      }
     </>
   )
 }
