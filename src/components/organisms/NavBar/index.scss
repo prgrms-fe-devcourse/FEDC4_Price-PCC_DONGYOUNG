@@ -45,7 +45,19 @@
     gap: 1rem;
     margin-top: 2rem;
     overflow-y: auto;
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
+      &--avatar {
+        width: 70%;
+      }
+
+      button:last-child {
+        flex-shrink: 0;
+      }
+    }
     &::-webkit-scrollbar {
       border: none;
       width: 8px;
