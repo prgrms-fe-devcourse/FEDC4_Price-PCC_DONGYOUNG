@@ -225,8 +225,8 @@ export function PostDetailTemplate({
       </div>
 
       <LikeDisLikeContainer
-        like={likeChannelPost.likes.length}
-        dislike={dislikeChannelPost.likes.length}
+        like={likeChannelPost?.likes?.length || 0}
+        dislike={dislikeChannelPost?.likes?.length || 0}
         onClickLike={handleOnClickLikeBtn}
         onClickDisLike={handleOnClickDisLikeBtn}
       />
