@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
@@ -17,9 +18,12 @@ export const useLogin = () => {
         router.push(APP_PATH.home())
       }
     } catch (error) {
-      notify('error', '로그인에 실패했습니다.')
-      return null
+      const { response } = error as unknown as AxiosError
+      if (response?.data) {
+        notify('error', '로그인에 실패했습니다.')
+      }
     }
+    return null
   }
   return { login }
 }

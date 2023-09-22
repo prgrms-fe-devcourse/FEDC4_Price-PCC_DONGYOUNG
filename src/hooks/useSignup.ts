@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
@@ -20,6 +21,11 @@ export const useSignup = () => {
         return user
       }
     } catch (error) {
+      const { response } = error as unknown as AxiosError
+      if (response?.data) {
+        console.log(response.data)
+        notify('error', '중복된 아이디입니다.')
+      }
       notify('error', '회원가입에 실패했습니다.')
       return null
     }
