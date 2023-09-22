@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { deleteFollow, postFollow } from '@/services/follow'
+import Follow from '@/types/follow'
 import User from '@/types/user'
 import { useCurrentUser } from './useCurrentUser'
 
@@ -14,7 +15,7 @@ import { useCurrentUser } from './useCurrentUser'
  * @returns param followerCount: 현재 페이지의 유저의 팔로워 수
  * @returns param followingCount: 현재 페이지의 유저의 팔로잉 수
  */
-const useFollow = (userData: User | undefined) => {
+const useFollow = (userData: User<Follow | string> | undefined) => {
   const { currentUser } = useCurrentUser()
 
   const [isFollowing, setIsFollowing] = useState(false)
@@ -29,8 +30,8 @@ const useFollow = (userData: User | undefined) => {
     setFollowingCount(() => userData.following?.length ?? 0)
     setIsFollowing(
       () =>
-        userData.followers?.some(
-          (follower) => follower.follower === currentUser?._id,
+        currentUser.following?.some(
+          (followedUser) => followedUser.user === userData?._id,
         ) ?? false,
     )
     setIsFollowed(
@@ -49,35 +50,13 @@ const useFollow = (userData: User | undefined) => {
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
-
       setFollowId(() => followData?._id ?? '')
       await deleteFollow(followData?._id ?? followId)
-
-      currentUser.following?.splice(
-        currentUser.following.findIndex(
-          ({ follower }) => follower === userData._id,
-        ),
-        1,
-      )
-      userData.followers?.splice(
-        userData.followers.findIndex(
-          (follower) => follower._id === currentUser._id,
-        ),
-        1,
-      )
     } else {
       setIsFollowing(true)
       setFollowerCount((prev) => prev + 1)
       const followData = await postFollow(userData._id)
       setFollowId(() => followData._id ?? '')
-      userData.followers?.push({
-        _id: currentUser._id,
-        follower: currentUser._id,
-        user: userData._id,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      })
-      currentUser.following?.push(followData)
     }
   }
 

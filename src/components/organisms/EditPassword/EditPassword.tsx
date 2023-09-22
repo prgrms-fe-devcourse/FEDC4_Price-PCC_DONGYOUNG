@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -53,6 +54,7 @@ const EditPassword = ({ setPage }: SetEditProfileComponent) => {
         alt="backIcon"
         style={{
           cursor: 'pointer',
+          position: 'absolute',
         }}
       />
       <Text
@@ -118,4 +120,4 @@ const EditPassword = ({ setPage }: SetEditProfileComponent) => {
   )
 }
 
-export default EditPassword
+export default React.memo(EditPassword)

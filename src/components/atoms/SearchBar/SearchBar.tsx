@@ -18,9 +18,10 @@ export default function SearchBar() {
 
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      keyword === ''
+      keyword.trim() === ''
         ? router.push(APP_PATH.home())
-        : router.push(APP_PATH.search(keyword))
+        : router.push(APP_PATH.search(keyword.trim()))
+      sessionStorage.setItem('category', 'post')
     }
   }
 
