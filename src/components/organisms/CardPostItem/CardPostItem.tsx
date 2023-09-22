@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -7,7 +7,6 @@ import { Text } from '@/components/atoms/Text'
 import { LikeDislikeCount } from '@/components/molcules/LikeDislikeCount'
 import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import APP_PATH from '@/config/paths'
-import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
 import htmlTagParser from '@/utils/htmlTagParser'
 import './index.scss'
@@ -18,30 +17,17 @@ export type CardPostItemProps = Pick<
 > & {
   isShowOptions?: boolean
 }
-
 export default function CardPostItem({
   _id,
   image,
   author,
   title,
   description,
+  isShowOptions,
   disLikes,
   likes,
-  isShowOptions,
 }: CardPostItemProps) {
   const [isDeleted, setIsDeleted] = useState(false)
-  const [disLikeCount, setDisLikeCount] = useState<number>(0)
-
-  useEffect(() => {
-    const fetchDisLikePost = async () => {
-      const disLikeCount = await getPostDetail(_id)
-      return disLikeCount
-    }
-    fetchDisLikePost().then(({ disLikePost }) =>
-      setDisLikeCount(disLikePost.likes.length),
-    )
-  }, [_id, title])
-
   return (
     <>
       {!isDeleted && (

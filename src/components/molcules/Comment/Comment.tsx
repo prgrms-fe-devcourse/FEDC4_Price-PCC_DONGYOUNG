@@ -4,15 +4,25 @@ import Avatar from '@/components/atoms/Avatar'
 import type { default as CommentProps } from '@/types/comment'
 import './index.scss'
 
+type CommentPropsWithChild = CommentProps & {
+  children?: React.ReactNode
+}
+
 type CommentAuthorProps = Pick<CommentProps, 'author'>
 
-type CommentItemProps = Pick<CommentProps, 'comment'>
+type CommentItemProps = Pick<CommentProps, 'comment'> & {
+  children?: React.ReactNode
+}
 
-export default function Comment({ comment, author }: CommentProps) {
+export default function Comment({
+  comment,
+  author,
+  children,
+}: CommentPropsWithChild) {
   return (
     <div className="comment__container">
       <User author={author} />
-      <CommentItem comment={comment} />
+      <CommentItem comment={comment}>{children}</CommentItem>
     </div>
   )
 }
@@ -35,6 +45,11 @@ function User({ author }: CommentAuthorProps) {
   )
 }
 
-function CommentItem({ comment }: CommentItemProps) {
-  return <div className="comment__container__item">{comment}</div>
+function CommentItem({ comment, children }: CommentItemProps) {
+  return (
+    <div className="comment__container__item">
+      {children}
+      {comment}
+    </div>
+  )
 }

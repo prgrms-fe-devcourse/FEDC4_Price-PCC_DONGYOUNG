@@ -1,8 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import CirclePlusButton from '@/components/atoms/CirclePlusButton'
 import { notify } from '@/components/atoms/Toast'
 import CardGridTemplate from '@/components/templates/CardGridTemplate'
+import APP_PATH from '@/config/paths'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import useGetAllPosts from '@/queries/channel'
 import { getPostDetail } from '@/services/post'
@@ -42,12 +45,16 @@ export default function Home() {
   }, [data])
 
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
+  const router = useRouter()
 
   return (
-    <CardGridTemplate
-      postDatas={posts}
-      ref={observerElem}
-      isShowOptions={false}
-    />
+    <>
+      <CardGridTemplate
+        postDatas={posts}
+        ref={observerElem}
+        isShowOptions={false}
+      />
+      <CirclePlusButton onClick={() => router.push(APP_PATH.postNew())} />
+    </>
   )
 }

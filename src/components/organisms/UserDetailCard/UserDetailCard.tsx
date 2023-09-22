@@ -1,6 +1,7 @@
 import Avatar from '@/components/atoms/Avatar'
 import { Card } from '@/components/atoms/Card'
 import { Text } from '@/components/atoms/Text'
+import { Environment } from '@/config/environments'
 import { getUserDetail } from '@/services/user'
 import User from '@/types/user'
 import './index.scss'
@@ -13,13 +14,15 @@ async function getUserData(userId: string): Promise<User> {
 
 export default async function UserDetailCard({ userId }: { userId: string }) {
   const userData = await getUserData(userId)
-
+  const userCurChannelPostLength = userData?.posts?.filter(
+    (post) => String(post.channel) === Environment.channelId(),
+  ).length
   return (
     <Card className="user-detail_card">
       <Avatar size={10} />
       <Text textStyle="heading1-bold">{userData?.fullName}</Text>
       <Follows userData={userData} />
-      <InfoCount text="게시글" number={userData?.posts?.length.toString()} />
+      <InfoCount text="게시글" number={userCurChannelPostLength?.toString()} />
     </Card>
   )
 }
