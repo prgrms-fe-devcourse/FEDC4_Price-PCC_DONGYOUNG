@@ -25,9 +25,6 @@ export default function CommentInput({
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
 
-}: CommentInputProps) {
-  const [_input, setInput] = useState<string>('')
-  const commentInputRef = useRef<HTMLInputElement | null>(null)
   useEffect(() => {
     if (commentInputRef && commentInputRef.current) {
       commentInputRef.current.focus()
