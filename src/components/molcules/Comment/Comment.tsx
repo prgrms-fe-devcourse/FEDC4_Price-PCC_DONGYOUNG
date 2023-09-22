@@ -48,6 +48,7 @@ export default function Comment({
         )}
         {children}
       </CommentItem>
+    </div>
   children,
 }: CommentPropsWithChild) {
   return (
