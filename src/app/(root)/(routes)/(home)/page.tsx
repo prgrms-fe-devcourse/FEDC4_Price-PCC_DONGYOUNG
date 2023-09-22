@@ -22,28 +22,32 @@ export default function Home() {
       }
     }
 
-    const loadInitDisLikePosts = async (postIds: string[]) => {
+    const loadInitDisLikePosts = async (posts: Post[]) => {
+      const mappingIdList = posts?.map((value) => value._id)
+
       const postAllRes = await Promise.all(
-        postIds.map(async (id) => await fetchDisLikePost(id)),
+        mappingIdList?.map(async (id) => await fetchDisLikePost(id)),
       )
+      const updatedPosts = posts.map((post, i) => {
+        return {
+          ...post,
+          disLikes: postAllRes[i]?.likes,
+        }
+      })
 
-      if (data && data.pages) {
-        const updatedPosts = [...data.pages].flat().map((post, i) => {
-          return {
-            ...post,
-            disLikes: postAllRes[i].likes,
-          }
-        })
-        setPosts(updatedPosts)
-      }
+      setPosts(updatedPosts)
     }
 
-    const mappingIdList = data?.pages.flat().map((value) => value._id)
-    if (mappingIdList) {
-      loadInitDisLikePosts(mappingIdList)
-    }
-  }, [data, data?.pages])
+    loadInitDisLikePosts(data?.pages.flat() as Post[])
+  }, [data])
 
   const { observerElem } = useInfiniteScroll({ fetchNextPage, hasNextPage })
-  return <CardGridTemplate postDatas={posts} ref={observerElem} />
+
+  return (
+    <CardGridTemplate
+      postDatas={posts}
+      ref={observerElem}
+      isShowOptions={false}
+    />
+  )
 }

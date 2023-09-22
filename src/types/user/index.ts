@@ -4,7 +4,7 @@ import Message from '../message'
 import Notification from '../notification'
 import Post from '../post'
 
-interface User {
+interface User<T = Follow> {
   name: string
   email: string
   coverImage?: string
@@ -14,8 +14,8 @@ interface User {
   posts?: Post[]
   likes?: Like[]
   comments?: string[]
-  followers?: Follow[]
-  following?: Follow[]
+  followers?: T[]
+  following?: T[]
   notifications?: Notification[]
   messages?: Message[]
   _id: string
@@ -24,7 +24,6 @@ interface User {
   updatedAt?: string
   __v?: number
 }
-
 export interface UserSummary {
   role: string
   emailVerified?: boolean
