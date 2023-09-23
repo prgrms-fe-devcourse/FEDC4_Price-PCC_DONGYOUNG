@@ -18,12 +18,7 @@ const EditNamesform = ({ fullName }: NameProps) => {
   const [currentName, setCurrentName] = useState('')
   const { editProfile } = useEditProfile()
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const { register, handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       fullName: '',
       username: '',
@@ -33,17 +28,13 @@ const EditNamesform = ({ fullName }: NameProps) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        if (data.fullName.length < 1) {
-          notify('error', `${errors.fullName?.message}`)
-        } else {
-          try {
-            await editProfile(data)
-            notify('success', '닉네임이 수정되었습니다.')
-            setCurrentName(data.fullName)
-            setValue('fullName', '')
-          } catch (error) {
-            notify('error', '닉네임 수정에 실패했습니다.')
-          }
+        try {
+          await editProfile(data)
+          notify('success', '닉네임이 수정되었습니다.')
+          setCurrentName(data.fullName)
+          setValue('fullName', '')
+        } catch (error) {
+          notify('error', '닉네임 수정에 실패했습니다.')
         }
       })}
       style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -51,7 +42,7 @@ const EditNamesform = ({ fullName }: NameProps) => {
       <Input
         {...(register &&
           register('fullName', {
-            required: '변경 할 닉네임을 작성해주세요.',
+            required: true,
           }))}
         placeholder={currentName.length > 0 ? currentName : fullName}
         variant="clear"
