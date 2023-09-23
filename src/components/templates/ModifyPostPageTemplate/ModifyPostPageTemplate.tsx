@@ -20,7 +20,8 @@ type ModifyPostPageTemplateProps = {
 export default function ModifyPostPageTemplate({
   postData,
 }: ModifyPostPageTemplateProps) {
-  const { register, onSubmit, titleError, setValue } = useModifyPostForm()
+  const { register, onSubmit, titleError, setValue, formState } =
+    useModifyPostForm()
   const { currentUser } = useAuth()
   const router = useRouter()
 
@@ -83,7 +84,7 @@ export default function ModifyPostPageTemplate({
       <div className="submit-button-container">
         <Button
           text="완료"
-          variant="default"
+          variant={formState.isSubmitting ? 'disabled' : 'default'}
           isShadowed={true}
           rounded="rounded-md"
           width={12}

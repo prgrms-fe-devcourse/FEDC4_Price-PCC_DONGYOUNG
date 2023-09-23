@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
@@ -13,9 +14,12 @@ interface UploadFormData {
 export const useUploadForm = () => {
   const { register, handleSubmit, formState, setValue } =
     useForm<UploadFormData>()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
   const onSubmit = async ({ title, description, image }: UploadFormData) => {
+    if (isSubmitting) return
+    setIsSubmitting(() => true)
     try {
       const res = await postUserPost({
         title: {
@@ -26,11 +30,13 @@ export const useUploadForm = () => {
       })
 
       if (res) {
-        notify('success', '게시글이 성공적으로 등록되었습니다.')
         router.push(APP_PATH.home())
+        notify('success', '게시글이 성공적으로 등록되었습니다.')
+        setIsSubmitting(() => false)
       }
     } catch (e) {
       notify('error', '게시글 등록에 실패했습니다.')
+      setIsSubmitting(() => false)
     }
   }
 
@@ -41,5 +47,6 @@ export const useUploadForm = () => {
     descriptionError: formState.errors.description?.message,
     imageError: formState.errors.image?.message,
     setValue,
+    formState,
   }
 }

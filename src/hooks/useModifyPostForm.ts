@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { notify } from '@/components/atoms/Toast'
@@ -17,6 +18,7 @@ export interface ModifyFormData {
 export const useModifyPostForm = () => {
   const { register, handleSubmit, formState, setValue } =
     useForm<ModifyFormData>()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
   const onSubmit = async ({
@@ -25,6 +27,8 @@ export const useModifyPostForm = () => {
     postId,
     imageSelective,
   }: ModifyFormData) => {
+    if (isSubmitting) return
+    setIsSubmitting(() => true)
     try {
       const res = await putUserPost({
         title,
@@ -34,11 +38,13 @@ export const useModifyPostForm = () => {
       })
 
       if (res) {
-        notify('success', '게시글이 성공적으로 등록되었습니다.')
         router.push(APP_PATH.postDetail(postId))
+        notify('success', '게시글이 성공적으로 등록되었습니다.')
+        setIsSubmitting(() => false)
       }
     } catch (e) {
       notify('error', '게시글 등록에 실패했습니다.')
+      setIsSubmitting(() => false)
     }
   }
 
@@ -49,5 +55,6 @@ export const useModifyPostForm = () => {
     descriptionError: formState.errors.description?.message,
     imageError: formState.errors.imageSelective?.message,
     setValue,
+    formState,
   }
 }

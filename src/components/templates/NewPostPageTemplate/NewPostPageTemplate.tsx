@@ -8,7 +8,8 @@ import { useUploadForm } from '@/hooks/useUploadForm'
 import './index.scss'
 
 export default function NewPostPageTemplate() {
-  const { register, onSubmit, titleError, setValue } = useUploadForm()
+  const { register, onSubmit, titleError, setValue, formState } =
+    useUploadForm()
   return (
     <form className="upload-page" onSubmit={onSubmit}>
       <Input
@@ -46,7 +47,7 @@ export default function NewPostPageTemplate() {
       <div className="submit-button-container">
         <Button
           text="완료"
-          variant="default"
+          variant={formState.isSubmitting ? 'disabled' : 'default'}
           isShadowed={true}
           rounded="rounded-md"
           width={12}
