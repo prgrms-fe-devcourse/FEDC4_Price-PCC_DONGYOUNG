@@ -1,9 +1,8 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
-import APP_PATH from '@/config/paths'
 import { useEditProfile } from '@/hooks/useEditUserProfile'
 
 interface FormValues {
@@ -16,12 +15,13 @@ export type NameProps = {
 }
 
 const EditNamesform = ({ fullName }: NameProps) => {
-  const router = useRouter()
+  const [currentName, setCurrentName] = useState('')
   const { editProfile } = useEditProfile()
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -39,7 +39,8 @@ const EditNamesform = ({ fullName }: NameProps) => {
           try {
             await editProfile(data)
             notify('success', '닉네임이 수정되었습니다.')
-            router.push(APP_PATH.home())
+            setCurrentName(data.fullName)
+            setValue('fullName', '')
           } catch (error) {
             notify('error', '닉네임 수정에 실패했습니다.')
           }
@@ -52,7 +53,7 @@ const EditNamesform = ({ fullName }: NameProps) => {
           register('fullName', {
             required: '변경 할 닉네임을 작성해주세요.',
           }))}
-        placeholder={fullName}
+        placeholder={currentName.length > 0 ? currentName : fullName}
         variant="clear"
         outline="underbar"
         style={{
