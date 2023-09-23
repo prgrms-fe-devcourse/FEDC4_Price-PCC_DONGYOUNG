@@ -120,7 +120,7 @@ export function PostDetailTemplate({
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
-      notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
+      notify('error', POST_CONSTANT.DISLIKE_ERROR)
       return
     }
 
