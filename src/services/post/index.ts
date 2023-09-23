@@ -1,4 +1,4 @@
-import { ModifyFormData } from '@/hooks/useModifyPostForm'
+import { ModifyUploadFormType } from '@/hooks/useModifyPostForm'
 import { apiClient } from '@/lib/axios'
 
 interface PostUserBody {
@@ -45,7 +45,7 @@ export const getPostDetail = async (id: string) => {
   }
 }
 
-export const putUserPost = async (body: ModifyFormData) => {
+export const putUserPost = async (body: ModifyUploadFormType) => {
   const title = JSON.stringify({
     title: body.title,
     description: body.description,

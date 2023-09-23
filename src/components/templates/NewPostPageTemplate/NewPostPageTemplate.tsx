@@ -8,8 +8,14 @@ import { useUploadForm } from '@/hooks/useUploadForm'
 import './index.scss'
 
 export default function NewPostPageTemplate() {
-  const { register, onSubmit, titleError, setValue, formState } =
-    useUploadForm()
+  const {
+    register,
+    onSubmit,
+    titleError,
+    descriptionError,
+    setValue,
+    formState,
+  } = useUploadForm()
   return (
     <form className="upload-page" onSubmit={onSubmit}>
       <Input
@@ -30,11 +36,13 @@ export default function NewPostPageTemplate() {
           }
         }}
       />
+      <span className="form-error-message">{titleError}</span>
       <Quill
         onEdit={(text) => {
           setValue('description', text)
         }}
       />
+      <span className="form-error-message">{descriptionError}</span>
       <div className="file-picker-container">
         <FilePicker
           width={20}

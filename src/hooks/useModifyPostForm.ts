@@ -1,23 +1,48 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { z } from 'zod'
 import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
+import { postValidation } from '@/config/postValidation'
 import { putUserPost } from '@/services/post'
 
-export interface ModifyFormData {
-  title: string
-  description: string
-  postId: string
-  imageSelective: {
-    image: File | string | null | undefined
-    imageToDeletePublicId: string | undefined
-  }
-}
+export type ModifyUploadFormType = z.infer<typeof modifyUploadFormSchema>
+
+export const modifyUploadFormSchema = z.preprocess(
+  (obj: any) => {
+    const cleanDescription = obj.description.replace(/<[^>]*>/g, '')
+
+    if (cleanDescription.length < 1) {
+      return {
+        ...obj,
+        description: '',
+      }
+    } else {
+      return obj
+    }
+  },
+  z.object({
+    title: postValidation.title(),
+    description: postValidation.description(),
+    image: postValidation.image(),
+    postId: z.string(),
+    imageSelective: z.object({
+      image: z.any(),
+      imageToDeletePublicId: z.string().optional(),
+    }),
+  }),
+)
 
 export const useModifyPostForm = () => {
   const { register, handleSubmit, formState, setValue } =
-    useForm<ModifyFormData>()
+    useForm<ModifyUploadFormType>({
+      // FIXME: zodResolver의 버전이 올라가면서 타입이 맞지 않는 문제가 있음
+      // @ts-ignore
+      resolver: zodResolver(modifyUploadFormSchema),
+      mode: 'onChange',
+    })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
@@ -26,7 +51,7 @@ export const useModifyPostForm = () => {
     description,
     postId,
     imageSelective,
-  }: ModifyFormData) => {
+  }: ModifyUploadFormType) => {
     if (isSubmitting) return
     setIsSubmitting(() => true)
     try {
@@ -36,7 +61,6 @@ export const useModifyPostForm = () => {
         postId,
         imageSelective,
       })
-
       if (res) {
         router.push(APP_PATH.postDetail(postId))
         notify('success', '게시글이 성공적으로 등록되었습니다.')
