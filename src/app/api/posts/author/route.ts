@@ -10,8 +10,9 @@ export async function GET(req: NextRequest) {
     const { data } = await apiServer.get(
       `/posts/author/${authorId}?offset=${offset}&limit=${limit}`,
     )
-
-    return NextResponse.json(data)
+    return NextResponse.json(
+      data.filter((post: Post) => post.channel._id === Environment.channelId()),
+    )
   } catch (error: any) {
     return NextResponse.json(
       { error: error.response.data.message },
