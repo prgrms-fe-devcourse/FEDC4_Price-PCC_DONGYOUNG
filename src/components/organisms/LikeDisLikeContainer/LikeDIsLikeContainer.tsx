@@ -25,7 +25,7 @@ export default function LikeDislikeContainer({
         .then(() => {
           setLoading(false)
         })
-        .catch(() => {
+        .finally(() => {
           setLoading(false)
         })
     }
@@ -38,7 +38,7 @@ export default function LikeDislikeContainer({
         .then(() => {
           setLoading(false)
         })
-        .catch(() => {
+        .finally(() => {
           setLoading(false)
         })
     }
