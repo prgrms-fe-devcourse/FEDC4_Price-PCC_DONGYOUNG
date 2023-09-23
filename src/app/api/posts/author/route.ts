@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiServer } from '@/lib/axiosSever'
+import type Post from "@/types/post"
 
 export async function GET(req: NextRequest) {
   const authorId = req.nextUrl.searchParams.get('authorId') ?? 'undefined'
