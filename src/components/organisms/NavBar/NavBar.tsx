@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import FollowToggleButton from '@/components/atoms/FollowToggleButton'
@@ -45,22 +46,20 @@ function UserListItem({
   key: string
   userData: User<string>
 }) {
-  const router = useRouter()
   const { isFollowing, followToggle, followerCount, unavailable } =
     useFollow(userData)
   const { image, _id, fullName } = userData
   return (
     <li key={key} className="avatar-list__item">
-      <div
-        className="avatar-list__item--avatar"
-        onClick={() => router.push(APP_PATH.userProfile(_id))}
-      >
-        <Avatar
-          src={image}
-          size={3}
-          text={fullName}
-          subText={`${followerCount} Followers`}
-        />
+      <div className="avatar-list__item--avatar">
+        <Link href={APP_PATH.userProfile(_id)}>
+          <Avatar
+            src={image}
+            size={3}
+            text={fullName}
+            subText={`${followerCount} Followers`}
+          />
+        </Link>
       </div>
       <FollowToggleButton
         size="micro"
