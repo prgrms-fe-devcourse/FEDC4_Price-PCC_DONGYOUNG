@@ -13,9 +13,26 @@ export async function GET(req: NextRequest) {
       `/posts/author/${authorId}?offset=${offset}&limit=${limit}`,
     )
 
-    return NextResponse.json(
-      data.filter((post: Post) => post.channel._id === Environment.channelId()),
+    const targetPosts = data.filter(
+      (post: Post) => post.channel._id === Environment.channelId(),
     )
+    const parsedPosts = targetPosts.map((post: Post) => {
+      const parsedArticle = JSON.parse(post.title)
+      if (parsedArticle) {
+        return {
+          ...post,
+          title: parsedArticle.title,
+          description: parsedArticle.description,
+          mapping_ID: parsedArticle.mapping_ID,
+        }
+      } else {
+        return {
+          ...post,
+          description: '',
+        }
+      }
+    })
+    return NextResponse.json(parsedPosts)
   } catch (error: any) {
     return NextResponse.json(
       { error: error.response.data.message },
