@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react'
 import Assets from '@/config/assets'
 import useStorage from '@/hooks/useStorage'
+import useDarkStore from '@/stores/darkMode'
 import ImageButton from '../ImageButton'
 
 type PropsType = {
@@ -16,6 +17,8 @@ export default function DarkModeButton({ changeDarkMode }: PropsType) {
     initialValue: window.matchMedia('(prefers-color-scheme: dark)').matches,
   })
 
+  const { toggleState } = useDarkStore()
+
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add('pcc-theme--dark')
@@ -28,6 +31,7 @@ export default function DarkModeButton({ changeDarkMode }: PropsType) {
     document.body.classList.toggle('pcc-theme--dark')
     setDarkMode(!darkMode)
     changeDarkMode(!darkMode)
+    toggleState()
   }
 
   return (
