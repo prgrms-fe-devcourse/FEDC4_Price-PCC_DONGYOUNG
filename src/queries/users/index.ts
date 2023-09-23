@@ -1,13 +1,15 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
+import { useAuth } from '@/lib/contexts/authProvider'
 import { getAllUsers } from '@/services/user'
 import type User from '@/types/user'
 
-//TODO - 사용자 목록 무한 스크롤 구현하기
 const useGetAllUsers = () => {
+  const { currentUser } = useAuth()
+
   return useQuery({
-    queryKey: ['getAllUsers'],
+    queryKey: ['getAllUsers', currentUser],
     queryFn: async () => {
       const data: User<string>[] = await getAllUsers()
       return data
