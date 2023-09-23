@@ -47,7 +47,6 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
     if (isFollowing) {
       setFollowerCount((prev) => prev - 1)
       setIsFollowing(false)
-
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
