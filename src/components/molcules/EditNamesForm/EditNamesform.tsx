@@ -19,7 +19,11 @@ const EditNamesform = ({ fullName }: NameProps) => {
   const router = useRouter()
   const { editProfile } = useEditProfile()
 
-  const { register, handleSubmit } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       fullName: '',
       username: '',
@@ -29,33 +33,45 @@ const EditNamesform = ({ fullName }: NameProps) => {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        try {
-          await editProfile(data)
-          notify('success', '정보가 수정되었습니다.')
-          router.push(APP_PATH.home())
-        } catch (error) {
-          notify('error', '정보 수정에 실패했습니다.')
+        if (data.fullName.length < 1) {
+          notify('error', `${errors.fullName?.message}`)
+        } else {
+          try {
+            await editProfile(data)
+            notify('success', '닉네임이 수정되었습니다.')
+            router.push(APP_PATH.home())
+          } catch (error) {
+            notify('error', '닉네임 수정에 실패했습니다.')
+          }
         }
       })}
+      style={{ display: 'flex', justifyContent: 'space-between' }}
     >
       <Input
         {...(register &&
           register('fullName', {
-            required: true,
+            required: '변경 할 닉네임을 작성해주세요.',
           }))}
         placeholder={fullName}
         variant="clear"
         outline="underbar"
-        style={{ boxSizing: 'border-box', marginBottom: '4rem' }}
+        style={{
+          width: 'auto',
+          boxSizing: 'border-box',
+          marginBottom: '4rem',
+          padding: '10px, 5px',
+          fontSize: '1.1rem',
+        }}
       />
       <Button
         isShadowed={true}
-        text="수정 완료"
-        height={3.6875}
+        text="닉네임 변경"
+        width={14.06}
+        height={2.06}
         variant="default"
-        rounded="rounded-lg"
+        rounded="rounded-md"
         type="submit"
-        style={{ width: '100%' }}
+        style={{ fontSize: '1rem' }}
       />
     </form>
   )
