@@ -1,20 +1,24 @@
 @import '/src/styles/global-layout.scss';
 
 .nav-container {
-  width: 20rem;
+  padding: 0 2rem;
   height: 100%;
+  width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 0 1rem 1rem 0;
   position: fixed;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
   top: 0%;
+  z-index: 100;
 
   .image-button {
     padding: 2rem 0;
   }
 
   .image-button__image {
+    width: -moz-fit-content;
     width: fit-content;
     height: 4rem;
     object-fit: contain;
@@ -34,34 +38,45 @@
     }
   }
 
-  .avatar-list-container {
-    width: 15rem;
+  .avatar-list {
+    width: 17rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 1rem;
     margin-top: 2rem;
-    overflow-y: scroll;
-  }
+    overflow-y: auto;
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-  .avatar__container {
-    span {
-      @include themed() {
-        color: t(gray-3);
+      &--avatar {
+        width: 70%;
       }
-      padding-left: 1.5rem;
 
-      div {
-        padding: 0.5rem 0;
-      }
-      div:nth-child(1) {
-        font-weight: bold;
-        font-size: 1rem;
-      }
-      div:nth-child(2) {
-        font-size: 0.8rem;
+      button:last-child {
+        flex-shrink: 0;
       }
     }
-    padding-bottom: 1.5rem;
-    cursor: pointer;
+    &::-webkit-scrollbar {
+      border: none;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @include themed() {
+        background-color: t(gray-1);
+      }
+      visibility: hidden;
+      height: 56px;
+      border-radius: 8px;
+      border: 4px solid transparent;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
+    }
   }
 }

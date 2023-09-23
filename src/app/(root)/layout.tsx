@@ -1,8 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import ToastContainer from '@/components/atoms/Toast/ToastContainer'
 import Header from '@/components/organisms/Header/Header'
 import NavBar from '@/components/organisms/NavBar'
-import AuthProvider from '@/lib/contexts/authProvider'
+import { AuthProvider } from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
 import '@/styles/global-layout.scss'
 import pretendardFont from '../../constants/font'
@@ -29,6 +30,7 @@ export default function RootLayout({
               <Header />
               <main>{children}</main>
             </div>
+            <ToastContainer />
           </body>
         </AuthProvider>
       </TanstackQueryContext>

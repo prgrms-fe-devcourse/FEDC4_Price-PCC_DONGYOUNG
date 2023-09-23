@@ -12,11 +12,15 @@
   align-items: center;
   border-radius: 1rem 0 0 1rem;
   width: calc(100% - 20rem);
+  min-width: calc(1040px - 320px - 2rem);
+  margin-left: 2rem;
   height: 5rem;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   padding: 0 3rem 0 2rem;
   top: 0%;
+  box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .header-button-container {
@@ -26,6 +30,7 @@
 
 .sign-container {
   @include centerAlign();
+  gap: 1rem;
 
   .subtitle1 {
     &:hover,
@@ -37,9 +42,12 @@
 
 .header-user-container {
   @include centerAlign();
+  &:hover {
+    cursor: pointer;
+  }
 
   .avatar__container {
-    padding-right: 2rem;
+    padding: 0;
   }
 
   .image-button__image {
@@ -51,4 +59,8 @@
       color: t(gray-5);
     }
   }
+}
+
+.header-text_button {
+  word-break: keep-all;
 }

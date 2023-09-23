@@ -10,7 +10,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: { userId: 'testId' },
+  args: { userId: 'testId', isOpen: true },
   parameters: {
     nextjs: {
       appDirectory: true,
