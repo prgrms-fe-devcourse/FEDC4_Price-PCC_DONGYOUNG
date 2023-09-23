@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
 interface DarkMode {
-  isDark: boolean // Change to boolean
-  toggleState: () => void // Define the toggleState function
+  isDark: boolean
+  toggleState: () => void
 }
 
 const useDarkStore = create<DarkMode>((set) => ({

@@ -9,8 +9,6 @@ import useDarkStore from '@/stores/darkMode'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
-// ... (other imports)
-
 export default function LikeDislikeContainer({
   like,
   dislike,
