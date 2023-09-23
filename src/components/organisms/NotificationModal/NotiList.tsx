@@ -1,54 +1,77 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { UseQueryResult, useMutation } from '@tanstack/react-query'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
+import { notify } from '@/components/atoms/Toast'
 import Assets from '@/config/assets'
 import { NOTIFICATION_CONSTANT } from '@/constants/notification'
 import useGetNotification from '@/queries/notifications'
-import Comment from '@/types/comment'
+import { putNotification } from '@/services/notification'
+import Notification from '@/types/notification'
 import User from '@/types/user'
-
-type NotificationProps = {
-  seen: boolean
-  _id: string
-  user: User
-  follow?: string
-  comment?: Comment
-}
 
 export default function NotiList({
   currentUser,
-  setIsOpen,
 }: {
   currentUser: User | undefined
   open: boolean
-  setIsOpen: (_value: boolean) => void
 }) {
-  const data = useGetNotification({ isLoggedIn: !!currentUser })
+  const [isUnseenDataExist, setIsUnseenDataExist] = useState(false)
+  const data: UseQueryResult<Notification[]> = useGetNotification({
+    isLoggedIn: !!currentUser,
+  })
+  const { mutate, isError, isSuccess } = useMutation(putNotification)
+
   const handleClick = () => {
-    setIsOpen(false)
+    mutate()
+
+    if (isError) {
+      notify('error', '알림을 삭제하는데 실패했습니다')
+    }
+
+    if (isSuccess) {
+      setIsUnseenDataExist(false)
+    }
   }
+
+  useEffect(() => {
+    if (data.data?.some(({ seen }) => !seen)) {
+      setIsUnseenDataExist(true)
+    }
+    if (isSuccess) {
+      setIsUnseenDataExist(false)
+    }
+  }, [data, isUnseenDataExist, isSuccess])
+
   return (
     <>
-      {data.data?.map(
-        ({ seen, _id, user, follow, comment }: NotificationProps) =>
-          seen && (
-            <Avatar
-              key={_id}
-              src={user.image ?? Assets.PCCImage}
-              size={3}
-              text={user.fullName}
-              subText={
-                follow
-                  ? NOTIFICATION_CONSTANT.FOLLOW
-                  : comment
-                  ? NOTIFICATION_CONSTANT.COMMENT
-                  : ''
-              }
-            />
-          ),
+      {isUnseenDataExist ? (
+        data.data?.map(
+          ({ seen, _id, follow, comment, author }) =>
+            !seen && (
+              <Avatar
+                key={_id}
+                src={author?.image ?? Assets.PCCImage}
+                size={3}
+                text={author?.fullName}
+                subText={
+                  follow
+                    ? NOTIFICATION_CONSTANT.FOLLOW
+                    : comment
+                    ? NOTIFICATION_CONSTANT.COMMENT
+                    : ''
+                }
+              />
+            ),
+        )
+      ) : (
+        <EmptyNotification isLoggedIn={!!currentUser} />
       )}
-      {data.data?.length ? (
+      {isUnseenDataExist && (
         <div className="value-notification-list">
-          <button className="seen-button" onClick={() => handleClick}>
+          <button className="seen-button" onClick={handleClick}>
             <Text
               className="seen-button-text"
               textStyle="body2-bold"
@@ -58,8 +81,6 @@ export default function NotiList({
             </Text>
           </button>
         </div>
-      ) : (
-        <EmptyNotification isLoggedIn={!!currentUser} />
       )}
     </>
   )
