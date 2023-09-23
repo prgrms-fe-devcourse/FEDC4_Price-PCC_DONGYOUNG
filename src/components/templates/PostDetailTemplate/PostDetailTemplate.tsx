@@ -196,18 +196,7 @@ export function PostDetailTemplate({
           size={5}
           src={initPost?.author?.image ?? ''}
           text={author.fullName}
-        >
-          <Text
-            textStyle="heading1-bold"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginLeft: '27px',
-            }}
-          >
-            {author.fullName}
-          </Text>
-        </Avatar>
+        />
         {isEqualUser && <PostOptionsDropdown postId={_id} />}
       </div>
       <Text

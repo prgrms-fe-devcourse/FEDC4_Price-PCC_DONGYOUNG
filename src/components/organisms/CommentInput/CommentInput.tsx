@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback, ChangeEvent, useState } from 'react'
+import { useRef, useCallback, ChangeEvent, useState } from 'react'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
@@ -24,12 +24,6 @@ export default function CommentInput({
   const { refetch } = useGetComment(postId ?? '')
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
-
-  useEffect(() => {
-    if (commentInputRef && commentInputRef.current) {
-      commentInputRef.current.focus()
-    }
-  }, [commentInputRef])
 
   const handleOnChangeComment = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
