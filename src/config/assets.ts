@@ -1,4 +1,6 @@
 import SearchIcon from 'public/images/searchIcon.svg'
+import ActiveDisLike from '/public/images/activeDisLike.png'
+import ActiveLike from '/public/images/activeLike.png'
 import ArrowDarkIcon from '/public/images/arrowDarkIcon.svg'
 import ArrowLightIcon from '/public/images/arrowLightIcon.svg'
 import backIcon from '/public/images/backIcon.svg'
@@ -34,6 +36,8 @@ const Assets = {
   OptionsIcon,
   DarkDisLike,
   DarkLike,
+  ActiveLike,
+  ActiveDisLike,
 } as const
 
 export default Assets
