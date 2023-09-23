@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FaSpinner } from 'react-icons/fa'
 import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
 import Assets from '@/config/assets'
-import debounce from '@/utils/debounce'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
@@ -20,7 +19,7 @@ export default function LikeDislikeContainer({
 }: LikeDislikeCountProps) {
   const [loading, setLoading] = useState(false) // Add loading state
 
-  const handleClickLike = debounce(() => {
+  const handleClickLike = useCallback(() => {
     if (onClickLike) {
       setLoading(true)
       onClickLike()
@@ -31,9 +30,9 @@ export default function LikeDislikeContainer({
           setLoading(false)
         })
     }
-  }, 300)
+  }, [onClickLike])
 
-  const handleClickDisLike = debounce(() => {
+  const handleClickDisLike = useCallback(() => {
     if (onClickDisLike) {
       setLoading(true)
       onClickDisLike()
@@ -44,7 +43,7 @@ export default function LikeDislikeContainer({
           setLoading(false)
         })
     }
-  }, 300)
+  }, [onClickDisLike])
 
   return (
     <div className="like-container">
