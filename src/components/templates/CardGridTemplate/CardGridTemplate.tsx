@@ -8,7 +8,7 @@ import Post from '@/types/post'
 import './index.scss'
 
 type CardGridTemplateProps = {
-  postDatas: Post[] | undefined
+  postDatas: Post[]
   isShowOptions?: boolean
 }
 export default forwardRef(function CardGridTemplate(
