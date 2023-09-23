@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Environment } from '@/config/environments'
 import { apiServer } from '@/lib/axiosSever'
 import type Post from "@/types/post"
 
