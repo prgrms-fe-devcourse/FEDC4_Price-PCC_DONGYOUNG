@@ -36,9 +36,11 @@ jobs:
               env:
                 NEXT_PUBLIC_API_ADDRESS: ${{ secrets.NEXT_PUBLIC_API_ADDRESS }}
                 NEXT_PUBLIC_CHANNEL_ID: ${{ secrets.NEXT_PUBLIC_CHANNEL_ID }}
+                NEXT_PUBLIC_DISLIKE_CHANNEL_ID: ${{ secrets.NEXT_PUBLIC_DISLIKE_CHANNEL_ID }}
               run: |
                 echo "NEXT_PUBLIC_API_ADDRESS=$NEXT_PUBLIC_API_ADDRESS" >> .env
                 echo "NEXT_PUBLIC_CHANNEL_ID=$NEXT_PUBLIC_CHANNEL_ID" >> .env
+                echo "NEXT_PUBLIC_DISLIKE_CHANNEL_ID=$NEXT_PUBLIC_DISLIKE_CHANNEL_ID" >> .env
 
             # 빌드를 수행합니다.
             - name: Build
