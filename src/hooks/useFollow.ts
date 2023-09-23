@@ -47,16 +47,22 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
     if (isFollowing) {
       setFollowerCount((prev) => prev - 1)
       setIsFollowing(false)
+
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
-      setFollowId(() => followData?._id ?? '')
       await deleteFollow(followData?._id ?? followId)
+      setFollowId(() => followData?._id ?? '')
+      currentUser.following?.splice(
+        currentUser.following.findIndex(({ user }) => user === userData._id),
+        1,
+      )
     } else {
       setIsFollowing(true)
       setFollowerCount((prev) => prev + 1)
       const followData = await postFollow(userData._id)
       setFollowId(() => followData._id ?? '')
+      currentUser.following?.push(followData)
     }
   }
 
