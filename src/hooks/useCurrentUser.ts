@@ -7,7 +7,7 @@ import { constants } from '@/config/constants'
 import { validateToken } from '@/services/auth'
 import User from '@/types/user'
 
-const useValidate = () => {
+export const useValidate = () => {
   const token = Cookies.get(constants.AUTH_TOKEN)
   return useQuery(
     ['validateToken', token],

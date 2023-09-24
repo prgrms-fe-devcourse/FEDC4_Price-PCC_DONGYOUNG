@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
-import APP_PATH from '@/config/paths'
+import { useValidate } from '@/hooks/useCurrentUser'
 import { useEditProfile } from '@/hooks/useEditUserProfile'
+import useGetAllUsers from '@/queries/users'
 
 interface FormValues {
   fullName: string
@@ -16,10 +16,11 @@ export type NameProps = {
 }
 
 const EditNamesform = ({ fullName }: NameProps) => {
-  const router = useRouter()
+  const validate = useValidate()
+  const getAllUsers = useGetAllUsers()
   const { editProfile } = useEditProfile()
 
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
       fullName: '',
       username: '',
@@ -31,12 +32,15 @@ const EditNamesform = ({ fullName }: NameProps) => {
       onSubmit={handleSubmit(async (data) => {
         try {
           await editProfile(data)
-          notify('success', '정보가 수정되었습니다.')
-          router.push(APP_PATH.home())
+          notify('success', '닉네임이 수정되었습니다.')
+          validate.refetch()
+          getAllUsers.refetch()
+          setValue('fullName', '')
         } catch (error) {
-          notify('error', '정보 수정에 실패했습니다.')
+          notify('error', '닉네임 수정에 실패했습니다.')
         }
       })}
+      style={{ display: 'flex', justifyContent: 'space-between' }}
     >
       <Input
         {...(register &&
@@ -46,16 +50,23 @@ const EditNamesform = ({ fullName }: NameProps) => {
         placeholder={fullName}
         variant="clear"
         outline="underbar"
-        style={{ boxSizing: 'border-box', marginBottom: '4rem' }}
+        style={{
+          width: 'auto',
+          boxSizing: 'border-box',
+          marginBottom: '4rem',
+          padding: '10px, 5px',
+          fontSize: '1.1rem',
+        }}
       />
       <Button
         isShadowed={true}
-        text="수정 완료"
-        height={3.6875}
+        text="닉네임 변경"
+        width={14.06}
+        height={2.06}
         variant="default"
-        rounded="rounded-lg"
+        rounded="rounded-md"
         type="submit"
-        style={{ width: '100%' }}
+        style={{ fontSize: '1rem' }}
       />
     </form>
   )

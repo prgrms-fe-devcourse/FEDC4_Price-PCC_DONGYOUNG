@@ -1,5 +1,4 @@
 $articleHeight: 9rem;
-
 .content-container {
   display: flex;
   flex-direction: column;
@@ -7,12 +6,6 @@ $articleHeight: 9rem;
   width: 100%;
   min-height: 100%;
   position: relative;
-  &__header {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: flex;
-    justify-content: space-between;
-  }
   &__image-container {
     width: 100%;
     height: $articleHeight;
@@ -27,5 +20,9 @@ $articleHeight: 9rem;
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
+  }
+
+  .post-title {
+    padding-bottom: 1rem;
   }
 }

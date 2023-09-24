@@ -1,14 +1,17 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import { useState } from 'react'
+import Cookies from 'js-cookie'
 import Assets from '@/config/assets'
+
 import useStorage from '@/hooks/useStorage'
 import useDarkStore from '@/stores/darkMode'
 import ImageButton from '../ImageButton'
 
 type PropsType = {
-  changeDarkMode: (_value: boolean) => void
+  darkMode: boolean
 }
+
 
 export default function DarkModeButton({ changeDarkMode }: PropsType) {
   const [darkMode, setDarkMode] = useStorage<boolean>({
@@ -32,13 +35,21 @@ export default function DarkModeButton({ changeDarkMode }: PropsType) {
     setDarkMode(!darkMode)
     changeDarkMode(!darkMode)
     toggleState()
-  }
 
+export default function DarkModeButton({ darkMode }: PropsType) {
+  const [isDark, setIsDark] = useState(darkMode)
+  const handleDarkmodeClick = () => {
+    document.body.classList.toggle('pcc-theme--light')
+    document.body.classList.toggle('pcc-theme--dark')
+    Cookies.set('pcc-darkmode', JSON.stringify(!isDark))
+    setIsDark(!isDark)
+
+  }
   return (
     <ImageButton
       size={3}
-      src={darkMode ? Assets.LIGHTMODE_SVG_PATH : Assets.DARKMODE_SVG_PATH}
-      alt={`${darkMode ? 'dark' : 'light'} mode button`}
+      src={isDark ? Assets.LIGHTMODE_SVG_PATH : Assets.DARKMODE_SVG_PATH}
+      alt={`${isDark ? 'dark' : 'light'} mode button`}
       onClick={handleDarkmodeClick}
     />
   )
