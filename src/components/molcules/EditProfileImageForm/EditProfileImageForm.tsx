@@ -5,7 +5,9 @@ import { Button } from '@/components/atoms/Button'
 import { notify } from '@/components/atoms/Toast'
 import { SetEditProfileComponent } from '@/components/organisms/EditProfile/EditProfile'
 import Assets from '@/config/assets'
+import { useValidate } from '@/hooks/useCurrentUser'
 import { useEditProfileImage } from '@/hooks/useEditUserImage'
+import useGetAllUsers from '@/queries/users'
 import './index.scss'
 
 type EditProfileImageFormProps = SetEditProfileComponent & {
@@ -16,6 +18,8 @@ const EditProfileImageForm = ({
   setPage,
   image,
 }: EditProfileImageFormProps) => {
+  const validate = useValidate()
+  const getAllUsers = useGetAllUsers()
   const { editProfileImage } = useEditProfileImage()
   const [profile, setProfile] = useState<File | null>(null)
   const selectProfileFile = useRef<HTMLInputElement | null>(null)
@@ -70,6 +74,8 @@ const EditProfileImageForm = ({
                 isCover: false,
                 image: profile!,
               })
+              validate.refetch()
+              getAllUsers.refetch()
               setProfile(null)
             }
           }}
