@@ -10,8 +10,8 @@ import Comment from '@/types/comment'
 import './index.scss'
 
 type CommentInputProps = Pick<Comment, 'author'> & {
-  onChangeInput?: (_input: string) => void
-  onSubmit?: (_input: string) => void
+  onChangeInput?: (_input: string) => Promise<void>
+  onSubmit?: (_input: string) => Promise<void>
   postId?: string
 }
 
@@ -33,12 +33,16 @@ export default function CommentInput({
     [onChangeInput],
   )
 
-  const handleOnClickBtn = () => {
+  const handleOnClickBtn = async () => {
     if (onSubmit && _input.trim().length > 1) {
       try {
-        onSubmit(_input)
-        setInput('')
-        refetch()
+        await onSubmit(commentInputRef.current?.value ?? _input).finally(() => {
+          if (commentInputRef.current?.value) {
+            commentInputRef.current.value = ''
+          }
+          setInput('')
+          refetch()
+        })
       } catch (error) {
         notify('error', '서버에서 호출에 실패하였습니다.')
       }
