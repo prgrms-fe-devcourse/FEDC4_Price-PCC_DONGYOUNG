@@ -1,0 +1,20 @@
+.header-user-container {
+  @include centerAlign();
+  &:hover {
+    cursor: pointer;
+  }
+
+  .avatar__container {
+    padding: 0;
+  }
+
+  .image-button__image {
+    object-fit: contain;
+  }
+
+  span {
+    @include themed() {
+      color: t(gray-5);
+    }
+  }
+}
