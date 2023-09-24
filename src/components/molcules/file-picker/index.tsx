@@ -16,7 +16,8 @@ type FilePickerProps = {
   disabled?: boolean
   width?: number
   height?: number
-  onChange?: (_files: FileList) => void
+  defaultValue?: string
+  onChange?: (_files: FileList | null) => void
   className?: string
 }
 
@@ -26,35 +27,39 @@ export default function FilePicker({
   disabled,
   width = 5,
   height = 5,
+  defaultValue = '',
   onChange,
   className,
 }: FilePickerProps) {
   useEffect(() => {})
+
   const [_files, setFiles] = useState<FileList | null>(null)
-  const [thumbNail, setThumbNail] = useState<string>('')
+  const [thumbNail, setThumbNail] = useState<string>(defaultValue)
   const dropDownRef = useRef<HTMLDivElement | null>(null)
   const fileUploadRef = useRef<HTMLInputElement | null>(null)
 
-  const createNewThumbNailImage = useCallback((files: FileList) => {
-    const blob = new Blob([files[0]], {
-      type: files[0].type,
+  const createNewThumbNailImage = useCallback((newFiles: FileList) => {
+    const blob = new Blob([newFiles[0]], {
+      type: newFiles[0].type,
     })
 
     return URL.createObjectURL(blob)
   }, [])
 
-  const { targetRef } = useDragging(dropDownRef, (_newFiles) => {
-    setFiles(_newFiles)
-    const newThumbNailImage = createNewThumbNailImage(_newFiles)
+  const { targetRef } = useDragging(dropDownRef, (newFiles) => {
+    setFiles(newFiles)
+    const newThumbNailImage = createNewThumbNailImage(newFiles)
     setThumbNail(newThumbNailImage)
     if (onChange) {
-      onChange(_newFiles)
+      onChange(newFiles)
     }
   })
 
   const hasThumbNailImage = thumbNail.length !== 0
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+
     if (e.target.files) {
       setFiles(e.target.files)
       if (onChange) {
@@ -75,6 +80,14 @@ export default function FilePicker({
     }
   }
 
+  const handleDeleteImage = () => {
+    setFiles(null)
+    setThumbNail('')
+    if (onChange) {
+      onChange(null)
+    }
+  }
+
   return (
     <div
       className="file-picker"
@@ -82,7 +95,7 @@ export default function FilePicker({
       style={{
         width: `${width}rem`,
         height: `${height}rem`,
-        border: `${hasThumbNailImage && 'none'}`,
+        border: `${hasThumbNailImage ? 'none' : ''}`,
       }}
     >
       <label className="file-picker__label" htmlFor="file-picker">
@@ -122,6 +135,7 @@ export default function FilePicker({
       </label>
 
       <button
+        type="button"
         disabled={disabled}
         onClick={handleOnClickUploadBtn}
         className="file-picker__button"
@@ -135,6 +149,13 @@ export default function FilePicker({
             height={45}
           />
         )}
+      </button>
+      <button
+        className={`file-picker__delete-button ${thumbNail ? '' : 'hidden'}`}
+        type="button"
+        onClick={handleDeleteImage}
+      >
+        X
       </button>
     </div>
   )

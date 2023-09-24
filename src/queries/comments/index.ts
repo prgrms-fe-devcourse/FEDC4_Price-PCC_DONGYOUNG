@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { getPostDetail } from '@/services/post'
 import type Comment from '@/types/comment'
 
-const useGetComment = (postId: string, initComments: Comment[]) => {
+const useGetComment = (postId: string, initComments?: Comment[]) => {
   return useQuery({
-    queryKey: ['getComments', postId],
+    queryKey: ['getAllComments', postId, initComments],
     queryFn: async () => {
       const data = await getPostDetail(postId)
       return data

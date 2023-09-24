@@ -1,13 +1,30 @@
+@import '@/styles/variables.scss';
+
 .avatar__container {
   display: flex;
+  align-items: center;
   gap: 0.1rem;
+
+  .description {
+    @include themed() {
+      color: t(gray-3);
+    }
+    display: flex;
+    gap: 0.7rem;
+    div:nth-child(1) {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    div:nth-child(2) {
+      font-size: 0.8rem;
+    }
+  }
 }
 
 .avatar {
   position: relative;
   display: flex;
   justify-content: flex-end;
-
   &__image {
     display: flex;
     justify-content: center;

@@ -1,0 +1,16 @@
+.edit-profile-image-form {
+  display: flex;
+  margin-bottom: 7rem;
+
+  &__image-file {
+    position: relative;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    float: right;
+    margin-left: auto;
+  }
+}

@@ -14,6 +14,8 @@
   font-weight: 700;
   line-height: normal;
 
+  transition: all 0.2s ease-in-out;
+
   &:hover {
     opacity: 0.8;
     transition: opacity 0.2s ease-in-out;
@@ -43,6 +45,14 @@
     @include themed() {
       background-color: t(primary-1);
       color: t(gray-5);
+    }
+  }
+
+  &.done {
+    background-color: transparent;
+    @include themed() {
+      color: t(primary-1);
+      border: 1px solid t(primary-1);
     }
   }
 

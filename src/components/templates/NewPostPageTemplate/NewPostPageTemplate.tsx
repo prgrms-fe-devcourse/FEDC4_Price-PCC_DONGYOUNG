@@ -8,7 +8,14 @@ import { useUploadForm } from '@/hooks/useUploadForm'
 import './index.scss'
 
 export default function NewPostPageTemplate() {
-  const { register, onSubmit, titleError, setValue } = useUploadForm()
+  const {
+    register,
+    onSubmit,
+    titleError,
+    descriptionError,
+    setValue,
+    formState,
+  } = useUploadForm()
   return (
     <form className="upload-page" onSubmit={onSubmit}>
       <Input
@@ -29,24 +36,26 @@ export default function NewPostPageTemplate() {
           }
         }}
       />
+      <span className="form-error-message">{titleError}</span>
       <Quill
         onEdit={(text) => {
           setValue('description', text)
         }}
       />
+      <span className="form-error-message">{descriptionError}</span>
       <div className="file-picker-container">
         <FilePicker
           width={20}
           height={10}
           onChange={(file) => {
-            setValue('image', file[0])
+            setValue('image', file?.[0]!)
           }}
         />
       </div>
       <div className="submit-button-container">
         <Button
           text="완료"
-          variant="default"
+          variant={formState.isSubmitting ? 'disabled' : 'default'}
           isShadowed={true}
           rounded="rounded-md"
           width={12}

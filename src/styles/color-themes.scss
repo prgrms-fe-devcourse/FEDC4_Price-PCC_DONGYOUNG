@@ -13,6 +13,7 @@ $themes: (
     gray-3: var(--pcc-gray-light-3),
     gray-4: var(--pcc-gray-light-4),
     gray-5: var(--pcc-gray-light-5),
+    bg-transparent: rgba(235, 233, 229, 0.85),
   ),
   dark: (
     highlight: var(--pcc-highlight),
@@ -28,6 +29,7 @@ $themes: (
     gray-3: var(--pcc-gray-dark-3),
     gray-4: var(--pcc-gray-dark-4),
     gray-5: var(--pcc-gray-dark-5),
+    bg-transparent: rgba(49, 49, 49, 0.85),
   ),
 );
 

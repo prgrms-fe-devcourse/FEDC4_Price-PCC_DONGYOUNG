@@ -1,10 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { constants } from '@/config/constants'
 import { getAllPosts } from '@/services/channel'
+import User from '@/types/user'
 
-const useGetAllPosts = () => {
+const useGetAllPosts = (user?: User) => {
   return useInfiniteQuery({
-    queryKey: ['getAllPostsInfiniteQuery'],
+    queryKey: ['getAllPostsInfiniteQuery', user?.fullName, user?.image],
     queryFn: ({ pageParam = 0 }) =>
       getAllPosts({
         offset: pageParam,

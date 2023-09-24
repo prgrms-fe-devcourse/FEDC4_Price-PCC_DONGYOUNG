@@ -1,12 +1,16 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
+import FollowToggleButton from '@/components/atoms/FollowToggleButton'
 import ImageButton from '@/components/atoms/ImageButton'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
+import useFollow from '@/hooks/useFollow'
 import useGetAllUsers from '@/queries/users'
+import User from '@/types/user'
 import './index.scss'
 
 export default function NavBar() {
@@ -28,18 +32,35 @@ export default function NavBar() {
           </Text>
         </div>
       </div>
-      <div className="avatar-list-container">
-        {data?.map(({ image, followers, _id, fullName }) => (
-          <div key={_id} onClick={() => router.push(APP_PATH.userProfile(_id))}>
-            <Avatar
-              src={image}
-              size={4}
-              text={fullName}
-              subText={`${followers?.length} Followers`}
-            />
-          </div>
-        ))}
-      </div>
+      <ul className="avatar-list">
+        {data?.map((user) => <UserListItem key={user._id} userData={user} />)}
+      </ul>
     </div>
+  )
+}
+
+function UserListItem({ userData }: { userData: User<string> }) {
+  const { isFollowing, followToggle, followerCount, unavailable } =
+    useFollow(userData)
+  const { image, _id, fullName } = userData
+  return (
+    <li className="avatar-list__item">
+      <div className="avatar-list__item--avatar">
+        <Link href={APP_PATH.userProfile(_id)} prefetch={false}>
+          <Avatar
+            src={image}
+            size={3}
+            text={fullName}
+            subText={`${followerCount} Followers`}
+          />
+        </Link>
+      </div>
+      <FollowToggleButton
+        size="micro"
+        isFollowing={isFollowing}
+        followToggle={followToggle}
+        unavailable={unavailable}
+      />
+    </li>
   )
 }
