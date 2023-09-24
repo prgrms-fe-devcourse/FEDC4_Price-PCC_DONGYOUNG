@@ -44,7 +44,6 @@ export default async function Header() {
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        {/* <DynamicDarkModeButton changeDarkMode={changeDarkMode} /> */}
         <DarkModeButton darkMode={darkMode} />
       </div>
       {!data ? (
