@@ -3,6 +3,7 @@
 import React, { useCallback, useState, useMemo } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
+import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
@@ -10,6 +11,7 @@ import PostOptionsDropdown from '@/components/molcules/PostOptionsDropdown'
 import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
+import APP_PATH from '@/config/paths'
 import { POST_CONSTANT } from '@/constants/post'
 import { useAuth } from '@/lib/contexts/authProvider'
 import { postNewComment } from '@/services/comment'
@@ -192,22 +194,24 @@ export function PostDetailTemplate({
   return (
     <div className="post-detail">
       <div className="post-detail__header">
-        <Avatar
-          size={5}
-          src={initPost?.author?.image ?? ''}
-          text={author.fullName}
-        >
-          <Text
-            textStyle="heading1-bold"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginLeft: '27px',
-            }}
+        <Link href={APP_PATH.userProfile(author._id)}>
+          <Avatar
+            size={5}
+            src={initPost?.author?.image ?? ''}
+            text={author.fullName}
           >
-            {author.fullName}
-          </Text>
-        </Avatar>
+            <Text
+              textStyle="heading1-bold"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginLeft: '27px',
+              }}
+            >
+              {author.fullName}
+            </Text>
+          </Avatar>
+        </Link>
         {isEqualUser && <PostOptionsDropdown postId={_id} />}
       </div>
       <Text
