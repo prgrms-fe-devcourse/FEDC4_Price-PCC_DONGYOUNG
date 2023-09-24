@@ -39,18 +39,12 @@ export default function NavBar() {
   )
 }
 
-function UserListItem({
-  key,
-  userData,
-}: {
-  key: string
-  userData: User<string>
-}) {
+function UserListItem({ userData }: { userData: User<string> }) {
   const { isFollowing, followToggle, followerCount, unavailable } =
     useFollow(userData)
   const { image, _id, fullName } = userData
   return (
-    <li key={key} className="avatar-list__item">
+    <li className="avatar-list__item">
       <div className="avatar-list__item--avatar">
         <Link href={APP_PATH.userProfile(_id)}>
           <Avatar

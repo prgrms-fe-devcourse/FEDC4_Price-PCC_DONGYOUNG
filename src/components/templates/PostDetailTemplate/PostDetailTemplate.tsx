@@ -243,7 +243,7 @@ export function PostDetailTemplate({
           postId={postId}
           author={currentUser}
           onSubmit={async (comment) =>
-            await postNewComment({ comment, postId, userId: currentUser._id })
+            await postNewComment({ comment, postId, userId: author._id })
           }
         />
       )}
