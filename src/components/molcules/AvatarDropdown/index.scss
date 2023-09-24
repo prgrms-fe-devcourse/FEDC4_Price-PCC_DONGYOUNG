@@ -1,5 +1,10 @@
+@import '@/styles/variables.scss';
+
 .header-user-container {
-  @include centerAlign();
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &:hover {
     cursor: pointer;
   }
