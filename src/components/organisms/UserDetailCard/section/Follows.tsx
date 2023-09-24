@@ -1,14 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { Suspense, lazy, useState } from 'react'
 import FollowToggleButton from '@/components/atoms/FollowToggleButton'
+import Loading from '@/components/atoms/Loading'
 import { Text } from '@/components/atoms/Text'
 import ModalProvider from '@/components/molcules/ModalLayout'
-import FollowList from '@/components/organisms/FollowList'
 import useFollow from '@/hooks/useFollow'
 import useModal from '@/hooks/useModal'
 import User from '@/types/user'
 
+const LazyFollowList = lazy(() => import('@/components/organisms/FollowList'))
 export default function Follows({ userData }: { userData: User }) {
   const {
     unavailable,
@@ -59,7 +60,12 @@ export default function Follows({ userData }: { userData: User }) {
         handleModalClose={handleModalClose}
       >
         {isModalOpen && (
-          <FollowList isFollowerList={isFollowerModal} userData={userData} />
+          <Suspense fallback={<Loading size={5} />}>
+            <LazyFollowList
+              isFollowerList={isFollowerModal}
+              userData={userData}
+            />
+          </Suspense>
         )}
       </ModalProvider>
     </>
