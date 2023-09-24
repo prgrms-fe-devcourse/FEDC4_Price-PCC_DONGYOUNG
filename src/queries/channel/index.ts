@@ -5,7 +5,7 @@ import User from '@/types/user'
 
 const useGetAllPosts = (user?: User) => {
   return useInfiniteQuery({
-    queryKey: ['getAllPostsInfiniteQuery', user],
+    queryKey: ['getAllPostsInfiniteQuery', user?.fullName, user?.image],
     queryFn: ({ pageParam = 0 }) =>
       getAllPosts({
         offset: pageParam,
