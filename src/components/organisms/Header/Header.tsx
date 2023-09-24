@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 import DarkModeButton from '@/components/atoms/DarkModeButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
@@ -6,31 +5,19 @@ import SearchBar from '@/components/atoms/SearchBar'
 import { Text } from '@/components/atoms/Text'
 import AvatarDropdown from '@/components/molcules/AvatarDropdown/AvatarDropdown'
 import APP_PATH from '@/config/paths'
+import { useDarkmodeCookie } from '@/hooks/useDarkmodeCookie'
 import { validateToken } from '@/services/auth'
 import './index.scss'
 
-async function updateCookie(key: string, value: string) {
-  const cookieStore = cookies()
-  cookieStore.set(key, value)
-}
-
 export default async function Header() {
-  const cookieStore = cookies()
   const data = validateToken()
 
   let systemDarkmode = false
   if (typeof window !== 'undefined') {
     systemDarkmode = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
-  let darkMode = systemDarkmode
 
-  const cookieVal = cookieStore.get('pcc-darkmode')
-  if (cookieVal) {
-    darkMode = JSON.parse(cookieVal?.value!)
-  } else {
-    updateCookie('pcc-darkmode', JSON.stringify(systemDarkmode))
-    darkMode = systemDarkmode
-  }
+  const { darkMode } = useDarkmodeCookie(systemDarkmode)
 
   if (typeof window !== 'undefined') {
     if (darkMode) {
