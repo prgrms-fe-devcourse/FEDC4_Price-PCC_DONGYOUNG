@@ -22,12 +22,12 @@ export default async function Header() {
   if (typeof window !== 'undefined') {
     systemDarkmode = window.matchMedia('(prefers-color-scheme: dark)').matches
   }
+  let darkMode = systemDarkmode
 
   const cookieVal = cookieStore.get('pcc-darkmode')
-
-  let darkMode = JSON.parse(cookieVal?.value!)
-
-  if (!cookieVal) {
+  if (cookieVal) {
+    darkMode = JSON.parse(cookieVal?.value!)
+  } else {
     updateCookie('pcc-darkmode', JSON.stringify(systemDarkmode))
     darkMode = systemDarkmode
   }
