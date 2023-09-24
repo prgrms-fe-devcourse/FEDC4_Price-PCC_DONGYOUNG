@@ -34,7 +34,7 @@ export default function CardPostItem({
         <Card>
           <div className="content-container">
             <div className="content-container__header">
-              <Link href={APP_PATH.userProfile(author._id)}>
+              <Link href={APP_PATH.userProfile(author._id)} prefetch={false}>
                 <Avatar
                   text={author.fullName}
                   size={1.25}
@@ -51,6 +51,7 @@ export default function CardPostItem({
             <Link
               href={APP_PATH.postDetail(_id)}
               className="content-container__article-container"
+              prefetch={false}
             >
               <Text textStyle="body1-bold">{title}</Text>
               {image ? (

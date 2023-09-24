@@ -194,13 +194,12 @@ export function PostDetailTemplate({
   return (
     <div className="post-detail">
       <div className="post-detail__header">
-        <Link href={APP_PATH.userProfile(author._id)}>
+        <Link href={APP_PATH.userProfile(author._id)} prefetch={false}>
           <Avatar
             size={5}
             src={initPost?.author?.image ?? ''}
             text={author.fullName}
-          >
-          </Avatar>
+          ></Avatar>
         </Link>
         {isEqualUser && <PostOptionsDropdown postId={_id} />}
       </div>

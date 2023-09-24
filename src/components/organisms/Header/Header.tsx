@@ -46,7 +46,7 @@ export default async function Header() {
 }
 
 const LinkButton = ({ href, children }: { href: string; children: string }) => (
-  <Link href={href}>
+  <Link href={href} prefetch={false}>
     <Text
       textStyle="subtitle1-bold"
       color="gray-3"

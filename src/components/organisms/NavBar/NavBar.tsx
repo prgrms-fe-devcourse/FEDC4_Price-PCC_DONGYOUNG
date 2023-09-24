@@ -46,7 +46,7 @@ function UserListItem({ userData }: { userData: User<string> }) {
   return (
     <li className="avatar-list__item">
       <div className="avatar-list__item--avatar">
-        <Link href={APP_PATH.userProfile(_id)}>
+        <Link href={APP_PATH.userProfile(_id)} prefetch={false}>
           <Avatar
             src={image}
             size={3}
