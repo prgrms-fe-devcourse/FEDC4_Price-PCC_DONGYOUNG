@@ -4,12 +4,11 @@ import type Comment from '@/types/comment'
 
 const useGetComment = (postId: string, initComments?: Comment[]) => {
   return useQuery({
-    queryKey: ['getComment', postId],
+    queryKey: ['getAllComments', postId, initComments],
     queryFn: async () => {
       const data = await getPostDetail(postId)
       return data
     },
-    enabled: false,
     initialData: [initComments],
   })
 }

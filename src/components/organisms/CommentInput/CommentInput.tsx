@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback, ChangeEvent, useState } from 'react'
+import { useRef, useCallback, ChangeEvent, useState } from 'react'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
@@ -10,8 +10,8 @@ import Comment from '@/types/comment'
 import './index.scss'
 
 type CommentInputProps = Pick<Comment, 'author'> & {
-  onChangeInput?: (_input: string) => void
-  onSubmit?: (_input: string) => void
+  onChangeInput?: (_input: string) => Promise<void>
+  onSubmit?: (_input: string) => Promise<void>
   postId?: string
 }
 
@@ -25,12 +25,6 @@ export default function CommentInput({
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
 
-  useEffect(() => {
-    if (commentInputRef && commentInputRef.current) {
-      commentInputRef.current.focus()
-    }
-  }, [commentInputRef])
-
   const handleOnChangeComment = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (onChangeInput) onChangeInput(event.target.value)
@@ -39,12 +33,16 @@ export default function CommentInput({
     [onChangeInput],
   )
 
-  const handleOnClickBtn = () => {
+  const handleOnClickBtn = async () => {
     if (onSubmit && _input.trim().length > 1) {
       try {
-        refetch()
-        onSubmit(_input)
-        setInput('')
+        await onSubmit(commentInputRef.current?.value ?? _input).finally(() => {
+          if (commentInputRef.current?.value) {
+            commentInputRef.current.value = ''
+          }
+          setInput('')
+          refetch()
+        })
       } catch (error) {
         notify('error', '서버에서 호출에 실패하였습니다.')
       }

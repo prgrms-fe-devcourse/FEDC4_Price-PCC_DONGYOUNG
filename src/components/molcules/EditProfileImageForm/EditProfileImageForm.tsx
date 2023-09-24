@@ -1,6 +1,8 @@
 import { useRef, useState, ChangeEvent } from 'react'
+import { FiSettings } from 'react-icons/fi'
 import Image from 'next/image'
 import { Button } from '@/components/atoms/Button'
+import { notify } from '@/components/atoms/Toast'
 import { SetEditProfileComponent } from '@/components/organisms/EditProfile/EditProfile'
 import Assets from '@/config/assets'
 import { useEditProfileImage } from '@/hooks/useEditUserImage'
@@ -41,22 +43,35 @@ const EditProfileImageForm = ({
         ref={selectProfileFile}
         onChange={handleFileChange}
       />
-      <Image
+      <div
+        className="edit-profile-image-form__image-file"
         onClick={() => selectProfileFile?.current?.click()}
-        src={thumnail}
-        width={180}
-        height={180}
-        style={{ borderRadius: '50%' }}
-        alt="profile-image"
-      />
+      >
+        <Image
+          src={thumnail}
+          width={180}
+          height={180}
+          style={{ borderRadius: '50%' }}
+          alt="profile-image"
+        />
+        <FiSettings
+          size={30}
+          color="gray-5"
+          style={{ position: 'absolute', right: '0px', bottom: '0px' }}
+        />
+      </div>
       <div className="edit-profile-image-form__buttons">
         <Button
           onClick={async () => {
-            await editProfileImage({
-              isCover: false,
-              image: profile!,
-            })
-            setProfile(null)
+            if (!profile) {
+              notify('error', '이미지 파일을 선택 해주세요.')
+            } else {
+              await editProfileImage({
+                isCover: false,
+                image: profile!,
+              })
+              setProfile(null)
+            }
           }}
           isShadowed={true}
           text="프로필 이미지 변경"
