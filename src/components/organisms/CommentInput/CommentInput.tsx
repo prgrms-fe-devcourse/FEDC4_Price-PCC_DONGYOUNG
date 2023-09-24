@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback, ChangeEvent, useState } from 'react'
+import { useRef, useCallback, ChangeEvent, useState } from 'react'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
@@ -25,12 +25,6 @@ export default function CommentInput({
   const [_input, setInput] = useState<string>('')
   const commentInputRef = useRef<HTMLInputElement | null>(null)
 
-  useEffect(() => {
-    if (commentInputRef && commentInputRef.current) {
-      commentInputRef.current.focus()
-    }
-  }, [commentInputRef])
-
   const handleOnChangeComment = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (onChangeInput) onChangeInput(event.target.value)
@@ -42,9 +36,9 @@ export default function CommentInput({
   const handleOnClickBtn = () => {
     if (onSubmit && _input.trim().length > 1) {
       try {
-        refetch()
         onSubmit(_input)
         setInput('')
+        refetch()
       } catch (error) {
         notify('error', '서버에서 호출에 실패하였습니다.')
       }

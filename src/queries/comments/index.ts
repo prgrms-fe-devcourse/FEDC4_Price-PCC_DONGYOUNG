@@ -8,7 +8,6 @@ const useGetComment = (postId: string, initComments?: Comment[]) => {
       const data = await getPostDetail(postId)
       return data
     },
-    enabled: false,
     initialData: [initComments],
   })
 }
