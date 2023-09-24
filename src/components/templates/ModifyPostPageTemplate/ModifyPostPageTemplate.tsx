@@ -20,7 +20,14 @@ type ModifyPostPageTemplateProps = {
 export default function ModifyPostPageTemplate({
   postData,
 }: ModifyPostPageTemplateProps) {
-  const { register, onSubmit, titleError, setValue } = useModifyPostForm()
+  const {
+    register,
+    onSubmit,
+    titleError,
+    descriptionError,
+    setValue,
+    formState,
+  } = useModifyPostForm()
   const { currentUser } = useAuth()
   const router = useRouter()
 
@@ -61,12 +68,14 @@ export default function ModifyPostPageTemplate({
           }
         }}
       />
+      <span className="form-error-message">{titleError}</span>
       <Quill
         defaultValue={postData.description}
         onEdit={(text) => {
           setValue('description', text)
         }}
       />
+      <span className="form-error-message">{descriptionError}</span>
       <div className="file-picker-container">
         <FilePicker
           width={20}
@@ -83,7 +92,7 @@ export default function ModifyPostPageTemplate({
       <div className="submit-button-container">
         <Button
           text="완료"
-          variant="default"
+          variant={formState.isSubmitting ? 'disabled' : 'default'}
           isShadowed={true}
           rounded="rounded-md"
           width={12}

@@ -8,11 +8,9 @@ import './index.scss'
 export default function NotificationModal({
   currentUser,
   open,
-  setIsOpen,
 }: {
   currentUser: User | undefined
   open: boolean
-  setIsOpen: (_value: boolean) => void
 }) {
   return (
     open && (
@@ -24,7 +22,7 @@ export default function NotificationModal({
         <Text className="notification-title" textStyle="body1">
           알림
         </Text>
-        <NotiList open={open} setIsOpen={setIsOpen} currentUser={currentUser} />
+        <NotiList open={open} currentUser={currentUser} />
       </Card>
     )
   )
