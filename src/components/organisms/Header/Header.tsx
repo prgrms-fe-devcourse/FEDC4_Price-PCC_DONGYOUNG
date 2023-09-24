@@ -1,72 +1,58 @@
-'use client'
-
-import { useState, useMemo, useCallback } from 'react'
-import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
-import Avatar from '@/components/atoms/Avatar'
+import DarkModeButton from '@/components/atoms/DarkModeButton'
 import NotificationButton from '@/components/atoms/NotificationButton'
 import SearchBar from '@/components/atoms/SearchBar'
 import { Text } from '@/components/atoms/Text'
-import ModalDropdownList from '@/components/molcules/ModalDropdownList'
-import Assets from '@/config/assets'
+import AvatarDropdown from '@/components/molcules/AvatarDropdown/AvatarDropdown'
 import APP_PATH from '@/config/paths'
-import { useAuth } from '@/lib/contexts/authProvider'
+import { validateToken } from '@/services/auth'
 import './index.scss'
 
-const DynamicDarkModeButton = dynamic(
-  () => import('@/components/atoms/DarkModeButton'),
-  { ssr: false },
-)
+async function updateCookie(key: string, value: string) {
+  const cookieStore = cookies()
+  cookieStore.set(key, value)
+}
 
-export default function Header() {
-  const [dropdownClick, setDropdownClick] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(false)
-  const { currentUser } = useAuth()
+export default async function Header() {
+  const cookieStore = cookies()
+  const data = validateToken()
 
-  const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
+  let systemDarkmode = false
+  if (typeof window !== 'undefined') {
+    systemDarkmode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  }
+  let darkMode = systemDarkmode
 
-  const handleDropdown = useCallback(() => {
-    setDropdownClick((prevClick) => !prevClick)
-  }, [])
+  const cookieVal = cookieStore.get('pcc-darkmode')
+  if (cookieVal) {
+    darkMode = JSON.parse(cookieVal?.value!)
+  } else {
+    updateCookie('pcc-darkmode', JSON.stringify(systemDarkmode))
+    darkMode = systemDarkmode
+  }
 
-  const changeDarkMode = useCallback((value: boolean) => {
-    setIsDarkMode(value)
-  }, [])
+  if (typeof window !== 'undefined') {
+    if (darkMode) {
+      document.body.classList.add('pcc-theme--dark')
+      document.body.classList.remove('pcc-theme--light')
+    }
+  }
 
   return (
     <div className="header-container color-bg--bg-1">
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DynamicDarkModeButton changeDarkMode={changeDarkMode} />
+        <DarkModeButton darkMode={darkMode} />
       </div>
-      {cachedCurrentUser ? (
-        <div className="header-user-container" onClick={handleDropdown}>
-          <Avatar
-            src={cachedCurrentUser ? cachedCurrentUser.image : Assets.PCCImage}
-            size={3}
-            text={cachedCurrentUser ? cachedCurrentUser.fullName : ''}
-            textStyle={{
-              fontWeight: 'bold',
-              padding: '0 0.5rem 0 0.5rem',
-              wordBreak: 'keep-all',
-            }}
-          />
-          <Image
-            src={isDarkMode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
-            alt="dropdown-arrow"
-          />
-          <ModalDropdownList
-            userId={cachedCurrentUser ? cachedCurrentUser._id : ''}
-            isOpen={dropdownClick}
-          />
-        </div>
-      ) : (
+      {!data ? (
         <div className="sign-container">
           <LinkButton href={APP_PATH.login()}>로그인</LinkButton>
           <LinkButton href={APP_PATH.register()}>회원가입</LinkButton>
         </div>
+      ) : (
+        <AvatarDropdown darkmode={darkMode} />
       )}
     </div>
   )
