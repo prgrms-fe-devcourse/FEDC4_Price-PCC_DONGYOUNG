@@ -17,6 +17,9 @@ export default function LikeDislikeContainer({
 }: LikeDislikeCountProps) {
   const [loading, setLoading] = useState(false)
   const { isDark } = useDarkStore()
+
+  const likeImage = isDark ? Assets.DarkLike : Assets.LikeImage
+  const disLikeImage = isDark ? Assets.DarkDisLike : Assets.DislikeImage
   const handleClickLike = useCallback(() => {
     if (onClickLike) {
       setLoading(true)
@@ -47,62 +50,32 @@ export default function LikeDislikeContainer({
     <div className="like-container">
       <>
         <span className="like-container__likes">
-          {!isDark && (
-            <Image
-              src={Assets.LikeImage}
-              alt="좋아요 이미지"
-              width={30}
-              height={30}
-              onClick={loading ? undefined : handleClickLike}
-              style={{
-                cursor: 'pointer',
-              }}
-            />
-          )}
-
-          {isDark && (
-            <Image
-              src={Assets.DarkLike}
-              alt="좋아요 이미지"
-              width={30}
-              height={30}
-              onClick={loading ? undefined : handleClickLike}
-              style={{
-                cursor: 'pointer',
-              }}
-            />
-          )}
+          <Image
+            src={likeImage}
+            alt="좋아요 이미지"
+            width={30}
+            height={30}
+            onClick={loading ? undefined : handleClickLike}
+            style={{
+              cursor: 'pointer',
+            }}
+          />
 
           <Text textStyle="subtitle1-bold">잘 샀어요</Text>
           <span>{like}</span>
         </span>
         <LikeDisLikeProgressBar like={like} dislike={dislike} />
         <span className="like-container__dislikes">
-          {!isDark && (
-            <Image
-              src={Assets.DislikeImage}
-              alt="싫어요 이미지"
-              width={30}
-              height={30}
-              onClick={loading ? undefined : handleClickDisLike}
-              style={{
-                cursor: 'pointer',
-              }}
-            />
-          )}
-
-          {isDark && (
-            <Image
-              src={Assets.DarkDisLike}
-              alt="싫어요 이미지"
-              width={30}
-              height={30}
-              onClick={loading ? undefined : handleClickDisLike}
-              style={{
-                cursor: 'pointer',
-              }}
-            />
-          )}
+          <Image
+            src={disLikeImage}
+            alt="싫어요 이미지"
+            width={30}
+            height={30}
+            onClick={loading ? undefined : handleClickDisLike}
+            style={{
+              cursor: 'pointer',
+            }}
+          />
 
           <Text textStyle="subtitle1-bold">흑우에요</Text>
           <span>{dislike}</span>
