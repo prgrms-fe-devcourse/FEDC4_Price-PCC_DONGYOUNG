@@ -27,6 +27,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirect() {
+    return [
+      {
+        source: '/post/:id',
+        destination: '/post/:id',
+        permanent: true,
+      },
+      {
+        source: '/user/:id',
+        destination: '/user/:id',
+        permanent: true,
+      },
+      {
+        source: '/post/search/:keyword',
+        destination: '/post/search/:keyword',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

@@ -17,13 +17,7 @@ export default function NotificationButton() {
         src={Assets.NotificationImage}
         onClick={() => setIsOpen(!isOpen)}
       />
-      {
-        <NotificationModal
-          open={isOpen}
-          currentUser={currentUser}
-          setIsOpen={setIsOpen}
-        />
-      }
+      {<NotificationModal open={isOpen} currentUser={currentUser} />}
     </>
   )
 }

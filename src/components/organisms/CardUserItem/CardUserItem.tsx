@@ -32,7 +32,17 @@ export default function CardUserItem({
             alt="profile-image"
             style={{ borderRadius: '50%' }}
           />
-          <Text textStyle="heading1-bold">{fullName}</Text>
+          <Text
+            textStyle="heading1-bold"
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {fullName}
+          </Text>
           <div className="follow-container">
             <MultiText title="팔로워" count={followers}></MultiText>
             <MultiText title="팔로잉" count={following}></MultiText>
