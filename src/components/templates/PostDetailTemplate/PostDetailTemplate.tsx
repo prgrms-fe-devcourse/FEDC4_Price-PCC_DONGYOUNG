@@ -122,7 +122,7 @@ export function PostDetailTemplate({
 
   const handleOnClickDisLikeBtn = useCallback(async () => {
     if (!isLoggedIn) {
-      notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
+      notify('error', POST_CONSTANT.DISLIKE_ERROR)
       return
     }
 
@@ -200,16 +200,6 @@ export function PostDetailTemplate({
             src={initPost?.author?.image ?? ''}
             text={author.fullName}
           >
-            <Text
-              textStyle="heading1-bold"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginLeft: '27px',
-              }}
-            >
-              {author.fullName}
-            </Text>
           </Avatar>
         </Link>
         {isEqualUser && <PostOptionsDropdown postId={_id} />}
