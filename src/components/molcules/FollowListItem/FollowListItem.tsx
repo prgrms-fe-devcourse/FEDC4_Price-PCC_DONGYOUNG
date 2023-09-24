@@ -14,12 +14,14 @@ export default function FollowListItem({ targetUserId }: FollowListItemProps) {
     useFollow(data)
   return (
     <li className="follow-list-item">
-      <Avatar
-        src={data?.image}
-        text={data?.fullName}
-        subText={`${followerCount} Followers`}
-        size={4}
-      />
+      <div className="follow-list-item__avatar">
+        <Avatar
+          src={data?.image}
+          text={data?.fullName}
+          subText={`${followerCount} Followers`}
+          size={4}
+        />
+      </div>
       <FollowToggleButton
         size="small"
         isFollowing={isFollowing}

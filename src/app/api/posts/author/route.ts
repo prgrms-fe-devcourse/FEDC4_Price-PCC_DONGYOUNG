@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Environment } from '@/config/environments'
 import { apiServer } from '@/lib/axiosSever'
-import Post from '@/types/post'
+import type Post from "@/types/post"
 
 export async function GET(req: NextRequest) {
   const authorId = req.nextUrl.searchParams.get('authorId') ?? 'undefined'
@@ -16,6 +16,7 @@ export async function GET(req: NextRequest) {
     const targetPosts = data.filter(
       (post: Post) => post.channel._id === Environment.channelId(),
     )
+    
     const parsedPosts = targetPosts.map((post: Post) => {
       const parsedArticle = JSON.parse(post.title)
       if (parsedArticle) {

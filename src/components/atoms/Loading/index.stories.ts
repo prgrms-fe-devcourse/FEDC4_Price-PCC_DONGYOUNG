@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import DarkModeButton from '.'
+import Loading from '.'
 
 const meta = {
-  title: 'Buttons/DarkModeButton',
-  component: DarkModeButton,
-} satisfies Meta<typeof DarkModeButton>
+  title: 'Componentes/Loading',
+  component: Loading,
+} satisfies Meta<typeof Loading>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    darkMode: true,
+    size: 5,
   },
   argTypes: {
-    darkMode: {
-      type: 'boolean',
+    size: {
+      type: 'number',
     },
   },
 }
