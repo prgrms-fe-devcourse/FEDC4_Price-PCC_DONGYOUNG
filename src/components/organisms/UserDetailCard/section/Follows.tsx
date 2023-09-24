@@ -58,7 +58,9 @@ export default function Follows({ userData }: { userData: User }) {
         modalHeight={44}
         handleModalClose={handleModalClose}
       >
-        <FollowList isFollowerList={isFollowerModal} userData={userData} />
+        {isModalOpen && (
+          <FollowList isFollowerList={isFollowerModal} userData={userData} />
+        )}
       </ModalProvider>
     </>
   )
