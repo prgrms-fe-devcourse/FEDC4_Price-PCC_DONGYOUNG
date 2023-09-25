@@ -24,12 +24,15 @@
   margin: 0 auto;
   margin-bottom: 15px;
   gap: 2px;
+  overflow: hidden;
+
   @include themed() {
     color: t(gray-5);
   }
   &__likes {
     display: flex;
     align-items: center;
+    overflow: hidden;
     gap: 3px;
   }
 
