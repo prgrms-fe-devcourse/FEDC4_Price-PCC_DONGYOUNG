@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Assets from '@/config/assets'
+import useDarkStore from '@/stores/darkMode'
 import ImageButton from '../ImageButton'
 
 type PropsType = {
@@ -11,11 +12,13 @@ type PropsType = {
 
 export default function DarkModeButton({ darkMode }: PropsType) {
   const [isDark, setIsDark] = useState(darkMode)
+  const { toggleState } = useDarkStore()
   const handleDarkmodeClick = () => {
     document.body.classList.toggle('pcc-theme--light')
     document.body.classList.toggle('pcc-theme--dark')
     Cookies.set('pcc-darkmode', JSON.stringify(!isDark))
     setIsDark(!isDark)
+    toggleState()
   }
   return (
     <ImageButton
