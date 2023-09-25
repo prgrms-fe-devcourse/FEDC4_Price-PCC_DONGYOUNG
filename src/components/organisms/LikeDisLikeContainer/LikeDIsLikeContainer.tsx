@@ -23,12 +23,12 @@ export default function LikeDislikeContainer({
     useLikeState(initalState)
 
   const likeImage = useMemo(
-    () => (isDark ? Assets.DarkLike : Assets.LikeImage),
+    () => (isDark ? Assets.LikeImage : Assets.DarkLike),
     [isDark],
   )
 
   const disLikeImage = useMemo(
-    () => (isDark ? Assets.DarkDisLike : Assets.DislikeImage),
+    () => (isDark ? Assets.DislikeImage : Assets.DarkDisLike),
     [isDark],
   )
 
