@@ -12,9 +12,8 @@ export default function LikeDisLikeProgressBar({
 
   return (
     <ProgressBar
-      animateOnRender
       completed={ratio}
-      width={`${569 / 16}rem`}
+      width={`27vw`}
       height={`${30 / 16}rem`}
       bgColor="#ffdf5f"
       baseBgColor="#fffaea"

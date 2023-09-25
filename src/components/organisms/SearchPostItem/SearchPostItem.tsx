@@ -50,6 +50,7 @@ export default function SearchPostItem({
             )}
           </Link>
           <LikeDislikeCount
+            initalState="init"
             like={likes.length ?? 0}
             dislike={disLikes?.length ?? 0}
           />

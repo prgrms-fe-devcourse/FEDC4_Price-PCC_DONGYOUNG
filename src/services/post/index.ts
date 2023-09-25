@@ -38,7 +38,7 @@ export const getUserPosts = async ({
 
 export const getPostDetail = async (id: string) => {
   try {
-    const { data } = await apiClient.get(`api/post/${id}`)
+    const { data } = await apiClient.get(`/api/post/${id}`)
     return data
   } catch (e) {
     if (e instanceof Error) throw new Error(e.message)

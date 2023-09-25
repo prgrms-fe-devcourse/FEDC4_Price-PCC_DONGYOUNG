@@ -40,16 +40,18 @@ export default function CardPostItem({
         <Card>
           <div className="content-container">
             <div className="content-container__header">
-              <Link href={APP_PATH.userProfile(author._id)} prefetch={false}>
-                <Avatar
-                  text={author.fullName}
-                  size={1.25}
-                  src={author.image}
-                  style={{
-                    alignItems: 'flex-start',
-                  }}
-                />
-              </Link>
+              <div className="content-container__header--title">
+                <Link href={APP_PATH.userProfile(author._id)} prefetch={false}>
+                  <Avatar
+                    text={author.fullName}
+                    size={1.25}
+                    src={author.image}
+                    style={{
+                      alignItems: 'flex-start',
+                    }}
+                  />
+                </Link>
+              </div>
               {isShowOptions && (
                 <PostOptionsDropdown postId={_id} setIsDeleted={setIsDeleted} />
               )}
@@ -79,6 +81,7 @@ export default function CardPostItem({
               )}
             </Link>
             <LikeDislikeCount
+              initalState="init"
               like={likes.length ?? 0}
               dislike={disLikes?.length ?? 0}
             />
