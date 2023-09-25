@@ -1,5 +1,5 @@
 import UserDetailCard from '@/components/organisms/UserDetailCard'
-import UserPostsGrid from '@/components/organisms/userPostsGrid'
+import HydratedPostGrid from '@/components/organisms/userPostsGrid/HydratedPostsGrid'
 import './index.scss'
 
 type UserDetailPageTemplateProps = {
@@ -13,7 +13,7 @@ export default function UserDetailPageTemplate({
     <div className="user-detail">
       <UserDetailCard userId={userId} />
       <div className="grid">
-        <UserPostsGrid userId={userId} />
+        <HydratedPostGrid userId={userId} />
       </div>
     </div>
   )
