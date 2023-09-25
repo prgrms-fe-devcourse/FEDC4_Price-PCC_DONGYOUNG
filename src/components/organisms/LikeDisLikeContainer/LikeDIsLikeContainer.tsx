@@ -71,6 +71,7 @@ export default function LikeDislikeContainer({
             onClick={loading ? undefined : handleClickLike}
             style={{
               cursor: 'pointer',
+              transition: 'opacity 0.3s ease',
             }}
           />
 
@@ -95,6 +96,7 @@ export default function LikeDislikeContainer({
             onClick={loading ? undefined : handleClickDisLike}
             style={{
               cursor: 'pointer',
+              transition: 'opacity 0.3s ease',
             }}
           />
 

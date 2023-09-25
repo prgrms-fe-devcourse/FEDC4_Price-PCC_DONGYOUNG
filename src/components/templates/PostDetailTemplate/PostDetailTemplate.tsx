@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -11,11 +11,9 @@ import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
-import useDisLike from '@/hooks/useDisLike'
 import useLike from '@/hooks/useLike'
 import { useAuth } from '@/lib/contexts/authProvider'
 import { postNewComment } from '@/services/comment'
-import { getPostDetail } from '@/services/post'
 import Post from '@/types/post'
 import './index.scss'
 
@@ -37,30 +35,16 @@ export function PostDetailTemplate({
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
-  const [disLike, setDisLike] = useState<Post>(initDisLikeChannelPost)
-  const [like, setLike] = useState<Post>(initPost)
+  const { post, handleOnClickLike, handleOnClickDisLikeBtn, disLikePost } =
+    useLike({
+      initPost,
+      initDisLikePost: initDisLikeChannelPost,
+    })
 
-  const { post, handleOnClickLike } = useLike({
-    initPost: like,
-    disLikePost: disLike,
-    postId: like._id,
-    fetchDisLike: async () =>
-      await getPostDetail(initDisLikeChannelPost._id).then(({ post }) =>
-        setDisLike(post),
-      ),
-  })
-  const { post: disLikePost, handleOnClickDisLike } = useDisLike({
-    initPost: disLike,
-    likePost: like,
-    postId: disLike._id,
-    fetchLike: async () =>
-      await getPostDetail(initPost._id).then(({ post }) => setLike(post)),
-  })
-
-  const initLikeState = post.likes.some(
+  const initLikeState = post?.likes.some(
     (like) => like.user === currentUser?._id,
   )
-  const initDisLikeState = disLikePost.likes.some(
+  const initDisLikeState = disLikePost?.likes.some(
     (dislike) => dislike.user === currentUser?._id,
   )
 
@@ -108,7 +92,7 @@ export function PostDetailTemplate({
         like={post?.likes?.length || 0}
         dislike={disLikePost?.likes?.length || 0}
         onClickLike={handleOnClickLike}
-        onClickDisLike={handleOnClickDisLike}
+        onClickDisLike={handleOnClickDisLikeBtn}
       />
       <CommentListContainer postId={postId} initComments={comment} />
       {isLoggedIn && currentUser && (
