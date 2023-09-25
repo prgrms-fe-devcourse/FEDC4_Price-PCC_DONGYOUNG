@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
 import Assets from '@/config/assets'
+import useLikeState from '@/hooks/useLikeState'
 import useDarkStore from '@/stores/darkMode'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
@@ -14,13 +15,20 @@ export default function LikeDislikeContainer({
   dislike,
   onClickLike,
   onClickDisLike,
+  initalState,
 }: LikeDislikeCountProps) {
   const [loading, setLoading] = useState(false)
   const { isDark } = useDarkStore()
+  const { toggleDisLikeState, toggleLikeState, likeState } =
+    useLikeState(initalState)
 
   const likeImage = isDark ? Assets.DarkLike : Assets.LikeImage
+
   const disLikeImage = isDark ? Assets.DarkDisLike : Assets.DislikeImage
+
   const handleClickLike = useCallback(() => {
+    toggleLikeState()
+
     if (onClickLike) {
       setLoading(true)
       onClickLike()
@@ -31,9 +39,10 @@ export default function LikeDislikeContainer({
           setLoading(false)
         })
     }
-  }, [onClickLike])
+  }, [onClickLike, toggleLikeState])
 
   const handleClickDisLike = useCallback(() => {
+    toggleDisLikeState()
     if (onClickDisLike) {
       setLoading(true)
       onClickDisLike()
@@ -44,14 +53,18 @@ export default function LikeDislikeContainer({
           setLoading(false)
         })
     }
-  }, [onClickDisLike])
+  }, [onClickDisLike, toggleDisLikeState])
 
   return (
     <div className="like-container">
       <>
         <span className="like-container__likes">
           <Image
-            src={likeImage}
+            src={
+              likeState === 'like' || likeState === 'both'
+                ? Assets.ActiveLike
+                : likeImage
+            }
             alt="좋아요 이미지"
             width={30}
             height={30}
@@ -64,10 +77,18 @@ export default function LikeDislikeContainer({
           <Text textStyle="subtitle1-bold">잘 샀어요</Text>
           <span>{like}</span>
         </span>
-        <LikeDisLikeProgressBar like={like} dislike={dislike} />
+        <LikeDisLikeProgressBar
+          like={like}
+          dislike={dislike}
+          initalState="init"
+        />
         <span className="like-container__dislikes">
           <Image
-            src={disLikeImage}
+            src={
+              likeState === 'dislike' || likeState === 'both'
+                ? Assets.ActiveDisLike
+                : disLikeImage
+            }
             alt="싫어요 이미지"
             width={30}
             height={30}
