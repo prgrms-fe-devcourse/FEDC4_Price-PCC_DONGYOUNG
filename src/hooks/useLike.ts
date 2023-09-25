@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { notify } from '@/components/atoms/Toast'
 import { POST_CONSTANT } from '@/constants/post'
 import { getPostDetail } from '@/services/post'
@@ -12,6 +12,10 @@ type useLikeProps = {
 }
 
 export default function useLike({ initPost, initDisLikePost }: useLikeProps) {
+  useEffect(() => {
+    setLikePost(initPost)
+    setDisLikePost(initDisLikePost)
+  }, [initPost, initDisLikePost])
   const [post, setLikePost] = useState<Post>(initPost)
   const [disLikePost, setDisLikePost] = useState<Post>(initDisLikePost)
   const { isLoggedIn, currentUser } = useCurrentUser()
@@ -132,6 +136,7 @@ export default function useLike({ initPost, initDisLikePost }: useLikeProps) {
         return
       }
     } catch (error) {
+      console.log(error)
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
   }
