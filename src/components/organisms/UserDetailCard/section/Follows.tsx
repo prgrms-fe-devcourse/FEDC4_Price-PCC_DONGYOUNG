@@ -17,6 +17,7 @@ export default function Follows({ userData }: { userData: User }) {
     followerCount,
     followingCount,
     followToggle,
+    updatedUserData,
   } = useFollow(userData)
 
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
@@ -63,7 +64,7 @@ export default function Follows({ userData }: { userData: User }) {
           <Suspense fallback={<Loading size={5} />}>
             <LazyFollowList
               isFollowerList={isFollowerModal}
-              userData={userData}
+              userData={updatedUserData}
             />
           </Suspense>
         )}

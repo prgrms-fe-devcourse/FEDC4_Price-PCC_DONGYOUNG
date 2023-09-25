@@ -6,7 +6,7 @@ import { Text } from '@/components/atoms/Text'
 import APP_PATH from '@/config/paths'
 import useFollow from '@/hooks/useFollow'
 import useGetAllUsers from '@/queries/users'
-import User from '@/types/user'
+import { UserSummary } from '@/types/user'
 
 export default function UserList() {
   const { data } = useGetAllUsers()
@@ -27,7 +27,7 @@ export default function UserList() {
   )
 }
 
-function UserListItem({ userData }: { userData: User<string> }) {
+function UserListItem({ userData }: { userData: UserSummary }) {
   const { followerCount } = useFollow(userData)
   const { image, _id, fullName } = userData
   return (
