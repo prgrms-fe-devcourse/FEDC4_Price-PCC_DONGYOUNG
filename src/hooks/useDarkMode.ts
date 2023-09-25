@@ -5,7 +5,7 @@ import useZustandStore from './useZustandStore'
 export default function useDarkMode() {
   const selector = (store: DarkMode): [boolean, (_arg: boolean) => void] => [
     store.isDark,
-    store.setDarK,
+    store.setDark,
   ]
 
   const [isDark, setDark] = useZustandStore(
@@ -16,6 +16,7 @@ export default function useDarkMode() {
 
   const toggleDark = useCallback(() => {
     setDark(!isDark)
+    console.log(isDark)
   }, [isDark, setDark])
 
   useEffect(() => {

@@ -1,17 +1,28 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
+import { PersistOptions, persist } from 'zustand/middleware'
+
+export type Persist<T> = (
+  _config: StateCreator<T>,
+  _options: PersistOptions<T>,
+) => StateCreator<T>
 
 export interface DarkMode {
   isDark: boolean
-  setDarK: (_isDark: boolean) => void
+  setDark: (_isDark: boolean) => void // Fixed the spelling error here
 }
 
 export const INIT_THEME_STORE: DarkMode = {
   isDark: false,
-  setDarK: (_isDark: boolean) => ({}),
+  setDark: (_isDark: boolean) => {}, // Fixed the function definition here
 }
 
-export const useDarkStore = create<DarkMode>((set) => ({
-  ...INIT_THEME_STORE,
-  isDark: false,
-  setDark: (isDark: boolean) => set(() => ({ isDark })),
-}))
+export const useDarkStore = create<DarkMode>(
+  (persist as Persist<DarkMode>)(
+    (set) => ({
+      ...INIT_THEME_STORE,
+      isDark: false,
+      setDark: (isDark: boolean) => set(() => ({ isDark })),
+    }),
+    { name: 'darkmode-store' },
+  ),
+)

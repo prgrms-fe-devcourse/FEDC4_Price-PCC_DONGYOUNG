@@ -22,6 +22,7 @@ export default function LikeDislikeContainer({
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
+  console.log(isDark)
   const likeImage = useMemo(
     () => (isDark ? Assets.DarkLike : Assets.LikeImage),
     [isDark],
