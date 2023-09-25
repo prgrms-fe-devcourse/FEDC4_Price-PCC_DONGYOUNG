@@ -8,7 +8,6 @@ import AvatarDropdown from '@/components/molcules/AvatarDropdown/AvatarDropdown'
 import { constants } from '@/config/constants'
 import { Environment } from '@/config/environments'
 import APP_PATH from '@/config/paths'
-import { useDarkmodeCookie } from '@/hooks/useDarkmodeCookie'
 import User from '@/types/user'
 import './index.scss'
 
@@ -34,27 +33,12 @@ export const getCurrentUser = async (): Promise<User | null | undefined> => {
 
 export default async function Header() {
   const currentUser = await getCurrentUser()
-
-  let systemDarkmode = false
-  if (typeof window !== 'undefined') {
-    systemDarkmode = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }
-
-  const { darkMode } = useDarkmodeCookie(systemDarkmode)
-
-  if (typeof window !== 'undefined') {
-    if (darkMode) {
-      document.body.classList.add('pcc-theme--dark')
-      document.body.classList.remove('pcc-theme--light')
-    }
-  }
-
   return (
     <div className="header-container color-bg--bg-1">
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton darkMode={darkMode} />
+        <DarkModeButton />
       </div>
       {!currentUser ? (
         <div className="sign-container">
@@ -62,7 +46,7 @@ export default async function Header() {
           <LinkButton href={APP_PATH.register()}>회원가입</LinkButton>
         </div>
       ) : (
-        <AvatarDropdown darkmode={darkMode} currentUser={currentUser} />
+        <AvatarDropdown currentUser={currentUser} />
       )}
     </div>
   )

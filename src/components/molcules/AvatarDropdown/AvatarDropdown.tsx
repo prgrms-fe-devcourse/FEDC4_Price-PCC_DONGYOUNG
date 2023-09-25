@@ -5,17 +5,13 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import Assets from '@/config/assets'
+import { useDarkmode } from '@/hooks/useDarkmode'
 import User from '@/types/user'
 import ModalDropdownList from '../ModalDropdownList'
 import './index.scss'
 
-export default function AvatarDropdown({
-  darkmode,
-  currentUser,
-}: {
-  darkmode: boolean
-  currentUser: User
-}) {
+export default function AvatarDropdown({ currentUser }: { currentUser: User }) {
+  const { darkMode } = useDarkmode()
   const [dropdownClick, setDropdownClick] = useState(false)
   const pathname = usePathname()
   const handleDropdown = useCallback(() => {
@@ -39,7 +35,7 @@ export default function AvatarDropdown({
         }}
       />
       <Image
-        src={darkmode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
+        src={darkMode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
         alt="dropdown-arrow"
       />
       <ModalDropdownList
