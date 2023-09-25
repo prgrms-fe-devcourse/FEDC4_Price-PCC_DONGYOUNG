@@ -4,12 +4,17 @@ import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import Avatar from '@/components/atoms/Avatar'
 import Assets from '@/config/assets'
-import { useAuth } from '@/lib/contexts/authProvider'
+import User from '@/types/user'
 import ModalDropdownList from '../ModalDropdownList'
 import './index.scss'
 
-export default function AvatarDropdown({ darkmode }: { darkmode: boolean }) {
-  const { currentUser } = useAuth()
+export default function AvatarDropdown({
+  darkmode,
+  currentUser,
+}: {
+  darkmode: boolean
+  currentUser: User
+}) {
   const [dropdownClick, setDropdownClick] = useState(false)
   const handleDropdown = useCallback(() => {
     setDropdownClick((prevClick) => !prevClick)
