@@ -201,7 +201,7 @@ export function PostDetailTemplate({
             text={author.fullName}
           ></Avatar>
         </Link>
-        {isEqualUser && <PostOptionsDropdown postId={_id} />}
+        {isEqualUser && <PostOptionsDropdown postId={_id} size={2} />}
       </div>
       <Text
         textStyle="heading0-bold"
