@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -37,25 +37,24 @@ export function PostDetailTemplate({
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
-  const { post, handleOnClickLike, setLikePost } = useLike({
-    initPost,
-    disLikePost: initDisLikeChannelPost,
-    postId: initPost._id,
-    fetchDisLike: () =>
-      getPostDetail(initDisLikeChannelPost._id).then(({ post }) =>
-        setDisLikePost(post),
+  const [disLike, setDisLike] = useState<Post>(initDisLikeChannelPost)
+  const [like, setLike] = useState<Post>(initPost)
+
+  const { post, handleOnClickLike } = useLike({
+    initPost: like,
+    disLikePost: disLike,
+    postId: like._id,
+    fetchDisLike: async () =>
+      await getPostDetail(initDisLikeChannelPost._id).then(({ post }) =>
+        setDisLike(post),
       ),
   })
-  const {
-    post: disLikePost,
-    handleOnClickDisLike,
-    setDisLikePost,
-  } = useDisLike({
-    initPost: initDisLikeChannelPost,
-    likePost: initPost,
-    postId: initDisLikeChannelPost._id,
+  const { post: disLikePost, handleOnClickDisLike } = useDisLike({
+    initPost: disLike,
+    likePost: like,
+    postId: disLike._id,
     fetchLike: async () =>
-      await getPostDetail(initPost._id).then(({ post }) => setLikePost(post)),
+      await getPostDetail(initPost._id).then(({ post }) => setLike(post)),
   })
 
   const initLikeState = post.likes.some(
