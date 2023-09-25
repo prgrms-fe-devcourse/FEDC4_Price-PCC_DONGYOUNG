@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { UseQueryResult, useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { NOTIFICATION_CONSTANT } from '@/constants/notification'
 import useGetNotification from '@/queries/notifications'
 import { putNotification } from '@/services/notification'
@@ -49,21 +51,35 @@ export default function NotiList({
     <>
       {isUnseenDataExist ? (
         data.data?.map(
-          ({ seen, _id, follow, comment, author }) =>
+          ({ seen, _id, follow, comment, author, post }) =>
             !seen && (
-              <Avatar
-                key={_id}
-                src={author?.image ?? Assets.PCCImage}
-                size={3}
-                text={author?.fullName}
-                subText={
+              <Link
+                href={
                   follow
-                    ? NOTIFICATION_CONSTANT.FOLLOW
+                    ? author
+                      ? APP_PATH.userProfile(author?._id)
+                      : APP_PATH.home()
                     : comment
-                    ? NOTIFICATION_CONSTANT.COMMENT
-                    : ''
+                    ? post
+                      ? APP_PATH.postDetail(post)
+                      : APP_PATH.home()
+                    : APP_PATH.home()
                 }
-              />
+                key={_id}
+              >
+                <Avatar
+                  src={author?.image ?? Assets.PCCImage}
+                  size={3}
+                  text={author?.fullName}
+                  subText={
+                    follow
+                      ? NOTIFICATION_CONSTANT.FOLLOW
+                      : comment
+                      ? NOTIFICATION_CONSTANT.COMMENT
+                      : ''
+                  }
+                />
+              </Link>
             ),
         )
       ) : (
