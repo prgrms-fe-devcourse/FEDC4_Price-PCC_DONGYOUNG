@@ -11,9 +11,10 @@ import './index.scss'
 type PropsType = {
   postId: string
   setIsDeleted?: Dispatch<SetStateAction<boolean>>
+  size?: number
 }
 
-function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
+function PostOptionsDropdown({ postId, setIsDeleted, size }: PropsType) {
   const [isOpen, setIsOpen] = useState(false)
   const deletePostMutation = useDeletePost(postId)
 
@@ -29,8 +30,13 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
         onClick={() => {
           setIsOpen((isOpen) => !isOpen)
         }}
+        className="dropdown-container__button"
+        style={{
+          width: `${size}rem`,
+          height: `${size}rem`,
+        }}
       >
-        <Image src={Assets.OptionsIcon} alt="더보기 버튼" />
+        <Image src={Assets.OptionsIcon} alt="더보기 버튼" fill />
       </button>
       {isOpen && (
         <div
