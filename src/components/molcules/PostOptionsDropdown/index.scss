@@ -12,6 +12,7 @@
     border-radius: 15px;
     position: absolute;
     right: 0;
+    top: 85%;
     @include themed() {
       border: 0.1rem solid t(bg-2);
     }
@@ -29,8 +30,10 @@
 
     &--item {
       width: 10rem;
-      @include themed() {
-        border: 0.05rem solid t(bg-2);
+      &:not(:last-child) {
+        @include themed() {
+          border-bottom: 0.05rem solid t(bg-2);
+        }
       }
       padding: 0.7rem 0;
       text-align: center;
