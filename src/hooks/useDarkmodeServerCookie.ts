@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 
-export function useDarkmodeCookie(intialValue: boolean) {
+export function useDarkmodeServerCookie(intialValue: boolean) {
   if (typeof window !== 'undefined') {
     throw new Error('This hook should be used in server-side only')
   }
