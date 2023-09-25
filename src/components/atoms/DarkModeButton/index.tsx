@@ -3,11 +3,9 @@
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Assets from '@/config/assets'
-import { useDarkmode } from '@/hooks/useDarkmode'
 import ImageButton from '../ImageButton'
 
-export default function DarkModeButton() {
-  const { darkMode } = useDarkmode()
+export default function DarkModeButton({ darkMode }: { darkMode: boolean }) {
   const [isDark, setIsDark] = useState(darkMode)
   const handleDarkmodeClick = () => {
     document.body.classList.toggle('pcc-theme--light')

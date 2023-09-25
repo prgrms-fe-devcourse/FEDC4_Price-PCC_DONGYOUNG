@@ -10,8 +10,13 @@ import User from '@/types/user'
 import ModalDropdownList from '../ModalDropdownList'
 import './index.scss'
 
-export default function AvatarDropdown({ currentUser }: { currentUser: User }) {
-  const { darkMode } = useDarkmode()
+export default function AvatarDropdown({
+  darkMode,
+  currentUser,
+}: {
+  darkMode: boolean
+  currentUser: User
+}) {
   const [dropdownClick, setDropdownClick] = useState(false)
   const pathname = usePathname()
   const handleDropdown = useCallback(() => {

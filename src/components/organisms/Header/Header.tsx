@@ -8,6 +8,7 @@ import AvatarDropdown from '@/components/molcules/AvatarDropdown/AvatarDropdown'
 import { constants } from '@/config/constants'
 import { Environment } from '@/config/environments'
 import APP_PATH from '@/config/paths'
+import { useDarkmodeServerCookie } from '@/hooks/useDarkmodeServerCookie'
 import User from '@/types/user'
 import './index.scss'
 
@@ -33,12 +34,13 @@ export const getCurrentUser = async (): Promise<User | null | undefined> => {
 
 export default async function Header() {
   const currentUser = await getCurrentUser()
+  const { darkMode } = useDarkmodeServerCookie()
   return (
     <div className="header-container color-bg--bg-1">
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton />
+        <DarkModeButton darkMode={darkMode} />
       </div>
       {!currentUser ? (
         <div className="sign-container">
@@ -46,7 +48,7 @@ export default async function Header() {
           <LinkButton href={APP_PATH.register()}>회원가입</LinkButton>
         </div>
       ) : (
-        <AvatarDropdown currentUser={currentUser} />
+        <AvatarDropdown darkMode={darkMode} currentUser={currentUser} />
       )}
     </div>
   )

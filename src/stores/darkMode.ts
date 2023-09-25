@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { useDarkmode } from '@/hooks/useDarkmode'
 
 interface DarkMode {
   isDark: boolean
@@ -6,7 +7,7 @@ interface DarkMode {
 }
 
 const useDarkStore = create<DarkMode>((set) => ({
-  isDark: false,
+  isDark: useDarkmode().darkMode,
   toggleState: () =>
     set((prev) => ({
       isDark: !prev.isDark,
