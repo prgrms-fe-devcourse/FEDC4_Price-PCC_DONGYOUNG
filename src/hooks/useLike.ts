@@ -136,7 +136,6 @@ export default function useLike({ initPost, initDisLikePost }: useLikeProps) {
         return
       }
     } catch (error) {
-      console.log(error)
       notify('error', POST_CONSTANT.DISLIKE_API_ERROR)
     }
   }

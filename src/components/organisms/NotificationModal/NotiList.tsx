@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { UseQueryResult, useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
+import Loading from '@/components/atoms/Loading'
 import { Text } from '@/components/atoms/Text'
 import { notify } from '@/components/atoms/Toast'
 import Assets from '@/config/assets'
@@ -18,12 +19,12 @@ export default function NotiList({
   currentUser,
 }: {
   currentUser: User | undefined
-  open: boolean
 }) {
   const [isUnseenDataExist, setIsUnseenDataExist] = useState(false)
-  const data: UseQueryResult<Notification[]> = useGetNotification({
-    isLoggedIn: !!currentUser,
-  })
+  const { data, isLoading }: UseQueryResult<Notification[]> =
+    useGetNotification({
+      isLoggedIn: !!currentUser,
+    })
   const { mutate, isError, isSuccess } = useMutation(putNotification)
 
   const handleClick = () => {
@@ -39,7 +40,7 @@ export default function NotiList({
   }
 
   useEffect(() => {
-    if (data.data?.some(({ seen }) => !seen)) {
+    if (data?.some(({ seen }) => !seen)) {
       setIsUnseenDataExist(true)
     }
     if (isSuccess) {
@@ -47,10 +48,12 @@ export default function NotiList({
     }
   }, [data, isUnseenDataExist, isSuccess])
 
+  if (isLoading) return <Loading size={2} />
+
   return (
     <>
       {isUnseenDataExist ? (
-        data.data?.map(
+        data?.map(
           ({ seen, _id, follow, comment, author, post }) =>
             !seen && (
               <Link

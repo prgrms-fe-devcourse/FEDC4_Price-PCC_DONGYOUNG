@@ -13,19 +13,17 @@ export default function NotificationModal({
   open: boolean
 }) {
   return (
-    open && (
-      <Card
-        className={classNames('notification-card', {
-          'notification-card--open': open,
-        })}
-      >
-        <Text className="notification-title" textStyle="body1">
-          알림
-        </Text>
-        <div className="notification-avatar-list">
-          <NotiList open={open} currentUser={currentUser} />
-        </div>
-      </Card>
-    )
+    <Card
+      className={classNames('notification-card', {
+        close: !open,
+      })}
+    >
+      <Text className="notification-title" textStyle="body1">
+        알림
+      </Text>
+      <div className="notification-avatar-list">
+        <NotiList currentUser={currentUser} />
+      </div>
+    </Card>
   )
 }
