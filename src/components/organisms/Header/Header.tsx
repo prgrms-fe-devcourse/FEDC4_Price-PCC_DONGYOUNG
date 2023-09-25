@@ -54,7 +54,7 @@ export default async function Header() {
       <SearchBar />
       <div className="header-button-container">
         <NotificationButton />
-        <DarkModeButton darkMode={darkMode} />
+        <DarkModeButton _darkMode={darkMode} />
       </div>
       {!currentUser ? (
         <div className="sign-container">

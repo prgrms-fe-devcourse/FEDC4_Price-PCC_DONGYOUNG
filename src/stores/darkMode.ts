@@ -1,16 +1,17 @@
 import { create } from 'zustand'
 
-interface DarkMode {
+export interface DarkMode {
   isDark: boolean
-  toggleState: () => void
+  setDarK: (_isDark: boolean) => void
 }
 
-const useDarkStore = create<DarkMode>((set) => ({
+export const INIT_THEME_STORE: DarkMode = {
   isDark: false,
-  toggleState: () =>
-    set((prev) => ({
-      isDark: !prev.isDark,
-    })),
-}))
+  setDarK: (_isDark: boolean) => ({}),
+}
 
-export default useDarkStore
+export const useDarkStore = create<DarkMode>((set) => ({
+  ...INIT_THEME_STORE,
+  isDark: false,
+  setDark: (isDark: boolean) => set(() => ({ isDark })),
+}))

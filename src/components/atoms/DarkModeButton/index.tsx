@@ -3,27 +3,28 @@
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Assets from '@/config/assets'
-import useDarkStore from '@/stores/darkMode'
+import useDarkMode from '@/hooks/useDarkMode'
 import ImageButton from '../ImageButton'
 
 type PropsType = {
-  darkMode: boolean
+  _darkMode: boolean
 }
 
-export default function DarkModeButton({ darkMode }: PropsType) {
-  const [isDark, setIsDark] = useState(darkMode)
-  const { toggleState } = useDarkStore()
+export default function DarkModeButton({ _darkMode }: PropsType) {
+  const { isDark, toggleDark } = useDarkMode()
+  const [darkmode, setDarkMode] = useState(false)
+
   const handleDarkmodeClick = () => {
     document.body.classList.toggle('pcc-theme--light')
     document.body.classList.toggle('pcc-theme--dark')
     Cookies.set('pcc-darkmode', JSON.stringify(!isDark))
-    setIsDark(!isDark)
-    toggleState()
+    toggleDark()
+    setDarkMode(!darkmode)
   }
   return (
     <ImageButton
       size={3}
-      src={isDark ? Assets.LIGHTMODE_SVG_PATH : Assets.DARKMODE_SVG_PATH}
+      src={darkmode ? Assets.LIGHTMODE_SVG_PATH : Assets.DARKMODE_SVG_PATH}
       alt={`${isDark ? 'dark' : 'light'} mode button`}
       onClick={handleDarkmodeClick}
     />

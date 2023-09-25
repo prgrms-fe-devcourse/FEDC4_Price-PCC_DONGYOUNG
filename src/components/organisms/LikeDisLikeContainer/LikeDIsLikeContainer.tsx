@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
 import Assets from '@/config/assets'
+import useDarkMode from '@/hooks/useDarkMode'
 import useLikeState from '@/hooks/useLikeState'
-import useDarkStore from '@/stores/darkMode'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
@@ -18,17 +18,17 @@ export default function LikeDislikeContainer({
   initalState,
 }: LikeDislikeCountProps) {
   const [loading, setLoading] = useState(false)
-  const { isDark } = useDarkStore()
+  const { isDark } = useDarkMode()
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
   const likeImage = useMemo(
-    () => (isDark ? Assets.LikeImage : Assets.DarkLike),
+    () => (isDark ? Assets.DarkLike : Assets.LikeImage),
     [isDark],
   )
 
   const disLikeImage = useMemo(
-    () => (isDark ? Assets.DislikeImage : Assets.DarkDisLike),
+    () => (isDark ? Assets.DarkDisLike : Assets.DislikeImage),
     [isDark],
   )
 

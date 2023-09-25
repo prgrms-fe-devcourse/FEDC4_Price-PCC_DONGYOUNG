@@ -11,10 +11,10 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    darkMode: true,
+    _darkMode: true,
   },
   argTypes: {
-    darkMode: {
+    _darkMode: {
       type: 'boolean',
     },
   },
