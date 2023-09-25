@@ -1,3 +1,5 @@
+@import '@/styles/variables.scss';
+
 .modal-dropdown-container {
   display: flex;
   flex-direction: column;
@@ -8,7 +10,10 @@
   border-radius: 15px;
   position: fixed;
   margin-top: 14rem;
-  border: 0.1rem solid #f0f0f0;
+  border: 0.1rem solid;
+  @include themed() {
+    border-color: t(bg-2);
+  }
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
   transition: opacity 0.2s ease-in-out;
 
@@ -25,7 +30,10 @@
   a,
   .logout-button {
     width: 10rem;
-    border-bottom: 0.05rem solid #f0f0f0;
+    border-bottom: 0.05rem solid;
+    @include themed() {
+      border-color: t(bg-2);
+    }
     padding: 0.7rem 0;
     text-align: center;
     cursor: pointer;
