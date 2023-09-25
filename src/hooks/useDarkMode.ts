@@ -16,7 +16,10 @@ export default function useDarkMode() {
 
   const toggleDark = useCallback(() => {
     setDark(!isDark)
-    console.log(isDark)
+    if (typeof window !== undefined) {
+      document.body.classList.toggle('pcc-theme--light')
+      document.body.classList.toggle('pcc-theme--dark')
+    }
   }, [isDark, setDark])
 
   useEffect(() => {
