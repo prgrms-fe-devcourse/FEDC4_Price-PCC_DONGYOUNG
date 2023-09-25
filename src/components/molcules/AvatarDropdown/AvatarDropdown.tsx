@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import Avatar from '@/components/atoms/Avatar'
 import Assets from '@/config/assets'
 import User from '@/types/user'
@@ -16,9 +17,15 @@ export default function AvatarDropdown({
   currentUser: User
 }) {
   const [dropdownClick, setDropdownClick] = useState(false)
+  const pathname = usePathname()
   const handleDropdown = useCallback(() => {
     setDropdownClick((prevClick) => !prevClick)
   }, [])
+
+  useEffect(() => {
+    setDropdownClick(false)
+  }, [pathname])
+
   return (
     <div className="header-user-container" onClick={handleDropdown}>
       <Avatar
