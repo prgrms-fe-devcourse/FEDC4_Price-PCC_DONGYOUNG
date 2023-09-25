@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { useDeletePost } from '@/queries/post'
 import './index.scss'
 
@@ -38,8 +39,10 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
             options: true,
           })}
         >
-          <OptimizedLink href={'#'} className="dropdown-container__list--item">
-            {/*TODO - 게시글 수정 페이지 링크 */}
+          <OptimizedLink
+            href={APP_PATH.postModify(postId)}
+            className="dropdown-container__list--item"
+          >
             <Text textStyle="body2-bold">게시글 수정</Text>
           </OptimizedLink>
           <div
