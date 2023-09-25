@@ -1,9 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
 import ToastContainer from '@/components/atoms/Toast/ToastContainer'
 import Header from '@/components/organisms/Header/Header'
 import NavBar from '@/components/organisms/NavBar'
+import { useDarkmodeServerCookie } from '@/hooks/useDarkmodeServerCookie'
 import { AuthProvider } from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
 import '@/styles/global-layout.scss'
@@ -19,10 +19,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const cookieStore = cookies()
-  const isDark = cookieStore.get('pcc-darkmode')?.value
-  const THEME_CLASSNAME =
-    isDark === 'true' ? 'pcc-theme--dark' : 'pcc-theme--light'
+  const { darkMode } = useDarkmodeServerCookie()
+  const THEME_CLASSNAME = darkMode ? 'pcc-theme--dark' : 'pcc-theme--light'
 
   return (
     <html lang="ko">
