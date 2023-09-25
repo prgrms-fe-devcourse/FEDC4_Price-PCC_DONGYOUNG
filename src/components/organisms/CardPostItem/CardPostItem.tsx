@@ -81,6 +81,7 @@ export default function CardPostItem({
               )}
             </Link>
             <LikeDislikeCount
+              initalState="init"
               like={likes.length ?? 0}
               dislike={disLikes?.length ?? 0}
             />
