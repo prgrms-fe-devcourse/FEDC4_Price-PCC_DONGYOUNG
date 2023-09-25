@@ -23,7 +23,7 @@ export default function CardUserItem({
 }: CardUserPropsType) {
   return (
     <Card>
-      <Link href={APP_PATH.userProfile(_id)} prefetch={false}>
+      <Link href={APP_PATH.userProfile(_id)}>
         <div className="card-user-container">
           <Image
             width={100}

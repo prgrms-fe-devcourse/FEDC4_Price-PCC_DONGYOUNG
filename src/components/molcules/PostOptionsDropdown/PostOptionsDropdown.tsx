@@ -73,7 +73,7 @@ const OptimizedLink = React.memo(
     children: React.ReactNode
     className?: string
   }) => (
-    <Link href={href} className={className} prefetch={false}>
+    <Link href={href} className={className}>
       {children}
     </Link>
   ),
