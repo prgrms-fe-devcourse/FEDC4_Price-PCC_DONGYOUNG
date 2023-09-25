@@ -6,7 +6,7 @@ type ImageButtonProps = {
   size?: number
   src: string
   alt?: string
-  onClick: () => void
+  onClick?: () => void
 }
 
 export default function ImageButton({
