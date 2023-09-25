@@ -8,12 +8,12 @@ export type Persist<T> = (
 
 export interface DarkMode {
   isDark: boolean
-  setDark: (_isDark: boolean) => void // Fixed the spelling error here
+  setDark: (_isDark: boolean) => void
 }
 
 export const INIT_THEME_STORE: DarkMode = {
   isDark: false,
-  setDark: (_isDark: boolean) => {}, // Fixed the function definition here
+  setDark: (_isDark: boolean) => {},
 }
 
 export const useDarkStore = create<DarkMode>(
@@ -23,6 +23,6 @@ export const useDarkStore = create<DarkMode>(
       isDark: false,
       setDark: (isDark: boolean) => set(() => ({ isDark })),
     }),
-    { name: 'darkmode-store' },
+    { name: 'pcc-darkmode' },
   ),
 )
