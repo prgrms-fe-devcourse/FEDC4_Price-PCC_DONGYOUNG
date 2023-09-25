@@ -16,14 +16,14 @@ export default function AvatarDropdown({
   darkmode: boolean
   currentUser: User
 }) {
-  const [dropdownClick, setDropdownClick] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const handleDropdown = useCallback(() => {
-    setDropdownClick((prevClick) => !prevClick)
+    setIsOpen((prevClick) => !prevClick)
   }, [])
 
   useEffect(() => {
-    setDropdownClick(false)
+    setIsOpen(false)
   }, [pathname])
 
   return (
@@ -44,7 +44,8 @@ export default function AvatarDropdown({
       />
       <ModalDropdownList
         userId={currentUser ? currentUser._id : ''}
-        isOpen={dropdownClick}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
       />
     </div>
   )

@@ -26,12 +26,11 @@ apiClient.interceptors.response.use(
         break
       default:
         if (error.response.status.toString().startsWith('5')) {
-          notify(
-            'error',
-            '서버에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-          )
+          // notify('error', '서버에 오류가 발생했습니다.')
+          console.error(error.response)
         } else {
-          notify('error', '알 수 없는 오류가 발생했습니다.')
+          // notify('error', '알 수 없는 오류가 발생했습니다.')
+          console.error(error.response)
         }
         break
     }

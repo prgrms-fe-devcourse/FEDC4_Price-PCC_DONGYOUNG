@@ -52,15 +52,15 @@ export function PostDetailTemplate({
   const { post: disLikePost, handleOnClickDisLike } = useDisLike({
     initPost: disLike,
     likePost: like,
-    postId: disLike._id,
+    postId: disLike?._id,
     fetchLike: async () =>
       await getPostDetail(initPost._id).then(({ post }) => setLike(post)),
   })
 
-  const initLikeState = post.likes.some(
+  const initLikeState = post?.likes.some(
     (like) => like.user === currentUser?._id,
   )
-  const initDisLikeState = disLikePost.likes.some(
+  const initDisLikeState = disLikePost?.likes.some(
     (dislike) => dislike.user === currentUser?._id,
   )
 

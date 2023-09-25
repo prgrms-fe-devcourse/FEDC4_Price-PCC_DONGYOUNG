@@ -28,22 +28,22 @@ export default function useDisLike({
       return
     }
 
-    const hasLikedPost = likePost.likes.some(
+    const hasLikedPost = likePost?.likes.some(
       (like) => like.user === currentUser?._id,
     )
 
     //해당 게시글을 싫어요를 했는지?
-    const hasDislikedPost = post.likes.some(
+    const hasDislikedPost = post?.likes.some(
       (disLike) => disLike.user === currentUser?._id,
     )
 
     try {
       if (!hasDislikedPost) {
-        await postLikeAction(initPost._id)
+        await postLikeAction(initPost?._id)
         await getPostDetail(postId).then(({ post }) => setDisLikePost(post))
 
         if (hasLikedPost) {
-          const likeId = likePost.likes.filter(
+          const likeId = likePost?.likes.filter(
             (like) => like.user === currentUser?._id,
           )[0]._id
           await postLikeCancelAction(likeId)
@@ -68,10 +68,10 @@ export default function useDisLike({
     }
   }, [
     isLoggedIn,
-    likePost.likes,
-    post.likes,
+    likePost?.likes,
+    post?.likes,
     currentUser?._id,
-    initPost._id,
+    initPost?._id,
     postId,
     fetchLike,
   ])

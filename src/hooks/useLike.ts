@@ -31,7 +31,7 @@ export default function useLike({
     try {
       const { _id, likes } = post
       const hasLikedPost = likes.some((like) => like.user === currentUser?._id)
-      const hasDisLikedPost = disLikePost.likes.some(
+      const hasDisLikedPost = disLikePost?.likes.some(
         (like) => like.user === currentUser?._id,
       )
       if (!hasLikedPost) {
@@ -39,7 +39,7 @@ export default function useLike({
         await getPostDetail(postId).then(({ post }) => setLikePost(post))
 
         if (hasDisLikedPost && currentUser) {
-          const disLikeID = disLikePost.likes.filter(
+          const disLikeID = disLikePost?.likes.filter(
             (like) => like.user === currentUser._id,
           )[0]._id
           await postLikeCancelAction(disLikeID)
@@ -59,7 +59,7 @@ export default function useLike({
     } catch (error) {
       notify('error', POST_CONSTANT.LIKE_API_ERROR)
     }
-  }, [isLoggedIn, post, disLikePost.likes, currentUser, postId, fetchDisLike])
+  }, [isLoggedIn, post, disLikePost?.likes, currentUser, postId, fetchDisLike])
 
   return { handleOnClickLike, post, setLikePost }
 }
