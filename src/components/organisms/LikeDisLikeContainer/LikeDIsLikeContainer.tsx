@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useMemo } from 'react'
 import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
@@ -22,9 +22,15 @@ export default function LikeDislikeContainer({
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
-  const likeImage = isDark ? Assets.DarkLike : Assets.LikeImage
+  const likeImage = useMemo(
+    () => (isDark ? Assets.DarkLike : Assets.LikeImage),
+    [isDark],
+  )
 
-  const disLikeImage = isDark ? Assets.DarkDisLike : Assets.DislikeImage
+  const disLikeImage = useMemo(
+    () => (isDark ? Assets.DarkDisLike : Assets.DislikeImage),
+    [isDark],
+  )
 
   const handleClickLike = useCallback(() => {
     toggleLikeState()
@@ -67,7 +73,7 @@ export default function LikeDislikeContainer({
             onClick={loading ? undefined : handleClickLike}
             style={{
               cursor: 'pointer',
-              transition: 'opacity 1s ease',
+              transition: 'opacity 5s ease-in',
             }}
           />
 
@@ -88,7 +94,7 @@ export default function LikeDislikeContainer({
             onClick={loading ? undefined : handleClickDisLike}
             style={{
               cursor: 'pointer',
-              transition: 'opacity 1s ease',
+              transition: 'opacity 5s ease-in',
             }}
           />
 
