@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'judge your trades by their sweetness',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -23,6 +23,7 @@ export default function RootLayout({
   const isDark = cookieStore.get('pcc-darkmode')?.value
   const THEME_CLASSNAME =
     isDark === 'true' ? 'pcc-theme--dark' : 'pcc-theme--light'
+
   return (
     <html lang="ko">
       <TanstackQueryContext>

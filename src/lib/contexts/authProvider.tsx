@@ -34,7 +34,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     if (isLoggedIn && authProhibitedPages.includes(pathname)) {
-      notify('warning', '이미 로그인 되어있습니다.')
       router.push(APP_PATH.home())
     }
     if (!isLoggedIn && authNeededPages.includes(pathname)) {

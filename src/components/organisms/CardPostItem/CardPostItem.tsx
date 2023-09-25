@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -28,6 +28,12 @@ export default function CardPostItem({
   likes,
 }: CardPostItemProps) {
   const [isDeleted, setIsDeleted] = useState(false)
+  const [parsedDescription, setParsedDescription] = useState('')
+
+  useEffect(() => {
+    setParsedDescription(htmlTagParser(description))
+  }, [description])
+
   return (
     <>
       {!isDeleted && (
@@ -68,7 +74,7 @@ export default function CardPostItem({
                     overflow: 'hidden',
                   }}
                 >
-                  {htmlTagParser(description)}
+                  {parsedDescription}
                 </Text>
               )}
             </Link>

@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { constants } from '@/config/constants'
@@ -14,6 +15,8 @@ export async function POST(request: Request) {
       path: '/',
       maxAge: 60 * 60 * 24 * 30,
     })
+
+    revalidateTag('auth')
 
     return NextResponse.json(data)
   } catch (error: any) {

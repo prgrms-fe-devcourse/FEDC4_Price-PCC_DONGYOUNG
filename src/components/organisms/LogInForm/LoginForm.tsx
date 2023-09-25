@@ -28,7 +28,6 @@ const LogInForm = () => {
     <form
       className="login-form"
       onSubmit={handleSubmit(async (data) => {
-        console.log('로그인 시도')
         const user = await login({
           email: data.id,
           password: data.password,

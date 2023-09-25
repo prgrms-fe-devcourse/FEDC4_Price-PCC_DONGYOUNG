@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     const followId = followData._id
     const userId = followData.user
 
-    const { data: notiData } = await apiServer.post(
+    await apiServer.post(
       `/notifications/create`,
       {
         notificationType: 'FOLLOW',
@@ -28,8 +28,6 @@ export async function POST(request: Request) {
         },
       },
     )
-
-    console.log(notiData)
 
     return NextResponse.json(followData)
   } catch (error: any) {
