@@ -12,6 +12,12 @@
   overflow: auto;
   height: 30rem;
   padding-right: 1rem;
+  &__message {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   &__item {
     display: flex;
     align-items: center;

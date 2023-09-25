@@ -25,9 +25,10 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
   const [followingCount, setFollowingCount] = useState(0)
 
   useEffect(() => {
-    if (!userData || !currentUser) return
+    if (!userData) return
     setFollowerCount(() => userData.followers?.length ?? 0)
     setFollowingCount(() => userData.following?.length ?? 0)
+    if (!currentUser) return
     setIsFollowing(
       () =>
         currentUser.following?.some(
@@ -43,10 +44,11 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
   }, [currentUser, userData])
 
   const followToggle = async () => {
-    if (!userData || !currentUser) return
+    if (!userData) return
     if (isFollowing) {
       setFollowerCount((prev) => prev - 1)
       setIsFollowing(false)
+      if (!currentUser) return
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
@@ -59,6 +61,7 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
     } else {
       setIsFollowing(true)
       setFollowerCount((prev) => prev + 1)
+      if (!currentUser) return
       const followData = await postFollow(userData._id)
       setFollowId(() => followData._id ?? '')
       currentUser.following?.push(followData)

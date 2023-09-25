@@ -37,12 +37,12 @@ export default function Follows({ userData }: { userData: User }) {
         <InfoCount
           text="팔로워"
           count={followerCount.toString()}
-          onClick={() => followerCount && handleFollowModalOpen(true)}
+          onClick={() => handleFollowModalOpen(true)}
         />
         <InfoCount
           text="팔로잉"
           count={followingCount.toString()}
-          onClick={() => followingCount && handleFollowModalOpen(false)}
+          onClick={() => handleFollowModalOpen(false)}
         />
       </div>
       <div className="follow_buttons">
@@ -83,11 +83,7 @@ const InfoCount = ({
 }) => {
   return (
     <>
-      <button
-        className="info_count"
-        onClick={onClick}
-        style={{ cursor: `${Number(count) === 0 ? 'auto' : 'pointer'}` }}
-      >
+      <button className="info_count" onClick={onClick}>
         <Text textStyle="body1-bold">{text}</Text>
         <Text textStyle="body1-bold">{count}</Text>
       </button>

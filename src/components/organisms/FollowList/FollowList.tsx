@@ -19,14 +19,22 @@ export default function FollowList({
         {isFollowerList ? '팔로워' : '팔로잉'}
       </Text>
       <ul className="follow-list">
-        {users?.map(({ _id, user, follower }, index) => {
-          const targetUserId = isFollowerList ? follower : user
-          return (
-            <div key={_id + index}>
-              <FollowListItem targetUserId={targetUserId} />
-            </div>
-          )
-        })}
+        {users?.length === 0 ? (
+          <div className="follow-list__message">
+            <Text textStyle="heading2" color="gray-4">{`${
+              isFollowerList ? '팔로워가' : '팔로우하는 유저가'
+            } 없습니다.`}</Text>
+          </div>
+        ) : (
+          users?.map(({ _id, user, follower }, index) => {
+            const targetUserId = isFollowerList ? follower : user
+            return (
+              <div key={_id + index}>
+                <FollowListItem targetUserId={targetUserId} />
+              </div>
+            )
+          })
+        )}
       </ul>
     </div>
   )
