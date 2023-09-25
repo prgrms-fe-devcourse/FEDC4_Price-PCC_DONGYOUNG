@@ -40,6 +40,7 @@ export default function CommentInput({
           if (commentInputRef.current?.value) {
             commentInputRef.current.value = ''
           }
+          notify('info', '댓글이 등록되었습니다.')
           setInput('')
           refetch()
         })

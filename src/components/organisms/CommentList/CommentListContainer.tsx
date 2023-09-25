@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
+import Loading from '@/components/atoms/Loading'
+import { notify } from '@/components/atoms/Toast'
 import { useAuth } from '@/lib/contexts/authProvider'
 import useGetComment from '@/queries/comments'
 import { deleteComment } from '@/services/comment'
@@ -15,7 +17,7 @@ export default function CommentListContainer({
   initComments: Comment[]
 }) {
   const { isLoggedIn, currentUser } = useAuth()
-  const { data, refetch } = useGetComment(postId, initComments)
+  const { data, refetch, isFetching } = useGetComment(postId, initComments)
 
   useEffect(() => {
     refetch()
@@ -24,6 +26,7 @@ export default function CommentListContainer({
   const handleOnDeleteComment = (commentId: string) => {
     const onDeleteComment = async () => {
       await deleteComment(commentId)
+      notify('info', '댓글이 삭제되었습니다.')
       refetch()
     }
 
@@ -36,7 +39,9 @@ export default function CommentListContainer({
       isLoggedIn && currentUser && comment.author._id === currentUser._id,
   }))
 
-  return (
+  return isFetching ? (
+    <Loading size={5} />
+  ) : (
     <CommentList
       comments={commentsWithValid}
       onDeleteComment={handleOnDeleteComment}
