@@ -16,6 +16,8 @@ export const useDeletePost = (postId: string) => {
       notify('info', '게시글이 성공적으로 삭제되었습니다.')
       if (isPostDetailPage(pathname)) {
         router.back()
+      } else {
+        router.refresh()
       }
     },
   })
