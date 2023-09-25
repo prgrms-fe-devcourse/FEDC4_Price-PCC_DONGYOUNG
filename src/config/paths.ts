@@ -4,6 +4,7 @@ const APP_PATH = {
   register: () => '/register',
   postDetail: (id: string) => `/post/${id}`,
   postNew: () => '/post/new',
+  postModify: (id: string) => `/post/${id}/modify`,
   search: (keyword: string) => `/search/${keyword}`,
   editProfile: () => '/user/edit/profile',
   userProfile: (id: string) => `/user/${id}`,
