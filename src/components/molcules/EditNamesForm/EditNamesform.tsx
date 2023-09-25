@@ -1,10 +1,9 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { notify } from '@/components/atoms/Toast'
-import { useValidate } from '@/hooks/useCurrentUser'
 import { useEditProfile } from '@/hooks/useEditUserProfile'
-import useGetAllUsers from '@/queries/users'
 
 interface FormValues {
   fullName: string
@@ -16,9 +15,8 @@ export type NameProps = {
 }
 
 const EditNamesform = ({ fullName }: NameProps) => {
-  const validate = useValidate()
-  const getAllUsers = useGetAllUsers()
   const { editProfile } = useEditProfile()
+  const [currentName, setCurrentName] = useState<string | undefined>(fullName)
 
   const { register, handleSubmit, setValue } = useForm<FormValues>({
     defaultValues: {
@@ -32,10 +30,10 @@ const EditNamesform = ({ fullName }: NameProps) => {
       onSubmit={handleSubmit(async (data) => {
         try {
           await editProfile(data)
+          setCurrentName(data.fullName)
           notify('success', '닉네임이 수정되었습니다.')
-          validate.refetch()
-          getAllUsers.refetch()
           setValue('fullName', '')
+          location.reload()
         } catch (error) {
           notify('error', '닉네임 수정에 실패했습니다.')
         }
@@ -47,7 +45,7 @@ const EditNamesform = ({ fullName }: NameProps) => {
           register('fullName', {
             required: true,
           }))}
-        placeholder={fullName}
+        placeholder={currentName || fullName}
         variant="clear"
         outline="underbar"
         style={{

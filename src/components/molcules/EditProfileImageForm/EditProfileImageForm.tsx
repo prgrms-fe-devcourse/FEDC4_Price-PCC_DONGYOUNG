@@ -1,13 +1,11 @@
-import { useRef, useState, ChangeEvent } from 'react'
+import { useRef, useState, ChangeEvent, useEffect } from 'react'
 import { FiSettings } from 'react-icons/fi'
 import Image from 'next/image'
 import { Button } from '@/components/atoms/Button'
 import { notify } from '@/components/atoms/Toast'
 import { SetEditProfileComponent } from '@/components/organisms/EditProfile/EditProfile'
 import Assets from '@/config/assets'
-import { useValidate } from '@/hooks/useCurrentUser'
 import { useEditProfileImage } from '@/hooks/useEditUserImage'
-import useGetAllUsers from '@/queries/users'
 import './index.scss'
 
 type EditProfileImageFormProps = SetEditProfileComponent & {
@@ -18,12 +16,14 @@ const EditProfileImageForm = ({
   setPage,
   image,
 }: EditProfileImageFormProps) => {
-  const validate = useValidate()
-  const getAllUsers = useGetAllUsers()
   const { editProfileImage } = useEditProfileImage()
   const [profile, setProfile] = useState<File | null>(null)
   const selectProfileFile = useRef<HTMLInputElement | null>(null)
-  const [thumnail, setThumnail] = useState(image || Assets.PCCImage)
+  const [thumnail, setThumnail] = useState(image)
+
+  useEffect(() => {
+    setThumnail(image)
+  }, [image])
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -52,7 +52,7 @@ const EditProfileImageForm = ({
         onClick={() => selectProfileFile?.current?.click()}
       >
         <Image
-          src={thumnail}
+          src={thumnail ?? Assets.PCCImage}
           width={180}
           height={180}
           style={{ borderRadius: '50%' }}
@@ -74,9 +74,8 @@ const EditProfileImageForm = ({
                 isCover: false,
                 image: profile!,
               })
-              validate.refetch()
-              getAllUsers.refetch()
               setProfile(null)
+              location.reload()
             }
           }}
           isShadowed={true}
