@@ -12,7 +12,7 @@ import { useDarkmodeCookie } from '@/hooks/useDarkmodeCookie'
 import User from '@/types/user'
 import './index.scss'
 
-const getCurrentUser = async (): Promise<User | null | undefined> => {
+export const getCurrentUser = async (): Promise<User | null | undefined> => {
   const cookieStore = cookies()
   const token = cookieStore.get(constants.AUTH_TOKEN)
 

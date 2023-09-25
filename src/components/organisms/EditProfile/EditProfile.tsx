@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Text } from '@/components/atoms/Text'
 import EditNamesform from '@/components/molcules/EditNamesForm'
 import EditProfileImageForm from '@/components/molcules/EditProfileImageForm'
@@ -36,4 +36,4 @@ const EditProfile = ({ setPage }: SetEditProfileComponent) => {
   )
 }
 
-export default React.memo(EditProfile)
+export default EditProfile

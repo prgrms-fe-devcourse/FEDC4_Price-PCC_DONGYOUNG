@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import ModalProvider from '@/components/molcules/ModalLayout'
 import PasswordInputModal from '@/components/organisms/PasswordInputModal'
@@ -13,40 +14,37 @@ export default function EditProfile() {
   const router = useRouter()
   const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
   const { isAuthUser, setIsAuthUser } = useCheckPassword()
+  const isVerified = Cookies.get('verified-user')
 
   useEffect(() => {
     handleModalOpen()
   })
 
   useEffect(() => {
-    if (isAuthUser) {
+    if (isVerified) {
+      setIsAuthUser(true)
       handleModalClose()
     }
-  }, [handleModalClose, isAuthUser])
+  }, [handleModalClose, setIsAuthUser, isVerified])
 
   const handlePWModalClose = () => {
     handleModalClose()
     router.push(APP_PATH.home())
   }
 
-  return isModalOpen ? (
+  return !isAuthUser ? (
     <ModalProvider
       modalWidth={41}
       modalHeight={44}
-      isOpen={true}
+      isOpen={isModalOpen}
       handleModalClose={() => {
         handlePWModalClose()
       }}
       clickOutsideToClose={false}
     >
-      <PasswordInputModal
-        handleModalClose={handlePWModalClose}
-        setIsAuthUser={setIsAuthUser}
-      />
+      <PasswordInputModal setIsAuthUser={setIsAuthUser} />
     </ModalProvider>
-  ) : isAuthUser ? (
-    <EditProfileTemplate />
   ) : (
-    <></>
+    <EditProfileTemplate />
   )
 }
