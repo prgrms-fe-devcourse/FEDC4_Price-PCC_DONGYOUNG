@@ -84,9 +84,13 @@ const InfoCount = ({
 }) => {
   return (
     <>
-      <button className="info_count" onClick={onClick}>
-        <Text textStyle="body1-bold">{text}</Text>
-        <Text textStyle="body1-bold">{count}</Text>
+      <button className="info_count--follow" onClick={onClick}>
+        <Text textStyle="body1" color="primary-4">
+          {text}
+        </Text>
+        <Text textStyle="body1-bold" color="primary-4">
+          {count}
+        </Text>
       </button>
     </>
   )

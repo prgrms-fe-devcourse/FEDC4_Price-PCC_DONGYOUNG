@@ -1,3 +1,5 @@
+@import '@/styles/variables.scss';
+
 .user-detail_card {
   display: flex;
   flex-direction: column;
@@ -24,4 +26,18 @@
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  &--follow {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.8rem;
+    @include themed() {
+      color: t(gray-3);
+      background-color: t(bg-transparent);
+    }
+    &:hover {
+      opacity: 70%;
+    }
+  }
 }
