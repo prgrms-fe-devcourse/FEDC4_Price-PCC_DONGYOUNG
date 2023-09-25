@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
-export default function useLikeState(initState: 'init' | 'like' | 'dislike') {
+export default function useLikeState(
+  initState: 'init' | 'like' | 'dislike' | 'both',
+) {
   const [likeState, setLikeState] = useState('init')
   useEffect(() => {
     setLikeState(initState)

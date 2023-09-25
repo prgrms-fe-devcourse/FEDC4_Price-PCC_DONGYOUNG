@@ -52,12 +52,10 @@ export function PostDetailTemplate({
     setDisLikePost,
   } = useDisLike({
     initPost: initDisLikeChannelPost,
-    likePost: initDisLikeChannelPost,
+    likePost: initPost,
     postId: initDisLikeChannelPost._id,
-    fetchLike: () =>
-      getPostDetail(initDisLikeChannelPost._id).then(({ post }) =>
-        setLikePost(post),
-      ),
+    fetchLike: async () =>
+      await getPostDetail(initPost._id).then(({ post }) => setLikePost(post)),
   })
 
   const initLikeState = post.likes.some(
@@ -67,11 +65,14 @@ export function PostDetailTemplate({
     (dislike) => dislike.user === currentUser?._id,
   )
 
-  const initState = initLikeState
-    ? 'like'
-    : initDisLikeState
-    ? 'dislike'
-    : 'init'
+  const initState =
+    initLikeState && initDisLikeState
+      ? 'both'
+      : initLikeState
+      ? 'like'
+      : initDisLikeState
+      ? 'dislike'
+      : 'init'
   //좋아요를 누른 상태라면 좋아요 취소 요청을 보내고 싫어요 요청 ㄱ
 
   return (

@@ -60,7 +60,11 @@ export default function LikeDislikeContainer({
       <>
         <span className="like-container__likes">
           <Image
-            src={likeState === 'like' ? Assets.ActiveLike : likeImage}
+            src={
+              likeState === 'like' || likeState === 'both'
+                ? Assets.ActiveLike
+                : likeImage
+            }
             alt="좋아요 이미지"
             width={30}
             height={30}
@@ -80,7 +84,11 @@ export default function LikeDislikeContainer({
         />
         <span className="like-container__dislikes">
           <Image
-            src={likeState === 'dislike' ? Assets.ActiveDisLike : disLikeImage}
+            src={
+              likeState === 'dislike' || likeState === 'both'
+                ? Assets.ActiveDisLike
+                : disLikeImage
+            }
             alt="싫어요 이미지"
             width={30}
             height={30}

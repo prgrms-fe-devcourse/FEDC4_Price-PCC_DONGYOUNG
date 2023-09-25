@@ -9,7 +9,7 @@ export type LikeDislikeCountProps = {
   dislike: number
   onClickLike?: () => Promise<void>
   onClickDisLike?: () => Promise<void>
-  initalState: 'like' | 'dislike' | 'init'
+  initalState: 'like' | 'dislike' | 'init' | 'both'
 }
 export default function LikeDislikeCount({
   like,
