@@ -14,7 +14,7 @@ type PropsType = {
   size?: number
 }
 
-function PostOptionsDropdown({ postId, setIsDeleted, size }: PropsType) {
+function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
   const [isOpen, setIsOpen] = useState(false)
   const deletePostMutation = useDeletePost(postId)
 
