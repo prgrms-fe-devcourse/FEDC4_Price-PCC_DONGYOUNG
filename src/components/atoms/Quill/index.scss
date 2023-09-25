@@ -5,6 +5,10 @@
     color: t(gray-5);
   }
 
+  .ql-container {
+    min-height: 20rem;
+  }
+
   div.ql-toolbar.ql-snow {
     @include themed() {
       background-color: t(primary-1);
