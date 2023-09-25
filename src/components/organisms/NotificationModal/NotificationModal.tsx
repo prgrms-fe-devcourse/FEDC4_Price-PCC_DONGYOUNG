@@ -22,7 +22,9 @@ export default function NotificationModal({
         <Text className="notification-title" textStyle="body1">
           알림
         </Text>
-        <NotiList open={open} currentUser={currentUser} />
+        <div className="notification-avatar-list">
+          <NotiList open={open} currentUser={currentUser} />
+        </div>
       </Card>
     )
   )
