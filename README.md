@@ -47,8 +47,18 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><img src="https://avatars.githubusercontent.com/u/66124037?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/bomi8489">권기범</a></b></sub><br /></td>
-      <td align="center"><img src="https://avatars.githubusercontent.com/u/59411107?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href=어 있습니다. 
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/66124037?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/bomi8489">권기범</a></td>
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/59411107?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/khj0426">김효중</a></td>
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/91667853?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/leeminhee119">이민희</a></td>
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/83554018?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/Lim-JiSeon">임지선</a></td>
+      <td align="center"><img src="https://avatars.githubusercontent.com/u/71625012?v=4" width="100px;" alt=""/><br /><sub><b>FE : <a href="https://github.com/oaoong">정재희</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br> 
+
+## ⛓️ 서비스 기능 <a name = "service_function"></a>
 - 로그인 / 회원가입
 - 포스트 글 작성 및 수정
 - 댓글
