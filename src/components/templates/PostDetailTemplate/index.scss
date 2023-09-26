@@ -3,7 +3,7 @@
 .post-detail {
   display: flex;
   flex-direction: column;
-margin: 0px auto;
+  margin: 0px auto;
   gap: 2rem;
   box-sizing: border-box;
   width: 1080px;
@@ -31,6 +31,13 @@ margin: 0px auto;
     // margin: 0px auto;
     @include themed() {
       color: t(bg-1);
+    }
+
+    .avatar__container {
+      width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   &__post-container {
