@@ -15,7 +15,7 @@ export default function UserList() {
       <div className="nav-title">
         <Text textStyle="heading1-bold">전체 사용자</Text>
         <div className="user-count color-bg--highlight">
-          <Text textStyle="caption1-bold" color="bg-2">
+          <Text textStyle="caption1-bold" style={{ color: '#F0F0F0' }}>
             {data?.length.toString() ?? ''}
           </Text>
         </div>
@@ -33,7 +33,7 @@ function UserListItem({ userData }: { userData: UserSummary }) {
   return (
     <li className="avatar-list__item">
       <div className="avatar-list__item--avatar">
-        <Link href={APP_PATH.userProfile(_id)} prefetch={false}>
+        <Link href={APP_PATH.userProfile(_id)}>
           <Avatar
             src={image}
             size={3}

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
 import { useDeletePost } from '@/queries/post'
+import useDarkStore from '@/stores/darkMode'
 import './index.scss'
 
 type PropsType = {
@@ -24,6 +25,12 @@ function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
     }
     deletePostMutation.mutate()
   }
+
+  const [isDarkState, setIsDarkState] = useState(false)
+  const { isDark } = useDarkStore()
+  useEffect(() => {
+    setIsDarkState(isDark)
+  }, [isDark])
   return (
     <div className="dropdown-container">
       <button
@@ -36,7 +43,11 @@ function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
           height: `${size}rem`,
         }}
       >
-        <Image src={Assets.OptionsIcon} alt="더보기 버튼" fill />
+        <Image
+          src={isDarkState ? Assets.OptionsWhite : Assets.OptionsIcon}
+          alt="더보기 버튼"
+          fill
+        />
       </button>
       {isOpen && (
         <div
@@ -73,7 +84,7 @@ const OptimizedLink = React.memo(
     children: React.ReactNode
     className?: string
   }) => (
-    <Link href={href} className={className} prefetch={false}>
+    <Link href={href} className={className}>
       {children}
     </Link>
   ),

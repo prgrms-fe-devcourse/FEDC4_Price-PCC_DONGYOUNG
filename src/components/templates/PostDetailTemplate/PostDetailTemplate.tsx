@@ -77,7 +77,7 @@ export function PostDetailTemplate({
   return (
     <div className="post-detail">
       <div className="post-detail__header">
-        <Link href={APP_PATH.userProfile(author._id)} prefetch={false}>
+        <Link href={APP_PATH.userProfile(author._id)}>
           <Avatar
             size={5}
             src={initPost?.author?.image ?? ''}
