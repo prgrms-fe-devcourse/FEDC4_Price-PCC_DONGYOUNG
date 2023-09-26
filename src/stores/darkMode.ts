@@ -1,4 +1,6 @@
+import Cookies from 'js-cookie'
 import { create } from 'zustand'
+import { constants } from '@/config/constants'
 
 interface DarkMode {
   isDark: boolean
@@ -6,7 +8,9 @@ interface DarkMode {
 }
 
 const useDarkStore = create<DarkMode>((set) => ({
-  isDark: false,
+  isDark: Cookies.get(constants.DARKMODE_KEY)
+    ? JSON.parse(Cookies.get(constants.DARKMODE_KEY)!)
+    : false,
   toggleState: () =>
     set((prev) => ({
       isDark: !prev.isDark,
