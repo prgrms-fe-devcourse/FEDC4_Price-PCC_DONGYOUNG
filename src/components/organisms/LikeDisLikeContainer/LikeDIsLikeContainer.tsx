@@ -71,7 +71,7 @@ export default function LikeDislikeContainer({
             }}
           />
 
-          <Text textStyle="subtitle1-bold">잘 샀어요</Text>
+          <Text textStyle="subtitle2">잘 샀어요</Text>
           <span>{like}</span>
         </span>
         <LikeDisLikeProgressBar
@@ -92,7 +92,7 @@ export default function LikeDislikeContainer({
             }}
           />
 
-          <Text textStyle="subtitle1-bold">흑우에요</Text>
+          <Text textStyle="subtitle2">흑우에요</Text>
           <span>{dislike}</span>
         </span>
       </>
