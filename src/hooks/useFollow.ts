@@ -45,6 +45,7 @@ const useFollow = (userData: User | UserSummary | undefined) => {
           (follower) => userData._id === follower._id,
         ) ?? false,
     )
+    setUpdatedUserData(() => ({ ...userData }))
   }, [currentUser, userData])
 
   const followToggle = async () => {
