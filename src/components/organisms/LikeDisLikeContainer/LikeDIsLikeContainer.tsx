@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useMemo } from 'react'
+import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
@@ -22,16 +22,9 @@ export default function LikeDislikeContainer({
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
-  console.log(isDark)
-  const likeImage = useMemo(
-    () => (isDark ? Assets.DarkLike : Assets.LikeImage),
-    [isDark],
-  )
+  const likeImage = isDark ? Assets.DarkLike : Assets.LikeImage
 
-  const disLikeImage = useMemo(
-    () => (isDark ? Assets.DarkDisLike : Assets.DislikeImage),
-    [isDark],
-  )
+  const disLikeImage = isDark ? Assets.DarkDisLike : Assets.DislikeImage
 
   const handleClickLike = useCallback(() => {
     toggleLikeState()

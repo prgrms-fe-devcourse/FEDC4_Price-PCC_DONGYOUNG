@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDarkStore, INIT_THEME_STORE, DarkMode } from '@/stores/darkMode'
 import useZustandStore from './useZustandStore'
 
@@ -19,6 +19,11 @@ export default function useDarkMode() {
     document.body.classList.toggle('pcc-theme--light')
     document.body.classList.toggle('pcc-theme--dark')
   }, [isDark, setDark])
+
+  useEffect(() => {
+    document.body.classList.toggle('pcc-theme--light')
+    document.body.classList.toggle('pcc-theme--dark')
+  }, [])
 
   return { isDark, setDark, toggleDark }
 }
