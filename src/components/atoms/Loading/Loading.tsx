@@ -2,7 +2,7 @@ import './index.scss'
 
 type LoadingProps = {
   size: number
-  type: 'spinner' | 'dot'
+  type?: 'spinner' | 'dot'
 }
 /**
  * 로딩 컴포넌트 (동그라미 회전)
