@@ -25,6 +25,11 @@ export default function NotiList({
     useGetNotification({
       isLoggedIn: !!currentUser,
     })
+  const filterData = data?.filter(
+    ({ author, follow, comment }) =>
+      author?._id !== currentUser?._id && follow !== null && comment !== null,
+  )
+
   const { mutate, isError, isSuccess } = useMutation(putNotification)
 
   const handleClick = () => {
@@ -40,20 +45,20 @@ export default function NotiList({
   }
 
   useEffect(() => {
-    if (data?.some(({ seen }) => !seen)) {
+    if (filterData?.some(({ seen }) => !seen)) {
       setIsUnseenDataExist(true)
     }
     if (isSuccess) {
       setIsUnseenDataExist(false)
     }
-  }, [data, isUnseenDataExist, isSuccess])
+  }, [filterData, isUnseenDataExist, isSuccess])
 
   if (isLoading) return <Loading size={2} />
 
   return (
     <>
       {isUnseenDataExist ? (
-        data?.map(
+        filterData?.map(
           ({ seen, _id, follow, comment, author, post }) =>
             !seen && (
               <Link
