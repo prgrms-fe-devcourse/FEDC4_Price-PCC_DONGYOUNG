@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
 import Assets from '@/config/assets'
+import useDarkMode from '@/hooks/useDarkMode'
 import useLikeState from '@/hooks/useLikeState'
-import useDarkStore from '@/stores/darkMode'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
@@ -18,7 +18,7 @@ export default function LikeDislikeContainer({
   initalState,
 }: LikeDislikeCountProps) {
   const [loading, setLoading] = useState(false)
-  const { isDark } = useDarkStore()
+  const { isDark } = useDarkMode()
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
@@ -60,21 +60,18 @@ export default function LikeDislikeContainer({
       <>
         <span className="like-container__likes">
           <Image
-            src={
-              likeState === 'like' || likeState === 'both'
-                ? Assets.ActiveLike
-                : likeImage
-            }
+            src={likeState === 'like' ? Assets.ActiveLike : likeImage}
             alt="좋아요 이미지"
             width={30}
             height={30}
             onClick={loading ? undefined : handleClickLike}
             style={{
               cursor: 'pointer',
+              transition: 'opacity 5s ease-in',
             }}
           />
 
-          <Text textStyle="subtitle1-bold">잘 샀어요</Text>
+          <Text textStyle="subtitle2">잘 샀어요</Text>
           <span>{like}</span>
         </span>
         <LikeDisLikeProgressBar
@@ -84,21 +81,18 @@ export default function LikeDislikeContainer({
         />
         <span className="like-container__dislikes">
           <Image
-            src={
-              likeState === 'dislike' || likeState === 'both'
-                ? Assets.ActiveDisLike
-                : disLikeImage
-            }
+            src={likeState === 'dislike' ? Assets.ActiveDisLike : disLikeImage}
             alt="싫어요 이미지"
             width={30}
             height={30}
             onClick={loading ? undefined : handleClickDisLike}
             style={{
               cursor: 'pointer',
+              transition: 'opacity 5s ease-in',
             }}
           />
 
-          <Text textStyle="subtitle1-bold">흑우에요</Text>
+          <Text textStyle="subtitle2">흑우에요</Text>
           <span>{dislike}</span>
         </span>
       </>

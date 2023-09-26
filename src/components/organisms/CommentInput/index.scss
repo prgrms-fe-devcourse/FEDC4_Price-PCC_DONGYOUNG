@@ -21,7 +21,8 @@
   flex-wrap: wrap;
   align-items: baseline;
   overflow: hidden;
+
   @include themed() {
-    background-color: t(bg-1);
+    color: t(gray-5);
   }
 }

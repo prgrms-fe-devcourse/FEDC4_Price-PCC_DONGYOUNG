@@ -1,16 +1,28 @@
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
+import { PersistOptions, persist } from 'zustand/middleware'
 
-interface DarkMode {
+export type Persist<T> = (
+  _config: StateCreator<T>,
+  _options: PersistOptions<T>,
+) => StateCreator<T>
+
+export interface DarkMode {
   isDark: boolean
-  toggleState: () => void
+  setDark: (_isDark: boolean) => void
 }
 
-const useDarkStore = create<DarkMode>((set) => ({
+export const INIT_THEME_STORE: DarkMode = {
   isDark: false,
-  toggleState: () =>
-    set((prev) => ({
-      isDark: !prev.isDark,
-    })),
-}))
+  setDark: (_isDark: boolean) => {},
+}
 
-export default useDarkStore
+export const useDarkStore = create<DarkMode>(
+  (persist as Persist<DarkMode>)(
+    (set) => ({
+      ...INIT_THEME_STORE,
+      isDark: false,
+      setDark: (isDark: boolean) => set(() => ({ isDark })),
+    }),
+    { name: 'pcc-darkmode' },
+  ),
+)

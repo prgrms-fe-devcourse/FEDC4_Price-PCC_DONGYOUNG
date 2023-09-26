@@ -1,21 +1,20 @@
 'use client'
 
-import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Assets from '@/config/assets'
+import useDarkMode from '@/hooks/useDarkMode'
 import ImageButton from '../ImageButton'
 
 type PropsType = {
-  darkMode: boolean
+  _darkMode: boolean
 }
 
-export default function DarkModeButton({ darkMode }: PropsType) {
-  const [isDark, setIsDark] = useState(darkMode)
+export default function DarkModeButton({ _darkMode }: PropsType) {
+  const { isDark, toggleDark } = useDarkMode()
+
   const handleDarkmodeClick = () => {
-    document.body.classList.toggle('pcc-theme--light')
-    document.body.classList.toggle('pcc-theme--dark')
     Cookies.set('pcc-darkmode', JSON.stringify(!isDark))
-    setIsDark(!isDark)
+    toggleDark()
   }
   return (
     <ImageButton
