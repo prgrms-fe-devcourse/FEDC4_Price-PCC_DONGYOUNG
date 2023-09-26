@@ -41,34 +41,34 @@
       visibility: visible;
     }
   }
+
+  .avatar__container {
+    span {
+      @include themed() {
+        color: t(gray-3);
+      }
+      padding: 1rem 0 1rem 1rem;
+
+      div {
+        padding: 0.01rem 0;
+      }
+      div:nth-child(1) {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      div:nth-child(2) {
+        font-size: 0.8rem;
+      }
+    }
+
+    &:hover {
+      opacity: 0.66;
+    }
+  }
 }
 
 .notification-title {
   padding: 0.5rem 0 2rem 0;
-}
-
-.avatar__container {
-  span {
-    @include themed() {
-      color: t(gray-3);
-    }
-    padding: 1rem 0 1rem 1rem;
-
-    div {
-      padding: 0.01rem 0;
-    }
-    div:nth-child(1) {
-      font-weight: bold;
-      font-size: 1rem;
-    }
-    div:nth-child(2) {
-      font-size: 0.8rem;
-    }
-  }
-
-  &:hover {
-    opacity: 0.66;
-  }
 }
 
 .seen-button {
