@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
@@ -78,7 +78,7 @@ export default function LikeDislikeContainer({
             }}
           />
 
-          <Text textStyle="subtitle1-bold">잘 샀어요</Text>
+          <Text textStyle="subtitle2">꿀매에요</Text>
           <span>{like}</span>
         </span>
         <LikeDisLikeProgressBar
@@ -102,7 +102,7 @@ export default function LikeDislikeContainer({
             }}
           />
 
-          <Text textStyle="subtitle1-bold">흑우에요</Text>
+          <Text textStyle="subtitle2">흑우에요</Text>
           <span>{dislike}</span>
         </span>
       </>
