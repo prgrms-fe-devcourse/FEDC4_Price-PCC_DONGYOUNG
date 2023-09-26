@@ -8,10 +8,12 @@ import { AuthProvider } from '@/lib/contexts/authProvider'
 import TanstackQueryContext from '@/lib/contexts/tanstackQueryContext'
 import '@/styles/global-layout.scss'
 import pretendardFont from '../../constants/font'
+import Favicon from '/public/meta/favicon.ico'
 
 export const metadata: Metadata = {
-  title: 'sweet trade website',
-  description: 'judge your trades by their sweetness',
+  title: '꿀매포청천',
+  description: '꿀매인지 궁금하다면? 꿀매 포청천!',
+  icons: [{ rel: 'icon', url: Favicon.src }],
 }
 
 export default async function RootLayout({
