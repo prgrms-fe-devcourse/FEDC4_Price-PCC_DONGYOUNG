@@ -27,17 +27,14 @@
     width: 80%;
     margin: 15px auto;
     justify-content: space-between;
-    // width: 80%;
-    // margin: 0px auto;
+
     @include themed() {
       color: t(bg-1);
     }
 
     .avatar__container {
       width: 90%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      
     }
   }
   &__post-container {
