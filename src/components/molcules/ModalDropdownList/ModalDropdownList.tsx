@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
 import APP_PATH from '@/config/paths'
@@ -17,6 +18,7 @@ function ModalDropdownList({ userId, isOpen, setIsOpen }: PropsType) {
 
   const handleLogout = useCallback(async () => {
     await logout()
+    Cookies.remove('verified-user', { path: '/' })
     location.reload()
   }, [logout])
 
