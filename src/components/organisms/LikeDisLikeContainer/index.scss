@@ -23,7 +23,7 @@
   display: flex;
   margin: 0 auto;
   margin-bottom: 15px;
-  gap: 2px;
+  gap: 1rem;
   overflow: hidden;
 
   @include themed() {
