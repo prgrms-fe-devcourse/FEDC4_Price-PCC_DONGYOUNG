@@ -21,6 +21,9 @@ export default function useDarkMode() {
   }, [isDark, setDark])
 
   useEffect(() => {
+    document.body.classList.toggle('pcc-theme--dark')
+    document.body.classList.toggle('pcc-theme--light')
+
     toggleDark()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
