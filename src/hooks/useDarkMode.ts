@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect } from 'react'
 import { useDarkStore, INIT_THEME_STORE, DarkMode } from '@/stores/darkMode'
 import useZustandStore from './useZustandStore'

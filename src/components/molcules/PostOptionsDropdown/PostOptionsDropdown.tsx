@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
 import APP_PATH from '@/config/paths'
+import useDarkMode from '@/hooks/useDarkMode'
 import { useDeletePost } from '@/queries/post'
 import './index.scss'
 
@@ -18,6 +19,7 @@ function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
   const [isOpen, setIsOpen] = useState(false)
   const deletePostMutation = useDeletePost(postId)
 
+  const { isDark } = useDarkMode()
   const handleDeletePost = () => {
     if (setIsDeleted) {
       setIsDeleted((prevState) => !prevState)
@@ -36,7 +38,11 @@ function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
           height: `${size}rem`,
         }}
       >
-        <Image src={Assets.OptionsIcon} alt="더보기 버튼" fill />
+        <Image
+          src={isDark ? Assets.OptionsWhite : Assets.OptionsIcon}
+          alt="더보기 버튼"
+          fill
+        />
       </button>
       {isOpen && (
         <div

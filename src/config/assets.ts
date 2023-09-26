@@ -13,6 +13,7 @@ import LikeImage from '/public/images/like.svg'
 import MainLogo from '/public/images/mainLogo.svg'
 import NotificationImage from '/public/images/notification.svg'
 import OptionsIcon from '/public/images/optionsIcon.svg'
+import OptionsWhite from '/public/images/optionsIconWhite.svg'
 import PCCImage from '/public/images/pccIImage.svg'
 import PlusIcon from '/public/images/plusIcon.svg'
 import titleLogo from '/public/images/titleLogo.svg'
@@ -38,6 +39,7 @@ const Assets = {
   DarkLike,
   ActiveLike,
   ActiveDisLike,
+  OptionsWhite,
 } as const
 
 export default Assets
