@@ -15,7 +15,7 @@ export default function UserList() {
       <div className="nav-title">
         <Text textStyle="heading1-bold">전체 사용자</Text>
         <div className="user-count color-bg--highlight">
-          <Text textStyle="caption1-bold" color="bg-2">
+          <Text textStyle="caption1-bold" style={{ color: '#F0F0F0' }}>
             {data?.length.toString() ?? ''}
           </Text>
         </div>
