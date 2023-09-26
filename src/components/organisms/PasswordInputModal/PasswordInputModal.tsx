@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AiOutlineClose } from 'react-icons/ai'
 import Cookies from 'js-cookie'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Text } from '@/components/atoms/Text'
@@ -15,6 +15,7 @@ type HandleModalCloseProps = {
 }
 
 const PasswordInputModal = ({ setIsAuthUser }: HandleModalCloseProps) => {
+  const router = useRouter()
   const [isVerifiedUser, setIsVerifiedUser] = useState(false)
   const { register, handleSubmit } = useForm()
   const { currentUser } = useAuth()
@@ -37,13 +38,14 @@ const PasswordInputModal = ({ setIsAuthUser }: HandleModalCloseProps) => {
       })}
       style={{ padding: '4rem 3.6rem' }}
     >
-      <Link href={APP_PATH.home()}>
-        <AiOutlineClose
-          size={30}
-          color="gray-5"
-          style={{ float: 'right', cursor: 'pointer' }}
-        />
-      </Link>
+      <AiOutlineClose
+        onClick={() => {
+          router.push(APP_PATH.home())
+        }}
+        size={30}
+        color="gray-5"
+        style={{ float: 'right', cursor: 'pointer' }}
+      />
       <Text
         textStyle="heading1-bold"
         color="gray-5"

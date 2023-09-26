@@ -10,10 +10,10 @@ import ModalDropdownList from '../ModalDropdownList'
 import './index.scss'
 
 export default function AvatarDropdown({
-  darkmode,
+  darkMode,
   currentUser,
 }: {
-  darkmode: boolean
+  darkMode: boolean
   currentUser: User
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +39,7 @@ export default function AvatarDropdown({
         }}
       />
       <Image
-        src={darkmode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
+        src={darkMode ? Assets.ArrowLightIcon : Assets.ArrowDarkIcon}
         alt="dropdown-arrow"
       />
       <ModalDropdownList

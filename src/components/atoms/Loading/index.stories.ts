@@ -12,10 +12,14 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     size: 5,
+    type: 'spinner',
   },
   argTypes: {
     size: {
       type: 'number',
+    },
+    type: {
+      type: 'string',
     },
   },
 }
