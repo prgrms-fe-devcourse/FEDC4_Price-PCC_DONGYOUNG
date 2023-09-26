@@ -1,6 +1,5 @@
-import { Suspense, lazy } from 'react'
-import Loading from '@/components/atoms/Loading'
 import { Text } from '@/components/atoms/Text'
+import FollowListItem from '@/components/molcules/FollowListItem'
 import User from '@/types/user'
 import './index.scss'
 
@@ -9,9 +8,6 @@ type FollowListProps = {
   userData: User
 }
 
-const LazyFollowListItem = lazy(
-  () => import('@/components/molcules/FollowListItem'),
-)
 export default function FollowList({
   isFollowerList,
   userData,
@@ -30,16 +26,14 @@ export default function FollowList({
             } 없습니다.`}</Text>
           </div>
         ) : (
-          <Suspense fallback={<Loading size={0.5} type="dot" />}>
-            {users?.map(({ _id, user, follower }, index) => {
-              const targetUserId = isFollowerList ? follower : user
-              return (
-                <div key={_id + index}>
-                  <LazyFollowListItem targetUserId={targetUserId} />
-                </div>
-              )
-            })}
-          </Suspense>
+          users?.map(({ _id, user, follower }, index) => {
+            const targetUserId = isFollowerList ? follower : user
+            return (
+              <div key={_id + index}>
+                <FollowListItem targetUserId={targetUserId} />
+              </div>
+            )
+          })
         )}
       </ul>
     </div>
