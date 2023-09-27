@@ -1,0 +1,52 @@
+@import '@/styles/variables.scss';
+
+.modal-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  z-index: 2;
+  border-radius: 15px;
+  position: fixed;
+  margin-top: 14rem;
+  border: 0.1rem solid;
+  @include themed() {
+    border-color: t(bg-2);
+  }
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease-in-out;
+
+  &.options {
+    margin: 0;
+    right: 8rem;
+  }
+
+  &.close {
+    opacity: 0;
+    pointer-events: none; // Disable interactions
+  }
+
+  a,
+  .logout-button {
+    width: 10rem;
+    border-bottom: 0.05rem solid;
+    @include themed() {
+      border-color: t(bg-2);
+    }
+    padding: 0.7rem 0;
+    text-align: center;
+    cursor: pointer;
+
+    .body2 {
+      &:hover,
+      &:focus {
+        color: #e2af3c; // primary-4
+      }
+    }
+  }
+
+  .new-post-link {
+    border: none;
+  }
+}

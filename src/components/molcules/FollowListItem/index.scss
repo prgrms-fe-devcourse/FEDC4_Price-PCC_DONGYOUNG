@@ -1,0 +1,10 @@
+@import '@/styles/variables.scss';
+
+.follow-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__avatar {
+    width: 75%;
+  }
+}

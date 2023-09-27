@@ -1,6 +1,3 @@
-import React from 'react'
-import './index.scss'
+import { default as NavBar } from './NavBar'
 
-export default function NavBar() {
-  return <div>NavBar</div>
-}
+export default NavBar

@@ -1,0 +1,73 @@
+@import '/src/styles/global-layout.scss';
+
+@mixin centerAlign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.search-page-headline {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 8rem;
+  position: fixed;
+  z-index: 90;
+  margin-left: 1rem;
+  top: 5rem;
+}
+
+.data-grid {
+  width: 100%;
+  height: 100%;
+  margin-top: 5rem;
+  padding: 1rem;
+}
+
+.data-grid-undefined {
+  @include centerAlign();
+
+  width: 100%;
+  height: 100%;
+  margin-top: 5rem;
+  padding: 1rem;
+}
+
+.category-button-container {
+  @include centerAlign();
+
+  width: 13rem;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+}
+
+.category-button {
+  @include centerAlign();
+
+  border: none;
+  gap: 0.2rem;
+  outline: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &.click-true {
+    .category-text {
+      color: #e2af3c; // primary-4
+    }
+  }
+}

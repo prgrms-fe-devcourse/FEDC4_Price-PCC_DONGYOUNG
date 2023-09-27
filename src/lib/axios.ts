@@ -1,17 +1,10 @@
 import axios from 'axios'
 import { redirect } from 'next/navigation'
-import { Environment } from '@/config/environments'
+import { notify } from '@/components/atoms/Toast'
 import APP_PATH from '@/config/paths'
-import { ApiAddressTypes } from '@/types/config'
-
-const baseUrlTable: ApiAddressTypes = {
-  production: Environment.baseUrl(),
-  development: 'http://localhost:3000',
-  test: 'http://localhost:3000',
-}
 
 export const apiClient = axios.create({
-  baseURL: baseUrlTable[Environment.nodeEnv()],
+  baseURL: process.env.NEXT_PUBLIC_API_INTERNAL_ADDRESS,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -22,8 +15,24 @@ apiClient.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response.status === 401) {
-      redirect(APP_PATH.HOME)
+    switch (error.response.status) {
+      case 400:
+        break
+      case 401:
+        notify('error', '로그인이 필요합니다.')
+        redirect(APP_PATH.login())
+      case 404:
+        notify('error', '페이지를 찾을 수 없습니다.')
+        break
+      default:
+        if (error.response.status.toString().startsWith('5')) {
+          // notify('error', '서버에 오류가 발생했습니다.')
+          console.error(error.response)
+        } else {
+          // notify('error', '알 수 없는 오류가 발생했습니다.')
+          console.error(error.response)
+        }
+        break
     }
     return Promise.reject(error)
   },

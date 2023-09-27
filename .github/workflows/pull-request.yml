@@ -1,0 +1,47 @@
+name: Pull request
+
+on:
+    push:
+        branches:
+            - master
+            - release
+            - develop
+    pull_request:
+        branches:
+            - '**'
+
+jobs:
+    docker:
+        timeout-minutes: 10
+        runs-on: ubuntu-latest
+
+        steps:
+            # 해당 저장소의 코드를 가져옵니다.
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            # Node 16 버전을 사용합니다.
+            - name: Install node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '16'
+                  cache: 'npm'
+
+            # package.json에 명시된 의존성을 설치합니다.
+            - name: Install Dependencies
+              run: npm install
+
+            # 아래 단계에서 .env 파일을 생성하고 시크릿 값을 설정합니다.
+            - name: Set Environment Variables
+              env:
+                NEXT_PUBLIC_API_ADDRESS: ${{ secrets.NEXT_PUBLIC_API_ADDRESS }}
+                NEXT_PUBLIC_CHANNEL_ID: ${{ secrets.NEXT_PUBLIC_CHANNEL_ID }}
+                NEXT_PUBLIC_DISLIKE_CHANNEL_ID: ${{ secrets.NEXT_PUBLIC_DISLIKE_CHANNEL_ID }}
+              run: |
+                echo "NEXT_PUBLIC_API_ADDRESS=$NEXT_PUBLIC_API_ADDRESS" >> .env
+                echo "NEXT_PUBLIC_CHANNEL_ID=$NEXT_PUBLIC_CHANNEL_ID" >> .env
+                echo "NEXT_PUBLIC_DISLIKE_CHANNEL_ID=$NEXT_PUBLIC_DISLIKE_CHANNEL_ID" >> .env
+
+            # 빌드를 수행합니다.
+            - name: Build
+              run: npm run build

@@ -1,0 +1,11 @@
+@import '@/styles/variables.scss';
+
+.sign-input-container {
+  &__valid {
+    font-size: 0.8rem;
+    margin-top: 0.7rem;
+    @include themed() {
+      color: t(highlight)
+    }
+  }
+}

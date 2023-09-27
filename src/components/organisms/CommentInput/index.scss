@@ -1,0 +1,32 @@
+@import '@/styles/variables.scss';
+
+.comment--input__container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.comment--input--wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  button {
+    margin: 0 2rem;
+  }
+}
+
+.comment--input {
+  border: none;
+  display: flex;
+  width: 80%;
+  flex-wrap: wrap;
+  align-items: baseline;
+  overflow: hidden;
+
+  @include themed() {
+    color: t(gray-5);
+  }
+}

@@ -1,0 +1,19 @@
+@import '@/styles/variables.scss';
+
+.circle-plus-button {
+  border-radius: 50%;
+  width: 5.6rem;
+  height: 5.6rem;
+  @include themed() {
+    background-color: t(primary-5);
+  }
+  position: fixed;
+  bottom: 3rem;
+  right: 4rem;
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.1s ease-in-out;
+  }
+}

@@ -1,0 +1,22 @@
+@mixin centerAlign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-user-container {
+  @include centerAlign();
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.follow-container {
+  @include centerAlign();
+  gap: 1rem;
+}
+
+.follow-count-container {
+  @include centerAlign();
+  gap: 0.4rem;
+}
