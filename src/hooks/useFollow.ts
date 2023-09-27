@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/lib/contexts/authProvider'
 import { deleteFollow, postFollow } from '@/services/follow'
-import Follow from '@/types/follow'
 import User, { UserSummary } from '@/types/user'
 
 /**
