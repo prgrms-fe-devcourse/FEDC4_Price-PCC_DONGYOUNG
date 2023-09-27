@@ -12,6 +12,10 @@
   display: flex;
   align-items: center;
   gap: 5px;
+
+  button {
+    margin: 0 2rem;
+  }
 }
 
 .comment--input {
