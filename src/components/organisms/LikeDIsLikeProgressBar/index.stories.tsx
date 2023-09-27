@@ -11,6 +11,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    initalState: 'init',
     like: 230,
     dislike: 180,
   },

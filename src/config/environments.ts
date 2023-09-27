@@ -1,6 +1,7 @@
 import { assertValue } from '@/utils/assertValue'
 
 export const Environment = {
+  internalUrl: () => assertEnv('NEXT_PUBLIC_API_INTERNAL_ADDRESS'),
   nodeEnv: () => process.env.NODE_ENV,
   baseUrl: () => assertEnv('NEXT_PUBLIC_API_ADDRESS'),
   channelId: () => assertEnv('NEXT_PUBLIC_CHANNEL_ID'),

@@ -6,5 +6,6 @@ export const getNotification = async () => {
 }
 
 export const putNotification = async () => {
-  await apiClient.put('/api/notifications/seen')
+  const { data } = await apiClient.put('/api/notifications/seen')
+  return data
 }

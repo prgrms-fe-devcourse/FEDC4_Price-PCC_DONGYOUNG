@@ -1,10 +1,12 @@
 'use client'
 
+import { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Text } from '@/components/atoms/Text'
 import type { LikeDislikeCountProps } from '@/components/molcules/LikeDislikeCount/LikeDislikeCount'
 import Assets from '@/config/assets'
-import debounce from '@/utils/debounce'
+import useLikeState from '@/hooks/useLikeState'
+import useDarkStore from '@/stores/darkMode'
 import LikeDisLikeProgressBar from '../LikeDIsLikeProgressBar'
 import './index.scss'
 
@@ -13,52 +15,97 @@ export default function LikeDislikeContainer({
   dislike,
   onClickLike,
   onClickDisLike,
+  initalState,
 }: LikeDislikeCountProps) {
-  const handleClickLike = debounce(() => {
-    if (onClickLike) {
-      onClickLike()
-    }
-  }, 500)
+  const [loading, setLoading] = useState(false)
+  const { toggleDisLikeState, toggleLikeState, likeState } =
+    useLikeState(initalState)
 
-  const handleClickDisLike = debounce(() => {
-    if (onClickDisLike) {
-      onClickDisLike()
+  const [isDarkState, setIsDarkState] = useState(false)
+  const { isDark } = useDarkStore()
+  useEffect(() => {
+    setIsDarkState(isDark)
+  }, [isDark])
+  const likeImage = isDarkState ? Assets.LikeWhite : Assets.LikeImage
+
+  const disLikeImage = isDarkState ? Assets.DislikeWhite : Assets.DislikeImage
+
+  const handleClickLike = useCallback(() => {
+    toggleLikeState()
+
+    if (onClickLike) {
+      setLoading(true)
+      onClickLike()
+        .then(() => {
+          setLoading(false)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
     }
-  }, 500)
+  }, [onClickLike, toggleLikeState])
+
+  const handleClickDisLike = useCallback(() => {
+    toggleDisLikeState()
+    if (onClickDisLike) {
+      setLoading(true)
+      onClickDisLike()
+        .then(() => {
+          setLoading(false)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    }
+  }, [onClickDisLike, toggleDisLikeState])
+
   return (
     <div className="like-container">
-      <span className="like-container__likes">
-        <Image
-          className="like-container__likes_image"
-          src={Assets.LikeImage}
-          alt="likeImage"
-          width={30}
-          height={30}
-          style={{
-            cursor: 'pointer',
-          }}
-          onClick={handleClickLike}
-        />
-        <Text textStyle="subtitle1-bold">잘 샀어요</Text>
-        <span>{like}</span>
-      </span>
-      <LikeDisLikeProgressBar like={like} dislike={dislike} />
+      <>
+        <span className="like-container__likes">
+          <Image
+            src={
+              likeState === 'like' || likeState === 'both'
+                ? Assets.ActiveLike
+                : likeImage
+            }
+            alt="좋아요 이미지"
+            width={30}
+            height={30}
+            onClick={loading ? undefined : handleClickLike}
+            style={{
+              cursor: 'pointer',
+            }}
+          />
 
-      <span className="like-container__dislikes">
-        <Image
-          className="like-container__dislikes_image"
-          src={Assets.DislikeImage}
-          alt="disLikeImage"
-          width={30}
-          height={30}
-          style={{
-            cursor: 'pointer',
-          }}
-          onClick={handleClickDisLike}
+          <Text textStyle="subtitle2">꿀매에요</Text>
+          <span>{like}</span>
+        </span>
+        <LikeDisLikeProgressBar
+          like={like}
+          dislike={dislike}
+          initalState="init"
         />
-        <Text textStyle="subtitle1-bold">흑우에요</Text>
-        <span>{dislike}</span>
-      </span>
+        <span className="like-container__dislikes">
+          <Image
+            src={
+              likeState === 'dislike' || likeState === 'both'
+                ? Assets.ActiveDisLike
+                : disLikeImage
+            }
+            alt="싫어요 이미지"
+            width={30}
+            height={30}
+            onClick={loading ? undefined : handleClickDisLike}
+            style={{
+              cursor: 'pointer',
+            }}
+          />
+
+          <Text textStyle="subtitle2">흑우에요</Text>
+          <span>{dislike}</span>
+        </span>
+      </>
     </div>
   )
 }

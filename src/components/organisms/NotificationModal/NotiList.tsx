@@ -1,54 +1,101 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { UseQueryResult, useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
+import Loading from '@/components/atoms/Loading'
 import { Text } from '@/components/atoms/Text'
+import { notify } from '@/components/atoms/Toast'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { NOTIFICATION_CONSTANT } from '@/constants/notification'
 import useGetNotification from '@/queries/notifications'
-import Comment from '@/types/comment'
+import { putNotification } from '@/services/notification'
+import Notification from '@/types/notification'
 import User from '@/types/user'
-
-type NotificationProps = {
-  seen: boolean
-  _id: string
-  user: User
-  follow?: string
-  comment?: Comment
-}
 
 export default function NotiList({
   currentUser,
-  setIsOpen,
 }: {
   currentUser: User | undefined
-  open: boolean
-  setIsOpen: (_value: boolean) => void
 }) {
-  const data = useGetNotification({ isLoggedIn: !!currentUser })
+  const [isUnseenDataExist, setIsUnseenDataExist] = useState(false)
+  const { data, isLoading }: UseQueryResult<Notification[]> =
+    useGetNotification({
+      isLoggedIn: !!currentUser,
+    })
+  const filterData = data?.filter(
+    ({ author, follow, comment }) =>
+      author?._id !== currentUser?._id && follow !== null && comment !== null,
+  )
+
+  const { mutate, isError, isSuccess } = useMutation(putNotification)
+
   const handleClick = () => {
-    setIsOpen(false)
+    mutate()
+
+    if (isError) {
+      notify('error', '알림을 삭제하는데 실패했습니다')
+    }
+
+    if (isSuccess) {
+      setIsUnseenDataExist(false)
+    }
   }
+
+  useEffect(() => {
+    if (filterData?.some(({ seen }) => !seen)) {
+      setIsUnseenDataExist(true)
+    }
+    if (isSuccess) {
+      setIsUnseenDataExist(false)
+    }
+  }, [filterData, isUnseenDataExist, isSuccess])
+
+  if (isLoading) return <Loading size={2} />
+
   return (
     <>
-      {data.data?.map(
-        ({ seen, _id, user, follow, comment }: NotificationProps) =>
-          seen && (
-            <Avatar
-              key={_id}
-              src={user.image ?? Assets.PCCImage}
-              size={3}
-              text={user.fullName}
-              subText={
-                follow
-                  ? NOTIFICATION_CONSTANT.FOLLOW
-                  : comment
-                  ? NOTIFICATION_CONSTANT.COMMENT
-                  : ''
-              }
-            />
-          ),
+      {isUnseenDataExist ? (
+        filterData?.map(
+          ({ seen, _id, follow, comment, author, post }) =>
+            !seen && (
+              <Link
+                href={
+                  follow
+                    ? author
+                      ? APP_PATH.userProfile(author?._id)
+                      : APP_PATH.home()
+                    : comment
+                    ? post
+                      ? APP_PATH.postDetail(post)
+                      : APP_PATH.home()
+                    : APP_PATH.home()
+                }
+                key={_id}
+              >
+                <Avatar
+                  src={author?.image ?? Assets.PCCImage}
+                  size={3}
+                  text={author?.fullName}
+                  subText={
+                    follow
+                      ? NOTIFICATION_CONSTANT.FOLLOW
+                      : comment
+                      ? NOTIFICATION_CONSTANT.COMMENT
+                      : ''
+                  }
+                />
+              </Link>
+            ),
+        )
+      ) : (
+        <EmptyNotification isLoggedIn={!!currentUser} />
       )}
-      {data.data?.length ? (
+      {isUnseenDataExist && (
         <div className="value-notification-list">
-          <button className="seen-button" onClick={() => handleClick}>
+          <button className="seen-button" onClick={handleClick}>
             <Text
               className="seen-button-text"
               textStyle="body2-bold"
@@ -58,8 +105,6 @@ export default function NotiList({
             </Text>
           </button>
         </div>
-      ) : (
-        <EmptyNotification isLoggedIn={!!currentUser} />
       )}
     </>
   )

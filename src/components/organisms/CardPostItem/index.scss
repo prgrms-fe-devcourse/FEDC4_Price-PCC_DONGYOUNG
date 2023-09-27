@@ -8,10 +8,12 @@ $articleHeight: 9rem;
   min-height: 100%;
   position: relative;
   &__header {
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: flex;
     justify-content: space-between;
+    &--title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   &__image-container {
     width: 100%;

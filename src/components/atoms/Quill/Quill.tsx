@@ -1,10 +1,11 @@
 import 'react-quill/dist/quill.snow.css'
 import dynamic from 'next/dynamic'
+import Loading from '../Loading'
 import './index.scss'
 import { modules, formats } from './quillModule'
 
 const ReactQuill = dynamic(() => import('react-quill'), {
-  loading: () => <div>...loading</div>,
+  loading: () => <Loading size={3} />,
   ssr: false,
 })
 

@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
 import APP_PATH from '@/config/paths'
@@ -8,22 +9,38 @@ import './index.scss'
 type PropsType = {
   userId: string
   isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function ModalDropdownList({ userId, isOpen }: PropsType) {
+function ModalDropdownList({ userId, isOpen, setIsOpen }: PropsType) {
+  const avatarDropRef = useRef<HTMLDivElement>(null)
   const { logout } = useLogout()
 
   const handleLogout = useCallback(async () => {
     await logout()
+    Cookies.remove('verified-user', { path: '/' })
     location.reload()
   }, [logout])
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (
+        avatarDropRef.current &&
+        !avatarDropRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(() => false)
+      }
+    }
+    window.addEventListener('mousedown', handleClick)
+    return () => window.removeEventListener('mousedown', handleClick)
+  }, [avatarDropRef, setIsOpen])
 
   const containerClassName = `modal-dropdown-container color-bg--bg-1 ${
     isOpen ? 'open' : 'close'
   }`
 
   return (
-    <div className={containerClassName}>
+    <div className={containerClassName} ref={avatarDropRef}>
       <OptimizedLink href={APP_PATH.editProfile()}>
         <Text textStyle="body2-bold">계정 정보 변경</Text>
       </OptimizedLink>

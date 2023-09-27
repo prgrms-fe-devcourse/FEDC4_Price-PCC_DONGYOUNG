@@ -1,52 +1,38 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
 import ModalProvider from '@/components/molcules/ModalLayout'
 import PasswordInputModal from '@/components/organisms/PasswordInputModal'
 import EditProfileTemplate from '@/components/templates/EditProfileTemplate'
-import APP_PATH from '@/config/paths'
 import { useCheckPassword } from '@/hooks/useCheckPassword'
 import useModal from '@/hooks/useModal'
 
 export default function EditProfile() {
-  const router = useRouter()
-  const { isModalOpen, handleModalOpen, handleModalClose } = useModal()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { handleModalClose } = useModal()
   const { isAuthUser, setIsAuthUser } = useCheckPassword()
+  const isVerified = Cookies.get('verified-user')
 
   useEffect(() => {
-    handleModalOpen()
-  })
-
-  useEffect(() => {
-    if (isAuthUser) {
-      handleModalClose()
+    if (!isVerified) {
+      setIsModalOpen(true)
+    } else {
+      setIsAuthUser(true)
     }
-  }, [handleModalClose, isAuthUser])
+  }, [setIsAuthUser, isVerified])
 
-  const handlePWModalClose = () => {
-    handleModalClose()
-    router.push(APP_PATH.home())
-  }
-
-  return isModalOpen ? (
+  return !isAuthUser ? (
     <ModalProvider
       modalWidth={41}
       modalHeight={44}
-      isOpen={true}
-      handleModalClose={() => {
-        handlePWModalClose()
-      }}
+      isOpen={isModalOpen}
+      handleModalClose={handleModalClose}
       clickOutsideToClose={false}
     >
-      <PasswordInputModal
-        handleModalClose={handlePWModalClose}
-        setIsAuthUser={setIsAuthUser}
-      />
+      <PasswordInputModal setIsAuthUser={setIsAuthUser} />
     </ModalProvider>
-  ) : isAuthUser ? (
-    <EditProfileTemplate />
   ) : (
-    <></>
+    <EditProfileTemplate />
   )
 }

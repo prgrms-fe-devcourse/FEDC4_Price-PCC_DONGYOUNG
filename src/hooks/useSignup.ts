@@ -19,6 +19,7 @@ export const useSignup = () => {
       if (user) {
         notify('success', '회원가입이 성공적으로 완료되었습니다.')
         router.push(APP_PATH.home())
+        location.reload()
         return user
       }
     } catch (error) {

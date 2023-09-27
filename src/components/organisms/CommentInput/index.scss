@@ -12,6 +12,10 @@
   display: flex;
   align-items: center;
   gap: 5px;
+
+  button {
+    margin: 0 2rem;
+  }
 }
 
 .comment--input {
@@ -21,7 +25,8 @@
   flex-wrap: wrap;
   align-items: baseline;
   overflow: hidden;
+
   @include themed() {
-    background-color: t(bg-1);
+    color: t(gray-5);
   }
 }

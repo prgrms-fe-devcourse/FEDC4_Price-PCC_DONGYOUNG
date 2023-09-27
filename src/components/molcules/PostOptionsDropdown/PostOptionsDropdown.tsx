@@ -1,18 +1,21 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Text } from '@/components/atoms/Text'
 import Assets from '@/config/assets'
+import APP_PATH from '@/config/paths'
 import { useDeletePost } from '@/queries/post'
+import useDarkStore from '@/stores/darkMode'
 import './index.scss'
 
 type PropsType = {
   postId: string
   setIsDeleted?: Dispatch<SetStateAction<boolean>>
+  size?: number
 }
 
-function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
+function PostOptionsDropdown({ postId, setIsDeleted, size = 1.5 }: PropsType) {
   const [isOpen, setIsOpen] = useState(false)
   const deletePostMutation = useDeletePost(postId)
 
@@ -22,14 +25,29 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
     }
     deletePostMutation.mutate()
   }
+
+  const [isDarkState, setIsDarkState] = useState(false)
+  const { isDark } = useDarkStore()
+  useEffect(() => {
+    setIsDarkState(isDark)
+  }, [isDark])
   return (
     <div className="dropdown-container">
       <button
         onClick={() => {
           setIsOpen((isOpen) => !isOpen)
         }}
+        className="dropdown-container__button"
+        style={{
+          width: `${size}rem`,
+          height: `${size}rem`,
+        }}
       >
-        <Image src={Assets.OptionsIcon} alt="더보기 버튼" />
+        <Image
+          src={isDarkState ? Assets.OptionsWhite : Assets.OptionsIcon}
+          alt="더보기 버튼"
+          fill
+        />
       </button>
       {isOpen && (
         <div
@@ -38,8 +56,10 @@ function PostOptionsDropdown({ postId, setIsDeleted }: PropsType) {
             options: true,
           })}
         >
-          <OptimizedLink href={'#'} className="dropdown-container__list--item">
-            {/*TODO - 게시글 수정 페이지 링크 */}
+          <OptimizedLink
+            href={APP_PATH.postModify(postId)}
+            className="dropdown-container__list--item"
+          >
             <Text textStyle="body2-bold">게시글 수정</Text>
           </OptimizedLink>
           <div

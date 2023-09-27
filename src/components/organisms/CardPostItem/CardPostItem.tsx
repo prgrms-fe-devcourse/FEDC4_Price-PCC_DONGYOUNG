@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Avatar from '@/components/atoms/Avatar'
@@ -28,22 +28,30 @@ export default function CardPostItem({
   likes,
 }: CardPostItemProps) {
   const [isDeleted, setIsDeleted] = useState(false)
+  const [parsedDescription, setParsedDescription] = useState('')
+
+  useEffect(() => {
+    setParsedDescription(htmlTagParser(description))
+  }, [description])
+
   return (
     <>
       {!isDeleted && (
         <Card>
           <div className="content-container">
             <div className="content-container__header">
-              <Link href={APP_PATH.userProfile(author._id)}>
-                <Avatar
-                  text={author.fullName}
-                  size={1.25}
-                  src={author.image}
-                  style={{
-                    alignItems: 'flex-start',
-                  }}
-                />
-              </Link>
+              <div className="content-container__header--title">
+                <Link href={APP_PATH.userProfile(author._id)}>
+                  <Avatar
+                    text={author.fullName}
+                    size={1.25}
+                    src={author.image}
+                    style={{
+                      alignItems: 'flex-start',
+                    }}
+                  />
+                </Link>
+              </div>
               {isShowOptions && (
                 <PostOptionsDropdown postId={_id} setIsDeleted={setIsDeleted} />
               )}
@@ -67,11 +75,12 @@ export default function CardPostItem({
                     overflow: 'hidden',
                   }}
                 >
-                  {htmlTagParser(description)}
+                  {parsedDescription}
                 </Text>
               )}
             </Link>
             <LikeDislikeCount
+              initalState="init"
               like={likes.length ?? 0}
               dislike={disLikes?.length ?? 0}
             />

@@ -1,16 +1,38 @@
 @import '@/styles/variables.scss';
 
+.loading-icon {
+  @include themed() {
+    color: t(primary-1);
+  }
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  animation: animate 2s infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
 .like-container {
   display: flex;
   margin: 0 auto;
   margin-bottom: 15px;
-  gap: 2px;
+  gap: 1rem;
+  overflow: hidden;
+
   @include themed() {
     color: t(gray-5);
   }
   &__likes {
     display: flex;
     align-items: center;
+    overflow: hidden;
     gap: 3px;
   }
 

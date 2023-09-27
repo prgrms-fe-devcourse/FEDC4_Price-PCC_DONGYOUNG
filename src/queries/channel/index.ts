@@ -10,7 +10,7 @@ const useGetAllPosts = () => {
         offset: pageParam,
         limit: constants.INFINITE_LIMIT,
       }),
-    getNextPageParam: (lastPage, allPages) => allPages.flat().length,
+    getNextPageParam: (_lastPage, allPages) => allPages.flat().length,
   })
 }
 

@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AiOutlineClose } from 'react-icons/ai'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/atoms/Button'
 import Input from '@/components/atoms/Input'
 import { Text } from '@/components/atoms/Text'
+import APP_PATH from '@/config/paths'
 import { useCheckPassword } from '@/hooks/useCheckPassword'
 import { useAuth } from '@/lib/contexts/authProvider'
 
 type HandleModalCloseProps = {
-  handleModalClose: () => void
   setIsAuthUser: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const PasswordInputModal = ({
-  handleModalClose,
-  setIsAuthUser,
-}: HandleModalCloseProps) => {
+const PasswordInputModal = ({ setIsAuthUser }: HandleModalCloseProps) => {
+  const router = useRouter()
+  const [isVerifiedUser, setIsVerifiedUser] = useState(false)
   const { register, handleSubmit } = useForm()
   const { currentUser } = useAuth()
   const { checkUser } = useCheckPassword()
@@ -28,6 +29,10 @@ const PasswordInputModal = ({
           password,
         })
         if (user) {
+          Cookies.set('verified-user', JSON.stringify(!isVerifiedUser), {
+            expires: 1 / 144,
+          })
+          setIsVerifiedUser(!isVerifiedUser)
           setIsAuthUser(true)
         }
       })}
@@ -35,7 +40,7 @@ const PasswordInputModal = ({
     >
       <AiOutlineClose
         onClick={() => {
-          handleModalClose()
+          router.push(APP_PATH.home())
         }}
         size={30}
         color="gray-5"

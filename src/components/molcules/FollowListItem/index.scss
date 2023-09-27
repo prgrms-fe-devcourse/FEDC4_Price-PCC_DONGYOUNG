@@ -4,4 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &__avatar {
+    width: 75%;
+  }
 }

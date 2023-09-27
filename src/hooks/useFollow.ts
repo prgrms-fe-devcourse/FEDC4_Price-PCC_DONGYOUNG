@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/lib/contexts/authProvider'
 import { deleteFollow, postFollow } from '@/services/follow'
-import Follow from '@/types/follow'
-import User from '@/types/user'
+import User, { UserSummary } from '@/types/user'
 
 /**
  *
@@ -15,7 +14,8 @@ import User from '@/types/user'
  * @returns param followerCount: 현재 페이지의 유저의 팔로워 수
  * @returns param followingCount: 현재 페이지의 유저의 팔로잉 수
  */
-const useFollow = (userData: User<Follow | string> | undefined) => {
+
+const useFollow = (userData: User | UserSummary | undefined) => {
   const { currentUser } = useAuth()
 
   const [isFollowing, setIsFollowing] = useState(false)
@@ -23,11 +23,16 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
   const [followId, setFollowId] = useState('')
   const [followerCount, setFollowerCount] = useState(0)
   const [followingCount, setFollowingCount] = useState(0)
+  const [updatedUserData, setUpdatedUserData] = useState(() => {
+    if (!userData) return undefined
+    return { ...userData }
+  })
 
   useEffect(() => {
-    if (!userData || !currentUser) return
+    if (!userData) return
     setFollowerCount(() => userData.followers?.length ?? 0)
     setFollowingCount(() => userData.following?.length ?? 0)
+    if (!currentUser) return
     setIsFollowing(
       () =>
         currentUser.following?.some(
@@ -40,23 +45,49 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
           (follower) => userData._id === follower._id,
         ) ?? false,
     )
+    setUpdatedUserData(() => ({ ...userData }))
   }, [currentUser, userData])
 
   const followToggle = async () => {
-    if (!userData || !currentUser) return
+    if (!userData || !updatedUserData) return
     if (isFollowing) {
       setFollowerCount((prev) => prev - 1)
       setIsFollowing(false)
+
+      if (!currentUser) return
+      setUpdatedUserData((prevUserData) => {
+        const user = prevUserData as User
+        return {
+          ...user,
+          followers: user.followers?.filter(
+            ({ follower }) => follower !== currentUser._id,
+          ),
+        }
+      })
       const followData = currentUser.following?.find(
         ({ user }) => user === userData._id,
       )
-      setFollowId(() => followData?._id ?? '')
       await deleteFollow(followData?._id ?? followId)
+      setFollowId(() => followData?._id ?? '')
+      currentUser.following?.splice(
+        currentUser.following.findIndex(({ user }) => user === userData._id),
+        1,
+      )
     } else {
       setIsFollowing(true)
       setFollowerCount((prev) => prev + 1)
+
+      if (!currentUser) return
       const followData = await postFollow(userData._id)
+      setUpdatedUserData((prevUserData) => {
+        const user = prevUserData as User
+        return {
+          ...user,
+          followers: [...user.followers!, followData],
+        }
+      })
       setFollowId(() => followData._id ?? '')
+      currentUser.following?.push(followData)
     }
   }
 
@@ -67,6 +98,7 @@ const useFollow = (userData: User<Follow | string> | undefined) => {
     followingCount,
     unavailable: !currentUser || currentUser._id === userData?._id,
     followToggle,
+    updatedUserData: updatedUserData as User,
   }
 }
 
