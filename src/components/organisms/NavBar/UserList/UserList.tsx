@@ -5,11 +5,12 @@ import Avatar from '@/components/atoms/Avatar'
 import { Text } from '@/components/atoms/Text'
 import APP_PATH from '@/config/paths'
 import useFollow from '@/hooks/useFollow'
-import useGetAllUsers from '@/queries/users'
+import { useGetAllUsers } from '@/queries/users'
 import { UserSummary } from '@/types/user'
 
 export default function UserList() {
   const { data } = useGetAllUsers()
+
   return (
     <>
       <div className="nav-title">
@@ -21,7 +22,9 @@ export default function UserList() {
         </div>
       </div>
       <ul className="avatar-list">
-        {data?.map((user) => <UserListItem key={user._id} userData={user} />)}
+        {data?.map((user: UserSummary) => (
+          <UserListItem key={user._id} userData={user} />
+        ))}
       </ul>
     </>
   )

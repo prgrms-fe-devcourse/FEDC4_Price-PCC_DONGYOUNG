@@ -5,7 +5,9 @@ import UserList from './UserList'
 
 export default async function HydratedUserList() {
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['getAllUsers'], getAllUsers)
+  await queryClient.prefetchQuery(['getAllUsers'], getAllUsers, {
+    staleTime: Infinity,
+  })
   const dehydratedState = dehydrate(queryClient)
 
   return (
