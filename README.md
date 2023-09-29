@@ -56,7 +56,9 @@
 - 다크모드
 
 <br/>
-#### 상세한 정보가 궁금하다면?
+
+### 상세한 정보가 궁금하다면?
+
 [유튜브 링크](https://www.youtube.com/watch?v=i837NMZmLk8&ab_channel=%EC%A7%80%EA%B7%B8%EC%9E%AC%EA%B7%B8)
 <br/>
 
