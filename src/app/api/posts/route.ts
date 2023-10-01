@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server'
 import { Environment } from '@/config/environments'
 import Post from '@/types/post'
 
-async function getAllPosts(id: string, offset: string, limit: string) {
+async function getAllPosts(id: string, offset?: string, limit?: string) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/channel/${id}?offset=${offset}&limit=${limit}`,
@@ -31,11 +31,7 @@ export async function GET(req: NextRequest) {
   const limit = searchParams.get('limit') as string
   try {
     const posts = await getAllPosts(id || '', offset, limit)
-    const disLikesPosts = await getAllPosts(
-      disLikeChannelId || '',
-      offset,
-      limit,
-    )
+    const disLikesPosts = await getAllPosts(disLikeChannelId || '')
 
     const parsedPosts = posts.map((post: Post) => {
       const parsedArticle = JSON.parse(post.title)
