@@ -9,11 +9,6 @@ async function fetchPostDetail(id: string) {
       `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/${id}`,
       {
         cache: 'no-store',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        },
       },
     )
 

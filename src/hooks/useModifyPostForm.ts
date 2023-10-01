@@ -65,13 +65,15 @@ export const useModifyPostForm = () => {
         mapping_ID,
       })
       if (res) {
-        router.push(APP_PATH.postDetail(postId))
         notify('success', '게시글이 성공적으로 등록되었습니다.')
         setIsSubmitting(() => false)
       }
     } catch (e) {
       notify('error', '게시글 등록에 실패했습니다.')
       setIsSubmitting(() => false)
+    } finally {
+      router.push(APP_PATH.postDetail(postId))
+      router.refresh()
     }
   }
 
