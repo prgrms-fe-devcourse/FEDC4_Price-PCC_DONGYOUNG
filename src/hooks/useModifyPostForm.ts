@@ -32,6 +32,7 @@ export const modifyUploadFormSchema = z.preprocess(
       image: z.any(),
       imageToDeletePublicId: z.string().optional(),
     }),
+    mapping_ID: z.string(),
   }),
 )
 
@@ -51,6 +52,7 @@ export const useModifyPostForm = () => {
     description,
     postId,
     imageSelective,
+    mapping_ID,
   }: ModifyUploadFormType) => {
     if (isSubmitting) return
     setIsSubmitting(() => true)
@@ -60,6 +62,7 @@ export const useModifyPostForm = () => {
         description,
         postId,
         imageSelective,
+        mapping_ID,
       })
       if (res) {
         router.push(APP_PATH.postDetail(postId))

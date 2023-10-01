@@ -39,6 +39,7 @@ export default function ModifyPostPageTemplate({
       image: postData.image,
       imageToDeletePublicId: postData.imagePublicId,
     })
+    setValue('mapping_ID', postData.mapping_ID ?? '')
   }, [postData, setValue])
 
   useEffect(() => {

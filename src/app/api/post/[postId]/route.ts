@@ -8,7 +8,7 @@ async function fetchPostDetail(id: string) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_ADDRESS}/posts/${id}`,
       {
-        cache: 'no-cache',
+        cache: 'no-store',
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -44,7 +44,6 @@ export async function GET(req: NextRequest) {
       const dislikePostDetail: Post = await fetchPostDetail(
         foreign_postDetail_key,
       )
-
       return new Response(
         JSON.stringify({ post: postDetail, disLikePost: dislikePostDetail }),
         { status: 200 },
