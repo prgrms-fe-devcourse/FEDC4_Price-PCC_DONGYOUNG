@@ -33,9 +33,10 @@ const EditNamesform = ({ fullName }: NameProps) => {
           setCurrentName(data.fullName)
           notify('success', '닉네임이 수정되었습니다.')
           setValue('fullName', '')
-          location.reload()
         } catch (error) {
           notify('error', '닉네임 수정에 실패했습니다.')
+        } finally {
+          location.reload()
         }
       })}
       style={{ display: 'flex', justifyContent: 'space-between' }}

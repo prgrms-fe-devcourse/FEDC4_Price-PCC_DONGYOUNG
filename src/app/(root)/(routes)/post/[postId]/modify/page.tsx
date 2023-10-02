@@ -5,10 +5,11 @@ import Post from '@/types/post'
 
 async function getPostData(postId: string): Promise<Post> {
   const res = await getPostDetail(postId)
-  const { post } = res
+  const { post, disLikePost } = res
   const { title, description } = await JSON.parse(post.title)
   post.title = title
   post.description = description
+  post.mapping_ID = disLikePost._id
   return post
 }
 

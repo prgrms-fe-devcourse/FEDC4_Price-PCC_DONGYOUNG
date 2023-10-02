@@ -49,7 +49,9 @@ export const putUserPost = async (body: ModifyUploadFormType) => {
   const title = JSON.stringify({
     title: body.title,
     description: body.description,
+    mapping_ID: body.mapping_ID,
   })
+
   const formData = new FormData()
   formData.append('title', title)
   formData.append('postId', body.postId)
