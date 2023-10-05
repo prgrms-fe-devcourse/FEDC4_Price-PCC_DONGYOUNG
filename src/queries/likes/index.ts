@@ -1,15 +1,16 @@
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
-import { useCurrentUser } from '@/hooks/useCurrentUser'
 import { getPostDetail } from '@/services/post'
 import { postLikeAction, postLikeCancelAction } from '@/services/post/like'
 import type Post from '@/types/post'
+import User from '@/types/user'
 
 type useLikeProps = {
   initPost: Post
   initDisLikePost: Post
+  currentUser?: User
 }
 
-export function useLikeQuery(postId: string, initPost: Post) {
+export function useGetPostLikesQuery(postId: string, initPost: Post) {
   return useQuery({
     queryKey: ['post', postId],
     queryFn: async () => {
@@ -21,9 +22,12 @@ export function useLikeQuery(postId: string, initPost: Post) {
   })
 }
 
-export function useLikeMutate({ initPost, initDisLikePost }: useLikeProps) {
+export function useLikeMutate({
+  initPost,
+  initDisLikePost,
+  currentUser,
+}: useLikeProps) {
   const queryClient = useQueryClient()
-  const { currentUser } = useCurrentUser()
 
   const likeMutation = useMutation(
     async () => {

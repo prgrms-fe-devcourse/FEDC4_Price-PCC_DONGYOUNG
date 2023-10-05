@@ -12,7 +12,7 @@ import CommentListContainer from '@/components/organisms/CommentList/CommentList
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
 import { useAuth } from '@/lib/contexts/authProvider'
-import { useLikeQuery, useLikeMutate } from '@/queries/likes'
+import { useGetPostLikesQuery, useLikeMutate } from '@/queries/likes'
 import { postNewComment } from '@/services/comment'
 import Post from '@/types/post'
 import './index.scss'
@@ -35,18 +35,15 @@ export function PostDetailTemplate({
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
-  const { data: postLike, isFetching: isLikePostFetching } = useLikeQuery(
-    initPost._id,
-    initPost,
-  )
-  const { data: postDisLike, isFetching: isDisLikePostFetching } = useLikeQuery(
-    initDisLikeChannelPost._id,
-    initDisLikeChannelPost,
-  )
+  const { data: postLike, isFetching: isLikePostFetching } =
+    useGetPostLikesQuery(initPost._id, initPost)
+  const { data: postDisLike, isFetching: isDisLikePostFetching } =
+    useGetPostLikesQuery(initDisLikeChannelPost._id, initDisLikeChannelPost)
 
   const { likeMutation, disLikeMutation } = useLikeMutate({
     initPost: initPost,
     initDisLikePost: initDisLikeChannelPost,
+    currentUser,
   })
 
   const initLikeState = postLike?.likes.some(
