@@ -11,8 +11,8 @@ import CommentInput from '@/components/organisms/CommentInput/CommentInput'
 import CommentListContainer from '@/components/organisms/CommentList/CommentListContainer'
 import { LikeDisLikeContainer } from '@/components/organisms/LikeDisLikeContainer'
 import APP_PATH from '@/config/paths'
-import useLike from '@/hooks/useLike'
 import { useAuth } from '@/lib/contexts/authProvider'
+import { useGetPostLikesQuery, useLikeMutate } from '@/queries/likes'
 import { postNewComment } from '@/services/comment'
 import Post from '@/types/post'
 import './index.scss'
@@ -35,16 +35,21 @@ export function PostDetailTemplate({
   const cachedCurrentUser = useMemo(() => currentUser, [currentUser])
   const isEqualUser = cachedCurrentUser?._id === author._id
 
-  const { post, handleOnClickLike, handleOnClickDisLikeBtn, disLikePost } =
-    useLike({
-      initPost,
-      initDisLikePost: initDisLikeChannelPost,
-    })
+  const { data: postLike, isFetching: isLikePostFetching } =
+    useGetPostLikesQuery(initPost._id, initPost)
+  const { data: postDisLike, isFetching: isDisLikePostFetching } =
+    useGetPostLikesQuery(initDisLikeChannelPost._id, initDisLikeChannelPost)
 
-  const initLikeState = post?.likes.some(
+  const { likeMutation, disLikeMutation } = useLikeMutate({
+    initPost: initPost,
+    initDisLikePost: initDisLikeChannelPost,
+    currentUser,
+  })
+
+  const initLikeState = postLike?.likes.some(
     (like) => like.user === currentUser?._id,
   )
-  const initDisLikeState = disLikePost?.likes.some(
+  const initDisLikeState = postDisLike?.likes.some(
     (dislike) => dislike.user === currentUser?._id,
   )
 
@@ -89,10 +94,14 @@ export function PostDetailTemplate({
 
       <LikeDisLikeContainer
         initalState={initState}
-        like={post?.likes?.length || 0}
-        dislike={disLikePost?.likes?.length || 0}
-        onClickLike={handleOnClickLike}
-        onClickDisLike={handleOnClickDisLikeBtn}
+        like={postLike?.likes?.length || 0}
+        dislike={postDisLike?.likes?.length || 0}
+        onClickLike={() => {
+          !isLikePostFetching && likeMutation.mutate()
+        }}
+        onClickDisLike={() => {
+          !isDisLikePostFetching && disLikeMutation.mutate()
+        }}
       />
       <CommentListContainer postId={postId} initComments={comment} />
       {isLoggedIn && currentUser && (

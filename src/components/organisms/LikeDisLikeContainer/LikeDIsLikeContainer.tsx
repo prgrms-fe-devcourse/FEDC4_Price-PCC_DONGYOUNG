@@ -17,7 +17,6 @@ export default function LikeDislikeContainer({
   onClickDisLike,
   initalState,
 }: LikeDislikeCountProps) {
-  const [loading, setLoading] = useState(false)
   const { toggleDisLikeState, toggleLikeState, likeState } =
     useLikeState(initalState)
 
@@ -34,28 +33,14 @@ export default function LikeDislikeContainer({
     toggleLikeState()
 
     if (onClickLike) {
-      setLoading(true)
       onClickLike()
-        .then(() => {
-          setLoading(false)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
     }
   }, [onClickLike, toggleLikeState])
 
   const handleClickDisLike = useCallback(() => {
     toggleDisLikeState()
     if (onClickDisLike) {
-      setLoading(true)
       onClickDisLike()
-        .then(() => {
-          setLoading(false)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
     }
   }, [onClickDisLike, toggleDisLikeState])
 
@@ -72,7 +57,7 @@ export default function LikeDislikeContainer({
             alt="좋아요 이미지"
             width={30}
             height={30}
-            onClick={loading ? undefined : handleClickLike}
+            onClick={handleClickLike}
             style={{
               cursor: 'pointer',
             }}
@@ -96,7 +81,7 @@ export default function LikeDislikeContainer({
             alt="싫어요 이미지"
             width={30}
             height={30}
-            onClick={loading ? undefined : handleClickDisLike}
+            onClick={handleClickDisLike}
             style={{
               cursor: 'pointer',
             }}
